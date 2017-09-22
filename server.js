@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardcloud'
+   database : 'reportcard11'
 });
 
 
@@ -13067,6 +13067,24 @@ var qur="Delete from tr_term_fa_assesment_marks where school_id='"+req.query.sch
 });
 
 
+
+app.post('/removesubmitedmarks-service' ,  urlencodedParser,function (req, res)
+{  
+  if(req.query.grade=="Grade-1"||req.query.grade=="Grade-2"||req.query.grade=="Grade-3"||req.query.grade=="Grade-4")
+  var qur="DELETE FROM tr_term_assesment_import_marks WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and assesment_id='"+req.query.assesmentid+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' and subject='"+req.query.subject+"' and flag='0'";
+  else
+  var qur="DELETE FROM tr_term_fa_assesment_import_marks WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and assesment_id='"+req.query.assesmentid+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' and subject='"+req.query.subject+"' and flag='0'";
+   console.log('-------------remove term assessment----------');
+   console.log(qur);
+   connection.query(qur,function(err, result)
+    {
+    if(result.affectedRows>0){
+      res.status(200).json({'returnval': 'Removed!'});
+    }
+    else
+      res.status(200).json({'returnval': 'Unable to remove!'});
+    });
+});
 
 //Node server running port number
 server = app.listen(5000, function () {

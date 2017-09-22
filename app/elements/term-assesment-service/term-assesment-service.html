@@ -454,6 +454,18 @@
         on-response="revertsubmittedmarkResponse"
         debounce-duration="300"
     >
+    
+
+     <iron-ajax
+        method="post"
+        id="removetermdetailsajax"
+        url="{{removetermdetailsurl}}"
+        params="{{removetermdetailsparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="removetermdetailsResponse"
+        debounce-duration="300"
+    >
   </template>
   <script>
   (function() {
@@ -2431,7 +2443,29 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
         document.querySelector('cs-personalitydevelopment-card').FnHideApprovebtnFlag(true); 
         }
        
+    },
+    removetermdmarketails:function(academic,term,assesment,grade,section,subject)
+    {
+        this.removetermdetailsurl=sessionStorage.getItem("addrinfo")+"/removesubmitedmarks-service";
+        var obj={};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+         obj.academicyear=academic;
+         obj.termname=term;
+         obj.assesmentid=assesment;
+         obj.grade=grade;
+         obj.section=section;
+         obj.subject=subject;
+         this.removetermdetailsparam=obj;  
+        // alert(JSON.stringify(obj));
+         this.$.removetermdetailsajax.generateRequest();
+    },
+    removetermdetailsResponse:function(e)
+    {
+        //alert(1);
+         alert(e.detail.response.returnval);
+         this.callApproveService(); 
     }
+
     });
   })();
   </script>
