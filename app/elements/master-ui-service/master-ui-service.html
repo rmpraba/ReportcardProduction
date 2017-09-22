@@ -1269,6 +1269,7 @@ Generatesectionid:function()
            obj.dob=dob;
            obj.Gender=Gender;
            obj.stugradeid=stugradeid;
+           obj.flag='active';
            obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
 
         //   obj.stugradeid=stugradeid;
@@ -3162,6 +3163,7 @@ insertschoolTypename:function(schooltypesarr)
              obj.subjectid=subjectid;
              obj.Acadamicyear=Acadamicyear;
              obj.langugagepref=langugagepref;
+             obj.flag='active';
              obj.schoolnames=sessionStorage.getItem("curr_sess_loggedschoolid");; 
            this.FnSecondLangSubjectToStudentparam=obj;
         // alert(JSON.stringify(obj));
@@ -3221,7 +3223,7 @@ insertschoolTypename:function(schooltypesarr)
          
       },
        FnThirdLangSubjectToStudent:function(fnthidlanginfo1arr){
-                   for(var i=0;i<fnthidlanginfo1arr.length;i++){
+           for(var i=0;i<fnthidlanginfo1arr.length;i++){
              var studentid=fnthidlanginfo1arr[i].studentid;
              var studentname=fnthidlanginfo1arr[i].studentname;
              var gradeid=fnthidlanginfo1arr[i].gradeid;
@@ -3242,10 +3244,11 @@ insertschoolTypename:function(schooltypesarr)
              obj.subjectid=subjectid;
              obj.Acadamicyear=Acadamicyear;
              obj.langugagepref=langugagepref;
+             obj.flag='active';
              obj.schoolnames=sessionStorage.getItem("curr_sess_loggedschoolid");; 
-          this.FnThirdLangSubjectToStudentparam=obj;
-         //alert(JSON.stringify(obj));
-        this.$.FnThirdLangSubjectToStudentajax.generateRequest();
+             this.FnThirdLangSubjectToStudentparam=obj;
+                //alert(JSON.stringify(obj));
+             this.$.FnThirdLangSubjectToStudentajax.generateRequest();
     }
     },
       FnThirdLangSubjectToStudentResponse:function(e)

@@ -8467,6 +8467,8 @@ app.post('/FnSecondLangSubjectToStudent-service' , urlencodedParser,function (re
       student_name:req.query.studentname,
       class_id:req.query.sectionid,
      lang_pref:req.query.langugagepref,
+     flag:req.query.flag,
+     
     }; 
      // console.log(response);
 
@@ -8573,10 +8575,8 @@ var qur="SELECT * FROM  tr_student_to_subject WHERE school_id='"+req.query.schoo
  });
 
 app.post('/FnThirdLangSubjectToStudent-service' , urlencodedParser,function (req, res)
-{  
+ {  
     var response={
-
-     
       school_id:req.query.schoolnames,
       student_id:req.query.studentid,
       academic_year:req.query.Acadamicyear,
@@ -8585,8 +8585,8 @@ app.post('/FnThirdLangSubjectToStudent-service' , urlencodedParser,function (req
       subject_id:req.query.subjectid,
       student_name:req.query.studentname,
       class_id:req.query.sectionid,
-       lang_pref:req.query.langugagepref
-  
+     lang_pref:req.query.langugagepref
+     flag:req.query.flag,
     }; 
 
     //console.log(JSON.stringify(response));
@@ -8838,6 +8838,7 @@ app.post('/fnsetstudentinfo-service' , urlencodedParser,function (req, res)
       gender:req.query.Gender,
       grade_id:req.query.stugradeid,
       academic_year:req.query.academic_year,
+      flag:req.query.flag,
       }; 
   // console.log(JSON.stringify(response));
    var qur= "SELECT * FROM  md_student WHERE school_id='"+req.query.school_id+"' and id='"+req.query.id+"' and student_name='"+req.query.student_name+"' and  academic_year='"+req.query.academic_year+"' and flag='active'";
