@@ -8585,8 +8585,8 @@ app.post('/FnThirdLangSubjectToStudent-service' , urlencodedParser,function (req
       subject_id:req.query.subjectid,
       student_name:req.query.studentname,
       class_id:req.query.sectionid,
-     lang_pref:req.query.langugagepref
-     flag:req.query.flag,
+     lang_pref:req.query.langugagepref,
+     flag:req.query.flag
     }; 
 
     //console.log(JSON.stringify(response));
