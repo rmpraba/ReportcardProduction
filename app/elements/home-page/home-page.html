@@ -292,6 +292,17 @@
         </section>  
         <section data-category="innovation-report">
           <innovation-report></innovation-report>
+        </section> 
+
+         <section data-category="student-add-card">
+          <student-add-card></student-add-card>
+        </section> 
+
+        <section data-category="student-remove-card">
+          <student-remove-card></student-remove-card>
+        </section>  
+        <section data-category="student-information-card">
+          <student-information-card></student-information-card>
         </section>      
         </iron-pages>
     </div>   
@@ -979,6 +990,25 @@ if(localStorage.getItem("curr_sess_page")=="evaluation-report-card")
         this.page="teacherhomecard";
         document.querySelector('teacherhome-card').FnRefresh(); 
       }
+
+      if(localStorage.getItem("curr_sess_page")=="student-add-card")
+      {
+        this.page="teacherhomecard";
+        document.querySelector('teacherhome-card').FnRefresh();
+      }
+    if(localStorage.getItem("curr_sess_page")=="student-information-card")
+      {
+        this.page="teacherhomecard";
+        document.querySelector('teacherhome-card').FnRefresh();
+      }
+      if(localStorage.getItem("curr_sess_page")=="student-remove-card")
+      {
+        this.page="teacherhomecard";
+        document.querySelector('teacherhome-card').FnRefresh();
+        document.querySelector('student-remove-card').fnref();
+      }
+
+      
   },
 
   FnsetTitle:function(title){
