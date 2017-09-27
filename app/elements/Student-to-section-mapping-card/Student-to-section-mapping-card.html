@@ -236,7 +236,7 @@
       </div> 
 
 
-      <div class="specific1"  hidden$="{{hidespecific}}">
+      <div class="specific1"  id="hidespecific">
           <table style="border-collapse: collapse;width: 70%;">            
             <tr>
               <th></th>
@@ -271,16 +271,16 @@
           </div>              
 
         <div id="z1">
-             <paper-buuton  id="prebutton" on-click="fnpriver">
+             <paper-button  id="prebutton" on-click="fnpriver">
              <a href="#"  style="font-size: 19px;font-style: oblique;"><b>Previous</b></a>
-             </paper-buuton>
+             </paper-button>
       </div>
       
       <div id="z">
          
-           <paper-buuton  id="nextbutton" on-click="fnnext">
+           <paper-button  id="nextbutton" on-click="fnnext">
              <a href="#" style="font-size: 19px;font-style: oblique;"><b>Next</b></a>
-             </paper-buuton>
+             </paper-button>
           
       </div>
       
@@ -387,7 +387,7 @@
         this.hideschooltype=true;
           this.hidesetgrade=true;
           this.value="";
-          this.hidespecific=true;
+          this.$.hidespecific.hidden=true;
 
          if(document.querySelector('#empgradeiddd').selected!=-1)
         {
@@ -1003,7 +1003,7 @@ for(var j=0;j<l.length;j++){
         this.$.uiservice.fnretrivestudent(this.stugradeid);
         this.$.uiservice.fngetstudent(this.stugradeid,this.stugradevalue);
         this.$.uiservice.FngetStudentpasssection(this.stugradeid,this.stugradevalue);
-        this.hidespecific=true;
+        this.$.hidespecific.hidden=true;
         this.value="";
         overall=[];
         g=[];
@@ -1119,6 +1119,7 @@ for(var j=0;j<l.length;j++){
         }
       }
       this.$.studentselect.hidden=false;
+      this.$.hidespecific.hidden=true;
     },
 
      FnSelectenq:function(e)
@@ -1127,14 +1128,17 @@ for(var j=0;j<l.length;j++){
     this.querySelector('#studentselect').style.visibility='hidden';
     this.student_name = e.target.selectedItem.textContent.trim();
     admission_no = e.target.selectedItem.value;
-    //alert(admission_no);
-    this.value=this.student_name;
+    this.$.hidespecific.hidden=false;
+    this.itemArray=[];
+    document.querySelector('#studentselect').selected=-1;
+     
+     this.value=this.student_name;
      this.hidenewtabb=true;
-    this.hidespecific=false;
+    
     this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
     this.$.uiservice.selectspecificstudent(admission_no);
-      this.itemArray=[];
-      document.querySelector('#studentselect').selected=-1; 
+      
+       
       document.querySelector('specific-student-section-card').studentsectionclean();
 
     },
@@ -1148,9 +1152,10 @@ for(var j=0;j<l.length;j++){
           this.hidegenerateopt=false;
           chzz.checked=false;
           this.$.studz.hidden=true;
-          this.hidespecific=true;
+          this.$.hidespecific.hidden=true;
           document.querySelector('Student-to-section-mapping-item-card').FnRefresh();
           document.querySelector('#empgradeiddd').selected=-1;
+           this.querySelector('#studentselect').style.visibility='hidden';
       }
       else
       {
@@ -1158,7 +1163,6 @@ for(var j=0;j<l.length;j++){
           this.hidesetgrade=true;
           this.hidegenerateopt=true;
           this.$.stdchzz.hidden=false;
-
       }
     },
     fnsetsetcion:function(arr)
@@ -1172,8 +1176,8 @@ for(var j=0;j<l.length;j++){
         this.$.uiservice.fnsubmitsection(studentsetarr,schooltype);
         this.itemArray=[];
         this.value="";
-        this.hidespecific=true;
-        this.$.mydialog.toggleDialog();
+        this.$.hidespecific.hidden=true;
+        //this.$.mydialog.toggleDialog();
         document.querySelector('specific-student-section-card').studentsectionclean();
 
     },

@@ -44,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
         <div>
-          <center><h3>SECTION UPDATE</h3></center>
+          <center><h3>SECTION NAME UPDATE</h3></center>
         </div>
         <div class="outcard">
           <div class="newdivv">
@@ -67,7 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-dropdown-menu>
           </div>
           <div class="newdivv">
-            <paper-input label="Enter New Section" value="{{sectionname}}"></paper-input>
+            <paper-input label="Enter New Section"  required error-message="needs Section name!" value="{{sectionname}}" allowed-pattern="[a-zA-Z ]"></paper-input>
           </div>
 
           <div class="btn11">
@@ -132,7 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      fnsectionsubmit:function()
      {
 
-          if(this.sectionname=="")
+          if(this.sectionname==""|| this.sectionname==null|| this.sectionname==="  ")
           {
             alert("Please Enter Section name");
           }

@@ -269,7 +269,8 @@ var obj={};
         },
        fnparentinfomationResponse:function(e)
         {
-          var res=e.detail.response.returnval
+          var res=e.detail.response.returnval;
+          document.querySelector('student-information-card').parentsubmitinfo();
          },
    fnpersonalinfomation:function(academicyear,fname,lsname,midname,showdate,ageofyrs,studid,gender)
            {  
@@ -289,7 +290,8 @@ var obj={};
         },
     fnpersonalinfomationResponse:function(e)
         {
-          var res=e.detail.response.returnval
+          var res=e.detail.response.returnval;
+          document.querySelector('student-information-card').parentsubmitinfo();
           //alert('student');
               },
     fnlaninfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,secondlan)
@@ -311,7 +313,8 @@ var obj={};
           },
 fnlaninfomationResponse:function(e)
         {
-          var res=e.detail.response.returnval
+          var res=e.detail.response.returnval;
+          document.querySelector('student-information-card').parentsubmitinfo();
            //alert(JSON.stringify(res));
         },
 
@@ -356,7 +359,8 @@ fnlaninfomation1Response:function(e)
      },
      fnacadamicsinfomationResponse:function(e)
         {
-          var res=e.detail.response.returnval
+          var res=e.detail.response.returnval;
+          document.querySelector('student-information-card').parentsubmitinfo();
         },
 
       fnacadamicsinfomation1:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid){
@@ -434,11 +438,10 @@ fnstudentadd:function(enroll,fname,midname,lsname,showdate,age,fathername,mother
           //alert(JSON.stringify(res));
           if(res=='succ')
           {
-  if(localStorage.getItem("curr_sess_page")=="student-add-card")
-  document.querySelector('student-add-card').fnsuccessadd();
-          else
-      alert(" Inserted Succesfully..!")
-            
+            if(localStorage.getItem("curr_sess_page")=="student-add-card")
+              document.querySelector('student-add-card').fnsuccessadd();
+            else
+              alert(" Inserted Succesfully..!");
           }
           else
           {

@@ -3438,7 +3438,7 @@ insertschoolTypename:function(schooltypesarr)
                 //alert(JSON.stringify(res));
             if(res!='empty')
             {
-                document.querySelector('specific-student-section-card').getprestudent(res);
+                document.querySelector('specific-student-section-card').getprevistudent(res);
             }    
         },
 
@@ -3489,9 +3489,8 @@ insertschoolTypename:function(schooltypesarr)
                 var class_id=setsectionarr1[i].classid;
                 var grade_id=setsectionarr1[i].grade_id;
             
-
                 this.fnsubmitsectionurl=sessionStorage.getItem("addrinfo")+"/fnsubmitsection-service";
-                var obj={"scholid1":"","student_name":"","id":"","gender":"","dob":"","academic_year":"","grade_id":"","class_id":"","school_type":""};
+                var obj={"scholid1":"","student_name":"","id":"","gender":"","dob":"","academic_year":"","grade_id":"","class_id":"","school_type":"","flag":""};
                 obj.scholid1=sessionStorage.getItem("curr_sess_loggedschoolid");
                 obj.student_name=student_name;
                 obj.id=id;
@@ -3501,8 +3500,8 @@ insertschoolTypename:function(schooltypesarr)
                 obj.class_id=class_id;
                 obj.school_type=schooltype;
                 obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+                obj.flag='active';
                 this.fnsubmitsectionparam=obj;
-               
                 this.$.fnsubmitsectionajax.generateRequest();
             }
         },
@@ -3510,7 +3509,7 @@ insertschoolTypename:function(schooltypesarr)
         fnsubmitsectionResponse:function(e)
         {
             var res=e.detail.response.returnval;
-            //alert(JSON.stringify(res));
+            alert(JSON.stringify(res));
              
         },
         /*gradesectionedit:function(sectiongradename)

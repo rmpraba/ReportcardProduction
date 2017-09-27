@@ -46,12 +46,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   (function() {
     'use strict';
     var studsectionccarr=[];
-    var getstudentzzzzarr=[];
+    var getstudentpredetarr=[];
     var arr=[];
       var pmm=[];
       var s1;
       var c1; 
-    var studclassidccc;
+    var previousclsid;
       
       
     Polymer({
@@ -65,9 +65,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          if(document.querySelector('#'+this.id).checked==true)
         {
 
-          var obj={"student_name":"","gender":"","dob":"","classid":"","grade_id":"","id":"","stdcls":"","enquiry_no":""}
+          var obj={"student_name":"","gender":"","dob":"","classid":"","grade_id":"","id":"","newclsiddd":"","enquiry_no":""}
           
-          obj.stdcls=this.id;
+          obj.newclsiddd=this.id;
           obj.id=this.enqno;
           obj.student_name=this.studentname;
           obj.enquiry_no=this.id;
@@ -102,9 +102,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   else if(studsectionccarr[i].classid!=this.classid)
                   {
                    // alert('t');
-                    //alert(studsectionccarr[i].stdcls);
+                    //alert(studsectionccarr[i].newclsiddd);
                     //alert(studsectionccarr[i].classid);
-                    var ssszzz=studsectionccarr[i].stdcls;
+                    var ssszzz=studsectionccarr[i].newclsiddd;
                     var bb=studsectionccarr[i].classid;
                       document.querySelector('#'+ssszzz).checked=false;
                       var a1 = pmm.indexOf(bb);
@@ -123,43 +123,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                    document.querySelector('student-to-section-mapping-card').fnsetsetcion(studsectionccarr);
                 }
       },
-      getprestudent:function(arr)
+
+
+      getprevistudent:function(arr)
       {
-       getstudentzzzzarr=arr;
-       // alert(JSON.stringify(getstudentzzzzarr));
-          for(var i=0;i<getstudentzzzzarr.length;i++)
-          {
-            
-            var studentname=getstudentzzzzarr[i].student_name;
-            var gender=getstudentzzzzarr[i].gender;
-            var dob=getstudentzzzzarr[i].dob;
-            var classid=getstudentzzzzarr[i].class_id;
-            var aid=getstudentzzzzarr[i].id;
+        alert('pre');
+        getstudentpredetarr=arr;
 
-            var  getid=getstudentzzzzarr[i].id;
-                getid=getid.replace(/[^\w\s]/gi, '');
-               // alert(getid);
-               studclassidccc=classid+getid;
-                //alert(studclassidccc);
+        for(var i=0;i<getstudentpredetarr.length;i++)
+        {
+          var studentname=getstudentpredetarr[i].student_name;
+          var dob=getstudentpredetarr[i].dob;
+          var stuid=getstudentpredetarr[i].id;
+
+          var gender=getstudentpredetarr[i].gender;
+          var classid=getstudentpredetarr[i].class_id;
+          var studentid=getstudentpredetarr[i].id;
+              studentid=studentid.replace(/[^\w\s]/gi, '');
+              alert(studentid);
+
+              previousclsid=classid+studentid;
+              alert(previousclsid);
+
+              document.querySelector('#'+previousclsid).checked=true;
+              if(document.querySelector('#'+previousclsid).checked==true)
+              {
                 
-              document.querySelector('#'+studclassidccc).checked=true;
-            if(document.querySelector('#'+studclassidccc).checked==true)
-            {
-              var obj1={"studentname":"","gender":"","dob":"","id":"","classid":"","stugradeid":"","stdcls":""}
-                obj1.studentname=studentname;
-                obj1.gender=gender;
-                obj1.dob=dob;
-                obj1.id=aid;
-                obj1.classid=classid;
-  
-                  obj1.stdcls=studclassidccc;
-                studsectionccarr.push(obj1);
-                //alert(JSON.stringify(studsectionccarr))
-            }
-            //getstudentarr.splice(i,1);
-          }
+                var obj1={"studentname":"","dob":"","gender":"","classid":"","id":"","gradeid":"","newclsiddd":""}
 
+                    obj1.studentname=studentname;
+                    obj1.gender=gender;
+                    obj1.dob=dob;
+                    obj1.id=stuid;
+                    obj1.classid=classid; 
+                    obj1.newclsiddd= previousclsid;
+                    studsectionccarr.push(obj1);
+                    alert(JSON.stringify(studsectionccarr));
+              }
+        }
       },
+      
       studentsectionclean:function(e)
       {
         //alert(333);
@@ -169,8 +172,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         {
             for(var i=0;i<studsectionccarr.length;i++)
             {
-                //alert(studsectionccarr[i].stdcls);
-                var idzzz=studsectionccarr[i].stdcls;
+                //alert(studsectionccarr[i].newclsiddd);
+                var idzzz=studsectionccarr[i].newclsiddd;
                 //alert('call');
                 //alert(idzzz);
                  document.querySelector('#'+idzzz).checked=false;
@@ -183,7 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 obj.adminno=this.enqno;
                 obj.classid=this.classid;
                 obj.stugradeid=this.stugradeid;
-                getstudentzzzzarr.splice(obj);
+                getstudentpredetarr.splice(obj);
                 studsectionccarr.splice(obj);
         }
 

@@ -3,6 +3,7 @@
 <link rel="import" href="../student-add-card/student-add-card.html">
 <link rel="import" href="../student-dob-date-picker/student-dob-date-picker.html">
 <link rel="import" href="../student-remove-card/student-remove-card.html">
+<link rel="import" href="../demosumbit-card/demosumbit-card.html">
 
 <dom-module id="student-information-card">
   <template>
@@ -120,7 +121,7 @@
       <student-add-card taransyesz="taransyesz1" transnoz="transnoz1" male11="maleidzz" female11="femaleidzz" ageofyr="{{ageofyr1}}" hideonegender="{{hideonegender}}" studentgradearrr="{{studentgradearrr}}" hidetwogender="{{hidetwogender}}"></student-add-card>
        </div>
        <div id="removestudentinfoid">
-    <student-remove-card studentslist="studentslistzz" grade="{{grade}}" section="{{section}}" gradeid="{{gradeid}}" classid="{{classid}}"  hidetwostudentinfo="{{hidetwostudentinfo}}" hideonestudentinfo="{{hideonestudentinfo}}"></student-remove-card>
+          <student-remove-card studentslist="studentslistzz" grade="{{grade}}" section="{{section}}" gradeid="{{gradeid}}" classid="{{classid}}"  hidetwostudentinfo="{{hidetwostudentinfo}}" hideonestudentinfo="{{hideonestudentinfo}}"></student-remove-card>
       </div>  
 <div id="updatestudentinfoid">
        
@@ -362,6 +363,7 @@
 <paper-input  hidden value="{{gradeidnames}}"></paper-input>
 <paper-input  hidden value="{{gradeidzzsss1}}"></paper-input>
 <student-add-service id="studservice"></student-add-service>
+ <demosumbit-card id="mydialog"></demosumbit-card> 
 </div>
 </template>
   <script>
@@ -517,28 +519,42 @@ if(document.querySelector("#females").checked==true){
   },
 fnaddstudent:function(e){
 
-if(document.querySelector("#addstudentid").checked==true)
-    {
- document.querySelector("#removestudentid").checked=false;
- document.querySelector("#updatestudentid").checked=false;
- this.$.addstudentinfoid.hidden=false;
- this.$.removestudentinfoid.hidden=true;
- this.$.updatestudentinfoid.hidden=true;
- this.hideonegender=true;
- this.hidetwogender=false;
-      }
-    },
+  if(document.querySelector("#addstudentid").checked==true)
+  {
+    document.querySelector("#removestudentid").checked=false;
+    document.querySelector("#updatestudentid").checked=false;
+    this.$.addstudentinfoid.hidden=false;
+    this.$.removestudentinfoid.hidden=true;
+    this.$.updatestudentinfoid.hidden=true;
+    this.hideonegender=true;
+    this.hidetwogender=false;
+  
+  
+    this.value="";
+    this.$.parentinfoid.opened=false;
+    this.$.pesonalinfoid.opened=false;
+    this.$.academicinfoid.opened=false; 
+    this.$.languageinfoid.opened=false;  
+  }
+},
 fnrmovestudent:function(e){
 if(document.querySelector("#removestudentid").checked==true)
         {
     this.$.studservice.fetchstudentremove();
     document.querySelector("#addstudentid").checked=false;
   document.querySelector("#updatestudentid").checked=false;
+
+  document.querySelector('student-add-card').FnfullRefresh();
        this.$.addstudentinfoid.hidden=true;
        this.$.removestudentinfoid.hidden=false;
        this.$.updatestudentinfoid.hidden=true;
        this.hideonestudentinfo=true;
        this.hidetwostudentinfo=false;
+       this.value="";
+       this.$.parentinfoid.opened=false;
+    this.$.pesonalinfoid.opened=false;
+    this.$.academicinfoid.opened=false; 
+    this.$.languageinfoid.opened=false;
        }
     },
       getstudentdet:function(arr)
@@ -547,12 +563,17 @@ if(document.querySelector("#removestudentid").checked==true)
      },
 fnupdatestudent:function(e){
  if(document.querySelector("#updatestudentid").checked==true)
-        {
-document.querySelector("#removestudentid").checked=false;
-document.querySelector("#addstudentid").checked=false;
+    {
+        document.querySelector("#removestudentid").checked=false;
+        document.querySelector("#addstudentid").checked=false;
         this.$.addstudentinfoid.hidden=true;
         this.$.removestudentinfoid.hidden=true;
         this.$.updatestudentinfoid.hidden=false;
+
+        this.$.colapsinfoid1.hidden=true;
+       this.$.colapsinfoid2.hidden=true;
+       this.$.colapsinfoid3.hidden=true;
+       this.$.colapsinfoid4.hidden=true;
         }
       },
         FnSelectstudenqzz:function(e)
@@ -565,14 +586,14 @@ document.querySelector("#addstudentid").checked=false;
             this.$.colapsinfoid3.hidden=false;
              this.$.colapsinfoid4.hidden=false;
           this.itemArray=[];
-document.querySelector('#studentslistz1').selected=-1;
-this.$.studservice.fngetstudentallinfo(this.studentid);
+          document.querySelector('#studentslistz1').selected=-1;
+          this.$.studservice.fngetstudentallinfo(this.studentid);
           this.studid=this.studentid;
-document.querySelector('#newifosectionidzza').selected=-1;
-    this.classid="";
-    this.sectionarr="";
-    this.fmrefresh();
-  },
+          document.querySelector('#newifosectionidzza').selected=-1;
+          this.classid="";
+          this.sectionarr="";
+          this.fmrefresh();
+      },
 
 FnSearchstudnamezz:function(e)
      {
@@ -646,7 +667,7 @@ FnSearchstudnamezz:function(e)
        this.$.colapsinfoid4.hidden=true;
          },
 
-          fmrefresh:function(e){
+    fmrefresh:function(e){
     this.fathername1="";
     this.mothername1="";
     this.fathermob="";
@@ -678,7 +699,37 @@ FnSearchstudnamezz:function(e)
     document.querySelector('#newstudenhifotermid').selected=-1;
     document.querySelector('#thirdlanid').selected=-1;
     document.querySelector('#secondlanid').selected=-1;
- }
+
+
+       
+ },
+
+    fnnewreff:function()
+    {
+        document.querySelector("#updatestudentid").checked=false;
+        document.querySelector("#removestudentid").checked=false;
+        document.querySelector("#addstudentid").checked=false;
+
+        this.$.addstudentinfoid.hidden=true;
+       this.$.removestudentinfoid.hidden=true;
+       this.$.updatestudentinfoid.hidden=true;
+       this.$.colapsinfoid1.hidden=true;
+       this.$.colapsinfoid2.hidden=true;
+       this.$.colapsinfoid3.hidden=true;
+       this.$.colapsinfoid4.hidden=true;
+       this.value="";
+       this.$.parentinfoid.opened=false;
+       this.$.pesonalinfoid.opened=false;
+       this.$.academicinfoid.opened=false; 
+       this.$.languageinfoid.opened=false; 
+    },
+    parentsubmitinfo:function()
+    {
+      this.$.mydialog.toggleDialog();
+    }
+
+
+
     });
   })();
   </script>

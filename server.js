@@ -6494,7 +6494,7 @@ app.post('/emppersonaldetails-service' ,  urlencodedParser,function (req, res)
     "emp_name":req.query.name,"school_id":req.query.school_id,"emp_phone":req.query.Telephone,"emp_password":req.query.password,"emp_mobile":req.query.MobileNumber,"emp_mail":req.query.mailid,"flage":req.query.flage,academic_year:req.query.academic_year}; 
 
     console.log('-----------personal detail creation--------');
-    console.log(JSON.stringify(response));
+    //console.log(JSON.stringify(response));
 
 connection.query("SELECT * FROM md_employee_creation WHERE emp_id='"+req.query.empid+"'and school_id='"+req.query.school_id+"' and emp_phone='"+req.query.Telephone+"'and academic_year='"+req.query.academic_year+"'",function(err, rows)
     {
@@ -9991,6 +9991,7 @@ app.post('/selectallsection-service',  urlencodedParser,function (req,res)
 {
   var qur1="select s.id,s.student_name,g.grade_name,a.admission_status,(select UPPER(section_id) from mp_grade_section ss where ss.grade_id='"+req.query.gradeid+"' and ss.class_id=s.class_id) as section from md_student s join md_school_grade_mapping g on (s.grade_id=g.grade_id) join md_admission a on(s.id=a.admission_no) where s.school_id='"+req.query.schlid1+"' and a.school_id='"+req.query.schlid1+"' and g.school_id='"+req.query.schlid1+"'and s.grade_id='"+req.query.gradeid+"' and s.academic_year='"+req.query.academic_year+"' and g.academic_year='"+req.query.academic_year+"' and  s.flag='active' order by student_name";
 
+
 console.log("-------Report---------");
   console.log(qur1);
 
@@ -10068,8 +10069,9 @@ app.post('/fnsubmitsection-service' , urlencodedParser,function (req, res)
       gender:req.query.gender,
       grade_id:req.query.grade_id,
       academic_year:req.query.academic_year,
+      flag:req.query.flag
       }; 
-  // console.log(JSON.stringify(qurr1));
+    console.log(JSON.stringify(qur11));
    var qur= "SELECT * FROM  md_student WHERE school_id='"+req.query.scholid1+"' and id='"+req.query.id+"' and student_name='"+req.query.student_name+"' and  academic_year='"+req.query.academic_year+"' and flag='active'";
    
     var qur11="update md_student set class_id='"+req.query.class_id+"',grade_id='"+req.query.grade_id+"',school_type='"+req.query.school_type+"' where school_id='"+req.query.scholid1+"' and id='"+req.query.id+"' and  academic_year='"+req.query.academic_year+"' and flag='active'";
@@ -10113,11 +10115,13 @@ app.post('/fnsubmitsection-service' , urlencodedParser,function (req, res)
 
 app.post('/previoussection-service',  urlencodedParser,function (req,res)
   {
-  /*var qur="SELECT * from md_student where id='"+req.query.admission_no+"'  and school_id='"+req.query.scholid1+"' and grade_id='"+req.query.grade_id+"'and school_type='"+req.query.school_type+"' and academic_year='"+req.query.academic_year+"'";  */
+  var qur="SELECT * from md_student where id='"+req.query.admission_no+"'  and school_id='"+req.query.scholid1+"' and grade_id='"+req.query.grade_id+"'and school_type='"+req.query.school_type+"' and academic_year='"+req.query.academic_year+"' and flag='active'";  
+ 
+  /*var qur="SELECT student_name,gender,dob,class_id from md_student where id='"+req.query.admission_no+"'  and school_id='"+req.query.scholid1+"' and grade_id='"+req.query.grade_id+"'and school_type='"+req.query.school_type+"' and academic_year='"+req.query.academic_year+"' and flag='active'";*/
 
-  var qur="SELECT student_name,gender,dob,class_id from md_student where id='"+req.query.admission_no+"'  and school_id='"+req.query.scholid1+"' and grade_id='"+req.query.grade_id+"'and school_type='"+req.query.school_type+"' and academic_year='"+req.query.academic_year+"' and flag='active'";
-  console.log("--------------pre student-----------------")
+  console.log("--------------pre student-----------------");
   console.log(qur);
+
   connection.query(qur,
     function(err, rows)
     {
@@ -10136,7 +10140,7 @@ app.post('/previoussection-service',  urlencodedParser,function (req,res)
     }
     else
     {
-      //console.log(err);
+      console.log(err);
       res.status(200).json({'returnval': 'fail'});
     }  
 

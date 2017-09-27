@@ -47,7 +47,9 @@
      Polymer({
       is: 'schoolcategory-type-item-card',
 
-     FnsetGradename:function( e){
+     FnsetGradename:function( e)
+     {
+      document.querySelector('school-grade-to-subject-card').subchangerefresh();
       if(document.querySelector('#'+this.id).checked==true){
         sessionStorage.setItem("curr_sess_loggedschoolcategory_id",this.schooltypecategoryid);
                 var obj={"id":""};

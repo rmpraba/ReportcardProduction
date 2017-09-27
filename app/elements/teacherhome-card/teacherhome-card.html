@@ -1575,13 +1575,16 @@
           Fnremovestudent:function(e)
           {
             localStorage.setItem('curr_sess_loggedassesmenttype','studentremove');
+            document.querySelector('student-remove-card').fnrefremve();
             this.$.cdialog.toggle();
           },
 
           Fnstudentinformation:function(e)
           {
-          localStorage.setItem('curr_sess_loggedassesmenttype','studentinformation');
-            this.$.cdialog.toggle();
+            localStorage.setItem('curr_sess_loggedassesmenttype','studentinformation');
+            document.querySelector('student-information-card').fmrefresh();
+            document.querySelector('student-information-card').fnnewreff();
+              this.$.cdialog.toggle();
 
           }
 
