@@ -15,7 +15,7 @@
     }  
     .newcontent
     {
-    
+      @apply(--layout-horizontal);
       border: 2px solid black;
       width: 70%;
       height: 356px;
@@ -31,28 +31,32 @@
     }
     .subcard
     {
-       @apply(--layout-vertical);
+      @apply(--layout-vertical);
       width: 20%;
       height: 68%;
-      margin-left: 5%;
+      margin-left: -11%;
+      margin-top: 5%;
       overflow-x: hidden;
       overflow-y: scroll;
     }
-     .subcard1
+     .grdcard
     {
        @apply(--layout-vertical);
-    width: 25%;
-    height: 80%;
-    margin-left: 42%;
-    margin-top: -27%;
+      width: 11%;
+      height: 38%;
+      margin-left: 10%;
+      margin-top: 8%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      
     }
     .sectcard
     {
        @apply(--layout-vertical);
-      width: 25%;
-      height: 70%;
-      margin-left: 69%;
-      margin-top: -25%;
+       width: 14%;
+      height: 35%;
+      margin-left: 29%;
+      margin-top: 8% !important;
       overflow-x: hidden;
       overflow-y: scroll;
     }
@@ -110,25 +114,27 @@
 </template>  
       </div>
 <div  style="margin-top: -7%;">
-<h3 style="margin-left: 28%;margin-top: -2.5%;position: absolute;">Grade Name</h3>
- <div class="subcard1">
+    <h3 style="margin-left: 10%;margin-top: 6%;position: absolute;">Grade Name</h3>
+      <div class="grdcard" style="position: absolute;">
        <template is="dom-repeat" items="{{gradearr}}" as="item">
          <single-employee-grade-card gradename="{{item.grade_name}}" gradeid="{{item.grade_id}}"></single-employee-grade-card>
        </template>
   </div>
 </div>
    
- <div style="margin-top: -7%;">
-        <h3 style="margin-left: 46%;margin-top: -3%;position: absolute;">Section Name</h3>
-        <div class="sectcard">
+      <div style="margin-top: -7%;">
+        <h3 style="margin-left: 30%;margin-top: 6%;position: absolute;">Section Name</h3>
+        <div class="sectcard" style="position: absolute;">
           <template is="dom-repeat" items="{{sectionarr}}" as="item">
             <single-employee-section-card sectionid="{{item.section_id}}"  classid="{{item.class_id}}" gradeid="{{item.grade_id}}"></single-employee-section-card>
           </template>
         </div>
      </div>
+  </div>
 
-       <center><paper-button style="background-color:black;color:white;margin-top: 18%;margin-left: -5%;position: absolute;" on-click="fnsubmit">Submit</paper-button></center>
-    </div>
+          <div>
+            <center><paper-button style="background-color:black;color:white;margin-top: -3% !important;margin-left: 0%;position: absolute;" on-click="fnsubmit">Submit</paper-button></center>
+          </div>
     
 </iron-collapse>
    </div>

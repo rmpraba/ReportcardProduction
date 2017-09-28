@@ -341,14 +341,14 @@ this.fnsetsingleemployeeurl=sessionStorage.getItem("addrinfo")+"/fnsetsingleempl
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
       obj.academic_year=localStorage.getItem("curr_sess_academicyear");
       obj.studid=id;
-      alert(JSON.stringify(obj)); 
+      //alert(JSON.stringify(obj)); 
       this.fnsetsingleemployeeparam=obj;
       this.$.fnsetsingleemployeeajax.generateRequest();
         },
 fnsetsingleemployeeResponse:function(e)
         {
   var res=e.detail.response.returnval;
-  alert(JSON.stringify(res));
+  //alert(JSON.stringify(res));
   document.querySelector('single-staff-mapping-card').dbarr=res;
         }, 
  fetchsinglegrade:function()
