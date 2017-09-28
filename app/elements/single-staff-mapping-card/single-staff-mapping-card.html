@@ -117,14 +117,14 @@
     </div>
 
    <span  class="colapsinfo" >
-       <button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
+       <button  id="empmapzzz" style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
   </span>
    <span  class="colapsinfo" >
-      <button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployeedeletion"> Employee Delection</button>
+      <button id="empldeltt"  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployeedeletion"> Employee Delection</button>
    </span>
 
   <iron-collapse horizontal id="singleemployeeid">
-  <div class="fulldiv">
+  <div class="fulldiv" hidden$="{{hidefulldivvv}}">
     <div class="new">
       <center style="margin-left: -22%;"><h3>previously Mapped Details</h3></center>
       <table border="0" style="width: 70%;">
@@ -181,7 +181,7 @@
 </div>
 <iron-collapse horizontal id="singleemployeedeletionid">
 
-     <div class="newwww">
+     <div class="newwww" hidden$="{{hidenewwwdelt}}">
        <!-- <h3>Delete Information</h3> -->
     <table border="0" style="width: 81%;">
        <tr>
@@ -231,13 +231,15 @@
       fnemployee:function(e){
      this.$.singleemployeeid.opened=true;
      this.$.singleemployeedeletionid.opened=false;
+     this.hidefulldivvv=false;
+     this.hidenewwwdelt=true;
      },
      fnemployeedeletion:function(e){
         
          this.$.singleemployeeid.opened=false;
          this.$.singleemployeedeletionid.opened=true;
-   
-         
+         this.hidefulldivvv=true;   
+         this.hidenewwwdelt=false;   
      },
   FnSelectstudenq:function(e)
         {
@@ -250,6 +252,9 @@
           this.$.studservice.fnsetsingleemployee(this.empid);
           //alert(this.empid);
           //this.empid=this.studentid;
+
+            this.$.empmapzzz.hidden=false;
+            this.$.empldeltt.hidden=false;
         },
         fnsetvaluez:function(e){
       this.$.studservice.fnsetsingleemployee(this.empid);
@@ -318,6 +323,17 @@
               }
             } }
           },
+
+          empinforefresh:function()
+          {
+            this.$.empmapzzz.hidden=true;
+            this.$.empldeltt.hidden=true;
+            this.value="";
+            this.$.singleemployeeid.opened=false;
+            this.$.singleemployeedeletionid.opened=false;
+            this.hidefulldivvv=true;
+            this.hidenewwwdelt=true;
+          }
 
     });
   })();
