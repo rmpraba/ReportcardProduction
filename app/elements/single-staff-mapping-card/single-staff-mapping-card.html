@@ -117,10 +117,10 @@
     </div>
 
    <span  class="colapsinfo" >
-       <button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
+       <button  id="empmapzzz" style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
   </span>
    <span  class="colapsinfo" >
-      <button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployeedeletion"> Employee Delection</button>
+      <button id="empldeltt"  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployeedeletion"> Employee Delection</button>
    </span>
 
   <iron-collapse horizontal id="singleemployeeid">
@@ -250,6 +250,9 @@
           this.$.studservice.fnsetsingleemployee(this.empid);
           //alert(this.empid);
           //this.empid=this.studentid;
+
+            this.$.empmapzzz.hidden=false;
+            this.$.empldeltt.hidden=false;
         },
    FnSearchstudname:function(e)
        {
@@ -315,6 +318,15 @@
               }
             } }
           },
+
+          empinforefresh:function()
+          {
+            this.$.empmapzzz.hidden=true;
+            this.$.empldeltt.hidden=true;
+            this.value="";
+            this.$.singleemployeeid.opened=false;
+            this.$.singleemployeedeletionid.opened=false;
+          }
 
     });
   })();

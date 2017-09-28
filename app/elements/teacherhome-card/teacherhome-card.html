@@ -1595,13 +1595,16 @@
             localStorage.setItem('curr_sess_loggedassesmenttype','studentinformation');
             document.querySelector('student-information-card').fmrefresh();
             document.querySelector('student-information-card').fnnewreff();
+             document.querySelector('student-information-card').studentinforefresh();
               this.$.cdialog.toggle();
+             
 
           },
           Fnsinglestaff:function(e){
             localStorage.setItem('curr_sess_loggedassesmenttype','singlestaff');
+            document.querySelector('single-staff-mapping-card').empinforefresh();
+            
             this.$.cdialog.toggle();
-
           }
 
 
