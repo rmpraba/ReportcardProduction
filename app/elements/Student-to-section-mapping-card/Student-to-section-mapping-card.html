@@ -1133,7 +1133,8 @@ for(var j=0;j<l.length;j++){
      this.value=this.student_name;
      this.hidenewtabb=true;
     
-    this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
+    //this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
+
     this.$.uiservice.selectspecificstudent(admission_no);
       
        
@@ -1141,6 +1142,11 @@ for(var j=0;j<l.length;j++){
 
     },
 
+    fnstudent:function()
+    {
+      alert(2);
+      this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
+    },
     allstudent:function(e)
     {
       if(chkkk2.checked==true)

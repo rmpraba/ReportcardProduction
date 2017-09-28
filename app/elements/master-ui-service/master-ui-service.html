@@ -1250,6 +1250,7 @@ Generatesectionid:function()
     //  alert(JSON.stringify(res));
         document.querySelector('Student-to-section-mapping-card').Studentsection(res);
        document.querySelector('Student-to-section-mapping-card').sectionsetarr=res;
+
      },
      fnsetstudentinfo:function(studeninfoarr,stugradeid,schooltype){
        // alert('1');
@@ -3488,6 +3489,8 @@ insertschoolTypename:function(schooltypesarr)
         document.querySelector('Student-to-section-mapping-card').dob=res[0].dob;
         
         document.querySelector('Student-to-section-mapping-card').gender=res[0].gender;
+
+        document.querySelector('Student-to-section-mapping-card').fnstudent();
      },
   
         fnsubmitsection:function(setsectionarr1,schooltype)
