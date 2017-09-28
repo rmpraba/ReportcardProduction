@@ -236,6 +236,7 @@
       },
       empfnselectlanprefercence:function(e){
         this.emplangprefernce=e.target.selectedItem.textContent.trim();
+        this.hidenewsubcat=true;
         this.hidegenerate=false;
         document.querySelector('schoolcategory-type-item-card').fnsetemployeelanprefer(this.emplangprefernce);
          
@@ -389,6 +390,10 @@
            this.$.empLanguageprefernce1.hidden=true;
            this.hidegenerate=true;
            document.querySelector('#empLanguageprefernce1id').selected=-1;
+       },
+       subchangerefresh:function()
+       {
+        this.hidenewsubcat=true;        
        }
 
     });

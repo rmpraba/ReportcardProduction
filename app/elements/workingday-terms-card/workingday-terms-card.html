@@ -56,6 +56,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         on-response="fnsectiostudentpassvalue1Response"
         debounce-duration="300">
       </iron-ajax>
+
+      <demosumbit-card id="mydialog1"></demosumbit-card>
   </template>
   <script>
   (function() {
@@ -103,34 +105,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             
         term.push(obj);
       },
-   fnsplice:function(e){
- var obj={"termvalue":"","termid":"","acadamicyears":"","gradename":"","gradeid":"","schootypids":""};
-                 obj.termvalue=this.term3;
-                 obj.termid='term3';
-                 obj.acadamicyears=this.acadamicyears;
-                 obj.gradename=this.gradename;
-                 obj.schootypids=this.schootypids;
-                 obj.gradeid=this.gradeid;
+   fnsplice:function(e)
+   {
+  
+      for(var j=0;j<term.length;j++)
+      {
+          var obj={"termvalue":"","termid":"","acadamicyears":"","gradename":"","gradeid":"","schootypids":""};
+                 obj.termvalue=term[j].termvalue;
+                 obj.termid=term[j].termid;
+                 obj.acadamicyears=term[j].acadamicyears;
+                 obj.gradename=term[j].gradename;
+                 obj.schootypids=term[j].schootypids;
+                 obj.gradeid=term[j].gradeid;
                  term.splice(obj);
-   
-   
+      }
    },
 
        FnSave:function(e)
        {
-        if(this.term1==""||this.term1==null&&this.term2==""||this.term2==null&&this.term3==""||this.term3==null)
+        if(term.length==""||term.length==null)
         {
-           alert("Please insert the value");
-        }   
-      else
-      {
-       // alert(JSON.stringify(term));
+          alert('Please insert any one Term');
+        }
            
-        for(var i=0;i<term.length;i++){
+        else
+        {
+          for(var i=0;i<term.length;i++)
+          {
 
             this.fnsectiostudentpassvalue1url=sessionStorage.getItem("addrinfo")+"/terminsert-service";
  
-            var obj={"school_id":"","termvalue":"","termid":"","acadamicyears":"","gradename":"","gradeid":"","schootypids":""};
+              var obj={"school_id":"","termvalue":"","termid":"","acadamicyears":"","gradename":"","gradeid":"","schootypids":""};
 
                  obj.school_id=sessionStorage.getItem("curr_sess_loggedschoolid");
                   obj.termvalue=term[i].termvalue;
@@ -140,19 +145,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  obj.schootypids=term[i].schootypids;
                  obj.gradeid=term[i].gradeid;
                this.fnsectiostudentpassvalue1param=obj;
-                 //alert(JSON.stringify(obj));
+                // alert(JSON.stringify(obj));
                  this.$.fnsectiostudentpassvalue1ajax.generateRequest();
-          }
+           }
 
-          term.splice(obj);
-          alert('Inserted successfully');
-       }
-
+           term.splice(obj);
+        }   
     },
-    fnsectiostudentpassvalue1Response:function(e){
+    fnsectiostudentpassvalue1Response:function(e)
+    {
+        
          var res=e.detail.response.returnval; 
-        //alert(JSON.stringify(res));
-
+         document.querySelector('working-days-card').fnwork();
+         //alert('successfully Done');
+         /*if(res=='Inserted')
+         {
+          alert('Inserted');
+         }
+         else if(res=='updated')
+         {
+          alert('Updated');
+         }*/
     }
 
      

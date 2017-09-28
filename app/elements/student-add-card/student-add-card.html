@@ -340,7 +340,9 @@ if(document.querySelector('#'+this.transnoz).checked==false)
             alert("Please Select gender");
         }
         else if (this.enroll=="" || this.fname=="" || this.lsname=="" || this.showdate=="" || this.ageofyr=="" || this.fathername=="" || this.mothername=="" || this.gradeid==""&& this.academicyear==""){
-            alert("Please Insert the value");
+
+            alert("Please insert the value");
+
 
            }
            else{
@@ -383,7 +385,6 @@ if(document.querySelector('#'+this.transnoz).checked==false)
         this.hideonegender=false;
         this.hidetwogender=true;
    document.querySelector('#newadminyearstud').selected=-1;
-   document.querySelector('#newacayearstud').selected=-1;
    document.querySelector('#newstudgradeids').selected=-1;
         this.enroll="";
         this.fname="";
