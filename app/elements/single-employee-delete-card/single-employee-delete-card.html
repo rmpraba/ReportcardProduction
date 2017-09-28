@@ -49,16 +49,19 @@
       is: 'single-employee-delete-card',
 
     fndeletion:function(e){
-
+alert(this.classid+this.subjectid+this.empidz+this.gradeid);
       this.fnsetsingledeleteemployeeurl=sessionStorage.getItem("addrinfo")+"/fnsetsingledeleteemployee-service";
   var obj={"school_id":"","academic_year":""};
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
       obj.academic_year=localStorage.getItem("curr_sess_academicyear");
-      obj.studid=id;
-      //alert(JSON.stringify(obj)); 
+      obj.gradeid=this.gradeid;
+      obj.subjectid=this.subjectid;
+      obj.empidz=this.empidz;
+      obj.classid=this.classid;
+      alert(JSON.stringify(obj)); 
       this.fnsetsingledeleteemployeeparam=obj;
       this.$.fnsetsingledeleteemployeeajax.generateRequest();
-      alert(this.classid+this.subjectid+this.empidz+this.gradeid);
+      
     },
     fnsetsingledeleteemployeeResponse:function(e){
        var res=e.detail.response.returnval;

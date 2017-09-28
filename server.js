@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardcloud'
+   database : 'reportcard11'
 });
 
 
@@ -12998,7 +12998,7 @@ app.post('/fetchstafffo-service', urlencodedParser,function (req,res)
 
 app.post('/fnsetsingleemployee-service', urlencodedParser,function (req,res)
 {  
-    var qur="SELECT  grade_id as gradeid,(select grade_name from md_grade where grade_id=gradeid) as gradename, subject_id as subjectid,(select subject_name from md_subject where subject_id=subjectid) as subjectname ,section_id,class_id FROM mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flage='active' and id='"+req.query.studid+"' and role_id='subject-teacher'";
+    var qur="SELECT id, grade_id as gradeid,(select grade_name from md_grade where grade_id=gradeid) as gradename, subject_id as subjectid,(select subject_name from md_subject where subject_id=subjectid) as subjectname ,section_id,class_id FROM mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flage='active' and id='"+req.query.studid+"' and role_id='subject-teacher'";
     console.log(qur);
     connection.query(qur,
     function(err, rows)
@@ -13220,8 +13220,26 @@ var qur="Delete from tr_term_fa_assesment_marks where school_id='"+req.query.sch
     });
     
 });
-
-
+  
+app.post('/fnsetsingledeleteemployee-service' ,  urlencodedParser,function (req, res)
+{  
+   var qur="Delete from mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"' and grade_id='"+req.query.gradeid+"'  and id='"+req.query.empidz+"' and classid='"+req.query.classid+"' and flage='active' and role_id='subject-teacher'"; 
+console.log(qur);
+  connection.query(qur,
+    function(err, rows)
+    {
+    if(!err)
+    {
+      res.status(200).json({'returnval': 'Deleted!'});
+    }
+    else
+    {
+      //console.log(err);
+      res.status(200).json({'returnval': 'Not Deleted!'});
+    }
+    });
+    
+});
 
 app.post('/removesubmitedmarks-service' ,  urlencodedParser,function (req, res)
 {  
