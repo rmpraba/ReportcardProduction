@@ -29,6 +29,14 @@
       margin-left: 13%;
       margin-top: 3%;
     }
+    .newwww
+    {
+      border: 0px solid black;
+      width: 90%;
+      height: 199px;
+      margin-left: 4%;
+      margin-top: 3%;
+    }
     .subcard
     {
       @apply(--layout-vertical);
@@ -173,13 +181,14 @@
 </div>
 <iron-collapse horizontal id="singleemployeedeletionid">
 
-     <div class="new">
-       <h3>Delete Info</h3>
+     <div class="newwww">
+       <!-- <h3>Delete Information</h3> -->
     <table border="0" style="width: 70%;">
        <tr>
           <th>Grade</th>
           <th>Subject</th>
           <th>Section</th>
+          <th></th>
        </tr>
      </table>   
          <template is="dom-repeat" items="{{dbarr}}" as="item">
