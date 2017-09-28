@@ -575,6 +575,11 @@
         <h4>Student information</h4>
         </paper-button>
       </div>
+        <div class="card" hidden$="{{singlestaff}}">
+        <paper-button on-click="Fnsinglestaff" no ink><img src="../../images/singlestaff.png" height="180px" width="180px">
+        <h4>Single Employee Mapping</h4>
+        </paper-button>
+      </div>
     </div>
     </div>
     <!-- General ssschooladmin master ends-->
@@ -940,7 +945,13 @@
            this.$.studservice.fnacadamic();
           this.$.studservice.fnget1grade();
       }
-
+      if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
+      {
+        document.querySelector('app-card').setPage('homepage','');
+        document.querySelector('home-page').setPage('single-staff-mapping-card','');
+ this.$.studservice.fetchsinglestaff();
+ this.$.studservice.fetchsinglegrade();
+ }  
       this.$.cdialog.close();   
       },
       FnStudent:function()
@@ -1581,6 +1592,11 @@
           Fnstudentinformation:function(e)
           {
           localStorage.setItem('curr_sess_loggedassesmenttype','studentinformation');
+            this.$.cdialog.toggle();
+
+          },
+          Fnsinglestaff:function(e){
+            localStorage.setItem('curr_sess_loggedassesmenttype','singlestaff');
             this.$.cdialog.toggle();
 
           }

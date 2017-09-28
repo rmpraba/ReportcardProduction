@@ -229,6 +229,46 @@
         on-response="fnacadamicsinfomation2Response"
         debounce-duration="300">
       </iron-ajax>
+      <iron-ajax
+        method="post"
+        id="fetchsinglestaffajax"
+        url="{{fetchsinglestaffurl}}"
+        params="{{fetchsinglestaffparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fetchsinglestaffResponse"
+        debounce-duration="300">
+      </iron-ajax>
+       <iron-ajax
+        method="post"
+        id="fnsetsingleemployeeajax"
+        url="{{fnsetsingleemployeeurl}}"
+        params="{{fnsetsingleemployeeparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnsetsingleemployeeResponse"
+        debounce-duration="300">
+      </iron-ajax>
+       <iron-ajax
+        method="post"
+        id="fetchsinglegradeajax"
+        url="{{fetchsinglegradeurl}}"
+        params="{{fetchsinglegradeparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fetchsinglegradeResponse"
+        debounce-duration="300">
+      </iron-ajax>
+      <iron-ajax
+        method="post"
+        id="fnsinglegrademappingajax"
+        url="{{fnsinglegrademappingurl}}"
+        params="{{fnsinglegrademappingparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnsinglegrademappingResponse"
+        debounce-duration="300">
+      </iron-ajax>
   </template>
   <script>
   (function() {
@@ -243,22 +283,112 @@
         document.querySelector('student-information-card').academicarr=e.detail.response; 
         
       },
+fetchsinglestaff:function()
+        {
+ this.fetchsinglestaffurl=sessionStorage.getItem("addrinfo")+"/fetchstafffo-service";
+  var obj={"school_id":"","academic_year":""};
+      obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
+      this.fetchsinglestaffparam=obj;
+      this.$.fetchsinglestaffajax.generateRequest();
+        },
+fetchsinglestaffResponse:function(e)
+        {
+  var res=e.detail.response.returnval;
+  //alert(JSON.stringify(res));
+  document.querySelector('single-staff-mapping-card').getstudentdet(res);
+        }, 
+fnsinglegrademapping:function(empid,arr,subjectid){
 
-   fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,motheremail,fatheremail,address1,address2,address3,city,pincode)
+    for(var i=0;i<arr.length;i++){
+       if(arr[i].gradeid=='g1' ||arr[i].gradeid=='g2' ||arr[i].gradeid=='g3' ||arr[i].gradeid=='g4'){
+          this.fnsinglegrademappingurl=sessionStorage.getItem("addrinfo")+"/fnsinglegrademapping-service";
+       var obj={};
+      obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
+      obj.gradeid=arr[i].gradeid;
+      obj.classid=arr[i].classid;
+      obj.subjectid=subjectid;
+      obj.empid=empid;
+      obj.schooltype='primary';
+      this.fnsinglegrademappingparam=obj;
+      this.$.fnsinglegrademappingajax.generateRequest();
+       }
+       else{
+      var obj1={};
+        this.fnsinglegrademappingurl=sessionStorage.getItem("addrinfo")+"/fnsinglegrademapping-service";
+      obj1.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj1.academic_year=localStorage.getItem("curr_sess_academicyear"); 
+      obj1.gradeid=arr[i].gradeid;
+      obj1.classid=arr[i].classid;
+      obj1.subjectid=subjectid;
+      obj1.empid=empid;
+      obj1.schooltype='high';
+      this.fnsinglegrademappingparam=obj1;
+      this.$.fnsinglegrademappingajax.generateRequest();
+      } }
+     },
+        fnsinglegrademappingResponse:function(e)
+        {
+       var res=e.detail.response.returnval;
+     alert(JSON.stringify(res));
+      //document.querySelector('single-staff-mapping-card').getstudentdet(res);
+        }, 
+ fnsetsingleemployee:function(id)
+        {
+this.fnsetsingleemployeeurl=sessionStorage.getItem("addrinfo")+"/fnsetsingleemployee-service";
+  var obj={"school_id":"","academic_year":""};
+      obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+      obj.studid=id;
+      alert(JSON.stringify(obj)); 
+      this.fnsetsingleemployeeparam=obj;
+      this.$.fnsetsingleemployeeajax.generateRequest();
+        },
+fnsetsingleemployeeResponse:function(e)
+        {
+  var res=e.detail.response.returnval;
+  alert(JSON.stringify(res));
+  document.querySelector('single-staff-mapping-card').dbarr=res;
+        }, 
+ fetchsinglegrade:function()
+        {
+        this.fetchsinglegradeurl=sessionStorage.getItem("addrinfo")+"/fetchsinglegrade-service";
+  var obj={"school_id":"","academic_year":""};
+      obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
+      this.fetchsinglegradeparam=obj;
+      this.$.fetchsinglegradeajax.generateRequest();
+        },
+fetchsinglegradeResponse:function(e)
+        {
+  var res=e.detail.response.gradearr;
+  var res1=e.detail.response.subjectarr;
+  var res2=e.detail.response.rolearr;
+  /*alert(JSON.stringify(res));
+  alert(JSON.stringify(res1));
+  alert(JSON.stringify(res2));  
+*/
+  document.querySelector('single-staff-mapping-card').gradearr=res;
+  document.querySelector('single-staff-mapping-card').subjectarr=res1;
+  document.querySelector('single-staff-mapping-card').rolearr=res2;
+        },  
+        
+fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,motheremail,fatheremail,address1,address2,address3,city,pincode)
            {  
  this.fnparentinfomationurl=sessionStorage.getItem("addrinfo")+"/fnparentinfomation-service";
-var obj={};
-               obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
-               obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
-                obj.academic_year=localStorage.getItem("curr_sess_academicyear");
-               obj.studid=studid;
-               obj.fathername1=fathername1;
+           var obj={};
+            obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+            obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
+            obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+            obj.studid=studid;
+            obj.fathername1=fathername1;
                obj.mothername1=mothername1;
                obj.fathermob=fathermob;
                obj.mothermob=mothermob;
                obj.motheremail=motheremail;
                obj.fatheremail=fatheremail;
-               obj.address1=address1;
+                     obj.address1=address1;
                obj.address2=address2;
                obj.address3=address3;
                obj.city=city;

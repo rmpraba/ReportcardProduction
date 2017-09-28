@@ -3619,13 +3619,11 @@ var schol={school_id:req.query.schoolid};
 else  if(req.query.roleid=="headofedn")
  {
   qur="select  distinct grade_id as gid,(select grade_name from md_grade where grade_id=gid) as gradename from mp_teacher_grade where grade_id in(select grade from tr_teacher_observation_flag where flag='1' and name='"+req.query.id+"') and school_id='"+req.query.schoolid+"' and id='"+req.query.id+"' and role_id='subject-teacher'"
-
-}
+   }
 else  if(req.query.roleid=="principal"||req.query.roleid=="viceprincipal")
  {
   qur="select  distinct grade_id as gid,(select grade_name from md_grade where grade_id=gid) as gradename from mp_teacher_grade where grade_id in(select grade from tr_teacher_observation_flag where flag='0' and name='"+req.query.id+"') and school_id='"+req.query.schoolid+"' and id='"+req.query.id+"' and role_id='subject-teacher'"
-
-}
+ }
 connection.query(qur,
     function(err, rows)
     {
@@ -11078,6 +11076,37 @@ app.post('/fnsetcoskill13-service' , urlencodedParser,function (req, res)
     });
 });
 
+app.post('/fnsinglegrademapping-service' , urlencodedParser,function (req, res)
+{ 
+
+    var response={ 
+      school_id:req.query.schoolid,
+       academic_year:req.query.academic_year,
+       grade_id:req.query.gradeid,
+       class_id:req.query.classid,
+       subject_id:req.query.subjectid,
+       id:req.query.empid,
+       school_type:req.query.schooltype,
+     };
+     console.log("-------Student---------");
+     console.log(response);
+     console.log("------------------------")
+     connection.query("INSERT INTO mp_teacher_grade SET ?",[response],
+    function(err, rows)
+    {
+    if(!err)   
+    {
+      res.status(200).json({'returnval':'Inserted!'});
+    }
+    else
+    {
+      console.log(err);
+      res.status(200).json({'returnval': 'Not Inserted!'});
+    }
+    });
+});
+
+
 
 app.post('/fnbookeditskill-service',  urlencodedParser,function (req, res)
 {  
@@ -12899,6 +12928,84 @@ app.post('/fetchstudentinfo-service', urlencodedParser,function (req,res)
     else
       console.log(err);
       res.status(200).json({'returnval': ''});
+  });
+});
+
+app.post('/fetchstafffo-service', urlencodedParser,function (req,res)
+{  
+    var qur="SELECT * FROM md_employee_creation where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flage='active'";
+    connection.query(qur,
+    function(err, rows)
+    {
+    if(!err)
+    { 
+      //console.log(JSON.stringify(rows));   
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      console.log(err);
+      res.status(200).json({'returnval': ''});
+  });
+});
+
+app.post('/fnsetsingleemployee-service', urlencodedParser,function (req,res)
+{  
+    var qur="SELECT  grade_id as gradeid,(select grade_name from md_grade where grade_id=gradeid) as gradename, subject_id as subjectid,(select subject_name from md_subject where subject_id=subjectid) as subjectname ,section_id FROM mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flage='active' and id='"+req.query.studid+"' and role_id='subject-teacher'";
+    console.log(qur);
+    connection.query(qur,
+    function(err, rows)
+    {
+    if(!err)
+    { 
+      //console.log(JSON.stringify(rows));   
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      console.log(err);
+      res.status(200).json({'returnval': ''});
+  });
+});
+app.post('/fetchsinglegrade-service',  urlencodedParser,function (req,res)
+  {  
+var qur1="SELECT * FROM md_grade";
+
+var qur2="SELECT * FROM md_subject";
+
+ var qur3="SELECT * FROM md_role";
+
+   console.log('----------------');
+   console.log(qur1);
+   console.log('-----------------');
+   console.log(qur2);
+   console.log('-----------------');
+   console.log(qur3);
+   console.log('-----------------');
+   
+    var gradearr=[];
+    var subjectarr=[];
+    var rolearr=[];
+    connection.query(qur1,function(err, rows){
+    if(!err)
+    {  
+    gradearr=rows;
+    connection.query(qur2,function(err, rows){
+    if(!err)
+    {  
+
+    subjectarr=rows;
+    connection.query(qur3,function(err, rows){
+    if(!err)
+    {  
+
+    rolearr=rows;
+    res.status(200).json({'gradearr':gradearr,'subjectarr':subjectarr,'rolearr':rolearr});
+    }
+    });
+    }
+    });
+    }
+    else
+     res.status(200).json({'': 'no rows'}); 
   });
 });
 

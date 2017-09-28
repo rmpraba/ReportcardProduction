@@ -1,0 +1,93 @@
+
+
+<link rel="import" href="..\..\bower_components/polymer/polymer.html">
+
+<dom-module id="single-employee-grade-card">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="subcard">
+      <paper-checkbox  on-change="fngrade"  id="{{gradeid}}">{{gradename}}</paper-checkbox>
+    </div>
+     <iron-ajax
+        method="post"
+        id="singleempgradeajax"
+        url="{{singleempgradeurl}}"
+        params="{{singleempgradeparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="singleempgradeResponse"
+        debounce-duration="300">
+      </iron-ajax>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+   var gradearr=[];
+    var ovaerallsectioarr=[];
+    var len1=0;
+    var len2=0;
+    Polymer({
+      is: 'single-employee-grade-card',
+
+     fngrade:function(e){
+      var temparr=[];
+     if(document.querySelector('#'+this.gradeid).checked==true)
+         {
+            var obj={};
+                obj.id=this.gradeid;
+                obj.gradename=this.gradename;
+                gradearr.push(obj);
+         } 
+       if(document.querySelector('#'+this.gradeid).checked==false){
+      for(var i=0;i<gradearr.length;i++){
+           if(gradearr[i].id==this.gradeid){
+             gradearr.splice(i,1);
+           }}}
+           len1=gradearr.length;
+
+        for(var i=0;i<gradearr.length;i++){
+            
+this.singleempgradeurl=sessionStorage.getItem("addrinfo")+"/fngetsectionname-service";
+      var obj1={};
+      obj1.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj1.academic_year=localStorage.getItem("curr_sess_academicyear");
+      obj1.grade_id=gradearr[i].id;
+      obj1.gradename=gradearr[i].gradename;
+      //alert(JSON.stringify(obj1)); 
+      this.singleempgradeparam=obj1;
+      this.$.singleempgradeajax.generateRequest();
+           }
+
+        
+        },
+
+    singleempgradeResponse:function(e){
+      len2++;
+       // alert(len1+" "+len2);
+         var res=e.detail.response.returnval;
+          for(var l=0;l<res.length;l++){
+             ovaerallsectioarr.push(res[l]);
+               }
+
+       
+                 
+      if(len1==len2){
+
+      // alert("fff");     
+       //alert(JSON.stringify(ovaerallsectioarr));
+    
+     document.querySelector('single-staff-mapping-card').sectionarr=ovaerallsectioarr;
+    ovaerallsectioarr=[];
+       len1=0;
+       len2=0;
+           } 
+             
+    }
+    });
+  })();
+  </script>
+</dom-module>

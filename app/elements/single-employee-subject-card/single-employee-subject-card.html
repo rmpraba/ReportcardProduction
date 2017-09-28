@@ -1,0 +1,46 @@
+
+<link rel="import" href="..\..\bower_components/polymer/polymer.html">
+
+<dom-module id="single-employee-subject-card">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="subcard">
+      <paper-checkbox id="{{subjectid}}" on-change="fnsetsubject">{{subjectname}}</paper-checkbox>
+    </div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+var subarr=[];
+    Polymer({
+      is: 'single-employee-subject-card',
+
+     fnsetsubject:function(e){
+        if(document.querySelector('#'+this.subjectid).checked==true)
+         {
+                     var obj={};
+                     obj.id=this.subjectid;
+                     obj.subjectname=this.subjectname;
+                     subarr.push(obj);
+              sessionStorage.setItem("curr_sess_loggedsubjectid",this.subjectid);
+           for(var i=0;i<subarr.length;i++){
+               if(subarr[i].id==this.subjectid){
+                var C=subarr[i].id;
+                 document.querySelector('#'+C).checked==true;  
+                }
+              if(subarr[i].id!=this.subjectid){
+                var M=subarr[i].id;
+                 document.querySelector('#'+M).checked=false;
+                subarr.splice(i,1)
+                 }
+           }     
+        } 
+     }
+    });
+  })();
+  </script>
+</dom-module>
