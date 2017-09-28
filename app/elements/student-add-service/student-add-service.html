@@ -308,9 +308,12 @@ fnsinglegrademapping:function(empid,arr,subjectid){
       obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
       obj.gradeid=arr[i].gradeid;
       obj.classid=arr[i].classid;
+       obj.sectionid=arr[i].sectionid;
       obj.subjectid=subjectid;
       obj.empid=empid;
       obj.schooltype='primary';
+      obj.flage='active';
+      obj.roleid='subject-teacher';
       this.fnsinglegrademappingparam=obj;
       this.$.fnsinglegrademappingajax.generateRequest();
        }
@@ -321,6 +324,9 @@ fnsinglegrademapping:function(empid,arr,subjectid){
       obj1.academic_year=localStorage.getItem("curr_sess_academicyear"); 
       obj1.gradeid=arr[i].gradeid;
       obj1.classid=arr[i].classid;
+      obj1.sectionid=arr[i].sectionid;
+      obj1.roleid='subject-teacher';
+      obj1.flage='active';
       obj1.subjectid=subjectid;
       obj1.empid=empid;
       obj1.schooltype='high';
@@ -368,7 +374,7 @@ fetchsinglegradeResponse:function(e)
   /*alert(JSON.stringify(res));
   alert(JSON.stringify(res1));
   alert(JSON.stringify(res2));  
-*/
+ */
   document.querySelector('single-staff-mapping-card').gradearr=res;
   document.querySelector('single-staff-mapping-card').subjectarr=res1;
   document.querySelector('single-staff-mapping-card').rolearr=res2;

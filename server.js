@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardcloud'
+   database : 'reportcard11'
 });
 
 
@@ -11080,7 +11080,7 @@ app.post('/fnsetcoskill13-service' , urlencodedParser,function (req, res)
     });
 });
 
-app.post('/fnsinglegrademapping-service' , urlencodedParser,function (req, res)
+/*app.post('/fnsinglegrademapping-service' , urlencodedParser,function (req, res)
 { 
 
     var response={ 
@@ -11090,6 +11090,9 @@ app.post('/fnsinglegrademapping-service' , urlencodedParser,function (req, res)
        class_id:req.query.classid,
        subject_id:req.query.subjectid,
        id:req.query.empid,
+       flage:req.query.flage,
+       role_id:req.query.roleid,
+       section_id:req.query.sectionid,
        school_type:req.query.schooltype,
      };
      console.log("-------Student---------");
@@ -11108,9 +11111,50 @@ app.post('/fnsinglegrademapping-service' , urlencodedParser,function (req, res)
       res.status(200).json({'returnval': 'Not Inserted!'});
     }
     });
-});
+});*/
 
+app.post('/fnsinglegrademapping-service' , urlencodedParser,function (req, res)
+{  
+  var collection = { 
+       school_id:req.query.schoolid,
+       academic_year:req.query.academic_year,
+       grade_id:req.query.gradeid,
+       class_id:req.query.classid,
+       subject_id:req.query.subjectid,
+       id:req.query.empid,
+       flage:req.query.flage,
+       role_id:req.query.roleid,
+       section_id:req.query.sectionid,
+       school_type:req.query.schooltype,
+     };
+   console.log(JSON.stringify(collection));
 
+connection.query("SELECT * FROM mp_teacher_grade WHERE id='"+req.query.empid+"' and school_type='"+req.query.schooltype+"'and school_id='"+req.query.schoolid+"'and class_id='"+req.query.classid+"' and role_id='"+req.query.roleid+"' and subject_id='"+req.query.subjectid+"'  and flage='"+req.query.flage+"' and academic_year='"+req.query.academic_year+"'",function(err, rows)
+    {
+    if(rows.length==0)
+    {
+      connection.query("INSERT INTO mp_teacher_grade SET ? ",[collection],
+      function(err, rows)
+      {
+
+      if(!err)
+       {
+        //console.log(rows);
+        res.status(200).json({'returnval': 'Inserted!'});
+        }
+      else 
+      {
+        //console.log(err);
+        res.status(200).json({'returnval': 'Not Inserted!'});
+      }
+    });  
+    }
+    else
+    {
+      res.status(200).json({'returnval': 'Already Exit'});
+    }
+    });
+  });
 
 app.post('/fnbookeditskill-service',  urlencodedParser,function (req, res)
 {  

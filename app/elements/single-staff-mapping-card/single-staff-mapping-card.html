@@ -83,7 +83,8 @@
 
     </div>
 
-<button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee">Single Employee Mapping</button>
+<button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
+<button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Delection</button>
 
 <iron-collapse horizontal id="singleemployeeid">
  <div class="new">
@@ -160,6 +161,9 @@
    fnsubmit:function(e){
     this.subjectids=sessionStorage.getItem("curr_sess_loggedsubjectid");
      this.$.studservice.fnsinglegrademapping(this.empid,finallarr,this.subjectids);
+     document.querySelector('single-employee-grade-card').fnclear();
+     document.querySelector('single-employee-section-card').clear();
+
     },
       fnemployee:function(e){
      this.$.singleemployeeid.toggle();

@@ -54,8 +54,17 @@ var classarr=[];
                             classarr.splice(i,1);
                         } } }
      
-       document.querySelector('single-staff-mapping-card').fnfinalvalue(classarr)    
-           }
+        document.querySelector('single-staff-mapping-card').fnfinalvalue(classarr)    
+           },
+           clear:function(e){
+                     for(var i=0;i<classarr.length;i++){
+                         var m=classarr[i].classid;
+                       document.querySelector('#'+m).checked=false;        
+                     }
+                     var obj={};
+                     classarr.splice(obj);         
+                     classarr=[];
+            },
     
     });
   })();
