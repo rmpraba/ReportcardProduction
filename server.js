@@ -12998,7 +12998,7 @@ app.post('/fetchstafffo-service', urlencodedParser,function (req,res)
 
 app.post('/fnsetsingleemployee-service', urlencodedParser,function (req,res)
 {  
-    var qur="SELECT  grade_id as gradeid,(select grade_name from md_grade where grade_id=gradeid) as gradename, subject_id as subjectid,(select subject_name from md_subject where subject_id=subjectid) as subjectname ,section_id FROM mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flage='active' and id='"+req.query.studid+"' and role_id='subject-teacher'";
+    var qur="SELECT  grade_id as gradeid,(select grade_name from md_grade where grade_id=gradeid) as gradename, subject_id as subjectid,(select subject_name from md_subject where subject_id=subjectid) as subjectname ,section_id,class_id FROM mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flage='active' and id='"+req.query.studid+"' and role_id='subject-teacher'";
     console.log(qur);
     connection.query(qur,
     function(err, rows)

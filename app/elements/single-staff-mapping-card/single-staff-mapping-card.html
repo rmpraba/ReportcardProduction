@@ -71,6 +71,10 @@
         margin-left: 7%;
         width: 69%;
       }
+  .colapsinfo{
+      margin-left: 25%;
+
+  }
     </style>
     <div>  
     <div class="student" id="studrmv">
@@ -82,10 +86,12 @@
               </paper-listbox>
 
     </div>
-
-<button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
-<button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Delection</button>
-
+   <span  class="colapsinfo" >
+       <button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
+  </span>
+   <span  class="colapsinfo" >
+      <button  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployeedeletion"> Employee Delection</button>
+   </span>
 <iron-collapse horizontal id="singleemployeeid">
  <div class="new">
     <table border="0" style="width: 70%;">
@@ -138,6 +144,29 @@
           </div>
     
 </iron-collapse>
+
+<iron-collapse horizontal id="singleemployeedeletionid">
+
+     <div class="new">
+       <h3>Delete Info</h3>
+    <table border="0" style="width: 70%;">
+       <tr>
+          <th>Grade</th>
+          <th>Subject</th>
+          <th>Section</th>
+       </tr>
+     </table>   
+         <template is="dom-repeat" items="{{dbarr}}" as="item">
+           <!-- <tr>
+             <td>{{item.gradename}}</td>
+             <td>{{item.subjectname}}</td>
+             <td>{{item.section_id}}</td>
+           </tr> -->
+           <div id="itemcard"><single-employee-delete-card gradename="{{item.gradename}}" gradeid="{{item.gradeid}}" subjectid="{{item.subjectid}}" subjectname="{{item.subjectname}}" sectionname="{{item.section_id}}"  classid="{{item.class_id}}" empidz="{{item.id}}"></single-employee-delete-card>
+           </div>
+         </template>
+  </div>
+</iron-collapse>
    </div>
           <student-add-service id="studservice"></student-add-service>
 
@@ -166,7 +195,15 @@
 
     },
       fnemployee:function(e){
-     this.$.singleemployeeid.toggle();
+     this.$.singleemployeeid.opened=true;
+     this.$.singleemployeedeletionid.opened=false;
+     },
+     fnemployeedeletion:function(e){
+        
+         this.$.singleemployeeid.opened=false;
+         this.$.singleemployeedeletionid.opened=true;
+   
+         
      },
   FnSelectstudenq:function(e)
         {
