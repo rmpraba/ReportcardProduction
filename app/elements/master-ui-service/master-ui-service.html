@@ -237,7 +237,8 @@
         handle-as="json"
         content-type="application/json"
         method="post"
-        on-response="FnSecondLangSubjectToStudentsetsResponse"
+        on-response="
+        Response"
         debounce-duration="300"
         ><iron-ajax        
         id="FnThirdLangSubjectToStudentajax"
@@ -3175,7 +3176,7 @@ insertschoolTypename:function(schooltypesarr)
         var res=e.detail.response.returnval
 
         //alert(JSON.stringify(res));        
-         /*if(res=='Inserted!')
+         if(res=='Inserted!')
          {
             document.querySelector('student-to-subject-mapping-card').fninsert();
 
@@ -3184,7 +3185,7 @@ insertschoolTypename:function(schooltypesarr)
          {
             document.querySelector('student-to-subject-mapping-card').fnupdate();
          }
-*/
+
       },
       FnSecondLangSubjectToStudentsets:function(fnthidlanginfoarr){
            for(var i=0;i<fnthidlanginfoarr.length;i++){
@@ -3253,6 +3254,18 @@ insertschoolTypename:function(schooltypesarr)
     },
       FnThirdLangSubjectToStudentResponse:function(e)
       {
+        var res=e.detail.response.returnval;
+
+        //alert(JSON.stringify(res));        
+         if(res=='Inserted!')
+         {
+            document.querySelector('student-to-subject-mapping-card').fninsert();
+
+         }
+         else if(res=='updated successfully')
+         {
+            document.querySelector('student-to-subject-mapping-card').fnupdate();
+         }
 
       },
        SelectSchoolgrades:function()

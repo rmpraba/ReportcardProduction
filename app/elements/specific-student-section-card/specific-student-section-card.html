@@ -51,15 +51,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var pmm=[];
       var s1;
       var c1; 
-    var previousclsid;
-      
+     
       
     Polymer({
       is: 'specific-student-section-card',
 
       fnsudentsectionzzzz:function(e)
       {
-        //alert(this.enqno);
+       // alert(this.enqno);
+        //alert(this.classid);
 
                     
          if(document.querySelector('#'+this.id).checked==true)
@@ -127,7 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       getprevistudent:function(arr)
       {
-        alert('pre');
+        //alert('pre');
         getstudentpredetarr=arr;
 
         for(var i=0;i<getstudentpredetarr.length;i++)
@@ -140,10 +140,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var classid=getstudentpredetarr[i].class_id;
           var studentid=getstudentpredetarr[i].id;
               studentid=studentid.replace(/[^\w\s]/gi, '');
-              alert(studentid);
+              //alert(studentid);
 
-              previousclsid=classid+studentid;
-              alert(previousclsid);
+           var previousclsid=classid+studentid;
+             // alert(previousclsid);
 
               document.querySelector('#'+previousclsid).checked=true;
               if(document.querySelector('#'+previousclsid).checked==true)
@@ -158,7 +158,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     obj1.classid=classid; 
                     obj1.newclsiddd= previousclsid;
                     studsectionccarr.push(obj1);
-                    alert(JSON.stringify(studsectionccarr));
+                   // alert(JSON.stringify(studsectionccarr));
               }
         }
       },
@@ -190,10 +190,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 studsectionccarr.splice(obj);
         }
 
-      }
-
-
-     
+      }     
     });
   })();
   </script>

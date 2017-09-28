@@ -240,7 +240,7 @@
           <table style="border-collapse: collapse;width: 70%;">            
             <tr>
               <th></th>
-              <td style="padding-left: 1%;">
+              <td style="padding-left: 3%;">
                 <template is="dom-repeat" items="{{sectionsetarr}}" as="view">
                   <td id="tdid">{{view.section_id}}</td>
                 </template>
@@ -1049,9 +1049,7 @@ for(var j=0;j<l.length;j++){
       if(e.keyCode==13|| e.keyCode==40)
       this.querySelector('#studentselect').focus();
       var arr=[];
-      //alert(arr.push({"itemdes":"-----Select-----"}));
       arr.push({"itemdes":"-----Select-----"});
-      //alert(arr);
       this.querySelector('#studentselect').style.visibility='visible';
       if(e.keyCode==8)
       {
@@ -1139,7 +1137,7 @@ for(var j=0;j<l.length;j++){
     this.$.uiservice.selectspecificstudent(admission_no);
       
        
-      document.querySelector('specific-student-section-card').studentsectionclean();
+     document.querySelector('specific-student-section-card').studentsectionclean();
 
     },
 
@@ -1156,6 +1154,7 @@ for(var j=0;j<l.length;j++){
           document.querySelector('Student-to-section-mapping-item-card').FnRefresh();
           document.querySelector('#empgradeiddd').selected=-1;
            this.querySelector('#studentselect').style.visibility='hidden';
+           this.value="";
       }
       else
       {
