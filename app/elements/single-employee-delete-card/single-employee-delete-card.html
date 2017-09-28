@@ -49,9 +49,9 @@
       is: 'single-employee-delete-card',
 
     fndeletion:function(e){
-alert(this.classid+this.subjectid+this.empidz+this.gradeid);
+//alert(this.classid+this.subjectid+this.empidz+this.gradeid);
       this.fnsetsingledeleteemployeeurl=sessionStorage.getItem("addrinfo")+"/fnsetsingledeleteemployee-service";
-  var obj={"school_id":"","academic_year":""};
+   var obj={"school_id":"","academic_year":""};
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
       obj.academic_year=localStorage.getItem("curr_sess_academicyear");
       obj.gradeid=this.gradeid;
@@ -66,6 +66,8 @@ alert(this.classid+this.subjectid+this.empidz+this.gradeid);
     fnsetsingledeleteemployeeResponse:function(e){
        var res=e.detail.response.returnval;
        alert(JSON.stringify(res));
+     document.querySelector('single-staff-mapping-card').fnsetvaluez();
+
     }
     });
   })();

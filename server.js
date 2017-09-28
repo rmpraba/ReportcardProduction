@@ -13223,7 +13223,7 @@ var qur="Delete from tr_term_fa_assesment_marks where school_id='"+req.query.sch
   
 app.post('/fnsetsingledeleteemployee-service' ,  urlencodedParser,function (req, res)
 {  
-   var qur="Delete from mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"' and grade_id='"+req.query.gradeid+"'  and id='"+req.query.empidz+"' and classid='"+req.query.classid+"' and flage='active' and role_id='subject-teacher'"; 
+   var qur="Delete from mp_teacher_grade where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"' and grade_id='"+req.query.gradeid+"'  and id='"+req.query.empidz+"' and class_id='"+req.query.classid+"' and flage='active' and role_id='subject-teacher'"; 
 console.log(qur);
   connection.query(qur,
     function(err, rows)

@@ -273,7 +273,8 @@
   <script>
   (function() {
     'use strict';
-
+    var len1=0;
+    var len2=0;
     Polymer({
       is: 'student-add-service',
  fnacadamic:function(){
@@ -299,7 +300,7 @@ fetchsinglestaffResponse:function(e)
   document.querySelector('single-staff-mapping-card').getstudentdet(res);
         }, 
 fnsinglegrademapping:function(empid,arr,subjectid){
-
+  len1=arr.length;
     for(var i=0;i<arr.length;i++){
        if(arr[i].gradeid=='g1' ||arr[i].gradeid=='g2' ||arr[i].gradeid=='g3' ||arr[i].gradeid=='g4'){
           this.fnsinglegrademappingurl=sessionStorage.getItem("addrinfo")+"/fnsinglegrademapping-service";
@@ -336,9 +337,16 @@ fnsinglegrademapping:function(empid,arr,subjectid){
      },
         fnsinglegrademappingResponse:function(e)
         {
-       var res=e.detail.response.returnval;
-     alert(JSON.stringify(res));
-      //document.querySelector('single-staff-mapping-card').getstudentdet(res);
+          len2++;
+           var res=e.detail.response.returnval;
+        // alert(JSON.stringify(res));
+          if(len1==len2){
+            alert("insert successfully")
+           document.querySelector('single-staff-mapping-card').fnsetvaluez();
+           len1=0;
+           len2=0;
+          }
+      
         }, 
  fnsetsingleemployee:function(id)
         {
