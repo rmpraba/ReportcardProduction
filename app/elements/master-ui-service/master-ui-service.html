@@ -3525,7 +3525,12 @@ insertschoolTypename:function(schooltypesarr)
         fnsubmitsectionResponse:function(e)
         {
             var res=e.detail.response.returnval;
-            alert(JSON.stringify(res));
+            //alert(JSON.stringify(res));
+
+            if(res=='Inserted!')
+            {
+              document.querySelector('Student-to-section-mapping-card').fnsinglestudsubmit();
+            }
              
         },
         /*gradesectionedit:function(sectiongradename)

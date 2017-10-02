@@ -237,38 +237,36 @@
 
 
       <div class="specific1"  id="hidespecific">
-          <table style="border-collapse: collapse;width: 70%;">            
-            <tr>
-              <th></th>
-              <td style="padding-left: 3%;">
-                <template is="dom-repeat" items="{{sectionsetarr}}" as="view">
-                  <td id="tdid">{{view.section_id}}</td>
-                </template>
-              </td>
-              <th></th>
-            </tr>     
-            <tbody>
-              <td><h4>{{value}}</h4></td>
-                <td style="width: 80%;padding-left: 7%;">
-                  <table border="0">
-                    <tr>
-                     <template is="dom-repeat" items="{{sectionsetarr}}" as="s">
-                        <td>
-                          <specific-student-section-card sectionname="{{s.section_id}}" classid="{{s.class_id}}" studentname="{{student_name}}"
-                        id="{{s.class_id}}{{adminno1}}" enqno="{{enqno}}" gender="{{gender}}" dob="{{dob}}" adminno1="{{adminno1}}" stugradeid="{{stugradeid}}"></specific-student-section-card>
-                        </td>
-                      </template>
-                      
-                      <td>
-                        <paper-icon-button style="margin-left:3em;" icon="save" on-click="fnsubmit"></paper-icon-button>
-                      </td>
-                   </tr>
-                  </table>
-                </td>  
-              </tbody>  
-            </table>
-            
-          </div>              
+        <table style="border-collapse: collapse;width: 70%;">            
+          <tr>
+            <th></th>
+            <td style="padding-left: 3%;">
+              <template is="dom-repeat" items="{{sectionsetarr}}" as="view">
+                <td id="tdid">{{view.section_id}}</td>
+              </template>
+            </td>
+            <th></th>
+          </tr>     
+          <tbody>
+            <td><h4>{{value}}</h4></td>
+            <td style="width: 80%;padding-left: 7%;">
+              <table border="0">
+                <tr>
+                  <template is="dom-repeat" items="{{sectionsetarr}}" as="s">
+                    <td>
+                      <specific-student-section-card sectionname="{{s.section_id}}" classid="{{s.class_id}}" studentname="{{student_name}}"
+                      id="{{s.class_id}}{{adminno1}}" enqno="{{enqno}}" gender="{{gender}}" dob="{{dob}}" adminno1="{{adminno1}}" stugradeid="{{stugradeid}}"></specific-student-section-card>
+                    </td>
+                  </template>  
+                    <td>
+                      <paper-icon-button style="margin-left:3em;" icon="save" on-click="fnsubmit"></paper-icon-button>
+                    </td>
+                  </tr>
+                </table>
+              </td>  
+            </tbody>  
+          </table>  
+        </div>              
 
         <div id="z1">
              <paper-button  id="prebutton" on-click="fnpriver">
@@ -1144,7 +1142,7 @@ for(var j=0;j<l.length;j++){
 
     fnstudent:function()
     {
-      alert(2);
+      //alert(2);
       this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
     },
     allstudent:function(e)
@@ -1177,14 +1175,19 @@ for(var j=0;j<l.length;j++){
     },
     fnsubmit:function(e)
     {
-
-        this.$.uiservice.fnsubmitsection(studentsetarr,schooltype);
-        this.itemArray=[];
-        this.value="";
-        this.$.hidespecific.hidden=true;
-        //this.$.mydialog.toggleDialog();
-        document.querySelector('specific-student-section-card').studentsectionclean();
-
+        if(studentsetarr.length==0)
+        {
+          alert('Please Select Any Section');
+        }
+        else
+        {
+          this.$.uiservice.fnsubmitsection(studentsetarr,schooltype);
+          this.itemArray=[];
+          this.value="";
+          this.$.hidespecific.hidden=true;
+          
+          document.querySelector('specific-student-section-card').studentsectionclean();
+        }
     },
     fnenq:function(enq1)
     {
@@ -1200,6 +1203,10 @@ for(var j=0;j<l.length;j++){
     fngradechange:function()
     {
       document.querySelector('#empgradeiddd').selected=-1; 
+    },
+    fnsinglestudsubmit:function()
+    {
+      this.$.mydialog.toggleDialog();
     }
   
    
