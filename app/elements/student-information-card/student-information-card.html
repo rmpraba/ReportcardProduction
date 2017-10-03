@@ -344,15 +344,14 @@
  </iron-collapse>
 
      <paper-dialog id="termarrinformationid" modal>
-       <h3 hidden$="{{termarrinfonatioid}}">All ready mappinng in term for perivious section,pls select the term.</h3>
+       <h3 hidden$="{{termarrinfonatioid}}">This Section is already mapped to following Term</h3>
     
         <template is="dom-repeat" items="{{termarr}}">
         <h4>*{{item.term_name}}</h4>
         </template>
-        <h3 hidden$="{{langinfomationid}}">All ready mappinng in section for perivious language
-        </h3>
+        <h3 hidden$="{{langinfomationid}}">Previously mapped Subjects to the Term</h3>
         <template is="dom-repeat" items="{{langdialogarr}}">
-        <h4>*{{item.subject_id}}</h4>
+        <h4>*{{item.subject_name}}</h4>
         </template>
          <center><paper-button style="background-color:black;color:white" on-click="fnsetsubmit" dialog-confirm autofocus>Submit</paper-button>
          </center>

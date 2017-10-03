@@ -649,9 +649,6 @@ document.querySelector('student-add-card').studentgradearrr=res;
         {
             var res=e.detail.response.returnval
             //alert(JSON.stringify(res));
-
-     
-    
        document.querySelector('student-information-card').infogradearrr=res;
          },
 
@@ -689,14 +686,10 @@ document.querySelector('student-information-card').termarrinfonatioid=true;
 }
 
 
-if(res1!="empty")
-document.querySelector('student-information-card').langdialogarr=res1;  
-          else
-document.querySelector('student-information-card').langinfomationid=true;  
-
-
-
-
+  if(res1!="empty")
+      document.querySelector('student-information-card').langdialogarr=res1;  
+  else
+      document.querySelector('student-information-card').langinfomationid=true;  
   },
         fetchstudentremoveResponse:function(e)
         {

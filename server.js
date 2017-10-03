@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardcloud'
+   database : 'reportcarddb'
 });
 
 
@@ -8125,12 +8125,14 @@ app.post('/fngetstudent-service',  urlencodedParser,function (req,res)
      var e={school_id:req.query.schoolid};
   //   console.log(e);
   var qur="SELECT * FROM mp_grade_section where school_id='"+req.query.school_id+"' and grade_id='"+req.query.stugradeid+"' and  academic_year='"+req.query.academic_year+"'";
+  console.log("--------------------------------");
+  console.log(qur);
   connection.query(qur,
     function(err, rows)
     {
     if(!err)
     { 
-      //console.log(JSON.stringify(rows));   
+      console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
     else
@@ -9882,7 +9884,7 @@ app.post('/Selectempschooltype-service',  urlencodedParser,function (req,res)
     {
     if(!err)
     { 
-     console.log(JSON.stringify(rows));   
+    // console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
     else
@@ -9991,7 +9993,7 @@ app.post('/selectallsection-service',  urlencodedParser,function (req,res)
 
 
 console.log("-------Report---------");
-  console.log(qur1);
+  //console.log(qur1);
 
    connection.query(qur1,
     function(err, rows){
@@ -10010,7 +10012,7 @@ app.post('/selectallsection1-service',  urlencodedParser,function (req,res)
 {
   var qur1="select s.id,s.student_name,g.grade_name,a.admission_status,(select UPPER(section_id) from mp_grade_section ss where ss.grade_id='"+req.query.gradeid+"' and ss.class_id=s.class_id) as section from md_student s join md_school_grade_mapping g on (s.grade_id=g.grade_id) join md_admission a on (s.id=a.admission_no) where s.school_id='"+req.query.schlid1+"' and a.school_id='"+req.query.schlid1+"' and g.school_id='"+req.query.schlid1+"'and s.grade_id='"+req.query.gradeid+"' and s.academic_year='"+req.query.academic_year+"' and g.academic_year='"+req.query.academic_year+"' and s.class_id='"+req.query.classname+"' and s.flag='active' order by student_name";
 
-  console.log(qur1);
+  //console.log(qur1);
 
    connection.query(qur1,
     function(err, rows){
@@ -11004,7 +11006,7 @@ app.post('/bookapprvvalsubject-service',urlencodedParser,function (req,res)
     {
     if(!err)
     {    
-     console.log(JSON.stringify(rows));   
+    // console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
     else
@@ -11620,7 +11622,7 @@ app.post('/getappovedcoordinator-service',  urlencodedParser,function (req,res)
     {
     if(!err)
     {    
-     console.log(JSON.stringify(rows));   
+     //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
     else
@@ -11639,7 +11641,7 @@ app.post('/masterbookz-service',urlencodedParser,function (req,res)
     {
     if(!err)
     {    
-     console.log(JSON.stringify(rows));   
+     //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
     else
@@ -13023,9 +13025,12 @@ qur="SELECT distinct term_name from tr_term_assesment_marks where grade='"+req.q
 qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"'";
 }
   
-  var qur1="SELECT * from tr_student_to_subject  where grade='"+req.query.gradeid+"' and class_id='"+req.query.sectionid+"' and student_id='"+req.query.studid+"'";
+  /*var qur1="SELECT * from tr_student_to_subject  where grade='"+req.query.gradeid+"' and class_id='"+req.query.sectionid+"' and student_id='"+req.query.studid+"'";*/
+
+   var qur1="Select t.subject_id,s.subject_name from tr_student_to_subject t join md_subject s on(s.subject_id=t.subject_id) where t.school_id='"+req.query.schoolid+"'  and  t.student_id='"+req.query.studid+"' and t.grade='"+req.query.gradeid+"' and t.class_id='"+req.query.sectionid+"' and  t.academic_year='"+req.query.academic_year+"'";
+
   console.log('----------------------------------------');
-  console.log(qur);
+  console.log(qur1);
   var termarr=[];
   var langarr=[];
   connection.query(qur,function(err, rows){
