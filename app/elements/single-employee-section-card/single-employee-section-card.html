@@ -28,9 +28,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paperinput hidden value="{{sectionid}}"></paperinput>
     <paperinput hidden value="{{classid}}"></paperinput>
     <paperinput hidden value="{{gradeid}}"></paperinput>
+    <paperinput hidden value="{{empid}}"></paperinput>
     
-    <paper-checkbox on-change="fnsection" id="{{classid}}">{{sectionid}}</paper-checkbox>
+    <paper-checkbox on-change="fnsection" id="{{classid}}" checked="{{check}}" >{{sectionid}}</paper-checkbox>
     </div>
+      <iron-ajax
+        method="post"
+        id="singleempsectionajax"
+        url="{{singleempsectionurl}}"
+        params="{{singleempsectionparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="singleempsectionResponse"
+        debounce-duration="300">
+        </iron-ajax>
   </template>
   <script>
   (function() {
@@ -49,12 +60,29 @@ var classarr=[];
                        }
                else if(document.querySelector('#'+this.classid).checked==false){
                      
+   this.singleempsectionurl=sessionStorage.getItem("addrinfo")+"/singleempsection-service";
+      var obj={};
+      obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+      obj.grade_id=this.gradeid;
+      obj.empid=this.empid;
+      obj.classid=this.classid;
+
+      obj.subjectid=sessionStorage.getItem("curr_sess_loggedsubjectid");
+       alert(JSON.stringify(obj)); 
+      this.singleempsectionparam=obj;
+      this.$.singleempsectionajax.generateRequest();  
+
                      for(var i=0;i<classarr.length;i++){
                         if(classarr[i].classid==this.classid){
                             classarr.splice(i,1);
                         } } }
      
-        document.querySelector('single-staff-mapping-card').fnfinalvalue(classarr)    
+   document.querySelector('single-staff-mapping-card').fnfinalvalue(classarr)    
+           },
+       singleempsectionResponse:function(e){
+             var res=e.detail.response.returnval;
+              alert(JSON.stringify(res)); 
            },
            clear:function(e){
                      for(var i=0;i<classarr.length;i++){

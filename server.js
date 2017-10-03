@@ -10433,6 +10433,162 @@ app.post('/bookrefsection-service',  urlencodedParser,function (req,res)
   });
 });
 
+app.post('/fngetsectionname-service',  urlencodedParser,function (req,res)
+  {  
+    
+
+  var qur1="SELECT * FROM mp_grade_section where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and grade_id='"+req.query.grade_id+"'  and grade_id  not in(select distinct( grade_id) from mp_teacher_grade  where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"'  and id='"+req.query.empid+"'  and subject_id='"+req.query.subjectid+"' and role_id='subject-teacher')";
+
+    var qur2="SELECT * FROM mp_teacher_grade where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and role_id='subject-teacher'";
+
+    var qur3="select distinct( g.grade_id) ,a.section_id,a.class_id from mp_teacher_grade g  join  mp_grade_section a on (g.grade_id=a.grade_id) where g.school_id='"+req.query.schoolid+"'  and g.academic_year='"+req.query.academic_year+"' and  a.school_id='"+req.query.schoolid+"'  and a.academic_year='"+req.query.academic_year+"'  and g.id='"+req.query.empid+"' and subject_id='"+req.query.subjectid+"'and role_id='subject-teacher'";
+    console.log("----grade-----");
+    console.log(qur1);
+    console.log("----dbarr-----");
+    console.log(qur2);
+    console.log("----section-----");
+    console.log(qur3);
+    console.log("-----------------------");
+    var sectionarr=[];
+    var dbarr=[];
+    var mastersectionarr=[];
+    connection.query(qur1,function(err, rows){
+    if(!err)
+    {  
+    sectionarr=rows;
+    connection.query(qur2,function(err, rows){
+    if(!err)
+    {  
+    dbarr=rows;
+    connection.query(qur3,function(err, rows){
+    if(!err)
+    {  
+    mastersectionarr=rows;
+    res.status(200).json({'sectionarr': sectionarr,'dbarr':dbarr,'mastersectionarr':mastersectionarr});
+    }
+    });
+    }
+     });
+    }
+    else
+     res.status(200).json({'':'no rows'}); 
+  });
+});
+app.post('/fngetsectionname1-service' ,  urlencodedParser,function (req, res)
+{  
+   
+    var qur="select * from mp_teacher_grade where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and grade_id='"+req.query.grade_id+"' and role_id='subject-teacher'";
+    console.log(qur);
+    connection.query(qur,function(err, rows)
+    {
+    if(!err)
+    {
+        if(rows.length>0)
+      res.status(200).json({'returnval': rows});
+     else
+        res.status(200).json({'returnval': 'empty'});
+
+    }
+    else
+    {
+      //console.log(err);
+      res.status(200).json({'returnval': 'Invalid'});
+    }
+    });
+    });
+app.post('/fngetsectionname2-service' ,  urlencodedParser,function (req, res)
+{  
+   
+    var qur="delete  from mp_teacher_grade where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and grade_id='"+req.query.grade_id+"' and role_id='subject-teacher'";
+    console.log(qur);
+    connection.query(qur,function(err, rows)
+    {
+    if(!err)
+    {
+       
+     res.status(200).json({'returnval': 'Deleted!'});
+
+    }
+    else
+    {
+      //console.log(err);
+      res.status(200).json({'returnval': 'Not Deleted!'});
+    }
+    });
+    });
+app.post('/singleempsection-service' ,  urlencodedParser,function (req, res)
+{  
+   
+    var qur="delete  from mp_teacher_grade where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and class_id='"+req.query.classid+"' and grade_id='"+req.query.grade_id+"' and role_id='subject-teacher'";
+    console.log(qur);
+    connection.query(qur,function(err, rows)
+    {
+    if(!err)
+    {
+       
+     res.status(200).json({'returnval': 'Deleted!'});
+
+    }
+    else
+    {
+      //console.log(err);
+      res.status(200).json({'returnval': 'Not Deleted!'});
+    }
+    });
+    });
+app.post('/fetchsinglesubject-service',  urlencodedParser,function (req,res)
+  {  
+    
+    var qur1="select* from md_grade";
+    var qur2="SELECT * FROM mp_teacher_grade where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and role_id='subject-teacher'";
+
+    
+    var qur3="select distinct( g.grade_id) ,a.section_id,a.class_id from mp_teacher_grade g  join  mp_grade_section a on (g.grade_id=a.grade_id) where g.school_id='"+req.query.schoolid+"'  and g.academic_year='"+req.query.academic_year+"' and  a.school_id='"+req.query.schoolid+"'  and a.academic_year='"+req.query.academic_year+"'  and g.id='"+req.query.empid+"' and subject_id='"+req.query.subjectid+"'and role_id='subject-teacher'";
+      var qur4="SELECT distinct( grade_id)as gradeid,(select grade_name from md_grade where grade_id=gradeid) as gradename FROM mp_teacher_grade  where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and role_id='subject-teacher'";
+
+    console.log("----grade-----");
+    console.log(qur1);
+    console.log("----dbarr-----");
+    console.log(qur2);
+    console.log("----section-----");
+    console.log(qur3);
+    console.log("-----------------------");
+     console.log(qur4);
+    var gradearr=[];
+    var sectionarr=[];
+    var dbarr=[];
+    var smarr=[];
+    connection.query(qur1,function(err, rows){
+    if(!err)
+    {  
+    gradearr=rows;
+    connection.query(qur2,function(err, rows){
+    if(!err)
+    {  
+
+    dbarr=rows;
+    connection.query(qur4,function(err, rows){
+    if(!err)
+    {  
+
+    smarr=rows;
+    connection.query(qur3,function(err, rows){
+    if(!err)
+    {  
+    sectionarr=rows;
+    res.status(200).json({'gradearr': gradearr,'dbarr':dbarr,'sectionarr':sectionarr,'smarr':smarr});
+    }
+    });
+    }
+     });
+    }
+    });
+    }
+    else
+     res.status(200).json({'':'no rows'}); 
+  });
+});
+
 
 app.post('/getcaptervalue-service',  urlencodedParser,function (req,res)
   {  
@@ -12918,23 +13074,7 @@ app.post('/Fnfetchstudentremove-service', urlencodedParser,function (req,res)
 });
 
 
-app.post('/fngetsectionname-service', urlencodedParser,function (req,res)
-{  
-    var qur="SELECT * FROM mp_grade_section where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and grade_id='"+req.query.grade_id+"'";
-    console.log(qur);
-    connection.query(qur,
-    function(err, rows)
-    {
-    if(!err)
-    { 
-      //console.log(JSON.stringify(rows));   
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      console.log(err);
-      res.status(200).json({'returnval': ''});
-  });
-});
+
 
 app.post('/lanpref-service',  urlencodedParser,function (req,res)
 {  

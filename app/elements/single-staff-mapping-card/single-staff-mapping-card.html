@@ -149,26 +149,26 @@
       <h3 style="margin-left:3%">Subject Name</h3>
         <div class="subcard">
           <template is="dom-repeat" items="{{subjectarr}}" as="item">
-            <single-employee-subject-card subjectname="{{item.subject_name}}" subjectid="{{item.subject_id}}">
+            <single-employee-subject-card subjectname="{{item.subject_name}}" subjectid="{{item.subject_id}}" empid="{{empid}}">
             </single-employee-subject-card>
           </template>  
-        </div>
+        </div> 
       <div  style="margin-top: -7%;">
         <h3 style="margin-left: 10%;margin-top: 4.7%;position: absolute;">Grade Name</h3>
           <div class="grdcard" style="position: absolute;">
             <template is="dom-repeat" items="{{gradearr}}" as="item">
-              <single-employee-grade-card gradename="{{item.grade_name}}" gradeid="{{item.grade_id}}"></single-employee-grade-card>
+              <single-employee-grade-card gradename="{{item.grade_name}}" gradeid="{{item.grade_id}}" check="{{item.check}}" empid="{{empid}}"></single-employee-grade-card>
             </template>
           </div>
       </div>
    
       <div style="margin-top: -7%;">
-        <h3 style="margin-left: 27%;margin-top: 4.8%;position: absolute;">Section Name</h3>
+        <h3 style="margin-left: 27%;margin-top: 4.8%;position: absolute;">Section Name</h3> 
         <div class="sectcard" style="position: absolute;">
           <template is="dom-repeat" items="{{sectionarr}}" as="item">
-            <single-employee-section-card sectionid="{{item.section_id}}"  classid="{{item.class_id}}" gradeid="{{item.grade_id}}"></single-employee-section-card>
+            <single-employee-section-card sectionid="{{item.section_id}}"  classid="{{item.class_id}}" gradeid="{{item.grade_id}}" check="{{item.check}}" empid="{{empid}}"></single-employee-section-card>
           </template>
-        </div>
+        </div> 
      </div>
   </div>
 
@@ -200,7 +200,7 @@
            <div id="itemcard"><single-employee-delete-card gradename="{{item.gradename}}" gradeid="{{item.gradeid}}" subjectid="{{item.subjectid}}" subjectname="{{item.subjectname}}" sectionname="{{item.section_id}}"  classid="{{item.class_id}}" empidz="{{item.id}}"></single-employee-delete-card>
            </div>
          </template>
-  </div>
+  </div>  
 </iron-collapse>
   <student-add-service id="studservice"></student-add-service>
 
@@ -324,6 +324,12 @@
                   this.itemArray=arr;
               }
             } }
+             this.sectionarr="";
+            //this.gradearr="";
+            document.querySelector('single-employee-grade-card').fnclear();
+            document.querySelector('single-employee-subject-card').fnclean();
+            //document.querySelector('single-employee-section-card').clear();
+           
           },
 
           empinforefresh:function()
