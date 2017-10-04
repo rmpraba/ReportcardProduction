@@ -69,7 +69,7 @@ var classarr=[];
       obj.classid=this.classid;
 
       obj.subjectid=sessionStorage.getItem("curr_sess_loggedsubjectid");
-       alert(JSON.stringify(obj)); 
+       //alert(JSON.stringify(obj)); 
       this.singleempsectionparam=obj;
       this.$.singleempsectionajax.generateRequest();  
 
@@ -80,10 +80,12 @@ var classarr=[];
      
    document.querySelector('single-staff-mapping-card').fnfinalvalue(classarr)    
            },
-       singleempsectionResponse:function(e){
-             var res=e.detail.response.returnval;
-              alert(JSON.stringify(res)); 
-           },
+       singleempsectionResponse:function(e)
+       {
+          var res=e.detail.response.returnval;
+          // alert(JSON.stringify(res));
+           document.querySelector('single-staff-mapping-card').fnsetvaluez();
+       },
            clear:function(e){
                      for(var i=0;i<classarr.length;i++){
                          var m=classarr[i].classid;

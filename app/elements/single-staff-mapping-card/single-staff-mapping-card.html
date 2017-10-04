@@ -120,7 +120,7 @@
        <button  id="empmapzzz" style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
   </span>
    <span  class="colapsinfo" >
-      <button id="empldeltt"  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployeedeletion"> Employee Delection</button>
+      <button id="empldeltt"  style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployeedeletion"> Employee Deletion</button>
    </span>
 
   <iron-collapse horizontal id="singleemployeeid">
@@ -219,15 +219,16 @@
 
      },
    fnfinalvalue:function(arr){
-  finallarr=arr;
+      finallarr=arr;
    },
    fnsubmit:function(e){
     this.subjectids=sessionStorage.getItem("curr_sess_loggedsubjectid");
      this.$.studservice.fnsinglegrademapping(this.empid,finallarr,this.subjectids);
      document.querySelector('single-employee-grade-card').fnclear();
      document.querySelector('single-employee-section-card').clear();
-
+     document.querySelector('single-employee-subject-card').fnclean();
     },
+
       fnemployee:function(e){
      this.$.singleemployeeid.opened=true;
      this.$.singleemployeedeletionid.opened=false;
@@ -246,24 +247,24 @@
           this.querySelector('#employeelistid').style.visibility='hidden';
           this.value=e.target.selectedItem.textContent.trim();
           this.empid=e.target.selectedItem.value;
+
+            this.$.empmapzzz.hidden=false;
+            this.$.empldeltt.hidden=false;          
+            this.hidefulldivvv=true;
+            this.hidenewwwdelt=true;
            //alert(this.value+this.studentid);
           this.itemArray=[];
           document.querySelector('#employeelistid').selected=-1;
           this.$.studservice.fnsetsingleemployee(this.empid);
+          this.empinforefresh();
           //alert(this.empid);
-          //this.empid=this.studentid;
-
-            this.$.empmapzzz.hidden=false;
-            this.$.empldeltt.hidden=false;
-            this.hidefulldivvv=true;
-            this.hidenewwwdelt=true;
+          //this.empid=this.studentid;        
         },
         fnsetvaluez:function(e){
       this.$.studservice.fnsetsingleemployee(this.empid);
         },
-   FnSearchstudname:function(e)
+      FnSearchstudname:function(e)
        {
-
       if(e.keyCode==13|| e.keyCode==40)
             this.querySelector('#employeelistid').focus();
           var arr=[];
@@ -326,6 +327,12 @@
             } }
              this.sectionarr="";
             //this.gradearr="";
+
+             this.$.empmapzzz.hidden=true;
+            this.$.empldeltt.hidden=true;    
+            this.$.singleemployeeid.opened=false;
+            this.$.singleemployeedeletionid.opened=false;
+
             document.querySelector('single-employee-grade-card').fnclear();
             document.querySelector('single-employee-subject-card').fnclean();
             //document.querySelector('single-employee-section-card').clear();
@@ -333,16 +340,18 @@
           },
 
           empinforefresh:function()
-          {
-            this.$.empmapzzz.hidden=true;
-            this.$.empldeltt.hidden=true;
-            this.value="";
+          {          
             this.$.singleemployeeid.opened=false;
             this.$.singleemployeedeletionid.opened=false;
             this.hidefulldivvv=true;
             this.hidenewwwdelt=true;
+          },
+          newempreffff:function()
+          {
+            this.$.empmapzzz.hidden=true;
+            this.$.empldeltt.hidden=true;
+             this.value="";
           }
-
     });
   })();
   </script>

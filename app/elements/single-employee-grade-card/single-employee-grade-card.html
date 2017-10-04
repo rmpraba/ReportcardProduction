@@ -82,7 +82,7 @@
                 obj.id=this.gradeid;
                 obj.gradename=this.gradename;
                 gradearr.push(obj);
-         alert(JSON.stringify(gradearr)); 
+       //  alert(JSON.stringify(gradearr)); 
                  
            
          } 
@@ -95,7 +95,7 @@ this.singleempgrade1url=sessionStorage.getItem("addrinfo")+"/fngetsectionname1-s
       obj2.gradename=this.gradename;
       obj2.empid=this.empid;
       obj2.subjectid=sessionStorage.getItem("curr_sess_loggedsubjectid");
-       alert(JSON.stringify(obj2)); 
+       //alert(JSON.stringify(obj2)); 
       this.singleempgrade1param=obj2;
       this.$.singleempgrade1ajax.generateRequest();  
     
@@ -105,9 +105,9 @@ this.singleempgrade1url=sessionStorage.getItem("addrinfo")+"/fngetsectionname1-s
              gradearr.splice(i,1);
            }}
          }
-          alert(JSON.stringify(gradearr)); 
+         // alert(JSON.stringify(gradearr)); 
            len1=gradearr.length;
-           alert(len1);
+           //alert(len1);
 
         for(var i=0;i<gradearr.length;i++){
             
@@ -120,7 +120,7 @@ this.singleempgrade1url=sessionStorage.getItem("addrinfo")+"/fngetsectionname1-s
       obj1.empid=this.empid;
       obj1.subjectid=sessionStorage.getItem("curr_sess_loggedsubjectid");
       this.singleempgradeparam=obj1;
-       alert(JSON.stringify(obj1)); 
+      // alert(JSON.stringify(obj1)); 
       this.$.singleempgradeajax.generateRequest();
            }
 
@@ -151,7 +151,9 @@ fnsetsubmit:function(e){
 },
 singleempgrade2Response:function(e){
   var res=e.detail.response.returnval;
-   alert(JSON.stringify(res)); 
+    document.querySelector('single-staff-mapping-card').fnsetvaluez();
+   
+  // alert(JSON.stringify(res)); 
    /*this.singleempgradeurl=sessionStorage.getItem("addrinfo")+"/fngetsectionname-service";
     var obj1={};
      obj1.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
@@ -171,9 +173,7 @@ if(res!="empty"){
    this.dialogarr=res;
  }  
 
- 
  //alert(JSON.stringify(res)); 
-
 },
 
 fnsetclose:function(e){
@@ -195,8 +195,8 @@ fnsetclose:function(e){
          var res=e.detail.response.sectionarr;
          var res1=e.detail.response.dbarr;
          var res2=e.detail.response.mastersectionarr;
- alert(JSON.stringify(res)); 
- alert(JSON.stringify(res1)); 
+ //alert(JSON.stringify(res)); 
+ //alert(JSON.stringify(res1)); 
 
       
           for(var l=0;l<res.length;l++){
@@ -250,8 +250,6 @@ document.querySelector('single-staff-mapping-card').sectionarr=ovaerallsectioarr
    gradearr=[];
     },
     fnclear1:function(e){
-     
-     
     var obj={};
    ovaerallsectioarr=[];
    gradearr=[];

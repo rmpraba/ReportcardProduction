@@ -56,7 +56,7 @@ var tempgradearr=[];
       obj.empid=this.empid;
       obj.subjectid=sessionStorage.getItem("curr_sess_loggedsubjectid");
       this.fetchsinglesubjectparam=obj;
-      alert(JSON.stringify(obj));
+    //  alert(JSON.stringify(obj));
       this.$.fetchsinglesubjectajax.generateRequest();
 
            for(var i=0;i<subarr.length;i++){
@@ -129,11 +129,13 @@ var tempgradearr=[];
       document.querySelector('single-staff-mapping-card').gradearr=res;
       document.querySelector('single-staff-mapping-card').sectionarr=res2;
      },
-     fnclean:function(){
-    for(var i=0;i<subarr.length;i++){
+     fnclean:function()
+     {
+          for(var i=0;i<subarr.length;i++)
+          {
              var M=subarr[i].id;
-                 document.querySelector('#'+M).checked=false;
-    }
+            document.querySelector('#'+M).checked=false;
+          }
      }
     });
   })();
