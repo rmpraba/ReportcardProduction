@@ -5,14 +5,17 @@ var fs = require('fs');
 var dbserver_ip_address = process.env.OPENSHIFT_MYSQL_DB_HOST || '127.0.0.1'
 var connection = mysql.createConnection({
 
+   // host     : 'localhost',
+   // port     : '62631',
+   // user     : 'adminM1qnV1d',
+   // password : 'HC2bIf7Sk2LD',
+   // database : 'scorecarddb'
+
    host     : 'localhost',
-   port     : '62631',
-   user     : 'adminM1qnV1d',
-   password : 'HC2bIf7Sk2LD',
-   database : 'scorecarddb'
-   // user     : 'root',
-   // password : 'admin',
-   // database : 'reportcardnewins'
+   user     : 'root',
+   password : '',
+   database : 'reportcardcloud'
+  
 
 });
 
