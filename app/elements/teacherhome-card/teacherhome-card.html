@@ -561,6 +561,28 @@
       <h4>Section Update</h4>
       </paper-button>
     </div>
+
+    <div class="card" hidden$="{{studentadd}}">
+        <paper-button on-click="Fnaddstudent" no ink><img src="../../images/studentadd.jpg" height="180px" width="180px">
+        <h4>Student Add</h4>
+        </paper-button>
+       </div>
+
+       <div class="card" hidden$="{{studentremove}}">
+        <paper-button on-click="Fnremovestudent" no ink><img src="../../images/studentremove.jpg" height="180px" width="180px">
+        <h4>Student Remove</h4>
+        </paper-button>
+      </div>
+      <div class="card" hidden$="{{studentinformation}}">
+        <paper-button on-click="Fnstudentinformation" no ink><img src="../../images/studentinformation.png" height="180px" width="180px">
+        <h4>Student information</h4>
+        </paper-button>
+      </div>
+        <div class="card" hidden$="{{singlestaff}}">
+        <paper-button on-click="Fnsinglestaff" no ink><img src="../../images/singlestaff.png" height="180px" width="180px">
+        <h4>Single Employee Mapping</h4>
+        </paper-button>
+      </div>
     </div>
     </div>
     <!-- General ssschooladmin master ends-->
@@ -610,6 +632,7 @@
     <employee-report-service id="empservice"></employee-report-service>
     <student-report-service id="reportservice"></student-report-service>
     <teacher-book-service-card id="bookservice"></teacher-book-service-card>
+    <student-add-service id="studservice"></student-add-service>
 
   </template>
   <script>
@@ -904,6 +927,34 @@
              this.$.bookservice.fninnovategrade();
              //this.$.bookservice.fnselectinnovatesubject();
       }
+
+      if(localStorage.getItem('curr_sess_loggedassesmenttype')=="studentremove")
+      {
+         document.querySelector('app-card').setPage('homepage','');
+          document.querySelector('home-page').setPage('student-remove-card','');
+          document.querySelector('student-remove-card').FnfullRefresh();
+          this.$.studservice.fetchstudentremove();
+
+      }
+
+      if(localStorage.getItem('curr_sess_loggedassesmenttype')=="studentinformation")
+      {
+        document.querySelector('app-card').setPage('homepage','');
+        document.querySelector('home-page').setPage('student-information-card','');
+          this.$.studservice.fetchstudentremove();
+          this.$.studservice.fngetgrade();
+          this.$.studservice.fetchstudentinfo();
+           this.$.studservice.lanpref();
+           this.$.studservice.fnacadamic();
+          this.$.studservice.fnget1grade();
+      }
+      if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
+      {
+        document.querySelector('app-card').setPage('homepage','');
+        document.querySelector('home-page').setPage('single-staff-mapping-card','');
+ this.$.studservice.fetchsinglestaff();
+ this.$.studservice.fetchsinglegrade();
+ }  
       this.$.cdialog.close();   
       },
       FnStudent:function()
@@ -1526,7 +1577,40 @@
              localStorage.setItem('curr_sess_loggedassesmenttype','innovationreport');
              document.querySelector('innovation-report').FnRefreshinnvt();
              this.$.cdialog.toggle();
+          },
+           Fnaddstudent:function(e)
+          {
+            document.querySelector('app-card').setPage('homepage','');
+            document.querySelector('home-page').setPage('student-add-card','');
+              this.$.studservice.fngetgrade();
+            document.querySelector('student-add-card').FnfullRefresh();
+          },
+
+          Fnremovestudent:function(e)
+          {
+            localStorage.setItem('curr_sess_loggedassesmenttype','studentremove');
+            document.querySelector('student-remove-card').fnrefremve();
+            this.$.cdialog.toggle();
+          },
+
+          Fnstudentinformation:function(e)
+          {
+            localStorage.setItem('curr_sess_loggedassesmenttype','studentinformation');
+            document.querySelector('student-information-card').fmrefresh();
+            document.querySelector('student-information-card').fnnewreff();
+             document.querySelector('student-information-card').studentinforefresh();
+              this.$.cdialog.toggle();
+          },
+          Fnsinglestaff:function(e){
+            localStorage.setItem('curr_sess_loggedassesmenttype','singlestaff');
+            document.querySelector('single-staff-mapping-card').empinforefresh();
+            document.querySelector('single-staff-mapping-card').newempreffff();
+            this.$.cdialog.toggle();
           }
+
+
+
+
        
     });
   })();

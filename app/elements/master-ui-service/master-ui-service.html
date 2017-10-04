@@ -237,7 +237,8 @@
         handle-as="json"
         content-type="application/json"
         method="post"
-        on-response="FnSecondLangSubjectToStudentsetsResponse"
+        on-response="
+        Response"
         debounce-duration="300"
         ><iron-ajax        
         id="FnThirdLangSubjectToStudentajax"
@@ -1249,6 +1250,7 @@ Generatesectionid:function()
     //  alert(JSON.stringify(res));
         document.querySelector('Student-to-section-mapping-card').Studentsection(res);
        document.querySelector('Student-to-section-mapping-card').sectionsetarr=res;
+
      },
      fnsetstudentinfo:function(studeninfoarr,stugradeid,schooltype){
        // alert('1');
@@ -1269,6 +1271,7 @@ Generatesectionid:function()
            obj.dob=dob;
            obj.Gender=Gender;
            obj.stugradeid=stugradeid;
+           obj.flag='active';
            obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
 
         //   obj.stugradeid=stugradeid;
@@ -3162,6 +3165,7 @@ insertschoolTypename:function(schooltypesarr)
              obj.subjectid=subjectid;
              obj.Acadamicyear=Acadamicyear;
              obj.langugagepref=langugagepref;
+             obj.flag='active';
              obj.schoolnames=sessionStorage.getItem("curr_sess_loggedschoolid");; 
            this.FnSecondLangSubjectToStudentparam=obj;
         // alert(JSON.stringify(obj));
@@ -3173,7 +3177,7 @@ insertschoolTypename:function(schooltypesarr)
         var res=e.detail.response.returnval
 
         //alert(JSON.stringify(res));        
-         /*if(res=='Inserted!')
+         if(res=='Inserted!')
          {
             document.querySelector('student-to-subject-mapping-card').fninsert();
 
@@ -3182,7 +3186,7 @@ insertschoolTypename:function(schooltypesarr)
          {
             document.querySelector('student-to-subject-mapping-card').fnupdate();
          }
-*/
+
       },
       FnSecondLangSubjectToStudentsets:function(fnthidlanginfoarr){
            for(var i=0;i<fnthidlanginfoarr.length;i++){
@@ -3221,7 +3225,7 @@ insertschoolTypename:function(schooltypesarr)
          
       },
        FnThirdLangSubjectToStudent:function(fnthidlanginfo1arr){
-                   for(var i=0;i<fnthidlanginfo1arr.length;i++){
+           for(var i=0;i<fnthidlanginfo1arr.length;i++){
              var studentid=fnthidlanginfo1arr[i].studentid;
              var studentname=fnthidlanginfo1arr[i].studentname;
              var gradeid=fnthidlanginfo1arr[i].gradeid;
@@ -3242,14 +3246,27 @@ insertschoolTypename:function(schooltypesarr)
              obj.subjectid=subjectid;
              obj.Acadamicyear=Acadamicyear;
              obj.langugagepref=langugagepref;
+             obj.flag='active';
              obj.schoolnames=sessionStorage.getItem("curr_sess_loggedschoolid");; 
-          this.FnThirdLangSubjectToStudentparam=obj;
-         //alert(JSON.stringify(obj));
-        this.$.FnThirdLangSubjectToStudentajax.generateRequest();
+             this.FnThirdLangSubjectToStudentparam=obj;
+                //alert(JSON.stringify(obj));
+             this.$.FnThirdLangSubjectToStudentajax.generateRequest();
     }
     },
       FnThirdLangSubjectToStudentResponse:function(e)
       {
+        var res=e.detail.response.returnval;
+
+        //alert(JSON.stringify(res));        
+         if(res=='Inserted!')
+         {
+            document.querySelector('student-to-subject-mapping-card').fninsert();
+
+         }
+         else if(res=='updated successfully')
+         {
+            document.querySelector('student-to-subject-mapping-card').fnupdate();
+         }
 
       },
        SelectSchoolgrades:function()
@@ -3435,7 +3452,7 @@ insertschoolTypename:function(schooltypesarr)
                 //alert(JSON.stringify(res));
             if(res!='empty')
             {
-                document.querySelector('specific-student-section-card').getprestudent(res);
+                document.querySelector('specific-student-section-card').getprevistudent(res);
             }    
         },
 
@@ -3472,6 +3489,8 @@ insertschoolTypename:function(schooltypesarr)
         document.querySelector('Student-to-section-mapping-card').dob=res[0].dob;
         
         document.querySelector('Student-to-section-mapping-card').gender=res[0].gender;
+
+        document.querySelector('Student-to-section-mapping-card').fnstudent();
      },
   
         fnsubmitsection:function(setsectionarr1,schooltype)
@@ -3486,9 +3505,8 @@ insertschoolTypename:function(schooltypesarr)
                 var class_id=setsectionarr1[i].classid;
                 var grade_id=setsectionarr1[i].grade_id;
             
-
                 this.fnsubmitsectionurl=sessionStorage.getItem("addrinfo")+"/fnsubmitsection-service";
-                var obj={"scholid1":"","student_name":"","id":"","gender":"","dob":"","academic_year":"","grade_id":"","class_id":"","school_type":""};
+                var obj={"scholid1":"","student_name":"","id":"","gender":"","dob":"","academic_year":"","grade_id":"","class_id":"","school_type":"","flag":""};
                 obj.scholid1=sessionStorage.getItem("curr_sess_loggedschoolid");
                 obj.student_name=student_name;
                 obj.id=id;
@@ -3498,8 +3516,8 @@ insertschoolTypename:function(schooltypesarr)
                 obj.class_id=class_id;
                 obj.school_type=schooltype;
                 obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+                obj.flag='active';
                 this.fnsubmitsectionparam=obj;
-               
                 this.$.fnsubmitsectionajax.generateRequest();
             }
         },
@@ -3508,6 +3526,11 @@ insertschoolTypename:function(schooltypesarr)
         {
             var res=e.detail.response.returnval;
             //alert(JSON.stringify(res));
+
+            if(res=='Inserted!')
+            {
+              document.querySelector('Student-to-section-mapping-card').fnsinglestudsubmit();
+            }
              
         },
         /*gradesectionedit:function(sectiongradename)

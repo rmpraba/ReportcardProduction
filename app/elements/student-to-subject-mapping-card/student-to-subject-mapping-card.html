@@ -152,7 +152,7 @@
                 <tr>
                   <td></td>     
                     <th class="innercard1" style="width: 874px;
-                  margin-left: 20em;;margin-top: -31em;">
+                  margin-left: 17em;;margin-top: -31em;">
                       <template is="dom-repeat" items="{{setsubjectarr}}" as="view">
                         <h4>{{view.srtarr}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>   
                       </template>
@@ -379,7 +379,7 @@
       {
                this.$.uiservice.FnSecondLangSubjectToStudentsets(fnthidlanginfoarr);
                this.$.uiservice.FnThirdLangSubjectToStudent(fnthidlanginfo1arr);
-               alert("Inserted Successfully");
+               //alert("Inserted Successfully");
 
                 if(kn.length!=0)
                 {
@@ -390,12 +390,12 @@
         else
         {
            this.$.uiservice.FnSecondLangSubjectToStudent(fnsecondlanginfoarr);
-              if(kn.length!=0)  
+               if(kn.length!=0)  
                {
               
                }
               document.querySelector('student-list-mapping-item').FnSecondLang();   
-              alert("Inserted Successfully");
+              //alert("Inserted Successfully");
 
         }
         //document.querySelector('#rsectionwww').selected=-1;
@@ -659,7 +659,7 @@
      },
      fninsert:function(e)
      {
-      alert('Inserted Successfully');
+      alert('Inserted');
      },
 
 

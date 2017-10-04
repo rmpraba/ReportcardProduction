@@ -1,15 +1,6 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
 
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
-  <link rel="import" href="../demosumbit-card/demosumbit-card.html">
+<link rel="import" href="../demosumbit-card/demosumbit-card.html">
 
 
 <dom-module id="Student-to-section-mapping-card">  
@@ -245,51 +236,49 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div> 
 
 
-      <div class="specific1"  hidden$="{{hidespecific}}">
-          <table style="border-collapse: collapse;width: 70%;">            
-            <tr>
-              <th></th>
-              <td style="padding-left: 1%;">
-                <template is="dom-repeat" items="{{sectionsetarr}}" as="view">
-                  <td id="tdid">{{view.section_id}}</td>
-                </template>
-              </td>
-              <th></th>
-            </tr>     
-            <tbody>
-              <td><h4>{{value}}</h4></td>
-                <td style="width: 80%;padding-left: 7%;">
-                  <table border="0">
-                    <tr>
-                     <template is="dom-repeat" items="{{sectionsetarr}}" as="s">
-                        <td>
-                          <specific-student-section-card sectionname="{{s.section_id}}" classid="{{s.class_id}}" studentname="{{student_name}}"
-                        id="{{s.class_id}}{{adminno1}}" enqno="{{enqno}}" gender="{{gender}}" dob="{{dob}}" adminno1="{{adminno1}}" stugradeid="{{stugradeid}}"></specific-student-section-card>
-                        </td>
-                      </template>
-                      
-                      <td>
-                        <paper-icon-button style="margin-left:3em;" icon="save" on-click="fnsubmit"></paper-icon-button>
-                      </td>
-                   </tr>
-                  </table>
-                </td>  
-              </tbody>  
-            </table>
-            
-          </div>              
+      <div class="specific1"  id="hidespecific">
+        <table style="border-collapse: collapse;width: 70%;">            
+          <tr>
+            <th></th>
+            <td style="padding-left: 3%;">
+              <template is="dom-repeat" items="{{sectionsetarr}}" as="view">
+                <td id="tdid">{{view.section_id}}</td>
+              </template>
+            </td>
+            <th></th>
+          </tr>     
+          <tbody>
+            <td><h4>{{value}}</h4></td>
+            <td style="width: 80%;padding-left: 7%;">
+              <table border="0">
+                <tr>
+                  <template is="dom-repeat" items="{{sectionsetarr}}" as="s">
+                    <td>
+                      <specific-student-section-card sectionname="{{s.section_id}}" classid="{{s.class_id}}" studentname="{{student_name}}"
+                      id="{{s.class_id}}{{adminno1}}" enqno="{{enqno}}" gender="{{gender}}" dob="{{dob}}" adminno1="{{adminno1}}" stugradeid="{{stugradeid}}"></specific-student-section-card>
+                    </td>
+                  </template>  
+                    <td>
+                      <paper-icon-button style="margin-left:3em;" icon="save" on-click="fnsubmit"></paper-icon-button>
+                    </td>
+                  </tr>
+                </table>
+              </td>  
+            </tbody>  
+          </table>  
+        </div>              
 
         <div id="z1">
-             <paper-buuton  id="prebutton" on-click="fnpriver">
+             <paper-button  id="prebutton" on-click="fnpriver">
              <a href="#"  style="font-size: 19px;font-style: oblique;"><b>Previous</b></a>
-             </paper-buuton>
+             </paper-button>
       </div>
       
       <div id="z">
          
-           <paper-buuton  id="nextbutton" on-click="fnnext">
+           <paper-button  id="nextbutton" on-click="fnnext">
              <a href="#" style="font-size: 19px;font-style: oblique;"><b>Next</b></a>
-             </paper-buuton>
+             </paper-button>
           
       </div>
       
@@ -361,7 +350,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </iron-ajax>
      
      <demosumbit-card id="mydialog"></demosumbit-card>  
-      <master-ui-service id="uiservice"></master-ui-service>
+    <master-ui-service id="uiservice"></master-ui-service>
    </template>
   <script>
   (function() {
@@ -396,7 +385,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.hideschooltype=true;
           this.hidesetgrade=true;
           this.value="";
-          this.hidespecific=true;
+          this.$.hidespecific.hidden=true;
 
          if(document.querySelector('#empgradeiddd').selected!=-1)
         {
@@ -1012,7 +1001,7 @@ for(var j=0;j<l.length;j++){
         this.$.uiservice.fnretrivestudent(this.stugradeid);
         this.$.uiservice.fngetstudent(this.stugradeid,this.stugradevalue);
         this.$.uiservice.FngetStudentpasssection(this.stugradeid,this.stugradevalue);
-        this.hidespecific=true;
+        this.$.hidespecific.hidden=true;
         this.value="";
         overall=[];
         g=[];
@@ -1058,9 +1047,7 @@ for(var j=0;j<l.length;j++){
       if(e.keyCode==13|| e.keyCode==40)
       this.querySelector('#studentselect').focus();
       var arr=[];
-      //alert(arr.push({"itemdes":"-----Select-----"}));
       arr.push({"itemdes":"-----Select-----"});
-      //alert(arr);
       this.querySelector('#studentselect').style.visibility='visible';
       if(e.keyCode==8)
       {
@@ -1128,6 +1115,7 @@ for(var j=0;j<l.length;j++){
         }
       }
       this.$.studentselect.hidden=false;
+      this.$.hidespecific.hidden=true;
     },
 
      FnSelectenq:function(e)
@@ -1136,18 +1124,27 @@ for(var j=0;j<l.length;j++){
     this.querySelector('#studentselect').style.visibility='hidden';
     this.student_name = e.target.selectedItem.textContent.trim();
     admission_no = e.target.selectedItem.value;
-    //alert(admission_no);
-    this.value=this.student_name;
+    this.$.hidespecific.hidden=false;
+    this.itemArray=[];
+    document.querySelector('#studentselect').selected=-1;
+     
+     this.value=this.student_name;
      this.hidenewtabb=true;
-    this.hidespecific=false;
-    this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
+    
+    //this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
+
     this.$.uiservice.selectspecificstudent(admission_no);
-      this.itemArray=[];
-      document.querySelector('#studentselect').selected=-1; 
-      document.querySelector('specific-student-section-card').studentsectionclean();
+      
+       
+     document.querySelector('specific-student-section-card').studentsectionclean();
 
     },
 
+    fnstudent:function()
+    {
+      //alert(2);
+      this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
+    },
     allstudent:function(e)
     {
       if(chkkk2.checked==true)
@@ -1157,9 +1154,11 @@ for(var j=0;j<l.length;j++){
           this.hidegenerateopt=false;
           chzz.checked=false;
           this.$.studz.hidden=true;
-          this.hidespecific=true;
+          this.$.hidespecific.hidden=true;
           document.querySelector('Student-to-section-mapping-item-card').FnRefresh();
           document.querySelector('#empgradeiddd').selected=-1;
+           this.querySelector('#studentselect').style.visibility='hidden';
+           this.value="";
       }
       else
       {
@@ -1167,7 +1166,6 @@ for(var j=0;j<l.length;j++){
           this.hidesetgrade=true;
           this.hidegenerateopt=true;
           this.$.stdchzz.hidden=false;
-
       }
     },
     fnsetsetcion:function(arr)
@@ -1177,14 +1175,19 @@ for(var j=0;j<l.length;j++){
     },
     fnsubmit:function(e)
     {
-
-        this.$.uiservice.fnsubmitsection(studentsetarr,schooltype);
-        this.itemArray=[];
-        this.value="";
-        this.hidespecific=true;
-        this.$.mydialog.toggleDialog();
-        document.querySelector('specific-student-section-card').studentsectionclean();
-
+        if(studentsetarr.length==0)
+        {
+          alert('Please Select Any Section');
+        }
+        else
+        {
+          this.$.uiservice.fnsubmitsection(studentsetarr,schooltype);
+          this.itemArray=[];
+          this.value="";
+          this.$.hidespecific.hidden=true;
+          
+          document.querySelector('specific-student-section-card').studentsectionclean();
+        }
     },
     fnenq:function(enq1)
     {
@@ -1200,6 +1203,10 @@ for(var j=0;j<l.length;j++){
     fngradechange:function()
     {
       document.querySelector('#empgradeiddd').selected=-1; 
+    },
+    fnsinglestudsubmit:function()
+    {
+      this.$.mydialog.toggleDialog();
     }
   
    
