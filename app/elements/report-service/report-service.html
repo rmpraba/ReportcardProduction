@@ -147,6 +147,7 @@
         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
         obj.grade=localStorage.getItem("curr_sess_grade");
         obj.section=localStorage.getItem("curr_sess_section");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear");
         this.fetchstudnameparam=obj;
         this.$.fetchstudnameajax.generateRequest();
       },
@@ -191,6 +192,7 @@
         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
         obj.grade=localStorage.getItem("curr_sess_grade");
         obj.section=localStorage.getItem("curr_sess_section");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear");
         this.fetchreportsubjectnameparam=obj;
         this.$.fetchreportsubjectnameajax.generateRequest();
       },
@@ -573,7 +575,8 @@ var i;
       var catarr=[];
       var catfinal=[];
       var arr1=e.detail.response.returnval;
-
+      var sarr=e.detail.response.catarr;
+      // alert(JSON.stringify(sarr));
       for(var x=0;x<studarr.length;x++){
         for(var y=0;y<arr1.length;y++)
         {
@@ -581,10 +584,11 @@ var i;
             arr1[y].student_name=studarr[x].student_name;          
         }
       }
-
       if(arr1.length>0){      
+       // var f=0;
        for(var i=0;i<arr1.length;i++)
        {
+        // f=1;
         var markarr=[];
         markarr.push(i+1);
         markarr.push(arr1[i].student_name);
@@ -598,6 +602,7 @@ var i;
            {
             markarr.push(arr1[j].total);
             markarr.push(arr1[j].grade);
+            // if(i==0)
             subarr.push(arr1[j].sub_category);
             catarr.push(arr1[j].category);
             arr1.splice(j,1);
@@ -608,18 +613,26 @@ var i;
         }      
         // alert(JSON.stringify(subfinal));  
         // alert(JSON.stringify(overall));              
-        var subfinal=this.eliminateDuplicates(subarr); 
+        // var subfinal=this.eliminateDuplicates(subarr); 
         var catfinal=this.eliminateDuplicates(catarr); 
-        // alert(JSON.stringify(catfinal));
-        var titlearr=[]; 
-        
+        // alert(JSON.stringify(sarr.length));
+        var titlearr=[];
+        subfinal.push("Sno");
+        subfinal.push("Student Name");
+        for(var i=0;i<sarr.length;i++){
+          subfinal.push(sarr[i].sub_category_name);
+        } 
+        // subfinal=sarr;
         subfinal.splice(0,2); 
         for(var i=0;i<subfinal.length;i++){
           if(subfinal[i]!="Sno"||subfinal[i]!="Student Name"){
             titlearr.push("Total");
             titlearr.push("Grade");
           }
-        }   
+        }
+        // alert(JSON.stringify(subfinal));   
+        // alert(JSON.stringify(titlearr));
+        // alert(JSON.stringify(overall));
         // document.querySelector("categorywise-report").categoryarr=catfinal;
         document.querySelector("categorywise-report").FnHideView();
         document.querySelector("categorywise-report").subjectarr=subfinal;

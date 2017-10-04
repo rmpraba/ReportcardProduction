@@ -49,11 +49,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .p7{
         margin-left: 7%;
       }
+      .spinner{
+      margin-left: 50%;            
+    }
+    #dynamicspinner{
+      margin: 0;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+    }
     </style>
     <!-- <table border="1"> -->
     <!-- <tr> -->
   <p hidden>{{langpref}}</p>
   <p hidden>{{subjectid}}</p>
+  <p hidden>{{category}}</p>
    <div class='card'>
    <p class='p1'>{{academic}}</p>
    <p class='p2'>{{term}}</p>
@@ -64,23 +74,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <p class='p7'><ahref class="viewdata" on-click="Fnview"><u>View</u></ahref></p>
    <p class='p8'><ahref class="viewdata" on-click="Fnrevert"><u>Revert</u></ahref></p>
    </div>
+   <div class="spinner"><paper-dialog modal id="dynamicspinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog></div>
 <!-- </tr> -->
 <!-- </table> -->
  <term-assesment-service id="assesmentservice"></term-assesment-service>
  <co-scholastic-service id="coscholasticservice"></co-scholastic-service>
  <subject-dynamic-service id="subjectservice"></subject-dynamic-service>
+ <dynamic-scholastic-subject-service id="scholasticsubjectservice"></dynamic-scholastic-subject-service>
+ <dynamic-coscholastic-subject-service id="coscholasticsubjectservice"></dynamic-coscholastic-subject-service>
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'approve-one-to-four-itemcard',
-
+     is: 'approve-one-to-four-itemcard',
      Fnview:function()
      {
+      localStorage.setItem("curr_sess_approvalflag",1);
       localStorage.setItem("curr_sess_academicyear",this.academic);
       localStorage.setItem("curr_sess_termname",this.term);
+      // alert(this.assesment);
       localStorage.setItem("curr_sess_assesment",this.assesment);
       localStorage.setItem("curr_sess_assesmenttype",this.assesment);
       localStorage.setItem("curr_sess_subject",this.subject);
@@ -89,7 +103,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       localStorage.setItem("curr_sess_section",this.section);
       localStorage.setItem("curr_sess_languagepref",this.langpref);
       //alert(localStorage.getItem("curr_sess_assesment"));
-      document.querySelector('approve-one-to-four-card').FnSpinnerrActive(true); 
+      // this.FnToggleSpinner(true);
+      // document.querySelector('approve-one-to-four-card').FnSpinnerrActive(true); 
       if(this.subject=="Attendance")
       {
         // alert('hi');
@@ -115,12 +130,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         document.querySelector('subject-dynamic-markentrycard').FnRefresh();
         this.$.subjectservice.subjectsubmittedcheckService(this.grade,this.section,this.subject);
       }
-      else
-      this.$.assesmentservice.fetchimportmark(this.academic,this.term,this.assesment,this.grade,this.section,this.subject);
+      else{
+        if(this.category=='category1'){
+        document.querySelector('home-page').setPage('termassesment','');
+        document.querySelector('term-assesment').hiddenpage(); 
+        document.querySelector('term-assesment-sheet-card').setPage('dynamic-scholastic-markentry-card');
+        document.querySelector('dynamic-scholastic-markentry-card').FnRefresh();
+        this.$.scholasticsubjectservice.subjectsubmittedcheckService(this.grade,this.section,this.subject);
+        }
+        else if(this.category=='category2'||this.category=='category3'){
+        document.querySelector('home-page').setPage('coscholasticassesment','');
+        document.querySelector('coscholastic-assesment').hiddenpage();
+        document.querySelector('coscholastic-assesment-sheet-card').setPage('dynamic-coscholastic-markentry-card');
+        document.querySelector('dynamic-coscholastic-markentry-card').FnRefresh();
+        this.$.coscholasticsubjectservice.subjectsubmittedcheckService(this.grade,this.section,this.subject);
+        }
+      }
+      // this.$.assesmentservice.fetchimportmark(this.academic,this.term,this.assesment,this.grade,this.section,this.subject);
      },
      Fnrevert:function(){
       this.$.assesmentservice.revertsubmittedmarkService(this.academic,this.term,this.assesment,this.grade,this.section,this.subject);
+     },
+     FnToggleSpinner:function(flag){
+      // alert(flag);
+        this.$.dynamicspinner.opened=flag;
      }
+
     });
   })();
   </script>

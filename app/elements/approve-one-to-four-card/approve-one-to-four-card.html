@@ -28,7 +28,7 @@
             /*color: #0f9d58;*/
             /*border: none;*/
           }
-          #spinner{
+          #dynamicapprovespinner{
             margin: 0;
             padding: 0;
             border: none;
@@ -46,7 +46,7 @@
         width: 83%;
       }
     </style>
-    <div class="spinner"><paper-dialog id="spinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog></div>
+    <div class="spinner"><paper-dialog id="dynamicapprovespinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog></div>
     <div>
      <center><h1>Mount Litera Zee School</h1>
      <div id="hidetop">
@@ -70,7 +70,7 @@
        </table>
      
 <template is="dom-repeat" items="{{approvearr}}" as="m">
-<div id="itemcard"><approve-one-to-four-itemcard academic="{{m.academic_year}}" assesment="{{m.assesment_id}}" term="{{m.term_name}}" grade="{{m.grade}}" section="{{m.section}}" subject="{{m.subject}}" langpref="{{m.langpref}}" subjectid="{{m.subject_id}}"></approve-one-to-four-itemcard></div>
+<div id="itemcard"><approve-one-to-four-itemcard category="{{m.category}}" academic="{{m.academic_year}}" assesment="{{m.assesment_id}}" term="{{m.term_name}}" grade="{{m.grade}}" section="{{m.section}}" subject="{{m.subject}}" langpref="{{m.langpref}}" subjectid="{{m.subject_id}}"></approve-one-to-four-itemcard></div>
 </template>
  
  </div>
@@ -78,17 +78,15 @@
   <script>
   (function() {
     'use strict';
-
     Polymer({
-      is: 'approve-one-to-four-card',
-       FnSpinnerrActive:function(flag){
-        if(flag==true)
-        this.$.spinner.opened=true;
-        if(flag==false)
-        this.$.spinner.opened=false;
-    }
-
-   
+    is: 'approve-one-to-four-card',
+    FnSpinnerrActive:function(flag){
+      // alert(flag);
+      if(flag==true)
+      this.$.dynamicapprovespinner.opened=true;
+      if(flag==false)
+      this.$.dynamicapprovespinner.opened=false;
+    }   
     });
   })();
   </script>

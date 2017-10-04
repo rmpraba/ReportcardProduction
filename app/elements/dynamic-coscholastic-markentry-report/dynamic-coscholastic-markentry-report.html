@@ -1,20 +1,20 @@
 
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
 
-<dom-module id="dynamic-markentry-report">
+<dom-module id="dynamic-coscholastic-markentry-report">
   <template>
     <style>
       :host {
         display: block;
       }
-      table{
+/*      table{
         width: 60%;
         border-collapse: collapse;                          
         margin-left: 1%;
-      }              
-      .studname{
+      }  */            
+/*      .studname{
         width: 30%;
-      }
+      }*/
       #tb1{
         width:15%
       }
@@ -40,7 +40,7 @@
         margin-left: 45%;
       }
     </style>
-    <div id="dynamicfareporttable">
+    <div id="dynamicreporttable">
     <center>
     <div hidden$="{{hideheader}}" >
       <h1>{{schoolname}}</h1>
@@ -48,17 +48,28 @@
       <h4>Assesment: {{assesmentname}}  &nbsp;&nbsp;&nbsp; Grade: {{grade}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Section: {{section}} &nbsp;&nbsp; Subject: {{subject}} </h4> 
     </div>
       <div >
-      <table border="1" style="border-collapse: collapse;">
+     <!--  <table border="1" style="border-collapse: collapse;" width="{{tabwidth}}">
+      <template is="dom-repeat" items="{{catarr}}">
+      <tr>
+      <th width="15%">{{item.studentname}}</th>
+      <template is="dom-repeat" items="{{item.category}}" as="i">
+      <th  colspan="{{i.categorycnt}}" width="{{i.width}}">{{i.subcategoryname}}</th>
+      </template>
+      </tr>
+      </template>
+      </table> -->
+      <table border="1" style="border-collapse: collapse;" width="{{tabwidth}}">
       <template is="dom-repeat" items="{{studarr}}">
       <tr>
-      <template is="dom-repeat" items="{{item.row}}" as="i">
-      <th>{{i}}</th>
+      <th width="15%">{{item.studentname}}</th>
+      <template is="dom-repeat" items="{{item.category}}" as="i">
+      <th  colspan="{{i.categorycnt}}" width="{{i.width}}">{{i.subcategoryname}}</th>
       </template>
       </tr>
       </template>
       </table>  
       </div>
-      <input type="button" id="btn2" onclick="tableToExcel('dynamicfareporttable', 'Mark Report')" value="Export to Excel">
+      <input type="button" id="btn2" onclick="tableToExcel('dynamicreporttable', 'Mark Report')" value="Export to Excel">
       </center> 
     </div>
     <subject-dynamic-service id="subjectservice"></subject-dynamic-service>
@@ -82,7 +93,7 @@
     var scorearr=[];
     var gradearr=[];
     Polymer({
-      is: 'dynamic-markentry-report',
+      is: 'dynamic-coscholastic-markentry-report',
       ready:function(){
         this.hideheader=true;      
       },

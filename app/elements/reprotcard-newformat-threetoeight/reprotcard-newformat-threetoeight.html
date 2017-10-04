@@ -18,10 +18,22 @@
     }
     .tab{
       margin-left: 25px;
-      width: 850px;
+      width: 800px;
+    }
+    .tab1{
+      margin-left: 25px;
+      width: 450px;
+    }
+    .tab2{
+      margin-left: 25px;
+      width: 800px;
+    }
+    .tab3{
+      margin-left: 25px;
+      width: 800px;
     }
     table{
-      width: 850px;
+      /*width: 850px;*/
     }
     .outercard{
       width: 890px;
@@ -39,6 +51,18 @@
     margin-top: 80px;
     margin-left: 300px;
     }
+    table.tab th{
+      border: solid 2px;
+    }
+    table.tab td{
+      border: solid 2px;
+    }
+    table.tab1 th{
+      border: solid 2px;
+    }
+    table.tab1 td{
+      border: solid 2px;
+    }
     </style>
     <div class="outcard">
     <div class="outercard">
@@ -50,11 +74,12 @@
           <tr><th style="text-align: left;">Student’s Name: </th><th style="text-align: left;">{{studentname}}</th></tr>
           <tr><th style="text-align: left;">Mother’s/Father’s/Guardian’s Name: </th><th style="text-align: left;">{{fathername}}</th></tr>
           <tr><th style="text-align: left;">Date of birth: </th><th style="text-align: left;">{{dob}}</th></tr>
+          <tr><th style="text-align: left;">Class/Section: </th><th style="text-align: left;">{{class}}/{{section}}</th></tr>
         </table>
       </div>
       <br><br>
       <div class="tab">
-      <table style="border-collapse: collapse;" border="1">
+      <table class="tab" style="border-collapse: collapse;" border="2">
         <tr><th>Scholastic Areas</th><th colspan="6">Term 1</th><th colspan="6">Term 2</th></tr>
         <tr><th>Subjects</th><th>Periodic Test1</th><th>NB1</th><th>SEA1</th><th>Half yearly exam</th><th>Marks Obtained(100)</th><th>Grade</th><th>Periodic Test1</th><th>NB1</th><th>SEA1</th><th>Yearly exam</th><th>Marks Obtained(100)</th><th>Grade</th></tr>
         <template is="dom-repeat" items="{{arr}}">
@@ -63,8 +88,8 @@
       </table>
       </div>
       <br><br>
-      <div class="tab">
-        <table style="border-collapse: collapse;" border="1">
+      <div class="tab1">
+        <table class="tab1" style="border-collapse: collapse;" border="2">
           <tr><th style="text-align: left;">Co scholastic Areas [on a 3 point A – C grading scale]</th><th style="text-align: left;">Grade</th></tr>
           <template is="dom-repeat" items="{{coarr}}">
           <tr><td>{{item.subject_id}}</td><td>{{item.grade}}</td></tr>
@@ -72,8 +97,8 @@
         </table>
       </div>
       <br><br>
-      <div class="tab">
-      <table style="border-collapse: collapse;" border="1">
+      <div class="tab1">
+      <table class="tab1" style="border-collapse: collapse;" border="2">
         <tr><th style="text-align: left;">[A - C grading scale]</th><th style="text-align: left;">Grade</th></tr>
         <template is="dom-repeat" items="{{disarr}}">
           <tr><td>{{item.subject_id}}</td><td>{{item.grade}}</td></tr>
@@ -81,15 +106,15 @@
       </table>
       </div>
       <br><br>
-      <div class="tab">
-      <table>
+      <div class="tab2">
+      <table class="tab2">
         <tr><th style="text-align: left;">Class Teacher's Remarks</th><th>{{remark}}</th></tr>
         <tr><th style="text-align: left;">Result</th><th>{{result}}</th></tr>
       </table>
       </div>
       <br><br>
-      <div class="tab">
-        <table>
+      <div class="tab3">
+        <table class="tab3">
           <tr><th>{{date}}</th><th><img id="teimg1" width="100px;height:30px;"></th><th><img id="teimg2" width="100px;height:30px;"></th></tr>
           <tr><th>Date</th><th>Signature of Class Teacher's</th><th>Signature of Principal</th></tr>
         </table>
@@ -124,6 +149,8 @@
         // alert('yes'+document.querySelector('#pimg1'));
         document.querySelector('#teimg1').src="../../images/"+sessionStorage.getItem("curr_sess_loggedid").toUpperCase()+sessionStorage.getItem("curr_sess_loggedschoolid")+".jpg";
         document.querySelector('#teimg2').src="../../images/principal"+sessionStorage.getItem("curr_sess_loggedschoolid")+".jpg";
+        this.class=localStorage.getItem("curr_sess_grade").toUpperCase();
+        this.section=localStorage.getItem("curr_sess_section").toUpperCase();
       },
       print:function(){
               document.querySelector('home-page').FnHideView(true);

@@ -137,72 +137,139 @@
         this.hideterm=true;
         this.hideassesment=true; 
         this.hidesubject=true; 
-
         // this.hidecategory=true; 
       },
       FnHideSchool:function(){
         // this.ready();
-
         if(sessionStorage.getItem("curr_sess_loggedroleid")!='management')
           this.hideschool=true;
         else
           this.hideschool=false;
       },
       FnSelectSchool:function(e){
-        
         var name=e.target.selectedItem.textContent.trim(); 
         var school=e.target.selectedItem.value.trim(); 
         sessionStorage.setItem("curr_sess_loggedschoolid",school);
         sessionStorage.setItem("curr_sess_loggedschoolname",name);
         this.FnRefresh();
+        document.querySelector('#gradetyp').selected=-1;
+        document.querySelector('#sectyp').selected=-1;
+        document.querySelector('#rpttype').selected=-1;
+        document.querySelector('#termtyp').selected=-1;
+        document.querySelector('#asstyp').selected=-1;
+        document.querySelector('#subtyp').selected=-1;
+        this.categorycard=true;
+        this.subjectcard=true;
+        this.termcard=true;
+        this.assesmentcard=true;
+        this.consolidatedtermcard=true;
         this.$.scorecardservice.callGradeService();
       },
       FnSelectGrade:function(e){        
         gradename = e.target.selectedItem.textContent.trim();       
         localStorage.setItem("curr_sess_grade",gradename);
+        document.querySelector('#sectyp').selected=-1;
+        document.querySelector('#rpttype').selected=-1;
+        document.querySelector('#termtyp').selected=-1;
+        document.querySelector('#asstyp').selected=-1;
+        document.querySelector('#subtyp').selected=-1;
+        this.categorycard=true;
+        this.subjectcard=true;
+        this.termcard=true;
+        this.assesmentcard=true;
+        this.consolidatedtermcard=true;
         this.$.scorecardservice.callSectionService(gradename);
-        if(this.flag==1)
-          this.callService();
+        // if(this.flag==1){
+        // document.querySelector('#sectyp').selected=-1;
+        // document.querySelector('#rpttype').selected=-1;
+        // document.querySelector('#termtyp').selected=-1;
+        // document.querySelector('#asstyp').selected=-1;
+        // document.querySelector('#subtyp').selected=-1;
+        // this.callService();
+        // }
       },
       FnSelectSection:function(e){
         section = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_section",section);
-        if(this.flag==1)                
-        this.callService();
+        // if(this.flag==1){             
+        document.querySelector('#rpttype').selected=-1;
+        document.querySelector('#termtyp').selected=-1;
+        document.querySelector('#asstyp').selected=-1;
+        document.querySelector('#subtyp').selected=-1;
+        this.categorycard=true;
+        this.subjectcard=true;
+        this.termcard=true;
+        this.assesmentcard=true;
+        this.consolidatedtermcard=true;
+        // this.callService();
+        // }
       },
        FnSelectType:function(e){
         type = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_reporttype",type);
+        document.querySelector('#termtyp').selected=-1;
+        document.querySelector('#asstyp').selected=-1;
+        document.querySelector('#subtyp').selected=-1;
         if(type=="Categorywise"){
         this.$.reportservice.callfetchsubjectnameService(); 
         this.hideterm=false;
         // this.hideassesment=false;
         this.hidesubject=false;
+        this.categorycard=false;
+        this.subjectcard=true;
+        this.termcard=true;
+        this.assesmentcard=true;
+        this.consolidatedtermcard=true;
         this.$.categ.setDefaultHeaders();
         }
         if(type=="Subjectwise"){
         this.$.reportservice.callfetchsubjectnameService(); 
         this.hideterm=false;
         this.hidesubject=false;
+        this.categorycard=true;
+        this.subjectcard=false;
+        this.termcard=true;
+        this.assesmentcard=true;
+        this.consolidatedtermcard=true;
         this.$.subject.setDefaultHeaders();
         } 
         if(type=="Assesmentwise"){
         this.hideterm=false;
         this.hideassesment=false;
+        this.categorycard=true;
+        this.subjectcard=true;
+        this.termcard=true;
+        this.assesmentcard=false;
+        this.consolidatedtermcard=true;
         this.$.assesment.setDefaultHeaders();
         }                
         if(type=="Termwise"){
-        this.hideterm=false;        
+        this.hideterm=false;   
+        this.hidesubject=true;
+        this.hideassesment=true;
+        this.categorycard=true;
+        this.subjectcard=true;
+        this.termcard=false;
+        this.assesmentcard=true;
+        this.consolidatedtermcard=true;     
         this.$.term.setDefaultHeaders(); 
         } 
         if(type=="ConsolidatedTerm"){
         this.hideterm=false;
+        this.categorycard=true;
+        this.subjectcard=true;
+        this.termcard=true;
+        this.assesmentcard=true;
+        this.consolidatedtermcard=false;
         this.$.consolidated.setDefaultHeaders();
         }        
       },
       FnSelectSubject:function(e){
         subject = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_subject",subject);
+        // document.querySelector('#termtyp').selected=-1;
+        // document.querySelector('#asstyp').selected=-1;
+        // document.querySelector('#subtyp').selected=-1;
         if(type=="Subjectwise"||type=="Categorywise"){  
           // if(type=="Categorywise") 
           // document.querySelector('categorywise-report').FnRefresh();
@@ -215,6 +282,7 @@
       FnSelectTerm:function(e){
         termname = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_termname",termname);
+        document.querySelector('#subtyp').selected=-1;
         if(type=="Termwise"){
           this.$.term.setDefaultHeaders(); 
           this.$.reportservice.callFetchstudentnameService(); 

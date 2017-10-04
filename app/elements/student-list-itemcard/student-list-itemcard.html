@@ -44,6 +44,7 @@
         <!-- </tr> -->
       <!-- </table>       -->
     </div>
+    
     <term-assesment-service id='assesmentservice'></term-assesment-service>
     <onetofour-scorecard-service id="otfscorecardservice"></onetofour-scorecard-service>
     <scorecard-service id="scorecardservice"></scorecard-service>
@@ -86,6 +87,7 @@
         this.$.newformatservice.fetchstudinfofornewformatService(this.studentid);
         this.$.newformatservice.fetchnewformatscholasticsubjects1(this.studentid);
         this.$.newformatservice.fetchnewformatcoscholasticsubjects1(this.studentid);
+        this.$.newformatservice.fetchnewformatremark1(this.studentid);
         document.querySelector('app-card').setPage('homepage','');
         document.querySelector('home-page').setPage('newformat-reportcard-nineten','');
         }
@@ -93,6 +95,7 @@
         this.$.newformatservice.fetchstudinfofornewformatService(this.studentid);
         this.$.newformatservice.fetchnewformatscholasticsubjects(this.studentid);
         this.$.newformatservice.fetchnewformatcoscholasticsubjects(this.studentid);
+        this.$.newformatservice.fetchnewformatremark(this.studentid);
         document.querySelector('app-card').setPage('homepage','');
         document.querySelector('home-page').setPage('reprotcard-newformat-threetoeight','');
         }

@@ -73,12 +73,69 @@
         on-response="fetchnewformatcoscholasticsubjectsResponse"
         debounce-duration="300"
     >
+    <iron-ajax
+        method="post"
+        id="fetchnewformatremarkajax"
+        url="{{fetchnewformatremarkurl}}"
+        params="{{fetchnewformatremarkparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fetchnewformatremarkResponse"
+        debounce-duration="300"
+    >
+
+    <iron-ajax
+        method="post"
+        id="fetchnewformatremarkajax1"
+        url="{{fetchnewformatremarkurl1}}"
+        params="{{fetchnewformatremarkparam1}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fetchnewformatremarkResponse1"
+        debounce-duration="300"
+    >
   </template>
   <script>
   (function() {
     'use strict';
     Polymer({
       is: 'reprotcard-newformat-service',
+      fetchnewformatremark:function(id){
+        this.fetchnewformatremarkurl=sessionStorage.getItem("addrinfo")+"/fetchnewformatremark-service";
+        var obj={"schoolid":""};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear");
+        obj.studentid=id;
+        obj.termname=localStorage.getItem("curr_sess_termname");
+        this.fetchnewformatremarkparam= obj;
+        this.$.fetchnewformatremarkajax.generateRequest();
+      },
+      fetchnewformatremarkResponse:function(e){
+        var arr=e.detail.response.returnval;
+        if(arr.length>0){
+          if(arr[0].generic=="undefined")
+            arr[0].generic="";
+          if(arr[0].speccomment=="undefined")
+            arr[0].speccomment="";
+          document.querySelector('reprotcard-newformat-threetoeight').remark=arr[0].generic+" "+arr[0].speccomment;
+        }
+      },
+      fetchnewformatremark1:function(id){
+        this.fetchnewformatremarkurl1=sessionStorage.getItem("addrinfo")+"/fetchnewformatremark-service1";
+        var obj={"schoolid":""};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear");
+        obj.studentid=id;
+        obj.termname=localStorage.getItem("curr_sess_termname");
+        this.fetchnewformatremarkparam1= obj;
+        this.$.fetchnewformatremarkajax1.generateRequest();
+      },
+      fetchnewformatremarkResponse1:function(e){
+        var arr=e.detail.response.returnval;
+        if(arr.length>0){
+          document.querySelector('newformat-reportcard-nineten').remark=arr[0].generic+" "+arr[0].speccomment;
+        }
+      },
       fetchstudinfofornewformatService:function(id){
         this.fetchstudinfofornewformaturl=sessionStorage.getItem("addrinfo")+"/fetchstudinfofornewformat-service";
         var obj={"schoolid":""};
@@ -122,11 +179,11 @@
             // if(assesment[i].term_name==master[j].term_name&&assesment[i].assesment_id==master[j].assesment_type&&assesment[i].grade==master[j].grade_name){
             if((assesment[i].term_name).toLowerCase()==(master[j].term_name).toLowerCase()&&assesment[i].assesment_id==master[j].assesment_type&&assesment[i].grade==master[j].grade_name&&assesment[i].subject_id==master[j].subject_name){
               if((master[j].scale_type)=="/")
-               assesment[i].score=parseFloat(assesment[i].total)/parseFloat(master[j].scalar);
+               assesment[i].score=parseFloat(parseFloat(assesment[i].total)/parseFloat(master[j].scalar)).toFixed(2);
               if((master[j].scale_type)=="*")
-               assesment[i].score=parseFloat(assesment[i].total)*parseFloat(master[j].scalar);
+               assesment[i].score=parseFloat(parseFloat(assesment[i].total)*parseFloat(master[j].scalar)).toFixed(2);
               if((master[j].scale_type)=="/*")
-               assesment[i].score=(parseFloat(assesment[i].total)/parseFloat(master[j].actual_scale))*parseFloat(master[j].scalar);
+               assesment[i].score=parseFloat((parseFloat(assesment[i].total)/parseFloat(master[j].actual_scale))*parseFloat(master[j].scalar)).toFixed(2);
             }
           }
         }
@@ -193,7 +250,7 @@
             temparr[i].SEA1=0;
           if(temparr[i].HY==""||temparr[i].HY==null)
             temparr[i].HY=0;
-          temparr[i].mark1=Math.round(parseFloat(temparr[i].PT1)+parseFloat(temparr[i].NB1)+parseFloat(temparr[i].SEA1)+parseFloat(temparr[i].HY));
+          temparr[i].mark1=parseFloat(parseFloat(temparr[i].PT1)+parseFloat(temparr[i].NB1)+parseFloat(temparr[i].SEA1)+parseFloat(temparr[i].HY)).toFixed(2);
           if(localStorage.getItem("curr_sess_termname")=="term2"){
           if(temparr[i].PT2==""||temparr[i].PT2==null)
             temparr[i].PT2=0;
@@ -203,7 +260,7 @@
             temparr[i].SEA2=0;
           if(temparr[i].Y==""||temparr[i].Y==null)
             temparr[i].Y=0;
-          temparr[i].mark2=Math.round(parseFloat(temparr[i].PT2)+parseFloat(temparr[i].NB2)+parseFloat(temparr[i].SEA2)+parseFloat(temparr[i].Y));
+          temparr[i].mark2=parseFloat(parseFloat(temparr[i].PT2)+parseFloat(temparr[i].NB2)+parseFloat(temparr[i].SEA2)+parseFloat(temparr[i].Y)).toFixed(2);
           }
           for(var n=0;n<grade.length;n++){
             if(parseFloat(temparr[i].mark1)>=parseFloat(grade[n].lower_limit)&&parseFloat(temparr[i].mark1)<=parseFloat(grade[n].upper_limit))
@@ -252,11 +309,11 @@
             if((assesment[i].term_name).toLowerCase()==(master[j].term_name).toLowerCase()&&assesment[i].assesment_id==master[j].assesment_type&&assesment[i].grade==master[j].grade_name&&assesment[i].subject_id==master[j].subject_name){
               // alert('in');
               if((master[j].scale_type)=="/")
-               assesment[i].score=parseFloat(assesment[i].total)/parseFloat(master[j].scalar);
+               assesment[i].score=parseFloat(parseFloat(assesment[i].total)/parseFloat(master[j].scalar)).toFixed(2);
               if((master[j].scale_type)=="*")
-               assesment[i].score=parseFloat(assesment[i].total)*parseFloat(master[j].scalar);
+               assesment[i].score=parseFloat(parseFloat(assesment[i].total)*parseFloat(master[j].scalar)).toFixed(2);
               if((master[j].scale_type)=="/*")
-               assesment[i].score=(parseFloat(assesment[i].total)/parseFloat(assesment[i].actual_scale))*parseFloat(master[j].scalar);
+               assesment[i].score=parseFloat((parseFloat(assesment[i].total)/parseFloat(assesment[i].actual_scale))*parseFloat(master[j].scalar)).toFixed(2);
             }
           }
         }

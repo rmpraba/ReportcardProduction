@@ -12,8 +12,8 @@
         content-type="application/json"
         on-response="academicResponse"
         debounce-duration="300"
-        >
-  <iron-ajax
+    >
+  <iron-ajax  
         method="post"
         id="assesmentajax"
         url="{{assesmenturl}}"
@@ -503,7 +503,8 @@
          this.termparam= obj;
          this.$.termajax.generateRequest();
       },
-      termResponse:function(e){  
+      termResponse:function(e){ 
+      // alert(e.detail.response.returnval); 
          document.querySelector('cce-generate-score-card').termarr=e.detail.response.returnval;       
          document.querySelector('teacherhome-card').termarr=e.detail.response.returnval;
          document.querySelector('teacherhome-card').FnToggle();
@@ -896,11 +897,7 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
             j--;
             k++;
            }
-           
-
         }
-
-
         var rtotal,fsum;
         if(localStorage.getItem("curr_sess_assesmenttype")=="SA1"||localStorage.getItem("curr_sess_assesmenttype")=="SA2")
         {
@@ -1227,9 +1224,9 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
          var obj={"schoolid":"","academicyear":"","assesmentid":"","classid":"","studentid":"","studentname":"","termname":"","grade":"","section":"","subject":"","category":"","subcategory":"","mark":"","total":"","assesmentflag":"","absflag":"","subcatseq":""};
          obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
          obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-         if(localStorage.getItem("curr_sess_subject")=="Art&Craft"||localStorage.getItem("curr_sess_subject")=="music"||localStorage.getItem("curr_sess_subject")=="dance"||localStorage.getItem("curr_sess_subject")=="Games"||localStorage.getItem("curr_sess_subject")=="Personality Development"||localStorage.getItem("curr_sess_subject")=="Attendance"||localStorage.getItem("curr_sess_subject")=="Health")
-         obj.assesmentid= "Assesment3";
-         else
+         // if(localStorage.getItem("curr_sess_subject")=="Art&Craft"||localStorage.getItem("curr_sess_subject")=="music"||localStorage.getItem("curr_sess_subject")=="dance"||localStorage.getItem("curr_sess_subject")=="Games"||localStorage.getItem("curr_sess_subject")=="Personality Development"||localStorage.getItem("curr_sess_subject")=="Attendance"||localStorage.getItem("curr_sess_subject")=="Health")
+         // obj.assesmentid= "Assesment3";
+         // else
          obj.assesmentid=localStorage.getItem("curr_sess_assesment");
          obj.termname=localStorage.getItem("curr_sess_termname");
          obj.classid=sessionStorage.getItem("curr_sess_classid");

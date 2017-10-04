@@ -15,10 +15,16 @@
     <style>
       :host {
         display: block;
-      }
+      }      
     </style>
     <div class="content">
-      <iron-pages selected="{{page}}" attr-for-selected="data-category">  
+      <iron-pages selected="{{page}}" attr-for-selected="data-category">
+      <section data-category="dynamic-scholastic-markentry-card"> 
+      <dynamic-scholastic-markentry-card></dynamic-scholastic-markentry-card>
+      </section>  
+       <section data-category="dynamic-scholastic-markentry-report"> 
+          <dynamic-scholastic-markentry-report></dynamic-scholastic-markentry-report>
+        </section> 
       <section data-category="subject-dynamic-markentrycard"> 
       <subject-dynamic-markentrycard></subject-dynamic-markentrycard>
       </section>

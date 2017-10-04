@@ -30,11 +30,19 @@
       --paper-input-container-label: { color: red };
       text-align:center;
     }
+    .spinner{
+      margin-left: 50%;            
+    }
+    #dynamicspinner{
+      margin: 0;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+    }
     </style>
     <div class='card'>
      
      <div class='drop'>
-
 
           <paper-dropdown-menu id="grade" label="Select Grade" disabled="{{read}}" required>
             <paper-menu id="gradenam1" class="dropdown-content"  on-iron-select="FnSelectGrade"  attr-for-selected="value" required>     
@@ -80,8 +88,10 @@
           
      </div>
     </div>
+    <div class="spinner"><paper-dialog modal id="dynamicspinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog></div>
     <term-assesment-service id="assesmentservice"></term-assesment-service>
     <subject-dynamic-service id="subjectservice"></subject-dynamic-service>
+    <dynamic-scholastic-subject-service id="scholasticsubjectservice"></dynamic-scholastic-subject-service>
   </template>
   <script>
   (function() {
@@ -179,61 +189,69 @@
       },
       callService:function(){        
         this.FnRefresh();
-
         if(gradename=="Grade-1"||gradename=="Grade-2"||gradename=="Grade-3"||gradename=="Grade-4")
         {
-
-        if(subject=="Mathematics")
-        {
-        // alert('yes');  
-           document.querySelector('cc-maths-onetofour-card').studarr=[];     
-           this.$.assesmentservice.callFetchStudentInfo(gradename,section);                   
-           document.querySelector('term-assesment-sheet-card').setPage('cc-maths-onetofour-card');
-           document.querySelector('cc-maths-onetofour-card').setDefaultHeaders();
-           document.querySelector('cc-maths-onetofour-card').FnSpinnerrActive(true); 
-        }  
-        if(subject=="EVS")
-        { 
-          document.querySelector('cc-evs-onetofour-card').studarr=[];       
-          this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
-          document.querySelector('term-assesment-sheet-card').setPage('cc-evs-onetofour-card');
-          document.querySelector('cc-evs-onetofour-card').setDefaultHeaders();
-          document.querySelector('cc-evs-onetofour-card').FnSpinnerrActive(true); 
+          this.FnToggleSpinner(true);
+          if(localStorage.getItem('curr_sess_report')=='0'){
+          document.querySelector('term-assesment-sheet-card').setPage('dynamic-scholastic-markentry-card');
+          document.querySelector('dynamic-scholastic-markentry-card').FnRefresh();
+          this.$.scholasticsubjectservice.subjectsubmittedcheckService(gradename,section,subject);
+          }
+          if(localStorage.getItem('curr_sess_report')=='1'){
+            // alert('in');
+          document.querySelector('term-assesment-sheet-card').setPage('dynamic-scholastic-markentry-report');
+          document.querySelector('dynamic-scholastic-markentry-report').FnRefresh();
+          this.$.scholasticsubjectservice.callFetchStudentInfo1(gradename,section,subject);
+          // this.$.scholasticsubjectservice.FnFetchDynamicallyEnteredMarks(gradename,section,subject);
+          }
+        // if(subject=="Mathematics")
+        // {
+        // // alert('yes');  
+        //    document.querySelector('cc-maths-onetofour-card').studarr=[];     
+        //    this.$.assesmentservice.callFetchStudentInfo(gradename,section);             
+        //    document.querySelector('term-assesment-sheet-card').setPage('cc-maths-onetofour-card');
+        //    document.querySelector('cc-maths-onetofour-card').setDefaultHeaders();
+        //    document.querySelector('cc-maths-onetofour-card').FnSpinnerrActive(true); 
+        // }  
+        // if(subject=="EVS")
+        // { 
+        //   document.querySelector('cc-evs-onetofour-card').studarr=[];       
+        //   this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
+        //   document.querySelector('term-assesment-sheet-card').setPage('cc-evs-onetofour-card');
+        //   document.querySelector('cc-evs-onetofour-card').setDefaultHeaders();
+        //   document.querySelector('cc-evs-onetofour-card').FnSpinnerrActive(true); 
           
-        }
-         if(subject=="English"||subject=="II Language Hindi"||subject=="II Language Kannada")
-         { 
-          document.querySelector('cc-eng-onetofour-card').studarr=[];     
-          this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
-          document.querySelector('term-assesment-sheet-card').setPage('cc-eng-onetofour-card');
-          document.querySelector('cc-eng-onetofour-card').setDefaultHeaders();
-          document.querySelector('cc-eng-onetofour-card').FnSpinnerrActive(true); 
-        }
-        if(subject=="GK")
-        {   
-          document.querySelector('cc-gk-onetofour-card').studarr=[];     
-          this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
-          document.querySelector('term-assesment-sheet-card').setPage('cc-gk-onetofour-card');
-          document.querySelector('cc-gk-onetofour-card').setDefaultHeaders();
-          document.querySelector('cc-gk-onetofour-card').FnSpinnerrActive(true); 
+        // }
+        //  if(subject=="English"||subject=="II Language Hindi"||subject=="II Language Kannada")
+        //  { 
+        //   document.querySelector('cc-eng-onetofour-card').studarr=[];     
+        //   this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
+        //   document.querySelector('term-assesment-sheet-card').setPage('cc-eng-onetofour-card');
+        //   document.querySelector('cc-eng-onetofour-card').setDefaultHeaders();
+        //   document.querySelector('cc-eng-onetofour-card').FnSpinnerrActive(true); 
+        // }
+        // if(subject=="GK")
+        // {   
+        //   document.querySelector('cc-gk-onetofour-card').studarr=[];     
+        //   this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
+        //   document.querySelector('term-assesment-sheet-card').setPage('cc-gk-onetofour-card');
+        //   document.querySelector('cc-gk-onetofour-card').setDefaultHeaders();
+        //   document.querySelector('cc-gk-onetofour-card').FnSpinnerrActive(true); 
           
-        }       
-        if(subject=="Computer")
-        {  
-          document.querySelector('cc-computer-onetofour-card').studarr=[];      
-          this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
-          document.querySelector('term-assesment-sheet-card').setPage('cc-computer-onetofour-card');
-          document.querySelector('cc-computer-onetofour-card').setDefaultHeaders();
-          document.querySelector('cc-computer-onetofour-card').FnSpinnerrActive(true); 
-        }        
+        // }       
+        // if(subject=="Computer")
+        // {  
+        //   document.querySelector('cc-computer-onetofour-card').studarr=[];      
+        //   this.$.assesmentservice.callFetchStudentInfo(gradename,section);          
+        //   document.querySelector('term-assesment-sheet-card').setPage('cc-computer-onetofour-card');
+        //   document.querySelector('cc-computer-onetofour-card').setDefaultHeaders();
+        //   document.querySelector('cc-computer-onetofour-card').FnSpinnerrActive(true); 
+        // }        
         }
         else if(gradename!="Grade-1"||gradename!="Grade-2"||gradename!="Grade-3"||gradename!="Grade-4")
         {
-
-          // this.$.assesmentservice.callFetchFaStudentInfo();           
           if(assesment=="FA1"||assesment=="FA2"||assesment=="FA3"||assesment=="FA4")
           { 
-          // alert('coming');            
           this.$.assesmentservice.callFetchFaStudentInfo();                     
           document.querySelector('cc-fa-fivetoten-card').studarr=[]; 
           document.querySelector('term-assesment-sheet-card').setPage('cc-fa-fivetoten-card');
@@ -257,6 +275,7 @@
           }
           }
           else{
+          this.FnToggleSpinner(true);
           if(localStorage.getItem('curr_sess_report')=='0'){
           document.querySelector('term-assesment-sheet-card').setPage('subject-dynamic-markentrycard');
           document.querySelector('subject-dynamic-markentrycard').FnRefresh();
@@ -314,6 +333,9 @@
         // document.querySelector('subject-dynamic-markentryitemcard').FnRefresh();
         // document.querySelector('subject-dynamic-markentry-input').FnRefresh();
         this.flag=0;
+      },
+      FnToggleSpinner:function(flag){
+        this.$.dynamicspinner.opened=flag;
       }
 
     });

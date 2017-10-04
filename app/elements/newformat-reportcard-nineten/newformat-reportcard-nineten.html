@@ -18,11 +18,22 @@
     }
     .tab{
       margin-left: 25px;
-      width: 850px;
-
+      width: 800px;
+    }
+    .tab1{
+      margin-left: 25px;
+      width: 450px;
+    }
+    .tab2{
+      margin-left: 25px;
+      width: 800px;
+    }
+    .tab3{
+      margin-left: 25px;
+      width: 800px;
     }
     table{
-      width: 850px;
+      /*width: 850px;*/
     }
     .outercard{
       width: 890px;
@@ -40,6 +51,18 @@
     margin-top: 80px;
     margin-left: 300px;
     }
+    table.tab th{
+      border: solid 2px;
+    }
+    table.tab td{
+      border: solid 2px;
+    }
+    table.tab1 th{
+      border: solid 2px;
+    }
+    table.tab1 td{
+      border: solid 2px;
+    }
     </style>
     <div class="outcard">
     <div class="outercard">
@@ -51,6 +74,7 @@
           <tr><th style="text-align: left;">Student’s Name: </th><th style="text-align: left;">{{studentname}}</th></tr>
           <tr><th style="text-align: left;">Mother’s/Father’s/Guardian’s Name: </th><th style="text-align: left;">{{fathername}}</th></tr>
           <tr><th style="text-align: left;">Date of birth: </th><th style="text-align: left;">{{dob}}</th></tr>
+          <tr><th style="text-align: left;">Class/Section: </th><th style="text-align: left;">{{class}}/{{section}}</th></tr>
         </table>
       </div>
       <br><br>
@@ -62,7 +86,7 @@
           <tr><td>{{item.subject}}</td><td>{{item.PT1}}</td><td>{{item.NB1}}</td><td>{{item.SEA1}}</td><td>{{item.mark1}}</td><td>{{item.grade1}}</td><td>{{item.PT2}}</td><td>{{item.NB2}}</td><td>{{item.SEA2}}</td><td>{{item.mark2}}</td><td>{{item.grade2}}</td><td>{{item.PT3}}</td><td>{{item.NB3}}</td><td>{{item.SEA3}}</td><td>{{item.mark3}}</td><td>{{item.grade3}}</td></tr>
         </template>
       </table> -->
-      <table style="border-collapse: collapse;" border="1">
+      <table class="tab" style="border-collapse: collapse;" border="1">
         <tr><th>Scholastic Areas</th><th colspan="5">{{assesmentname}}</th></tr>
         <tr><th>Subjects</th><th>Periodic Test (10)</th><th>Note Book (5)</th><th>Subject Enrich ment (5)</th><th>Marks Obtained (100)</th><th>Grade</th></tr>
         <template is="dom-repeat" items="{{arr}}">
@@ -71,8 +95,8 @@
       </table>
       </div>
       <br><br>
-      <div class="tab">
-        <table style="border-collapse: collapse;" border="1">
+      <div class="tab1">
+        <table class="tab1" style="border-collapse: collapse;" border="1">
           <tr><th style="text-align: left;">Co scholastic Areas [on a 5 point A – E grading scale]</th><th style="text-align: left;">Grade</th></tr>
           <template is="dom-repeat" items="{{coarr}}">
           <tr><td>{{item.subject_id}}</td><td>{{item.grade}}</td></tr>
@@ -80,8 +104,8 @@
         </table>
       </div>
       <br><br>
-      <div class="tab">
-      <table style="border-collapse: collapse;" border="1">
+      <div class="tab1">
+      <table class="tab1" style="border-collapse: collapse;" border="1">
         <tr><th style="text-align: left;">[A - E grading scale]</th><th style="text-align: left;">Grade</th></tr>
         <template is="dom-repeat" items="{{disarr}}">
           <tr><td>{{item.subject_id}}</td><td>{{item.grade}}</td></tr>
@@ -89,15 +113,15 @@
       </table>
       </div>
       <br><br>
-      <div class="tab">
-      <table>
+      <div class="tab2">
+      <table class="tab2">
         <tr><th style="text-align: left;">Class Teacher's Remarks</th><th>{{remark}}</th></tr>
         <tr><th style="text-align: left;">Result</th><th>{{result}}</th></tr>
       </table>
       </div>
       <br><br>
-      <div class="tab">
-        <table>
+      <div class="tab3">
+        <table class="tab3">
           <tr><th>{{date}}</th><th><img id="ntimg1" width="100px;height:30px;"></th><th><img id="ntimg2" width="100px;height:30px;"></th></tr>
           <tr><th>Date</th><th>Signature of Class Teacher's</th><th>Signature of Principal</th></tr>
         </table>
@@ -132,6 +156,8 @@
         document.querySelector('#ntimg1').src="../../images/"+sessionStorage.getItem("curr_sess_loggedid").toUpperCase()+sessionStorage.getItem("curr_sess_loggedschoolid")+".jpg";
         document.querySelector('#ntimg2').src="../../images/principal"+sessionStorage.getItem("curr_sess_loggedschoolid")+".jpg";
         this.assesmentname=localStorage.getItem("curr_sess_termname");
+        this.class=localStorage.getItem("curr_sess_grade").toUpperCase();
+        this.section=localStorage.getItem("curr_sess_section").toUpperCase();
         // this.assesmentname=(this.assesmentname).charAt(0).toUpperCase();
       },
       print:function(){

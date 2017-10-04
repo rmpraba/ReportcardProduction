@@ -1,44 +1,38 @@
-
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
 <link rel="import" href="..\..\bower_components/paper-item/paper-item.html">
 <link rel="import" href="..\..\bower_components/paper-input/paper-input.html">
 <link rel="import" href="..\..\bower_components/iron-ajax/iron-ajax.html">
 
-<dom-module id="subject-dynamic-markentryitemcard">
+<dom-module id="dynamic-coscholastic-markentry-itemcard">
   <template>
     <style>
       table{
-        /*width: 70%;*/
-        /*table-layout:fixed;*/
         border-collapse: collapse;
         table-layout: fixed;
-        width: 60%;
-        /*min-width: 400px;*/
+        /*width: 100%;*/
       }
       td{
         height: 10px;
       }
       paper-input{
       height: 20px;
-      margin-top: -1%;
+      margin-top: -2%;
       vertical-align: top;
       }
     </style>
     <div hidden>{{temp}}</div>
     <div class="card">
         <paper-input hidden value="{{studentid}}"></paper-input>
-        <table border="1">
-        <tr>        
-        <th id="tb1" width="5%">{{serialno}}</th>
-        <th width="25%" valign="top"><p>{{studentname}}</p></th>
-        <!-- <td id="tb1"><paper-input  value="{{score}}" on-change="FnActivity"></paper-input></td> -->
+        <table border="1" width="{{tabwidth}}">
+        <tr>  
+        <th width="3%" style="text-align: center;" valign="top">{{serialno}}</th>      
+        <th width="14%" valign="top"><p>{{studentname}}</p></th>
         <template is="dom-repeat" items="{{category}}">
-          <td valign="top" colspan="{{item.categorycnt}}">
-          <subject-dynamic-markentry-input id="sdmei" categorycnt="{{item.categorycnt}}" grade="{{grade}}" studentid="{{item.studentid}}" studentname="{{item.studentname}}" classid="{{item.classid}}" assesmenttype="{{item.assesmenttype}}" gradeid="{{item.gradeid}}" gradename="{{item.gradename}}" subjectid="{{item.subjectid}}" subjectname="{{item.subjectname}}" categoryid="{{item.categoryid}}" categoryname="{{item.categoryname}}" subcategoryid="{{item.subcategoryid}}" subcategoryname="{{item.subcategoryname}}" weight="{{item.weight}}" hideinput="{{item.hiddeninput}}" hidelabel="{{item.hiddenlabel}}" score="{{item.score}}"></subject-dynamic-markentry-input>
+          <td valign="top" colspan="{{item.categorycnt}}" width="{{item.width}}">
+          <coscholastic-markentry-card id="sdmei" categorycnt="{{item.categorycnt}}" grade="{{grade}}" studentid="{{item.studentid}}" studentname="{{item.studentname}}" classid="{{item.classid}}" assesmenttype="{{item.assesmenttype}}" gradeid="{{item.gradeid}}" gradename="{{item.gradename}}" subjectid="{{item.subjectid}}" subjectname="{{item.subjectname}}" categoryid="{{item.categoryid}}" categoryname="{{item.categoryname}}" subcategoryid="{{item.subcategoryid}}" subcategoryname="{{item.subcategoryname}}" weight="{{item.weight}}" hideinput="{{item.hiddeninput}}" hidelabel="{{item.hiddenlabel}}" score="{{item.score}}" seq="{{item.seq}}"></conscholastic-markentry-card>
           </td>
         </template>
-        <!-- <td width="5%"><p style="text-align: center;" hidden$="{{hiddenoutinput}}">{{grade}}</p></td> -->
-        <td width="5%"><paper-icon-button hidden$="{{hiddenoutinput}}" icon="save" on-click="FnSave"></paper-icon-button></td>
+        <td width="3%"><paper-icon-button hidden$="{{hiddenoutinput}}" icon="save" on-click="FnSave"></paper-icon-button></td>
         </tr>
         </table>
     </div>
@@ -50,20 +44,17 @@
     'use strict';
     var scorearr=[];
     Polymer({
-      is: 'subject-dynamic-markentryitemcard',
+      is: 'dynamic-coscholastic-markentry-itemcard',
       ready:function(){
         scorearr=this.temp;
-        // alert('calling');
       },
       attached:function(){
         scorearr=[];
-        // alert('yes attached!!');
       },
       FnSetInfoArray:function(arr){
         scorearr=arr;
       },
       FnSave:function(){
-        // alert(JSON.stringify(scorearr));
         if(scorearr.length>0){
         for(var i=0;i<scorearr.length;i++){
           var t=1;
@@ -75,12 +66,10 @@
           }
         }
         for(var i=0;i<scorearr.length;i++){
-          // alert(scorearr[i].studentid+" "+this.studentid);
           if(scorearr[i].studentid==this.studentid){
             var temp=[];
             temp.push(scorearr[i]);
-            // alert(JSON.stringify(temp));
-            this.$.assesmentservice.callinsertfaassesmentmarkService(scorearr[i].studentid,scorearr[i].studentname,scorearr[i].assesmenttype,scorearr[i].categoryname,scorearr[i].value,1,scorearr[i].categorycnt); 
+            this.$.assesmentservice.callinsertassesmentmarkService(scorearr[i].studentid,scorearr[i].studentname,scorearr[i].categoryname,scorearr[i].subcategoryname,scorearr[i].value,scorearr[i].seq,scorearr[i].categorycnt);
           }
         }
         }
@@ -91,9 +80,9 @@
       FnRefresh:function(){
         scorearr=[];
         alert('coming in itemcard!!');
-        // this.$.sdmei.FnRefresh();
       }   
     });
   })();
   </script>
 </dom-module>
+  

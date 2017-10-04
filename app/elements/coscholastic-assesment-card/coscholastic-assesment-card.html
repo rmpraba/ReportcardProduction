@@ -37,6 +37,15 @@
       --paper-input-container-label: { color: red };
       text-align:center;
     }
+    .spinner{
+      margin-left: 50%;            
+    }
+    #dynamiccospinner{
+      margin: 0;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+    }
     </style>
     <div class='card'>
      
@@ -68,8 +77,11 @@
            
      </div>
     </div>
+    <div class="spinner"><paper-dialog modal id="dynamiccospinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog></div>
     <co-scholastic-service id="assesmentservice"></co-scholastic-service>
     <term-assesment-service id="termassesmentservice"></term-assesment-service>
+    <dynamic-coscholastic-subject-service id="scholasticsubjectservice"></dynamic-coscholastic-subject-service>
+    <dynamic-scholastic-subject-service id="subjectservice"></dynamic-scholastic-subject-service>
   </template>
   <script>
   (function() {
@@ -112,7 +124,22 @@
         } 
         else if(subject=="Art&Craft"||subject=="music"||subject=="dance"||subject=="Personality Development"||subject=="Games")
         {
-          this.$.termassesmentservice.callFetchStudentInfo(gradename,section);
+         this.FnToggleSpinner(true);
+         // alert(localStorage.getItem('curr_sess_report'));
+         if(localStorage.getItem('curr_sess_report')=='0'){
+          // alert("in");
+          document.querySelector('coscholastic-assesment-sheet-card').setPage('dynamic-scholastic-markentry-card');
+          document.querySelector('dynamic-scholastic-markentry-card').FnRefresh();
+          this.$.scholasticsubjectservice.subjectsubmittedcheckService(gradename,section,subject);
+          }
+          if(localStorage.getItem('curr_sess_report')=='1'){
+          localStorage.setItem("curr_sess_assesment","Assesment3");
+          document.querySelector('coscholastic-assesment-sheet-card').setPage('dynamic-coscholastic-markentry-report');
+          document.querySelector('dynamic-coscholastic-markentry-report').FnRefresh();
+          // this.$.scholasticsubjectservice.FnFetchDynamicallyEnteredMarks(gradename,section,subject);
+          this.$.scholasticsubjectservice.callFetchStudentInfo1(gradename,section,subject);
+          }
+          // this.$.termassesmentservice.callFetchStudentInfo(gradename,section);
         } 
         else
         {
@@ -137,42 +164,42 @@
         }
         else if(subject=="Attendance"){        
         document.querySelector('attendance-card').studarr=[]; 
-        this.$.assesmentservice.callFetchStudentInfoforattendance();          
+        // this.$.assesmentservice.callFetchStudentInfoforattendance();          
         this.$.assesmentservice.callWorkingdaysService();         
         document.querySelector('coscholastic-assesment-sheet-card').setPage('attendance-card');
         document.querySelector('attendance-card').setDefaultHeaders();  
         document.querySelector('attendance-card').FnSpinnerrActive(true); 
         } 
-        else if(subject=="Art&Craft"){   
-        document.querySelector('cc-art-craft-onetofour-card').studarr=[];     
-        document.querySelector('coscholastic-assesment-sheet-card').setPage('cc-art-craft-onetofour-card');
-        document.querySelector('cc-art-craft-onetofour-card').setDefaultHeaders();
-        document.querySelector('cc-art-craft-onetofour-card').FnSpinnerrActive(true); 
-        }
-        else if(subject=="dance"){
-        document.querySelector('cc-dance-onetofour-card').studarr=[];       
-        document.querySelector('coscholastic-assesment-sheet-card').setPage('cc-dance-onetofour-card');
-        document.querySelector('cc-dance-onetofour-card').setDefaultHeaders();
-        document.querySelector('cc-dance-onetofour-card').FnSpinnerrActive(true); 
-        }
-        else if(subject=="music"){ 
-        document.querySelector('cc-music-onetofour-card').studarr=[];            
-        document.querySelector('coscholastic-assesment-sheet-card').setPage('cc-music-onetofour-card');
-        document.querySelector('cc-music-onetofour-card').setDefaultHeaders();
-        document.querySelector('cc-music-onetofour-card').FnSpinnerrActive(true); 
-        }  
-        else if(subject=="Games"){
-        document.querySelector('cs-games-card').studarr=[];             
-        document.querySelector('coscholastic-assesment-sheet-card').setPage('cs-games-card');
-        document.querySelector('cs-games-card').setDefaultHeaders();
-        document.querySelector('cs-games-card').FnSpinnerrActive(true); 
-        } 
-        else if(subject=="Personality Development"){
-        document.querySelector('cs-personalitydevelopment-card').studarr=[]; 
-        document.querySelector('cs-personalitydevelopment-card').setDefaultHeaders();                   
-        document.querySelector('coscholastic-assesment-sheet-card').setPage('cs-personalitydevelopment-card'); 
-        document.querySelector('cs-personalitydevelopment-card').FnSpinnerrActive(true);        
-        }      
+        // else if(subject=="Art&Craft"){   
+        // document.querySelector('cc-art-craft-onetofour-card').studarr=[];     
+        // document.querySelector('coscholastic-assesment-sheet-card').setPage('cc-art-craft-onetofour-card');
+        // document.querySelector('cc-art-craft-onetofour-card').setDefaultHeaders();
+        // document.querySelector('cc-art-craft-onetofour-card').FnSpinnerrActive(true); 
+        // }
+        // else if(subject=="dance"){
+        // document.querySelector('cc-dance-onetofour-card').studarr=[];       
+        // document.querySelector('coscholastic-assesment-sheet-card').setPage('cc-dance-onetofour-card');
+        // document.querySelector('cc-dance-onetofour-card').setDefaultHeaders();
+        // document.querySelector('cc-dance-onetofour-card').FnSpinnerrActive(true); 
+        // }
+        // else if(subject=="music"){ 
+        // document.querySelector('cc-music-onetofour-card').studarr=[];            
+        // document.querySelector('coscholastic-assesment-sheet-card').setPage('cc-music-onetofour-card');
+        // document.querySelector('cc-music-onetofour-card').setDefaultHeaders();
+        // document.querySelector('cc-music-onetofour-card').FnSpinnerrActive(true); 
+        // }  
+        // else if(subject=="Games"){
+        // document.querySelector('cs-games-card').studarr=[];             
+        // document.querySelector('coscholastic-assesment-sheet-card').setPage('cs-games-card');
+        // document.querySelector('cs-games-card').setDefaultHeaders();
+        // document.querySelector('cs-games-card').FnSpinnerrActive(true); 
+        // } 
+        // else if(subject=="Personality Development"){
+        // document.querySelector('cs-personalitydevelopment-card').studarr=[]; 
+        // document.querySelector('cs-personalitydevelopment-card').setDefaultHeaders();                   
+        // document.querySelector('coscholastic-assesment-sheet-card').setPage('cs-personalitydevelopment-card'); 
+        // document.querySelector('cs-personalitydevelopment-card').FnSpinnerrActive(true);        
+        // }      
         else if(subject=="Life Skills"){      
         if(gradename=="Grade-9"||gradename=="Grade-10"){
         document.querySelector('cs-life-skill-card').studarr=[]; 
@@ -227,7 +254,7 @@
         document.querySelector('cce-fivetoten-health-card').FnRefresh(); 
         }
         else if(subject=="Attendance"){
-        this.$.assesmentservice.callWorkingdaysService();         
+        // this.$.assesmentservice.callWorkingdaysService();         
         document.querySelector('attendance-card').FnRefresh();  
         } 
         else if(subject=="Art&Craft"){                    
@@ -280,6 +307,9 @@
         var gradename=localStorage.getItem("curr_sess_grade");
         this.flag=0;
         this.FnRefresh();
+      },
+      FnToggleSpinner:function(flag){
+        this.$.dynamiccospinner.opened=flag;
       }
     });
   })();
