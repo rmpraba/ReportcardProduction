@@ -55,18 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'studentsectionwise-report',
 
-      Fnrefresh:function()
-      {
-        if(spsectionarr!=0)
-        {
-          for(var i=0;i<spsectionarr.length;i++)
-          {
-            var spsec1=spsectionarr[i].classname;
-            document.querySelector('#'+spsec1).checked=false;
-            spsectionarr.splice(i,1);
-          }
-        }
-      },
     fnsetsection:function(e)
     {
   
@@ -116,7 +104,21 @@ allsections1Response:function(e){
      document.querySelector('student-to-section-report').studentreportarr=newtemparr;
      
        
-}
+},
+
+
+      Fnrefresh:function()
+      {
+        if(spsectionarr!=0)
+        {
+          for(var i=0;i<spsectionarr.length;i++)
+          {
+            var spseccccttt=spsectionarr[i].classname;
+            document.querySelector('#'+spseccccttt).checked=false;
+            spsectionarr.splice(i,1);
+          }
+        }
+      },
        
     });
   })();
