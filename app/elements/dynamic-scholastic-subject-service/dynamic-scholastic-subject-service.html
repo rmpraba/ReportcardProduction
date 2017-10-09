@@ -424,7 +424,7 @@
          obj.termname=localStorage.getItem("curr_sess_termname");
          obj.gradename=sgrade;
          obj.section=ssection;
-         obj.subject=ssubject;
+         obj.subject=ssubject;  
          obj.subjectid=localStorage.getItem("curr_sess_subjectid");
          obj.langpref=localStorage.getItem("curr_sess_languagepref");
          this.fetchsubjectstudentparam1= obj;
@@ -444,13 +444,16 @@
          obj.grade=gradename;
          obj.section=section;
          obj.subject=subject;
-         this.fetchdynamicallyenteredmarksparam= obj;
+         this.fetchdynamicallyenteredmarksparam=obj;
          this.$.fetchdynamicallyenteredmarksajax.generateRequest();
       },
       fetchdynamicallyenteredmarksResponse:function(e){
         var assesscategory=e.detail.response.map;
         var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.returnval;
+        alert(JSON.stringify(assesscategory));
+        alert(JSON.stringify(assesscategorycnt));
+        alert(JSON.stringify(arr));
         var temp=[];
         var obj={};
         var title=[];
@@ -475,6 +478,8 @@
           temp.push(obj);
           tempcnt+=parseFloat(assesscategorycnt[i].cnt);
         }
+        alert(JSON.stringify(temp));
+
         if(parseFloat(tempcnt)>=8){
           percent=80;
           tabwidth="100%";
@@ -482,7 +487,7 @@
         else if(parseFloat(tempcnt)>=3){
           percent=40;
           tabwidth="60%";
-        }
+        } 
         else{
           percent=25;
           tabwidth="45%";
@@ -496,6 +501,8 @@
             obj.width=parseFloat(temp[i].spancnt)*parseFloat(divider)+"%";
             categorytitle.push(obj);
          }
+        alert(JSON.stringify(categorytitle));
+
          // cat.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
          // document.querySelector('dynamic-scholastic-markentry-report').catarr=cat;
          overall.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
@@ -507,7 +514,9 @@
           obj.sub_category_name=assesscategory[i].sub_category_name;
           obj.weight=assesscategory[i].weight;
           temp.push(obj);
-        }         
+        }  
+        alert(JSON.stringify(temp));
+
          for(var i=0;i<temp.length;i++){
             var cnt=1;
             var obj={};
@@ -525,6 +534,7 @@
             categorytitle.push(obj);
          }
          overall.push({"sno":"Sno","studentname":"Student Name","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
+        alert(JSON.stringify(overall));
 
         for(var i=0;i<arr.length;i++){
             var obj={};
@@ -553,6 +563,8 @@
             overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":category});
             // category=[];
         }
+        alert(JSON.stringify(overall));
+
         // alert(JSON.stringify(overall));
         for(var i=2,j=0;i<overall.length;i++,j++){
             overall[i].sno=j+1;
@@ -570,5 +582,5 @@
 
     });
   })();
-  </script>
+  </script>     
 </dom-module>

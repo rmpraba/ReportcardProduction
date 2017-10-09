@@ -8,7 +8,7 @@
 <link rel="import" href="../consolidated-data-analysis-report/consolidated-data-analysis-report.html">
 
 <dom-module id="consolidated-data-analysis">
-  <template>
+  <template>   
     <style>
       :host {
         display: block;
@@ -30,6 +30,15 @@
         --paper-input-container-label: { color: red };
         text-align:center;
       }
+        table{
+        border-collapse: collapse;
+        /*table-layout: fixed;*/
+        /*width: 100%;*/
+      }
+      th,td{
+        style="text-align: center;word-wrap: break-word;"
+      }
+      
     </style>
       <div class="card">
           <div class="inner">
@@ -62,10 +71,26 @@
             </paper-menu>
           </paper-dropdown-menu>
     </div>
-    <div class="list" hidden$="{{hideanalysiscard}}">
+    <!-- <div class="list" hidden$="{{hideanalysiscard}}">
     <consolidated-data-analysis-report id="analysis" itemarr="{{itemarr}}"></consolidated-data-analysis-report>
+    </div> -->
     </div>
-    </div>
+
+
+      <div width="{{tabwidth}}">
+      <table id="myTable" border="1" style="border-collapse: collapse;" width="{{tabwidth}}">
+      <template is="dom-repeat" items="{{studarr}}">
+      <tr>
+      <th width="5%">{{item.sno}}</th>
+      <th width="15%">{{item.studentname}}</th>
+      <template is="dom-repeat" items="{{item.category}}" as="i">
+      <th colspan$="{{i.categorycnt}}" width$="{{i.width}}">{{i.subcategoryname}}</th>
+      
+      </template>
+      </tr>
+      </template>
+      </table>  
+      </div>
     <scorecard-service id="scorecardservice"></scorecard-service>
     <report-service id="reportservice"></report-service>
   </template>
@@ -113,7 +138,7 @@
         this.flag=1;
         termname = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_termname",termname);              
-        this.$.analysis.setDefaultHeaders();
+    //    this.$.analysis.setDefaultHeaders();
         this.$.reportservice.callFetchstudentnameService();        
       },
       FnRefresh:function()
