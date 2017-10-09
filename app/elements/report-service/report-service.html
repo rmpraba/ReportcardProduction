@@ -300,62 +300,9 @@
         this.$.assesmentwisereportajax.generateRequest();
     },
     assesmentwisereportResponse:function(e){
-    /*  var overall=[];
-      var subarr=[];
-      var subfinal=[];
-       var arr1=e.detail.response.returnval;
-       // alert(JSON.stringify(arr1));
-       for(var x=0;x<studarr.length;x++){
-        for(var y=0;y<arr1.length;y++)
-        {
-          if(studarr[x].id==arr1[y].student_id)
-            arr1[y].student_name=studarr[x].student_name;          
-        }
-       }
-       if(arr1.length>0){      
-       for(var i=0;i<arr1.length;i++)
-       {
-        var markarr=[];
-        markarr.push((i+1));
-        markarr.push(arr1[i].student_name);
-        subarr.push(arr1[i].subject_id);
-        markarr.push(arr1[i].mark);        
-        markarr.push(arr1[i].grade);
-        for(var j=i+1;j<arr1.length;j++)
-        {
-           if(arr1[i].student_id==arr1[j].student_id)
-           {
-            markarr.push(arr1[i].mark); 
-            markarr.push(arr1[j].grade);
-            subarr.push(arr1[j].subject_id);
-            arr1.splice(j,1);
-            j--;
-           }
-        }
-       overall.push(markarr);
-       }
-
-        var subfinal=this.eliminateDuplicates(subarr);  
-        var titlearr=[];              
-        // alert(subfinal.length);
-        subfinal.splice(0,2);
-        for(var i=0;i<subfinal.length;i++){
-          if(subfinal[i]!="Sno"||subfinal[i]!="Student Name"){
-            titlearr.push("Total");
-            titlearr.push("Grade");
-          }
-        }
-        document.querySelector("assesmentwise-report-card").subjectarr=subfinal;
-        document.querySelector("assesmentwise-report-card").titlearr=titlearr;
-        document.querySelector("assesmentwise-report-card").itemarr=overall;
-        subjectarr=[];
-        titlearr=[];
-        itemarr=[];
-        }*/
-
-    var assesscategorycnt=e.detail.response.categorycnt;
+       
+        var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.returnval;
-     
         var temp=[];
         var obj={};
         var title=[];
@@ -439,10 +386,9 @@
 
   overall.push({"sno":"Sno","studentname":"Student Name","tabwidth":tabwidth,"serialno":"",'category':categorysubtitle});
   //alert(JSON.stringify(overall));
-    categorytitle=[]
-    categorysubtitle=[];
-
-        for(var i=0;i<arr.length;i++){
+     categorytitle=[]
+     categorysubtitle=[];
+    for(var i=0;i<arr.length;i++){
             var obj={};
             var obj1={};
 
@@ -503,11 +449,8 @@
              category.push(obj5);
              category.push(obj6);
              category.push(obj7);
-            
-             
-                 }
-              
-               else if(arr[j].subject_id =='II Language French'){
+              }
+       else if(arr[j].subject_id =='II Language French'){
                    obj2.subcategoryname="";
                    obj2.categorycnt=cnt;
                    obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
@@ -569,9 +512,8 @@
                 }
                 }
               else{
-                  //alert(1);
 
-             obj.subcategoryname=arr[j].grade;
+            obj.subcategoryname=arr[j].grade;
              obj.categorycnt=cnt;
              obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
 
@@ -595,10 +537,8 @@
             overall[i].sno=j+1;
         }  
    
-        document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
-      document.querySelector('consolidated-report-card').studarr=overall;
-       
-       
+document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
+document.querySelector('consolidated-report-card').studarr=overall;
         temp=[];
         overall=[];
       }
@@ -648,103 +588,7 @@ var i;
         this.$.termwisereportajax.generateRequest();
     },
     termwisereportResponse:function(e){
-      /*
-      var overall=[];
-      var assesmentarr=[];
-      var subarr=[];
-      var subcount=1;
-      var asses1=0;
-      var asses2=0;
-      var asses3=0;
-       var arr1=e.detail.response.returnval;
-       // alert(JSON.stringify(arr1));
-       for(var x=0;x<studarr.length;x++){
-        for(var y=0;y<arr1.length;y++)
-        {
-          if(studarr[x].id==arr1[y].student_id)
-            arr1[y].student_name=studarr[x].student_name;          
-        }
-       }
-       if(arr1.length>0){      
-       for(var i=0;i<arr1.length;i++)
-       {
-        var markarr=[];
-
-        markarr.push(i+1);
-        markarr.push(arr1[i].student_name);
-        assesmentarr.push(arr1[i].assesment_id);
-       // alert(i+''+arr1.length);
-       if(subcount==1)
-       {
-        if(arr1[i].assesment_id=="Assesment1")
-        {
-          asses1++;
-        }
-        if(arr1[i].assesment_id=="Assesment2")
-        {
-          asses2++;
-        }
-        if(arr1[i].assesment_id=="Assesment3")
-        {
-          asses3++;
-        }
-        subarr.push(arr1[i].subject_id);
-      }
-       
-        markarr.push(arr1[i].grade);
-        for(var j=i+1;j<arr1.length;j++)
-        {
-           if(arr1[i].student_id==arr1[j].student_id)
-           {
-            markarr.push(arr1[j].grade);
-            assesmentarr.push(arr1[j].assesment_id);
-            if(subcount==1)
-           {
-             if(arr1[j].assesment_id=="Assesment1")
-        {
-          asses1++;
-        }
-        if(arr1[j].assesment_id=="Assesment2")
-        {
-          asses2++;
-        }
-        if(arr1[j].assesment_id=="Assesment3")
-        {
-          asses3++;
-        }
-          subarr.push(arr1[j].subject_id);
-           }
-            arr1.splice(j,1);
-            j--;
-           }
-        }
-        subcount++;
-
-       // subarr.push(arr1[i].subject_id);
-       overall.push(markarr);
-       }
-       // alert(JSON.stringify(subarr));
-       // alert(JSON.stringify(assesmentarr));
-       var assfinal=this.eliminateDuplicates1(assesmentarr);
-       var subfinal=this.eliminateDuplicates(subarr);
-       var subjectarr=[];
-       subjectarr.push(subfinal[0]);
-       subjectarr.push(subfinal[1]);
-       for(var i=0;i<subarr.length;i++)
-        {
-          subjectarr.push(subarr[i]);
-        }
-       // alert(asses1+''+asses2+''+asses3);
-       //alert(JSON.stringify(subarr));
-       //alert(JSON.stringify(subjectarr));
-        document.querySelector("termwise-report-card").assesmentarr=assfinal;
-        document.querySelector("termwise-report-card").subjectarr=subjectarr;
-        document.querySelector("termwise-report-card").itemarr=overall;
-        document.querySelector("termwise-report-card").assesmentlen(asses1,asses2,asses3);
-        assesmentarr=[];
-        subjectarr=[];
-        itemarr=[];
-      }*/
+     
         var assesscategory=e.detail.response.map;
         var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.arr1;
@@ -779,8 +623,7 @@ var i;
         }
         tempcnt=27;
         alert(JSON.stringify(temp));
-          if(parseFloat(tempcnt)>=8){
-         
+     if(parseFloat(tempcnt)>=8){
            percent=100;
            tabwidth="150%";
            }
@@ -788,10 +631,10 @@ var i;
            percent=40;
            tabwidth="60%";
            } 
-         else{
-          percent=25;
-          tabwidth="45%";
-         }
+           else{
+           percent=25;
+           tabwidth="45%";
+           }
 
         divider=parseFloat(percent)/(parseFloat(tempcnt));
         for(var i=0;i<temp.length;i++){
@@ -955,52 +798,8 @@ var i;
         this.$.subjectwisereportajax.generateRequest();
     },
     subjectwisereportResponse:function(e){
-   /*   // alert(JSON.stringify(e.detail.response.returnval));
-      var overall=[];
-      var subarr=[];
-      var subfinal=[];
-      var arr1=e.detail.response.returnval;
-
-      for(var x=0;x<studarr.length;x++){
-        for(var y=0;y<arr1.length;y++)
-        {
-          if(studarr[x].id==arr1[y].student_id)
-            arr1[y].student_name=studarr[x].student_name;          
-        }
-      }
-
-      if(arr1.length>0){      
-       for(var i=0;i<arr1.length;i++)
-       {
-        var markarr=[];
-        markarr.push(i+1);
-        markarr.push(arr1[i].student_name);
-        subarr.push(arr1[i].assesment_id);
-        markarr.push(arr1[i].total);
-        markarr.push(arr1[i].grade);
-        for(var j=i+1;j<arr1.length;j++)
-        {
-           if(arr1[i].student_id==arr1[j].student_id)
-           {
-            markarr.push(arr1[j].total);
-            markarr.push(arr1[j].grade);
-            subarr.push(arr1[j].assesment_id);
-            arr1.splice(j,1);
-            j--;
-           }
-        }
-        overall.push(markarr);
-        }      
-        // alert(JSON.stringify(subfinal));  
-        // alert(JSON.stringify(overall));              
-        var subfinal=this.eliminateDuplicates(subarr);      
-        document.querySelector("subjectwise-report-card").subjectarr=subfinal;
-        document.querySelector("subjectwise-report-card").itemarr=overall;
-        subfinal=[];
-        overall=[];
-      }*/
-
-    var assesscategorycnt=e.detail.response.categorycnt;
+ 
+        var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.returnval;
      
         var temp=[];
@@ -1157,83 +956,7 @@ var i;
         this.$.categorywisereportajax.generateRequest();
     },
     categorywisereportResponse:function(e){
-      // alert(JSON.stringify(e.detail.response.returnval));
-     /* var overall=[];
-      var subarr=[];
-      var subfinal=[];
-      var catarr=[];
-      var catfinal=[];
-      var arr1=e.detail.response.returnval;
-      var sarr=e.detail.response.catarr;
-      // alert(JSON.stringify(sarr));
-      for(var x=0;x<studarr.length;x++){
-        for(var y=0;y<arr1.length;y++)
-        {
-          if(studarr[x].id==arr1[y].student_id)
-            arr1[y].student_name=studarr[x].student_name;          
-        }
-      }
-      if(arr1.length>0){      
-       // var f=0;
-       for(var i=0;i<arr1.length;i++)
-       {
-        // f=1;
-        var markarr=[];
-        markarr.push(i+1);
-        markarr.push(arr1[i].student_name);
-        subarr.push(arr1[i].sub_category);
-        catarr.push(arr1[i].category);
-        markarr.push(arr1[i].total);
-        markarr.push(arr1[i].grade);
-        for(var j=i+1;j<arr1.length;j++)
-        {
-           if(arr1[i].student_id==arr1[j].student_id)
-           {
-            markarr.push(arr1[j].total);
-            markarr.push(arr1[j].grade);
-            // if(i==0)
-            subarr.push(arr1[j].sub_category);
-            catarr.push(arr1[j].category);
-            arr1.splice(j,1);
-            j--;
-           }
-        }
-        overall.push(markarr);
-        }      
-        // alert(JSON.stringify(subfinal));  
-        // alert(JSON.stringify(overall));              
-        // var subfinal=this.eliminateDuplicates(subarr); 
-        var catfinal=this.eliminateDuplicates(catarr); 
-        // alert(JSON.stringify(sarr.length));
-        var titlearr=[];
-        subfinal.push("Sno");
-        subfinal.push("Student Name");
-        for(var i=0;i<sarr.length;i++){
-          subfinal.push(sarr[i].sub_category_name);
-        } 
-        // subfinal=sarr;
-        subfinal.splice(0,2); 
-        for(var i=0;i<subfinal.length;i++){
-          if(subfinal[i]!="Sno"||subfinal[i]!="Student Name"){
-            titlearr.push("Total");
-            titlearr.push("Grade");
-          }
-        }  
-        // alert(JSON.stringify(subfinal));   
-        // alert(JSON.stringify(titlearr));
-        // alert(JSON.stringify(overall));
-        // document.querySelector("categorywise-report").categoryarr=catfinal;
-        document.querySelector("categorywise-report").FnHideView();
-        document.querySelector("categorywise-report").subjectarr=subfinal;
-        document.querySelector("categorywise-report").titlearr=titlearr;
-        document.querySelector("categorywise-report").itemarr=overall;
-        subfinal=[];
-        titlearr=[];
-        overall=[];
-        
-      }*/
-
-          var assesscategory=e.detail.response.map;
+        var assesscategory=e.detail.response.map;
         var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.returnval;
      
@@ -1422,69 +1145,8 @@ var i;
     },
     fetchconsolidatedtermwiseResponse:function(e){
 
-
-
-   
-  /* var overall=[];
-      var assesmentarr=[];
-      var subarr=[];
-      var titlearr=[];
-
-       var arr1=e.detail.response.returnval;
-       //alert(JSON.stringify(arr1));
-       for(var x=0;x<studarr.length;x++){
-        for(var y=0;y<arr1.length;y++)
-        {
-          if(studarr[x].id==arr1[y].student_id)
-            arr1[y].student_name=studarr[x].student_name;          
-        }
-       }
-       if(arr1.length>0){      
-       for(var i=0;i<arr1.length;i++)
-       {
-        var markarr=[];
-
-        markarr.push(i+1);
-        markarr.push(arr1[i].student_name);
-        markarr.push(arr1[i].total);
-        markarr.push(arr1[i].grade);
-        subarr.push(arr1[i].subject_id);
-        for(var j=i+1;j<arr1.length;j++)
-        {
-           if(arr1[i].student_id==arr1[j].student_id)
-           {
-            markarr.push(arr1[j].total);
-            markarr.push(arr1[j].grade); 
-            subarr.push(arr1[j].subject_id);           
-            arr1.splice(j,1);
-            j--;
-           }
-        }
-       overall.push(markarr);
-       }
-       var subfinal=this.eliminateDuplicates(subarr);
-       subfinal.splice(0,2); 
-        for(var i=0;i<subfinal.length;i++){
-          if(subfinal[i]!="Sno"||subfinal[i]!="Student Name"){
-            titlearr.push("Total");
-            titlearr.push("Grade");
-          }
-        }    
-       // alert(JSON.stringify(subfinal));
-       // alert(JSON.stringify(overall));
-        document.querySelector("consolidatedtermwise-report-card").subjectarr=subfinal;
-        document.querySelector("consolidatedtermwise-report-card").titlearr=titlearr;
-        document.querySelector("consolidatedtermwise-report-card").itemarr=overall;
-        subfinal=[];
-        overall=[];
-        titlearr=[];
-      }*/
-
-
-
-          var assesscategorycnt=e.detail.response.categorycnt;
+        var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.returnval;
-     
         var temp=[];
         var obj={};
         var title=[];
@@ -1528,12 +1190,10 @@ var i;
             obj.studentname="Student Name";
             obj.subcategoryname=temp[i].subject_name;
             obj.categorycnt=parseInt(temp[i].spancnt);
-            obj.width=parseFloat(temp[i].spancnt)*parseFloat(divider)+"%";
+        obj.width=parseFloat(temp[i].spancnt)*parseFloat(divider)+"%";
             categorytitle.push(obj);
-         }
-     //   alert(JSON.stringify(categorytitle));
-
-         overall.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
+          }
+        overall.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
         
          temp=[];
     
@@ -1746,90 +1406,8 @@ var i;
         this.$.consolidateddatanalysisreportajax.generateRequest();
     },
     consolidateddatanalysisreportResponse:function(e){
-    /*  var overall=[];
-      var assesmentarr=[];
-      var subarr=[];
-      var titlearr=[];
-      var arr1=e.detail.response.returnval;
-       for(var x=0;x<studarr.length;x++){
-        for(var y=0;y<arr1.length;y++)
-        {
-          if(studarr[x].id==arr1[y].student_id)
-            arr1[y].student_name=studarr[x].student_name;          
-        }
-       }
-       // alert(JSON.stringify(arr1));
-       if(arr1.length>0){      
-       for(var i=0;i<arr1.length;i++)
-       {
-        var markarr=[];
-        var obj={};
-        var t1=[];
-        markarr.push({"sno":i+1});
-        markarr.push({"studentname":arr1[i].student_name});
-        // obj.sno=i+1;
-        // obj.studentname=arr1[i].student_name;
-        obj.studentid=arr1[i].student_id;
-        obj.subject=arr1[i].subject_id;
-        obj.term=localStorage.getItem("curr_sess_termname");
-        obj.grade=localStorage.getItem("curr_sess_grade");
-        obj.section=localStorage.getItem("curr_sess_section");
-        obj.mark=(arr1[i].total);
-        // markarr.push(arr1[i].grade);
-        t1.push(obj);
-        // markarr.push(obj);
-        subarr.push(arr1[i].subject_id);
-        for(var j=i+1;j<arr1.length;j++)
-        {
-           if(arr1[i].student_id==arr1[j].student_id)
-           {
-            var obj1={};
-            // obj1.sno=i+1;
-            // obj1.studentname=arr1[i].student_name;
-            obj1.studentid=arr1[j].student_id;
-            obj1.subject=arr1[j].subject_id;
-            obj1.mark=(arr1[j].total);
-            obj1.term=localStorage.getItem("curr_sess_termname");
-            obj1.grade=localStorage.getItem("curr_sess_grade");
-            obj1.section=localStorage.getItem("curr_sess_section");
-            t1.push(obj1);
-            // markarr.push(arr1[j].total);
-            // markarr.push(arr1[j].grade); 
-            subarr.push(arr1[j].subject_id);           
-            arr1.splice(j,1);
-            j--;
-           }
-        }
-        markarr.push({"mark":t1});
-        overall.push(markarr);
-       }
-       var subfinal=this.eliminateDuplicates(subarr);
-       subfinal.splice(0,2); 
-        for(var i=0;i<subfinal.length;i++){
-          if(subfinal[i]!="Sno"||subfinal[i]!="Student Name"){
-            titlearr.push("Total");
-            // titlearr.push("Grade");
-          }
-        }    
-       // alert(JSON.stringify(subfinal));
-        // alert(JSON.stringify(overall));
-        document.querySelector("consolidated-data-analysis-report").subjectarrr=subfinal;
-        // document.querySelector("consolidated-data-analysis-report").titlearr=titlearr;
-        document.querySelector("consolidated-data-analysis-report").itemarrr=overall;
-        subfinal=[];
-        overall=[];
-        titlearr=[];
-      }*/
-
-
-
-
-
-
-
-
-
-    var assesscategorycnt=e.detail.response.categorycnt;
+  
+        var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.returnval;
      
         var temp=[];
@@ -2123,7 +1701,7 @@ var i;
         titlearr=[];
         overall=[];        
       }
-    }
+     }
     });
   })();
   </script>
