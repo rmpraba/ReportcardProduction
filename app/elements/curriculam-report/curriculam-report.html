@@ -38,7 +38,7 @@
           <paper-dropdown-menu  label="Subject" style="margin-left: 5%;">
             <paper-menu id="cprsubject" class="dropdown-content"   on-iron-select="FnSelectSubject">
             <template is="dom-repeat" items="{{subjectarr}}">
-              <paper-item value="{{item.subject_id}}">{{item.subject_name}}</paper-item>
+              <paper-item value="{{item.subject_id}}">{{item.subjectname}}</paper-item>
             </template>    
             </paper-menu>
           </paper-dropdown-menu>
@@ -120,23 +120,33 @@
         this.gradeid=e.target.selectedItem.value;
         localStorage.setItem("curr_sess_gradeid",this.gradeid);
         this.gradename=e.target.selectedItem.textContent.trim();
+        this.$.bookservice.fnfetchcprsubject(this.gradeid);
         document.querySelector('#cprsubject').selected=-1;
-        this.$.bookservice.fnfetchcprsubject(this.gradename);
+        this.fullreport=true;
+        document.querySelector('curriculum-from-date-picker-card').FnClearfromc();
+        document.querySelector('curriculum-to-date-picker-card').FnCleartoc();
      },
      FnSelectSubject:function(e){
         this.subjectid=e.target.selectedItem.value;
         localStorage.setItem("curr_sess_subjectid",this.subjectid);
         this.gradename=e.target.selectedItem.textContent.trim();
+        this.fullreport=true;
+
+         document.querySelector('curriculum-from-date-picker-card').FnClearfromc();
+        document.querySelector('curriculum-to-date-picker-card').FnCleartoc();
        
      },
      fnsearch:function(e){
- this.$.bookservice.getcurriculamdetails(this.gradeid,this.subjectid);
+      this.$.bookservice.getcurriculamdetails(this.gradeid,this.subjectid);
+      this.fullreport=false;
      },
      Fnrefresh11:function()
      {
         document.querySelector('#cprgrade').selected=-1;
         document.querySelector('#cprsubject').selected=-1;
         this.fullreport=true;
+         document.querySelector('curriculum-from-date-picker-card').FnClearfromc();
+        document.querySelector('curriculum-to-date-picker-card').FnCleartoc();
      }
     });
     })();

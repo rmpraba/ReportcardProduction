@@ -164,17 +164,20 @@
       },      
       callFetchstudentinfoService:function(studid){
         this.fetchstudinfourl=sessionStorage.getItem("addrinfo")+"/fetchstudinfo-service";
-        var obj={"schoolid":"","studid":"","grade":"","section":""};
+        var obj={"schoolid":"","studid":"","grade":"","section":"","academicyear":""};
         obj.grade=localStorage.getItem("curr_sess_grade");
         obj.section=localStorage.getItem("curr_sess_section");
         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear");
         obj.studid=studid;
         this.fetchstudinfoparam=obj;
+        //alert(JSON.stringify(obj));
         this.$.fetchstudinfoajax.generateRequest();
       },
       fetchstudinfoResponse:function(e){        
         var arr=e.detail.response.returnval;
-        // alert(JSON.stringify(arr));       
+        //alert('test');
+        //alert(JSON.stringify(arr));       
         if(localStorage.getItem("curr_sess_grade")=="Grade-1"||localStorage.getItem("curr_sess_grade")=="Grade-2"||localStorage.getItem("curr_sess_grade")=="Grade-3"||localStorage.getItem("curr_sess_grade")=="Grade-4"){
         if(localStorage.getItem('curr_sess_loggedassesmenttype')=="Scorecard"){          
         document.querySelector('cce-onetofour-score-card').enrno=arr[0].student_id;

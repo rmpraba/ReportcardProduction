@@ -394,8 +394,11 @@ var gender;
       fnparents:function(e){
   this.$.studservice.fnparentinfomation(this.studid,this.fathername1,this.mothername1,this.fathermob,this.mothermob,this.motheremail,this.fatheremail,this.address1,this.address2,this.address3,this.city,this.pincode);
       },
-      fnpersonal:function(e){
-     this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+      fnpersonal:function(e)
+      {
+        this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+        this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+
     },
   fnlan:function(e){
     if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){

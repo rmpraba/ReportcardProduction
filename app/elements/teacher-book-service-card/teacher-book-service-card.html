@@ -689,14 +689,14 @@
       fnfetchcprgradeResponse:function(e){
         document.querySelector('curriculam-report').gradearr=e.detail.response.returnval;
       },
-      fnfetchcprsubject:function(gradename){
-      this.fnfetchcprsubjecturl=sessionStorage.getItem("addrinfo")+"/subject-service";
-      var obj={"school_id":"","capterid":"","conceptid":"","academic_year":""};
+      fnfetchcprsubject:function(gradeid){
+      this.fnfetchcprsubjecturl=sessionStorage.getItem("addrinfo")+"/curriculumsubject-service";
+      var obj={"school_id":"","capterid":"","conceptid":"","academic_year":"","subjectcategory":""};
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
       obj.loggedid=sessionStorage.getItem("curr_sess_loggedid");
       obj.roleid=sessionStorage.getItem("curr_sess_loggedroleid");
       obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-      obj.gradename=gradename; 
+      obj.gradeid=gradeid; 
       this.fnfetchcprsubjectparam=obj;
       this.$.fnfetchcprsubjectajax.generateRequest();
       },

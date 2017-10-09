@@ -38,7 +38,7 @@
     <div style="margin-left: 15%;">
       <span> 
        <paper-dropdown-menu  label="Select the Grade">
-          <paper-menu id="reportgradezzzz" class="dropdown-content"   on-iron-select="fnselectgrade">
+          <paper-menu id="evaltgradezzzz" class="dropdown-content"   on-iron-select="fnselectgrade">
             <template is="dom-repeat" items="{{chaptergradearr}}">
               <paper-item value="{{item.gradeid}}">{{item.gradename}}</paper-item>
             </template>    
@@ -48,7 +48,7 @@
       
        <span> 
          <paper-dropdown-menu  label="Select Subject" style="margin-left: 1%;">
-            <paper-menu id="reportsubjectzzzz" class="dropdown-content"   on-iron-select="fnselectsubject">
+            <paper-menu id="subevltrepzzzz" class="dropdown-content"   on-iron-select="fnselectsubject">
               <template is="dom-repeat" items="{{chapterevlsubjectarr}}">
                 <paper-item value="{{item.subjectid}}">{{item.subject_name}}</paper-item>
               </template>    
@@ -159,9 +159,11 @@ this.incompletereport1=true;
         sessionStorage.setItem("grdeidz",this.gradeid);
         this.gradename=e.target.selectedItem.textContent.trim();
         this.$.bookservice.fnsetrejectbooksubject1(this.gradeid,this.gradename);
-        document.querySelector('#reportsubjectzzzz').selected=-1; 
+        document.querySelector('#subevltrepzzzz').selected=-1; 
         document.querySelector('#chaptertermidrrrrr').selected=-1;
         this.incompletereport1=true;
+        document.querySelector('curriculum-from-date-picker-card').FnClearfromc();
+        document.querySelector('curriculum-to-date-picker-card').FnCleartoc();
       },
 
       fnselectsubject:function(e)
@@ -171,22 +173,28 @@ this.incompletereport1=true;
        this.subjectname=e.target.selectedItem.textContent.trim();
        document.querySelector('#chaptertermidrrrrr').selected=-1;
        this.incompletereport1=true;
+       document.querySelector('curriculum-from-date-picker-card').FnClearfromc();
+        document.querySelector('curriculum-to-date-picker-card').FnCleartoc();
      },
     Fnchaptertermid:function(e){
         this.termid=e.target.selectedItem.textContent.trim();
         sessionStorage.setItem("termid",this.termid);
          this.incompletereport1=true;
+         document.querySelector('curriculum-from-date-picker-card').FnClearfromc();
+        document.querySelector('curriculum-to-date-picker-card').FnCleartoc();
       },
         fnsearch:function(e){
       this.$.bookservice.fngetevalutionsection(this.gradeid,this.subjectid,this.termid);
       this.incompletereport1=false;
         },
-      FnRefreshtt:function()
+     FnRefreshevalt:function()
       {
-        document.querySelector('#reportgradezzzz').selected=-1;
-        document.querySelector('#reportsubjectzzzz').selected=-1;
+        document.querySelector('#evaltgradezzzz').selected=-1;
+        document.querySelector('#subevltrepzzzz').selected=-1;
          document.querySelector('#chaptertermidrrrrr').selected=-1;
         this.incompletereport1=true;
+        document.querySelector('curriculum-from-date-picker-card').FnClearfromc();
+        document.querySelector('curriculum-to-date-picker-card').FnCleartoc();
       }
 
 
