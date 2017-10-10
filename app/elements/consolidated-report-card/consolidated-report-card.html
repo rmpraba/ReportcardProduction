@@ -79,7 +79,7 @@
           <paper-dropdown-menu id="grade" label="Select Grade" disabled="{{read}}" required>
             <paper-menu class="dropdown-content" id="gradetyp"  on-iron-select="FnSelectGrade"  attr-for-selected="value" required>     
               <template is="dom-repeat" items="{{gradearr}}">
-                <paper-item value="{{item.grade_name}}">{{item.grade_name}}</paper-item>
+                <paper-item value="{{item.grade_id}}">{{item.grade_name}}</paper-item>
               </template>
             </paper-menu>
           </paper-dropdown-menu>
@@ -233,7 +233,11 @@
       },  
       FnSelectGrade:function(e){        
         gradename = e.target.selectedItem.textContent.trim();       
+        this.gradeid = e.target.selectedItem.value;       
+        alert(this.gradeid);
         localStorage.setItem("curr_sess_grade",gradename);
+        localStorage.setItem("curr_sess_gradeid",this.gradeid);
+
         document.querySelector('#sectyp').selected=-1;
         document.querySelector('#rpttype').selected=-1;
         document.querySelector('#termtyp').selected=-1;
@@ -337,15 +341,16 @@
      //   this.$.term.setDefaultHeaders(); 
         } 
         if(type=="ConsolidatedTerm"){
-        this.hideterm=false;
+        this.hideterm=true;
         this.categorycard=true;
         this.subjectcard=true;
         this.termcard=true;
         this.assesmentcard=true;
         this.consolidatedtermcard=false;
-        this.$.reportservice.callFetchstudentnameService(); 
-        this.hidedynamictable=true;
-        this.hideconsolheader=true;
+        this.hidedynamictable=false;
+        this.hideconsolheader=false ;
+        this.FnSpinnerrActive(true);
+         this.$.reportservice.callFetchstudentnameService(); 
      //  this.$.consolidated.setDefaultHeaders();
         }        
       },

@@ -3554,10 +3554,12 @@ app.post('/termwisereport-service',  urlencodedParser,function (req, res)
     "academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' "+
     "and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by student_id,assesment_id,CHAR_LENGTH(subject_id)";
 
-  var categorycnt="SELECT subject_id,subject_name FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and "+
-   "grade_name='"+req.query.grade+"' group by ASSESMENT_TYPE,CHAR_LENGTH(subject_name)";
+ 
 
-    var map="SELECT distinct( ASSESMENT_TYPE) FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and "+
+
+var categorycnt="SELECT subject_id,subject_name FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and  subject_id in(select subject_id from mp_grade_subject where school_id='"+req.query.schoolid+"' and  grade_id='"+req.query.gradeid+"' and academic_year='"+req.query.academicyear+"' ) and grade_name='"+req.query.grade+"' group by ASSESMENT_TYPE,CHAR_LENGTH(subject_name)";
+
+    var map="SELECT distinct( ASSESMENT_TYPE) FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and school_id='"+req.query.schoolid+"' and "+
    "grade_name='"+req.query.grade+"'";
 
 
@@ -3600,15 +3602,14 @@ console.log('----------------------------');
 });
 app.post('/fetchconsolidatedtermwise-service',  urlencodedParser,function (req, res)
 {
-  var qur="select term_name, (select r.student_name from md_student r where r.id=student_id and r.school_id='"+req.query.schoolid+"' and r.academic_year='"+req.query.academicyear+"')as studentname, assesment_id,student_id,subject_id,avg(rtotal),(SELECT grade FROM md_grade_rating WHERE "+
+   var qur="select term_name, (select r.student_name from md_student r where r.id=student_id and r.school_id='"+req.query.schoolid+"' and r.academic_year='"+req.query.academicyear+"')as studentname, assesment_id,student_id,subject_id,avg(rtotal),(SELECT grade FROM md_grade_rating WHERE "+
     "lower_limit<=round(avg(rtotal),1) and higher_limit>=round(avg(rtotal),1)) as grade "+
     "from tr_term_assesment_overall_marks  where school_id='"+req.query.schoolid+"' and "+
     "academic_year='"+req.query.academicyear+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by student_id,term_name,assesment_id,CHAR_LENGTH(subject_id)";
 
-  var categorycnt="SELECT subject_id,subject_name FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and "+
-   "grade_name='"+req.query.grade+"' group by ASSESMENT_TYPE,CHAR_LENGTH(subject_name)";
+    var categorycnt="SELECT subject_id,subject_name FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and  subject_id in(select subject_id from mp_grade_subject where school_id='"+req.query.schoolid+"' and  grade_id='"+req.query.gradeid+"' and academic_year='"+req.query.academicyear+"' ) and grade_name='"+req.query.grade+"' group by ASSESMENT_TYPE,CHAR_LENGTH(subject_name)";
 
-    var map="SELECT distinct( ASSESMENT_TYPE) FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and "+
+    var map="SELECT distinct( ASSESMENT_TYPE) FROM subject_mapping WHERE school_id='"+req.query.schoolid+"'  and academic_year='"+req.query.academicyear+"' and "+
    "grade_name='"+req.query.grade+"' order by ASSESMENT_TYPE ";
 
 
@@ -3651,49 +3652,6 @@ console.log(map);
 
   });
 });
-/*app.post('/fetchconsolidatedtermwise-service',  urlencodedParser,function (req, res)
-{
-   var qur="select (select r.student_name from md_student r where r.id=student_id and r.school_id='"+req.query.schoolid+"' and r.academic_year='"+req.query.academicyear+"')as studentname,student_id,subject_id,round(avg(rtotal),1) as total,(SELECT grade FROM md_grade_rating WHERE "+
-    "lower_limit<=round(avg(rtotal),1) and higher_limit>=round(avg(rtotal),1)) as grade "+
-    "from tr_term_assesment_overall_assesmentmarks  where school_id='"+req.query.schoolid+"' and "+
-    "academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' "+
-    "and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by student_id, CHAR_LENGTH(subject_id)";
-
-  var categorycnt="SELECT distinct(subject_id),subject_name FROM subject_mapping  WHERE academic_year='"+req.query.academicyear+"' and "+
-   "grade_name='"+req.query.grade+"' group by CHAR_LENGTH(subject_name)";
-
-console.log('--------suibject report--------------');
-console.log(qur);
-console.log('-----------------------');
-console.log(categorycnt);
-console.log('----------------------------');
- var arr1=[];
-
- connection.query(qur,
-    function(err, rows)
-    {
-    if(!err)
-    { 
-      arr1=rows;
-    connection.query(categorycnt,
-   
-    function(err, rows)
-    {
-    if(!err)
-    {
-     res.status(200).json({'returnval': arr1,'categorycnt':rows});
-    }
-    });
-    }
-   
-    else
-    {
-      console.log('error in this query....'+err);
-      res.status(200).json({'returnval': 'fail'});
-    }  
-
-  });
-});*/
 
 app.post('/assesmentwisereport-service',  urlencodedParser,function (req, res)
 {
@@ -3703,10 +3661,9 @@ app.post('/assesmentwisereport-service',  urlencodedParser,function (req, res)
     "academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and assesment_id='"+req.query.assesment+"' "+
     "and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by student_id,CHAR_LENGTH(subject_id)";
 
-  var categorycnt="SELECT distinct(subject_id),subject_name FROM subject_mapping  WHERE academic_year='"+req.query.academicyear+"' and "+
-   "grade_name='"+req.query.grade+"' and  assesment_type='"+req.query.assesment+"'group by CHAR_LENGTH(subject_name)";
+  var categorycnt="SELECT distinct(subject_id),subject_name FROM subject_mapping  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and grade_name='"+req.query.grade+"' and  subject_id in(select subject_id from mp_grade_subject where school_id='"+req.query.schoolid+"' and  grade_id='"+req.query.gradeid+"' and academic_year='"+req.query.academicyear+"' ) and  assesment_type='"+req.query.assesment+"'group by CHAR_LENGTH(subject_name)";
 
-console.log('--------suibject report--------------');
+console.log('--------asesmentasdawe--------------');
 console.log(qur);
 console.log('-----------------------');
 console.log(categorycnt);
@@ -3743,34 +3700,7 @@ console.log('----------------------------');
 
 
 
-/*app.post('/fetchconsolidatedtermwise-service' ,  urlencodedParser,function (req, res)
-{  
-    var qur="select student_id,subject_id,round(avg(rtotal),1) as total,(SELECT grade FROM md_grade_rating WHERE "+
-    "lower_limit<=round(avg(rtotal),1) and higher_limit>=round(avg(rtotal),1)) as grade "+
-    "from tr_term_assesment_overall_assesmentmarks  where school_id='"+req.query.schoolid+"' and "+
-    "academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' "+
-    "and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by subject_id,student_id order by subject_id";
-    
-    console.log('......................overalltermwise..............................');
-    console.log(qur);
-    connection.query(qur,
-    function(err, rows)
-    {
-    if(!err)
-    {
-    if(rows.length>0)
-    {
-      res.status(200).json({'returnval': rows});
-    }
-    else
-    {
-      //console.log(err);
-      res.status(200).json({'returnval': 'invalid'});
-    }
-    }
-    else
-      console.log(err);
-});*/
+
 
 app.post('/subjectwisereport-service',  urlencodedParser,function (req, res)
 {
@@ -3780,7 +3710,7 @@ var qur="select (select r.student_name from md_student r where r.id=student_id a
     "academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' "+
     "and subject_id='"+req.query.subject+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by student_id,assesment_id";
 
- var categorycnt="SELECT distinct (assesment_type)  FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and "+
+ var categorycnt="SELECT distinct (assesment_type)  FROM subject_mapping WHERE and school_id='"+req.query.schoolid+"' and  academic_year='"+req.query.academicyear+"' and "+
 " grade_name='"+req.query.grade+"' and subject_name='"+req.query.subject+"'";
 
 console.log('--------suibject report--------------');
@@ -6074,8 +6004,7 @@ app.post('/consolidateddatanalysisreport-service',  urlencodedParser,function (r
     "academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' "+
     "and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by student_id,CHAR_LENGTH(subject_id)";
 
-var categorycnt="SELECT distinct(subject_id),subject_name FROM subject_mapping  WHERE academic_year='"+req.query.academicyear+"' and "+
-   "grade_name='"+req.query.grade+"' group by CHAR_LENGTH(subject_name)";
+var categorycnt="SELECT distinct(subject_id),subject_name FROM subject_mapping  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and grade_name='"+req.query.grade+"' and  subject_id in(select subject_id from mp_grade_subject where school_id='"+req.query.schoolid+"' and  grade_id='"+req.query.gradeid+"' and academic_year='"+req.query.academicyear+"' ) group by CHAR_LENGTH(subject_name)";
 
 console.log('--------suibject report--------------');
 console.log(qur);
