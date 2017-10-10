@@ -149,6 +149,7 @@
         obj.grade=localStorage.getItem("curr_sess_grade");
         obj.section=localStorage.getItem("curr_sess_section");
         obj.academicyear=localStorage.getItem("curr_sess_academicyear");
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");
         this.fetchstudnameparam=obj;
         this.$.fetchstudnameajax.generateRequest();
       },
@@ -296,7 +297,8 @@
       obj.termname=localStorage.getItem("curr_sess_termname");
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
       obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-      obj.grade=localStorage.getItem("curr_sess_grade");;
+      obj.grade=localStorage.getItem("curr_sess_grade");
+      obj.gradeid=localStorage.getItem("curr_sess_gradeid");
       obj.section=localStorage.getItem("curr_sess_section");
       obj.assesment=localStorage.getItem("curr_sess_assesment");
         this.assesmentwisereportparam=obj;
@@ -416,8 +418,7 @@
              var obj3={};
              var obj4={};
              var obj5={};
-             var obj6={};
-             var obj7={};
+            
              if(arr[i].student_id==arr[j].student_id){
               // alert(arr[j].subject_id);
                  if(arr[j].subject_id =='II Language Hindi'|| arr[j].subject_id =='II Language Kannada' || arr[j].subject_id =='II Language French'){
@@ -437,80 +438,36 @@
                   obj5.subcategoryname="";
                   obj5.categorycnt=cnt;
                   obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname="";
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj7.subcategoryname="";
-                  obj7.categorycnt=cnt;
-                  obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                  
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
              category.push(obj4);
              category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
+            
               }
-       else if(arr[j].subject_id =='II Language French'){
-                   obj2.subcategoryname="";
-                   obj2.categorycnt=cnt;
-                   obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                  obj3.subcategoryname="";
-                  obj3.categorycnt=cnt;
-                  obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname=arr[j].grade;
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj5.subcategoryname=arr[j].total;
-                  obj5.categorycnt=cnt;
-                  obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname="";
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj7.subcategoryname="";
-                  obj7.categorycnt=cnt;
-                  obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-             arr.splice(j,1);
-             j--;
-             category.push(obj2);
-             category.push(obj3);
-             category.push(obj4);
-             category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
-                 }
-           else  if(arr[j].subject_id =='II Language Kannada'){
+      
+            else  if(arr[j].subject_id =='II Language Kannada'){
                    obj2.subcategoryname="";
                    obj2.categorycnt=cnt;
                    obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
                    obj3.subcategoryname="";
                    obj3.categorycnt=cnt;
                    obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname="";
+                   
+                   obj4.subcategoryname=arr[j].grade;
                    obj4.categorycnt=cnt;
                    obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                   obj5.subcategoryname="";
+                   obj5.subcategoryname=arr[j].total;;
                    obj5.categorycnt=cnt;
                    obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname=arr[j].grade;
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj7.subcategoryname=arr[j].total;;
-                   obj7.categorycnt=cnt;
-                   obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
              category.push(obj4);
              category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
             
                 }
                 }
@@ -586,7 +543,9 @@ var i;
         obj.termname=localStorage.getItem("curr_sess_termname");
         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
         obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-        obj.grade=localStorage.getItem("curr_sess_grade");;
+        obj.grade=localStorage.getItem("curr_sess_grade");
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");
+      
         obj.section=localStorage.getItem("curr_sess_section");
         // obj.assesment=localStorage.getItem("curr_sess_assesment");
         this.termwisereportparam=obj;
@@ -689,8 +648,7 @@ var i;
               
              var obj2={};
              var obj3={};
-             var obj4={};
-            
+             
              if(arr[i].student_id==arr[j].student_id){
               // alert(arr[j].subject_id);
                  if(arr[j].subject_id =='II Language Hindi'|| arr[j].subject_id =='II Language Kannada' || arr[j].subject_id =='II Language French'){
@@ -703,57 +661,33 @@ var i;
                   obj3.subcategoryname="";
                   obj3.categorycnt=cnt;
                   obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname="";
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
+                 
                   
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
-             category.push(obj4);
-             
             
              
                  }
               
-               else if(arr[j].subject_id =='II Language French'){
-                   obj2.subcategoryname="";
-                   obj2.categorycnt=cnt;
-                   obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                  obj3.subcategoryname=arr[j].grade;
-                  obj3.categorycnt=cnt;
-                  obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname="";
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                 
-             arr.splice(j,1);
-             j--;
-             category.push(obj2);
-             category.push(obj3);
-             category.push(obj4);
-           
-                 }
+            
            else  if(arr[j].subject_id =='II Language Kannada'){
                    obj2.subcategoryname="";
                    obj2.categorycnt=cnt;
                    obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj3.subcategoryname="";
+
+                   obj3.subcategoryname=arr[j].grade;
                    obj3.categorycnt=cnt;
                    obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname=arr[j].grade;
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
+                  
                   
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
-             category.push(obj4);
+            
+
              
                 }
                 }
@@ -1117,12 +1051,9 @@ var i;
             j--;
             category.push(obj);
             category.push(obj1);
-
-         
+              }
             }
-            }
-            
-            overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":category});
+overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":category});
             
         }
     
@@ -1147,15 +1078,19 @@ var i;
         obj.termname=localStorage.getItem("curr_sess_termname");
         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
         obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-        obj.grade=localStorage.getItem("curr_sess_grade");;
+        obj.grade=localStorage.getItem("curr_sess_grade");
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");;
+        ;
         obj.section=localStorage.getItem("curr_sess_section");
         this.fetchconsolidatedtermwiseparam=obj;
         this.$.fetchconsolidatedtermwiseajax.generateRequest();
     },
     fetchconsolidatedtermwiseResponse:function(e){
 
+        var assesscategory=e.detail.response.map;
         var assesscategorycnt=e.detail.response.categorycnt;
-        var arr=e.detail.response.returnval;
+        var arr=e.detail.response.arr1;
+     alert(1);
         var temp=[];
         var obj={};
         var title=[];
@@ -1171,78 +1106,139 @@ var i;
          var tempcnt=0;
          var divider=0;
          var percent=0;
-
-        for(var i=0;i<assesscategorycnt.length;i++){
+       
+        for(var i=0;i<assesscategory.length;i++){
           var obj={};
-          obj.subject_name=assesscategorycnt[i].subject_name;
-          obj.spancnt=2;
+          obj.ASSESMENT_TYPE=assesscategory[i].ASSESMENT_TYPE;
+           if(i==0)
+           obj.spancnt=8;
+           if(i==1)
+           obj.spancnt=8;
+           if(i==2)
+          obj.spancnt=11;
           temp.push(obj);
-          tempcnt+=parseFloat(2);
-        }
-        //alert(JSON.stringify(temp));
+         }
 
+        for(var i=0;i<assesscategory.length;i++){
+          var obj={};
+          obj.ASSESMENT_TYPE=assesscategory[i].ASSESMENT_TYPE;
+           if(i==0)
+           obj.spancnt=8;
+           if(i==1)
+           obj.spancnt=8;
+           if(i==2)
+          obj.spancnt=11;
+          temp.push(obj);
+         
+         
+        }
+        for(var i=0;i<assesscategory.length;i++){
+          var obj={};
+          obj.ASSESMENT_TYPE=assesscategory[i].ASSESMENT_TYPE;
+           if(i==0)
+           obj.spancnt=8;
+           if(i==1)
+           obj.spancnt=8;
+           if(i==2)
+          obj.spancnt=11;
+          temp.push(obj);
+         
+         
+        }
+      
+        tempcnt=27;
+   //     alert(JSON.stringify(temp));
         if(parseFloat(tempcnt)>=8){
-          percent=80;
-          tabwidth="100%";
-        }
-        else if(parseFloat(tempcnt)>=3){
-          percent=40;
-          tabwidth="60%";
-        } 
-        else{
-          percent=25;
-          tabwidth="45%";
-        }
+           percent=100;
+           tabwidth="150%";
+           }
+         else if(parseFloat(tempcnt)>=3){
+           percent=40;
+           tabwidth="60%";
+           } 
+           else{
+           percent=25;
+           tabwidth="45%";
+           }
+
         divider=parseFloat(percent)/(parseFloat(tempcnt));
+         var termarr=[];
+           var obj={};
+            obj.studentname="Student Name";
+            obj.subcategoryname="Term1";
+            obj.categorycnt=27;
+            obj.width=(parseFloat(27)*parseFloat(divider))+"%";
+            termarr.push(obj);
+             obj={};
+            obj.studentname="Student Name";
+            obj.subcategoryname="Term2";
+            obj.categorycnt=27;
+            obj.width=(parseFloat(27)*parseFloat(divider))+"%";
+            termarr.push(obj);
+            obj={};
+            obj.studentname="Student Name";
+            obj.subcategoryname="Term3"; 
+            obj.categorycnt=27;
+            obj.width=(parseFloat(27)*parseFloat(divider))+"%";
+            termarr.push(obj);
+                         
+
+       overall.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':termarr});
+        termarr=[];
+
         for(var i=0;i<temp.length;i++){
             var obj={};
             obj.studentname="Student Name";
-            obj.subcategoryname=temp[i].subject_name;
-            obj.categorycnt=parseInt(temp[i].spancnt);
-        obj.width=parseFloat(temp[i].spancnt)*parseFloat(divider)+"%";
+            obj.subcategoryname=temp[i].ASSESMENT_TYPE;
+            obj.categorycnt=(parseInt(temp[i].spancnt));
+            obj.width=parseFloat(temp[i].spancnt)*parseFloat(divider)+"%";
             categorytitle.push(obj);
-          }
-        overall.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
+         }
+     //   alert(JSON.stringify(categorytitle));
+
+         overall.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
         
          temp=[];
-    
-     
-      var  categorysubtitle=[];
-        for(var i=0;i<categorytitle.length;i++){
+         var  categorysubtitle=[];
+        for(var i=0;i<assesscategorycnt.length;i++){
           var obj={};
             obj.studentname="Student Name";
+            obj.subcategoryname=assesscategorycnt[i].subject_name;
             obj.categorycnt=1;
-            obj.width=parseFloat(categorytitle[i].width)/2+"%";
-              if(i%2==0){
-                  obj.subcategoryname="Grade"; 
-                   }
-                else{
-                obj.subcategoryname="Total"; 
-                 }
-                categorysubtitle.push(obj);
-              }
-         for(var i=0;i<categorytitle.length;i++){
-        var obj={};
-            obj.studentname="Student Name";
-            obj.categorycnt=1;
-            obj.width=parseFloat(categorytitle[i].width)/2+"%";
-            if(i%2==0){
-              obj.subcategoryname="Grade";  
-            }
-             else
-             obj.subcategoryname="Total"; 
-              categorysubtitle.push(obj);
-          }
-    
+            obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+               categorysubtitle.push(obj);
 
-  overall.push({"sno":"Sno","studentname":"Student Name","tabwidth":tabwidth,"serialno":"",'category':categorysubtitle});
-  //alert(JSON.stringify(overall));
+              }
+              for(var i=0;i<assesscategorycnt.length;i++){
+          var obj={};
+            obj.studentname="Student Name";
+            obj.subcategoryname=assesscategorycnt[i].subject_name;
+            obj.categorycnt=1;
+            obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+               categorysubtitle.push(obj);
+               
+              }
+         
+         for(var i=0;i<assesscategorycnt.length;i++){
+          var obj={};
+            obj.studentname="Student Name";
+            obj.subcategoryname=assesscategorycnt[i].subject_name;
+            obj.categorycnt=1;
+            obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+               categorysubtitle.push(obj);
+               
+              }
+         
+         
+
+   overall.push({"sno":"Sno","studentname":"Student Name","tabwidth":tabwidth,"serialno":"",'category':categorysubtitle});
+  alert(JSON.stringify(overall));
     categorytitle=[]
-   categorysubtitle=[];
+    categorysubtitle=[];
 
         for(var i=0;i<arr.length;i++){
             var obj={};
-            var obj1={};
+            
 
             var cnt=1;
             var category=[];
@@ -1252,117 +1248,46 @@ var i;
             obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
             category.push(obj);
            
-            obj1.subcategoryname=arr[i].total;
-            obj1.categorycnt=cnt;
-            obj1.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-            category.push(obj1);
-          
-             
+           
             for(var j=i+1;j<arr.length;j++){
-               obj={};
-                obj1={};
+                obj={};
+              
              var obj2={};
              var obj3={};
-             var obj4={};
-             var obj5={};
-             var obj6={};
-             var obj7={};
+            
              if(arr[i].student_id==arr[j].student_id){
               // alert(arr[j].subject_id);
-                 if(arr[j].subject_id =='II Language Hindi'|| arr[j].subject_id =='II Language Kannada' || arr[j].subject_id =='II Language French'){
+                 if(arr[j].subject_id =='II Language Hindi'|| arr[j].subject_id =='II Language Kannada'){
                   // alert(2);
                  if(arr[j].subject_id =='II Language Hindi'){
                    obj2.subcategoryname=arr[j].grade;
                    obj2.categorycnt=cnt;
                    obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
 
-                  obj3.subcategoryname=arr[j].total;
-                  obj3.categorycnt=cnt;
-                  obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname="";
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj5.subcategoryname="";
-                  obj5.categorycnt=cnt;
-                  obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname="";
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj7.subcategoryname="";
-                  obj7.categorycnt=cnt;
-                  obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-             arr.splice(j,1);
-             j--;
-             category.push(obj2);
-             category.push(obj3);
-             category.push(obj4);
-             category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
-            
-             
-                 }
-              
-               else if(arr[j].subject_id =='II Language French'){
-                   obj2.subcategoryname="";
-                   obj2.categorycnt=cnt;
-                   obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
                   obj3.subcategoryname="";
                   obj3.categorycnt=cnt;
                   obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname=arr[j].grade;
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj5.subcategoryname=arr[j].total;
-                  obj5.categorycnt=cnt;
-                  obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname="";
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj7.subcategoryname="";
-                  obj7.categorycnt=cnt;
-                  obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                  
+                  
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
-             category.push(obj4);
-             category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
-                 }
-           else  if(arr[j].subject_id =='II Language Kannada'){
+             }
+    else  if(arr[j].subject_id =='II Language Kannada'){
                    obj2.subcategoryname="";
                    obj2.categorycnt=cnt;
                    obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj3.subcategoryname="";
+
+                   obj3.subcategoryname=arr[j].grade;
                    obj3.categorycnt=cnt;
                    obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname="";
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                   obj5.subcategoryname="";
-                   obj5.categorycnt=cnt;
-                   obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname=arr[j].grade;
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj7.subcategoryname=arr[j].total;;
-                   obj7.categorycnt=cnt;
-                   obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                   
+                  
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
-             category.push(obj4);
-             category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
             
                 }
                 }
@@ -1372,14 +1297,10 @@ var i;
              obj.subcategoryname=arr[j].grade;
              obj.categorycnt=cnt;
              obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-             obj1.subcategoryname=arr[j].total;
-             obj1.categorycnt=cnt;
-             obj1.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-             arr.splice(j,1);
+              arr.splice(j,1);
              j--;
              category.push(obj);
-             category.push(obj1);
+            
             
                  }
                 }
@@ -1388,20 +1309,19 @@ var i;
             overall.push({"studentname":arr[i].studentname,"tabwidth":tabwidth,"category":category});
             
         }
-    
+     alert(JSON.stringify(overall));
         for(var i=2,j=0;i<overall.length;i++,j++){
             overall[i].sno=j+1;
         }  
-   
-        document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
-      document.querySelector('consolidated-report-card').studarr=overall;
-      document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
-       
-        document.querySelector('consolidated-report-card').setDefaultHeaders();
+   alert(2);
+
+    document.querySelector('consolidated-report-card').studarr=overall;
+     document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
+         document.querySelector('consolidated-report-card').setDefaultHeaders();
+     
         temp=[];
         overall=[];
       }
-   
  },
     callconsolidateddatanalysisreportService:function(){
 
@@ -1410,7 +1330,9 @@ var i;
         obj.termname=localStorage.getItem("curr_sess_termname");
         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
         obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-        obj.grade=localStorage.getItem("curr_sess_grade");;
+        obj.grade=localStorage.getItem("curr_sess_grade");
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");
+        ;
         obj.section=localStorage.getItem("curr_sess_section");
         this.consolidateddatanalysisreportparam=obj;
         this.$.consolidateddatanalysisreportajax.generateRequest();
@@ -1495,8 +1417,7 @@ var i;
              var obj3={};
              var obj4={};
              var obj5={};
-             var obj6={};
-             var obj7={};
+           
              if(arr[i].student_id==arr[j].student_id){
               // alert(arr[j].subject_id);
                  if(arr[j].subject_id =='II Language Hindi'|| arr[j].subject_id =='II Language Kannada' || arr[j].subject_id =='II Language French'){
@@ -1516,55 +1437,16 @@ var i;
                   obj5.subcategoryname="";
                   obj5.categorycnt=cnt;
                   obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname="";
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj7.subcategoryname="";
-                  obj7.categorycnt=cnt;
-                  obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                  
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
              category.push(obj4);
              category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
-            
+           
+                 }
              
-                 }
-              
-               else if(arr[j].subject_id =='II Language French'){
-                   obj2.subcategoryname="";
-                   obj2.categorycnt=cnt;
-                   obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                  obj3.subcategoryname="";
-                  obj3.categorycnt=cnt;
-                  obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname=arr[j].grade;
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj5.subcategoryname=arr[j].total;
-                  obj5.categorycnt=cnt;
-                  obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname="";
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-
-                  obj7.subcategoryname="";
-                  obj7.categorycnt=cnt;
-                  obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-             arr.splice(j,1);
-             j--;
-             category.push(obj2);
-             category.push(obj3);
-             category.push(obj4);
-             category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
-                 }
            else  if(arr[j].subject_id =='II Language Kannada'){
                    obj2.subcategoryname="";
                    obj2.categorycnt=cnt;
@@ -1572,27 +1454,22 @@ var i;
                    obj3.subcategoryname="";
                    obj3.categorycnt=cnt;
                    obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname="";
+
+                   obj4.subcategoryname=arr[j].grade;
                    obj4.categorycnt=cnt;
                    obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
 
-                   obj5.subcategoryname="";
+                   obj5.subcategoryname=arr[j].tota;
                    obj5.categorycnt=cnt;
                    obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj6.subcategoryname=arr[j].grade;
-                   obj6.categorycnt=cnt;
-                   obj6.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj7.subcategoryname=arr[j].total;;
-                   obj7.categorycnt=cnt;
-                   obj7.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                   
              arr.splice(j,1);
              j--;
              category.push(obj2);
              category.push(obj3);
              category.push(obj4);
              category.push(obj5);
-             category.push(obj6);
-             category.push(obj7);
+             
             
                 }
                 }

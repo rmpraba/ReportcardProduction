@@ -91,7 +91,7 @@
           <paper-dropdown-menu id="grade" label="Select Grade" disabled="{{read}}" required>
             <paper-menu class="dropdown-content" id="gradetyp"  on-iron-select="FnSelectGrade"  attr-for-selected="value" required>     
               <template is="dom-repeat" items="{{gradearr}}">
-                <paper-item value="{{item.grade_name}}">{{item.grade_name}}</paper-item>
+                <paper-item value="{{item.grade_id}}">{{item.grade_name}}</paper-item>
               </template>
             </paper-menu>
           </paper-dropdown-menu>
@@ -257,7 +257,11 @@
       },  
       FnSelectGrade:function(e){        
         gradename = e.target.selectedItem.textContent.trim();       
+        this.gradeid = e.target.selectedItem.value;       
+        alert(this.gradeid);
         localStorage.setItem("curr_sess_grade",gradename);
+        localStorage.setItem("curr_sess_gradeid",this.gradeid);
+
         document.querySelector('#sectyp').selected=-1;
         document.querySelector('#rpttype').selected=-1;
         document.querySelector('#termtyp').selected=-1;
@@ -344,7 +348,8 @@
         this.hideterm=true;
         this.hidesubject=true;
         this.hideassesment=true;
-        //this.$.consolidated.setDefaultHeaders();
+        this.FnSpinnerrActive(true);
+         this.$.reportservice.callFetchstudentnameService();
         }        
       },
       FnSelectSubject:function(e){
