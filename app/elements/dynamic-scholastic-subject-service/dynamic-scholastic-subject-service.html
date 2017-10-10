@@ -451,9 +451,9 @@
         var assesscategory=e.detail.response.map;
         var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.returnval;
-        alert(JSON.stringify(assesscategory));
-        alert(JSON.stringify(assesscategorycnt));
-        alert(JSON.stringify(arr));
+       // alert(JSON.stringify(assesscategory));
+        //alert(JSON.stringify(assesscategorycnt));
+        //alert(JSON.stringify(arr));
         var temp=[];
         var obj={};
         var title=[];
@@ -478,7 +478,7 @@
           temp.push(obj);
           tempcnt+=parseFloat(assesscategorycnt[i].cnt);
         }
-        alert(JSON.stringify(temp));
+        //alert(JSON.stringify(temp));
 
         if(parseFloat(tempcnt)>=8){
           percent=80;
@@ -501,7 +501,7 @@
             obj.width=parseFloat(temp[i].spancnt)*parseFloat(divider)+"%";
             categorytitle.push(obj);
          }
-        alert(JSON.stringify(categorytitle));
+        //alert(JSON.stringify(categorytitle));
 
          // cat.push({"studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
          // document.querySelector('dynamic-scholastic-markentry-report').catarr=cat;
@@ -515,7 +515,7 @@
           obj.weight=assesscategory[i].weight;
           temp.push(obj);
         }  
-        alert(JSON.stringify(temp));
+        //alert(JSON.stringify(temp));
 
          for(var i=0;i<temp.length;i++){
             var cnt=1;
@@ -534,7 +534,7 @@
             categorytitle.push(obj);
          }
          overall.push({"sno":"Sno","studentname":"Student Name","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
-        alert(JSON.stringify(overall));
+        //alert(JSON.stringify(overall));
 
         for(var i=0;i<arr.length;i++){
             var obj={};
@@ -563,7 +563,7 @@
             overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":category});
             // category=[];
         }
-        alert(JSON.stringify(overall));
+        //alert(JSON.stringify(overall));
 
         // alert(JSON.stringify(overall));
         for(var i=2,j=0;i<overall.length;i++,j++){

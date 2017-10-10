@@ -244,7 +244,7 @@
          this.$.gradeajax.generateRequest();      
       },
       gradeResponse:function(e){
-        // alert(JSON.stringify(e.detail.response.returnval));
+        //alert(JSON.stringify(e.detail.response.returnval));
         if(localStorage.getItem('curr_sess_loggedassesmenttype')=='feecollectionupdate')
           document.querySelector('generate-studentlist-outcard').gradearr=e.detail.response.returnval;
         if(localStorage.getItem('curr_sess_loggedassesmenttype')=='Scorecard')

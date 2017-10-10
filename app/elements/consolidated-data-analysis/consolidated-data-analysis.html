@@ -39,6 +39,18 @@
         style="text-align: center;word-wrap: break-word;"
       }
       
+      #btn4
+          {
+            /*width: 15%;*/
+            background: #252626;
+            color: white;
+            margin-top: 2%;
+            height: 25px;
+            border-radius: 2px;
+            margin-left: 48%;
+            font-family: Calibri;
+            font-size: 17px;
+          }
     </style>
       <div class="card">
           <div class="inner">
@@ -52,7 +64,7 @@
           <paper-dropdown-menu id="grade" label="Select Grade" disabled="{{read}}" required>
             <paper-menu class="dropdown-content" id="analysisgrade"  on-iron-select="FnSelectGrade"  attr-for-selected="value" required>  
               <template is="dom-repeat" items="{{gradearr}}">
-                <paper-item value="{{item.grade_name}}">{{item.grade_name}}</paper-item>
+                <paper-item value="{{item.grade_id}}">{{item.grade_name}}</paper-item>
               </template>
             </paper-menu>
           </paper-dropdown-menu>
@@ -76,24 +88,51 @@
     </div> -->
     </div>
 
+  <div id="consolidatetermreport">  
+    <div class="topheader2" hidden$="{{hidedataheader}}">
+      <center>
+        <h1 style="margin-left: 5%;">{{schoolname}}</h1>
+        <h3 style="margin-left: 6%;">Continuous Comprehensive Evaluation -AY-{{academicyear}}</h3>  
+        <h4 style="margin-left: 7%;">Term:{{term}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grade: {{gradename}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Section: {{section}}</h4>
+      </center>
+    </div>
 
-      <div width="{{tabwidth}}">
-      <table id="myTable" border="1" style="border-collapse: collapse;" width="{{tabwidth}}">
-      <template is="dom-repeat" items="{{studarr}}">
-      <tr>
-      <th width="5%">{{item.sno}}</th>
-      <th width="15%">{{item.studentname}}</th>
-      <template is="dom-repeat" items="{{item.category}}" as="i">
-      <th colspan$="{{i.categorycnt}}" width$="{{i.width}}">{{i.subcategoryname}}</th>
+      <div width="{{tabwidth}}" hidden$="{{hidedatareport}}">
+        <table id="myTable" border="1" style="border-collapse: collapse;" width="{{tabwidth}}">
+          <template is="dom-repeat" items="{{studarr}}">
+            <tr>
+              <th width="5%">{{item.sno}}</th>
+              <th width="15%">{{item.studentname}}</th>
+                <template is="dom-repeat" items="{{item.category}}" as="i">
+                  <th colspan$="{{i.categorycnt}}" width$="{{i.width}}">{{i.subcategoryname}}</th>
       
-      </template>
-      </tr>
-      </template>
-      </table>  
+                </template>
+            </tr>
+          </template>
+        </table>  
       </div>
+
+        <input type="button" id="btn4" onclick="tableToExcel('consolidatetermreport', 'Mark Report')" value="Export to Excel">
+    </div>  
     <scorecard-service id="scorecardservice"></scorecard-service>
     <report-service id="reportservice"></report-service>
   </template>
+
+    <script type="text/javascript">
+  var tableToExcel = (function() {
+  var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+  return function(table, name) {
+    if (!table.nodeType) table = document.getElementById(table)
+    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+    window.location.href = uri + base64(format(template, ctx))
+  }
+  })()
+  </script>
+
+
   <script>
   (function() {
     'use strict';
@@ -105,7 +144,10 @@
       is: 'consolidated-data-analysis',
       ready:function(){
         this.flag=0;
-        this.hideanalysiscard=true;  
+        this.hideanalysiscard=true; 
+        this.hidedataheader=true; 
+        this.$.btn4.hidden=true;
+        this.hidedatareport=true;
       },
       FnHideSchool:function(){
         if(sessionStorage.getItem("curr_sess_loggedroleid")!='management')
@@ -123,23 +165,37 @@
       },
       FnSelectGrade:function(e){        
         gradename = e.target.selectedItem.textContent.trim();       
+        this.gradeid=e.target.selectedItem.value;
         localStorage.setItem("curr_sess_grade",gradename);
+        localStorage.setItem("curr_sess_gradeid",this.gradeid);
         this.$.scorecardservice.callSectionService(gradename);
+        this.hidedataheader=true; 
+        this.hideanalysiscard=true;
+        this.$.btn4.hidden=true;
+        this.hidedatareport=true;
         if(this.flag==1)
           this.callService();
       },
       FnSelectSection:function(e){
         section = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_section",section);
+        this.hidedataheader=true; 
+        this.hideanalysiscard=true;
+        this.$.btn4.hidden=true;
+        this.hidedatareport=true;
         if(this.flag==1)                
         this.callService();
       },
       FnSelectTerm:function(e){
         this.flag=1;
         termname = e.target.selectedItem.textContent.trim();
-        localStorage.setItem("curr_sess_termname",termname);              
-    //    this.$.analysis.setDefaultHeaders();
-        this.$.reportservice.callFetchstudentnameService();        
+        localStorage.setItem("curr_sess_termname",termname);
+        this.hidedataheader=false;   
+        this.hideanalysiscard=false;  
+        this.$.btn4.hidden=false;   
+        this.hidedatareport=false;       
+          // this.$.analysis.setDefaultHeaders();
+        this.$.reportservice.callFetchstudentnameService(); 
       },
       FnRefresh:function()
       {
@@ -156,9 +212,23 @@
         item=[];
         this.itemarr="";
         this.hideanalysiscard=true;
+        this.hidedataheader=true; 
+        this.hidedatareport=true;
+        this.$.btn4.hidden=true;
       },
       FnHide:function(){
         this.hideanalysiscard=false;
+      },
+
+      setDefaultdddHeaders:function()
+      {
+        // alert(2);
+        // alert(this.schoolname+""+this.academicyear +""+this.gradename+""+this.section+""+this.term);
+          this.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
+          this.academicyear=localStorage.getItem("curr_sess_academicyear");
+          this.gradename=localStorage.getItem("curr_sess_grade");
+          this.section=localStorage.getItem("curr_sess_section");
+          this.term=localStorage.getItem("curr_sess_termname");     
       }
   });
   })();

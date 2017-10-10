@@ -140,7 +140,8 @@
     var arr1=[];
     Polymer({
       is: 'report-service',
-      callFetchstudentnameService:function(){
+      callFetchstudentnameService:function()
+      {
         this.fetchstudnameurl=sessionStorage.getItem("addrinfo")+"/fetchstudname-service";
         var obj={"scoolid":"","roleid":"","grade":"","section":""};
         obj.roleid=sessionStorage.getItem("curr_sess_loggedroleid");
@@ -156,32 +157,32 @@
         document.querySelector('consolidated-report-card').FnSpinnerrActive(true);
         if(localStorage.getItem('curr_sess_loggedassesmenttype')=="Consolidatedreport") {
         if(localStorage.getItem("curr_sess_reporttype")=="Assesmentwise"){
-          document.querySelector('consolidated-report-card').FnHide();
+          //document.querySelector('consolidated-report-card').FnHide();
           this.callassesmentwisereportService();
         } 
         else if(localStorage.getItem("curr_sess_reporttype")=="Termwise"){
-          document.querySelector('consolidated-report-card').FnHide();
+          //document.querySelector('consolidated-report-card').FnHide();
           this.calltermwisereportService();
         }
         else if(localStorage.getItem("curr_sess_reporttype")=="Subjectwise"){
-          document.querySelector('consolidated-report-card').FnHide();
+          //document.querySelector('consolidated-report-card').FnHide();
           this.callsubjectwisereportService();
         }
         else if(localStorage.getItem("curr_sess_reporttype")=="Categorywise"){
-          document.querySelector('consolidated-report-card').FnHide();
+          //document.querySelector('consolidated-report-card').FnHide();
           this.callcategorywisereportService();
         } 
         else if(localStorage.getItem("curr_sess_reporttype")=="ConsolidatedTerm"){
-          document.querySelector('consolidated-report-card').FnHide();
+          //document.querySelector('consolidated-report-card').FnHide();
           this.callconsolidatedtermwisereportService();
         }
         }
         else if(localStorage.getItem('curr_sess_loggedassesmenttype')=="Analysis") {    
-        document.querySelector('beginner-term-analysis-card').FnHide();  
+        //document.querySelector('beginner-term-analysis-card').FnHide();  
         this.callfetchtermmarkforreportService(); 
         } 
         else if(localStorage.getItem('curr_sess_loggedassesmenttype')=="Consolidateddataanalysis") {    
-        document.querySelector('consolidated-data-analysis').FnHide(); 
+        //document.querySelector('consolidated-data-analysis').FnHide(); 
         this.callconsolidateddatanalysisreportService();
         }      
       },
@@ -592,7 +593,7 @@ var i;
         this.$.termwisereportajax.generateRequest();
     },
     termwisereportResponse:function(e){
-     
+
         var assesscategory=e.detail.response.map;
         var assesscategorycnt=e.detail.response.categorycnt;
         var arr=e.detail.response.arr1;
@@ -782,8 +783,7 @@ var i;
         document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
       document.querySelector('consolidated-report-card').studarr=overall;
       document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
-      document.querySelector('consolidated-report-card').setDefaultHeaders();
-       
+      document.querySelector('consolidated-report-card').setDefaultHeaders();       
        
         temp=[];
         overall=[];
@@ -1626,6 +1626,7 @@ var i;
       document.querySelector('consolidated-data-analysis').studarr=overall;
       document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
        document.querySelector('consolidated-report-card').setDefaultHeaders();
+        document.querySelector('consolidated-data-analysis').setDefaultdddHeaders();
        
        
         temp=[];

@@ -5,7 +5,7 @@
 <link rel="import" href="../scorecard-service/scorecard-service.html">
 <link rel="import" href="../report-service/report-service.html">
 <link rel="import" href="../assesmentwise-report-card/assesmentwise-report-card.html">
-<link rel="import" href="../termwise-report-card/termwise-report-card.html">
+<link rel="impor  t" href="../termwise-report-card/termwise-report-card.html">
 <link rel="import" href="../consolidatedtermwise-report-card/consolidatedwise-report-card.html">
 
 <dom-module id="consolidated-report-card">
@@ -62,6 +62,18 @@
           .inner
           {
             margin-left: -7%;
+          }
+          #btn3
+          {
+            /*width: 15%;*/
+            background: #252626;
+            color: white;
+            margin-top: 2%;
+            height: 25px;
+            border-radius: 2px;
+            margin-left: 48%;
+            font-family: Calibri;
+            font-size: 17px;
           }
     </style>
 
@@ -132,7 +144,7 @@
     </div>
 
 
-
+<!-- 
     <div class="list" hidden$="{{categorycard}}">
    
     </div> 
@@ -147,14 +159,16 @@
     </div>  
     <div class="list" hidden$="{{consolidatedtermcard}}">
     
-    </div>
+    </div> -->
     </div>
 
-
+  <div id="consolidatefullreport">  
     <div class="topheader1" hidden$="{{hideconsolheader}}">
-      <h1><center style="margin-left: -51%;">{{schoolname}}</center></h1>
-      <h3>Continuous Comprehensive Evaluation -AY-{{academicyear}}</h3>  
-      <h4 style="margin-left: 10%;">Grade: {{gradename}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Section: {{section}}</h4>
+      <center>
+        <h1 style="margin-left: -51%;">{{schoolname}}</h1>
+        <h3 style="margin-left: -47%;">Continuous Comprehensive Evaluation -AY-{{academicyear}}</h3>  
+        <h4 style="margin-left: -47%;">Grade: {{gradename}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Section: {{section}}</h4>
+      </center>
     </div>
 
 
@@ -175,12 +189,30 @@
       </table>  
       </div>
 
+      <input type="button" id="btn3" onclick="tableToExcel('consolidatefullreport', 'Mark Report')" value="Export to Excel">
+    </div>  
+
       <div class="spinner">
         <paper-dialog modal id="consolidatespinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog>
       </div>
     <scorecard-service id="scorecardservice"></scorecard-service>
     <report-service id="reportservice"></report-service>
   </template>
+
+    <script type="text/javascript">
+  var tableToExcel = (function() {
+  var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+  return function(table, name) {
+    if (!table.nodeType) table = document.getElementById(table)
+    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+    window.location.href = uri + base64(format(template, ctx))
+  }
+  })()
+  </script>
+
   <script>  
   (function() {
     'use strict';
@@ -191,16 +223,12 @@
     Polymer({
       is: 'consolidated-report-card',
       ready:function(){
-        this.assesmentcard=true;  
-        this.termcard=true;
-        this.subjectcard=true;  
-        this.categorycard=true;  
-        this.consolidatedtermcard=true;
         this.hideterm=true;
         this.hideassesment=true; 
         this.hidesubject=true; 
         this.hidedynamictable=true;
         this.hideconsolheader=true;
+        this.$.btn3.hidden=true;
         // this.hidecategory=true; 
       },
       FnHideSchool:function(){
@@ -222,11 +250,7 @@
         document.querySelector('#termtyp').selected=-1;
         document.querySelector('#asstyp').selected=-1;
         document.querySelector('#subtyp').selected=-1;
-        this.categorycard=true;
-        this.subjectcard=true;
-        this.termcard=true;
-        this.assesmentcard=true;
-        this.consolidatedtermcard=true;
+        
         this.hidedynamictable=true;
         this.hideconsolheader=true;
         this.$.scorecardservice.callGradeService();
@@ -239,13 +263,9 @@
         document.querySelector('#termtyp').selected=-1;
         document.querySelector('#asstyp').selected=-1;
         document.querySelector('#subtyp').selected=-1;
-        this.categorycard=true;
-        this.subjectcard=true;
-        this.termcard=true;
-        this.assesmentcard=true;
-        this.consolidatedtermcard=true;
         this.hidedynamictable=true;
         this.hideconsolheader=true;
+        this.$.btn3.hidden=true;
         this.$.scorecardservice.callSectionService(gradename);
         // if(this.flag==1){
         // document.querySelector('#sectyp').selected=-1;
@@ -264,13 +284,10 @@
         document.querySelector('#termtyp').selected=-1;
         document.querySelector('#asstyp').selected=-1;
         document.querySelector('#subtyp').selected=-1;
-        this.categorycard=true;
-        this.subjectcard=true;
-        this.termcard=true;
-        this.assesmentcard=true;
-        this.consolidatedtermcard=true;
+        
         this.hidedynamictable=true;
         this.hideconsolheader=true;
+        this.$.btn3.hidden=true;
         //this.callService();
         //}
       },
@@ -285,67 +302,49 @@
         this.hideterm=false;
         // this.hideassesment=false;
         this.hidesubject=false;
-        this.categorycard=false;
-        this.subjectcard=true;
-        this.termcard=true;
-        this.assesmentcard=true;
-        this.consolidatedtermcard=true;
         this.hidedynamictable=true;
         this.hideconsolheader=true;
         this.hideassesment=true;
+        this.$.btn3.hidden=true;
      //   this.$.categ.setDefaultHeaders();
         }
         if(type=="Subjectwise"){
         this.$.reportservice.callfetchsubjectnameService(); 
         this.hideterm=false;
         this.hidesubject=false;
-        this.categorycard=true;
-        this.subjectcard=false;
-        this.termcard=true;
-        this.assesmentcard=true;
-        this.consolidatedtermcard=true;
         this.hidedynamictable=true;
         this.hideconsolheader=true;
         this.hideassesment=true;
+        this.$.btn3.hidden=true;
      //   this.$.subject.setDefaultHeaders();
         } 
         if(type=="Assesmentwise"){
         this.hideterm=false;
         this.hideassesment=false;
-        this.categorycard=true;
-        this.subjectcard=true;
-        this.termcard=true;
-        this.assesmentcard=false;
-        this.consolidatedtermcard=true;
         this.hidedynamictable=true;
         this.hideconsolheader=true;
         this.hidesubject=true;
+        this.$.btn3.hidden=true;
     //    this.$.assesment.setDefaultHeaders();
         }                
         if(type=="Termwise"){
         this.hideterm=false;   
         this.hidesubject=true;
-        this.hideassesment=true;
-        this.categorycard=true;
-        this.subjectcard=true;
-        this.termcard=false;
-        this.assesmentcard=true;
-        this.consolidatedtermcard=true;  
+        this.hideassesment=true;  
         this.hidedynamictable=true;  
         this.hideconsolheader=true; 
-
+        this.$.btn3.hidden=true;
      //   this.$.term.setDefaultHeaders(); 
         } 
         if(type=="ConsolidatedTerm"){
-        this.hideterm=false;
-        this.categorycard=true;
-        this.subjectcard=true;
-        this.termcard=true;
-        this.assesmentcard=true;
-        this.consolidatedtermcard=false;
-        this.hidedynamictable=true;
-        this.hideconsolheader=true;
-      //  this.$.consolidated.setDefaultHeaders();
+        this.hideterm=true;
+        this.hidedynamictable=false;
+        this.hideconsolheader=false;
+        this.$.btn3.hidden=false;
+        this.hideterm=true;
+        this.hidesubject=true;
+        this.hideassesment=true;
+        //this.$.consolidated.setDefaultHeaders();
         }        
       },
       FnSelectSubject:function(e){
@@ -365,6 +364,7 @@
           this.hideconsolheader=false;
           this.hideassesment=true;
           this.hidesubject=false;
+          this.$.btn3.hidden=false;
 
         }
         // this.callService();
@@ -380,6 +380,7 @@
           this.hideconsolheader=false;
           this.hideassesment=true;
           this.hidesubject=true;
+          this.$.btn3.hidden=false;
         }
         if(type=="ConsolidatedTerm"){        
        // this.$.consolidated.setDefaultHeaders();
@@ -389,6 +390,8 @@
         this.hideconsolheader=false;
         this.hideassesment=true;
           this.hidesubject=true;
+          this.$.btn3.hidden=false;
+
         } 
         // this.callService();
       },
@@ -403,6 +406,8 @@
           this.hidesubject=true;
           this.hidedynamictable=false;  
           this.hideconsolheader=false;
+          this.$.btn3.hidden=false;
+
         }
         // this.callService();
       },
@@ -410,8 +415,7 @@
         this.flag="1";
         this.$.reportservice.callFetchstudentnameService();        
       } ,
-      FnHide:function(){
-        // alert(localStorage.getItem("curr_sess_reporttype"));
+      /*FnHide:function(){
         if(localStorage.getItem("curr_sess_reporttype")=="Assesmentwise"){
           this.assesmentcard=false;
         }
@@ -430,7 +434,7 @@
           // alert('hi');
           this.consolidatedtermcard=false;
         }
-      },
+      },*/
       FnRefresh:function()
       {
         this.gradearr=[];
@@ -446,13 +450,14 @@
          this.assesmentcard=true;  
          this.subjectcard=true;
         this.termcard=true;
-          this.categorycard=true;
         this.consolidatedtermcard=true;
         this.hideterm=true;
         this.hideassesment=true;
         this.hidesubject=true;
         this.hidedynamictable=true;
         this.hideconsolheader=true;
+          this.$.btn3.hidden=true;
+
          gradename="";
      section="";
      subject="";
