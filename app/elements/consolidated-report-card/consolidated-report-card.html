@@ -48,6 +48,21 @@
         --paper-input-container-label: { color: red };
         text-align:center;
       }
+       #dynamicapprovespinner{
+            margin: 0;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+          }
+          .topheader1
+          {
+              margin-left: 34%;
+              margin-top: -1%;
+          }
+          .inner
+          {
+            margin-left: -7%;
+          }
     </style>
 
       <div class="card">
@@ -118,9 +133,6 @@
 
 
 
-
-
-
     <div class="list" hidden$="{{categorycard}}">
    
     </div> 
@@ -139,12 +151,16 @@
     </div>
 
 
+    <div class="topheader1" hidden$="{{hideconsolheader}}">
+      <h1><center style="margin-left: -51%;">{{schoolname}}</center></h1>
+      <h3>Continuous Comprehensive Evaluation -AY-{{academicyear}}</h3>  
+      <h4 style="margin-left: 10%;">Grade: {{gradename}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Section: {{section}}</h4>
+    </div>
 
 
 
 
-
-    <div width="{{tabwidth}}">
+    <div width="{{tabwidth}}" hidden$="{{hidedynamictable}}">
       <table id="myTable" border="1" style="border-collapse: collapse;" width="{{tabwidth}}">
       <template is="dom-repeat" items="{{studarr}}">
       <tr>
@@ -157,6 +173,10 @@
       </tr>
       </template>
       </table>  
+      </div>
+
+      <div class="spinner">
+        <paper-dialog modal id="consolidatespinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog>
       </div>
     <scorecard-service id="scorecardservice"></scorecard-service>
     <report-service id="reportservice"></report-service>
@@ -179,6 +199,8 @@
         this.hideterm=true;
         this.hideassesment=true; 
         this.hidesubject=true; 
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
         // this.hidecategory=true; 
       },
       FnHideSchool:function(){
@@ -205,6 +227,8 @@
         this.termcard=true;
         this.assesmentcard=true;
         this.consolidatedtermcard=true;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
         this.$.scorecardservice.callGradeService();
       },  
       FnSelectGrade:function(e){        
@@ -220,6 +244,8 @@
         this.termcard=true;
         this.assesmentcard=true;
         this.consolidatedtermcard=true;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
         this.$.scorecardservice.callSectionService(gradename);
         // if(this.flag==1){
         // document.querySelector('#sectyp').selected=-1;
@@ -243,6 +269,8 @@
         this.termcard=true;
         this.assesmentcard=true;
         this.consolidatedtermcard=true;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
         //this.callService();
         //}
       },
@@ -262,6 +290,9 @@
         this.termcard=true;
         this.assesmentcard=true;
         this.consolidatedtermcard=true;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
+        this.hideassesment=true;
      //   this.$.categ.setDefaultHeaders();
         }
         if(type=="Subjectwise"){
@@ -273,6 +304,9 @@
         this.termcard=true;
         this.assesmentcard=true;
         this.consolidatedtermcard=true;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
+        this.hideassesment=true;
      //   this.$.subject.setDefaultHeaders();
         } 
         if(type=="Assesmentwise"){
@@ -283,6 +317,9 @@
         this.termcard=true;
         this.assesmentcard=false;
         this.consolidatedtermcard=true;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
+        this.hidesubject=true;
     //    this.$.assesment.setDefaultHeaders();
         }                
         if(type=="Termwise"){
@@ -293,7 +330,10 @@
         this.subjectcard=true;
         this.termcard=false;
         this.assesmentcard=true;
-        this.consolidatedtermcard=true;     
+        this.consolidatedtermcard=true;  
+        this.hidedynamictable=true;  
+        this.hideconsolheader=true; 
+
      //   this.$.term.setDefaultHeaders(); 
         } 
         if(type=="ConsolidatedTerm"){
@@ -303,6 +343,8 @@
         this.termcard=true;
         this.assesmentcard=true;
         this.consolidatedtermcard=false;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
       //  this.$.consolidated.setDefaultHeaders();
         }        
       },
@@ -317,8 +359,13 @@
           // if(type=="Categorywise") 
           // document.querySelector('categorywise-report').FnRefresh();
           //this.$.categ.setDefaultHeaders(); 
-       //   this.$.subject.setDefaultHeaders();      
+       //   this.$.subject.setDefaultHeaders();    
           this.$.reportservice.callFetchstudentnameService(); 
+          this.hidedynamictable=false;  
+          this.hideconsolheader=false;
+          this.hideassesment=true;
+          this.hidesubject=false;
+
         }
         // this.callService();
       },
@@ -329,10 +376,19 @@
         if(type=="Termwise"){
       //    this.$.term.setDefaultHeaders(); 
           this.$.reportservice.callFetchstudentnameService(); 
+          this.hidedynamictable=false;
+          this.hideconsolheader=false;
+          this.hideassesment=true;
+          this.hidesubject=true;
         }
         if(type=="ConsolidatedTerm"){        
        // this.$.consolidated.setDefaultHeaders();
+
         this.$.reportservice.callFetchstudentnameService(); 
+        this.hidedynamictable=false;
+        this.hideconsolheader=false;
+        this.hideassesment=true;
+          this.hidesubject=true;
         } 
         // this.callService();
       },
@@ -343,6 +399,10 @@
         if(type=="Assesmentwise"){
       //    this.$.assesment.setDefaultHeaders();
           this.$.reportservice.callFetchstudentnameService(); 
+          this.hideassesment=false;
+          this.hidesubject=true;
+          this.hidedynamictable=false;  
+          this.hideconsolheader=false;
         }
         // this.callService();
       },
@@ -391,6 +451,8 @@
         this.hideterm=true;
         this.hideassesment=true;
         this.hidesubject=true;
+        this.hidedynamictable=true;
+        this.hideconsolheader=true;
          gradename="";
      section="";
      subject="";
@@ -399,7 +461,25 @@
      assesment="";
     item=[];
 
-      }
+      },
+
+      FnSpinnerrActive:function(flag)
+      {
+        //alert(flag);
+        if(flag==true)
+          this.$.consolidatespinner.opened=true;
+        if(flag==false)
+          this.$.consolidatespinner.opened=false;
+      },
+        setDefaultHeaders:function()
+        {
+          this.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
+          this.academicyear=localStorage.getItem("curr_sess_academicyear");
+          this.gradename=localStorage.getItem("curr_sess_grade");
+          this.section=localStorage.getItem("curr_sess_section");
+          this.subject=localStorage.getItem("curr_sess_subject");
+          this.assesment=localStorage.getItem("curr_sess_assesment");
+        }
   });
   })();
   </script>
