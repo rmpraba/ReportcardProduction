@@ -153,6 +153,7 @@
       },
       fetchstudnameResponse:function(e){
         studarr=e.detail.response.returnval;
+        document.querySelector('consolidated-report-card').FnSpinnerrActive(true);
         if(localStorage.getItem('curr_sess_loggedassesmenttype')=="Consolidatedreport") {
         if(localStorage.getItem("curr_sess_reporttype")=="Assesmentwise"){
           document.querySelector('consolidated-report-card').FnHide();
@@ -180,7 +181,8 @@
         this.callfetchtermmarkforreportService(); 
         } 
         else if(localStorage.getItem('curr_sess_loggedassesmenttype')=="Consolidateddataanalysis") {    
-        document.querySelector('consolidated-data-analysis').FnHide(); this.callconsolidateddatanalysisreportService();
+        document.querySelector('consolidated-data-analysis').FnHide(); 
+        this.callconsolidateddatanalysisreportService();
         }      
       },
 
@@ -192,7 +194,7 @@
       obj.grade=localStorage.getItem("curr_sess_grade");
       obj.section=localStorage.getItem("curr_sess_section");
       obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-         alert(JSON.stringify(obj));
+         //alert(JSON.stringify(obj));
 
         this.fetchreportsubjectnameparam=obj;
         this.$.fetchreportsubjectnameajax.generateRequest();
@@ -539,6 +541,8 @@
    
 document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
 document.querySelector('consolidated-report-card').studarr=overall;
+document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
+document.querySelector('consolidated-report-card').setDefaultHeaders();
         temp=[];
         overall=[];
       }
@@ -622,7 +626,7 @@ var i;
          
         }
         tempcnt=27;
-        alert(JSON.stringify(temp));
+       // alert(JSON.stringify(temp));
      if(parseFloat(tempcnt)>=8){
            percent=100;
            tabwidth="150%";
@@ -777,6 +781,8 @@ var i;
    
         document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
       document.querySelector('consolidated-report-card').studarr=overall;
+      document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
+      document.querySelector('consolidated-report-card').setDefaultHeaders();
        
        
         temp=[];
@@ -934,7 +940,8 @@ var i;
   document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
 
          document.querySelector('consolidated-report-card').studarr=overall;
-       
+       document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
+       document.querySelector('consolidated-report-card').setDefaultHeaders();
        
         temp=[];
         overall=[];
@@ -1123,6 +1130,8 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
         document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
 
          document.querySelector('consolidated-report-card').studarr=overall;
+         document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
+         document.querySelector('consolidated-report-card').setDefaultHeaders();
        
        
         temp=[];
@@ -1383,8 +1392,9 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
    
         document.querySelector('dynamic-scholastic-markentry-report').tabwidth=tabwidth;
       document.querySelector('consolidated-report-card').studarr=overall;
+      document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
        
-       
+        document.querySelector('consolidated-report-card').setDefaultHeaders();
         temp=[];
         overall=[];
       }*/
@@ -1898,6 +1908,8 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
    
         document.querySelector('consolidated-data-analysis').tabwidth=tabwidth;
       document.querySelector('consolidated-data-analysis').studarr=overall;
+      document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
+       document.querySelector('consolidated-report-card').setDefaultHeaders();
        
        
         temp=[];
