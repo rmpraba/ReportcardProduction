@@ -142,24 +142,6 @@
             </paper-menu>
           </paper-dropdown-menu>  
     </div>
-
-
-<!-- 
-    <div class="list" hidden$="{{categorycard}}">
-   
-    </div> 
-    <div class="list" hidden$="{{subjectcard}}">
-   
-    </div>  
-    <div class="list" hidden$="{{assesmentcard}}">
- 
-    </div>
-    <div class="list" hidden$="{{termcard}}">
-    
-    </div>  
-    <div class="list" hidden$="{{consolidatedtermcard}}">
-    
-    </div> -->
     </div>
 
   <div id="consolidatefullreport">  
@@ -258,7 +240,7 @@
       FnSelectGrade:function(e){        
         gradename = e.target.selectedItem.textContent.trim();       
         this.gradeid = e.target.selectedItem.value;       
-        alert(this.gradeid);
+        //alert(this.gradeid);
         localStorage.setItem("curr_sess_grade",gradename);
         localStorage.setItem("curr_sess_gradeid",this.gradeid);
 

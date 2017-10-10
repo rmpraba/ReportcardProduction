@@ -1232,7 +1232,7 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
          
 
    overall.push({"sno":"Sno","studentname":"Student Name","tabwidth":tabwidth,"serialno":"",'category':categorysubtitle});
-  alert(JSON.stringify(overall));
+  //alert(JSON.stringify(overall));
     categorytitle=[]
     categorysubtitle=[];
 
@@ -1309,11 +1309,11 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
             overall.push({"studentname":arr[i].studentname,"tabwidth":tabwidth,"category":category});
             
         }
-     alert(JSON.stringify(overall));
+     //alert(JSON.stringify(overall));
         for(var i=2,j=0;i<overall.length;i++,j++){
             overall[i].sno=j+1;
         }  
-   alert(2);
+   //alert(2);
 
     document.querySelector('consolidated-report-card').studarr=overall;
      document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
