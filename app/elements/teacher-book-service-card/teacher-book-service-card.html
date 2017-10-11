@@ -379,9 +379,7 @@
         content-type="application/json"
         on-response="fetchclassconceptResponse"
         debounce-duration="300" />
-
-
-        <!--  <iron-ajax
+        <!-- <iron-ajax
         method="post"
         id="fetchclassconcept1ajax"
         url="{{fetchclassconcept1url}}"
@@ -389,9 +387,8 @@
         handle-as="json"
         content-type="application/json"
         on-response="fetchclassconcept1Response"
-        debounce-duration="300" /> -->
-
-        <iron-ajax
+        debounce-duration="300" />-->
+      <iron-ajax
         method="post"
         id="fnfinalbookajax"
         url="{{fnfinalbookurl}}"
@@ -664,6 +661,43 @@
         content-type="application/json"
         on-response="bookrefsubjectResponse"
         debounce-duration="300"/>
+        <iron-ajax
+        method="post"
+        id="fnmasterplandisplyinsertajax"
+        url="{{fnmasterplandisplyinserturl}}"
+        params="{{fnmasterplandisplyinsertparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnmasterplandisplyinsertResponse"
+        debounce-duration="300"/>
+          
+          <iron-ajax
+        method="post"
+        id="fnmasterplaneditajax"
+        url="{{fnmasterplanediturl}}"
+        params="{{fnmasterplaneditparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnmasterplaneditResponse"
+        debounce-duration="300"/>
+        <iron-ajax
+        method="post"
+        id="fnmasterplandisplyeditajax"
+        url="{{fnmasterplandisplyediturl}}"
+        params="{{fnmasterplandisplyeditparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnmasterplandisplyeditResponse"
+        debounce-duration="300"/>
+        <iron-ajax
+        method="post"
+        id="deletecuriculamajax"
+        url="{{deletecuriculamurl}}"
+        params="{{deletecuriculamparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="deletecuriculamResponse"
+        debounce-duration="300"/>
       
   </template>
   <script>
@@ -674,6 +708,11 @@
       var bufferperiod=bufferperiod;
       var subflagseqid;
       var c1=0,c2=0;
+      var gloconarr=[];
+      var glovaluearr=[];
+      var gloskarr=[];
+      var glosubarr=[];
+      var globldvaluearr=[];
     Polymer({   
       is: 'teacher-book-service-card',
       fnfetchcprgrade:function(){
@@ -689,25 +728,24 @@
       fnfetchcprgradeResponse:function(e){
         document.querySelector('curriculam-report').gradearr=e.detail.response.returnval;
       },
-      fnfetchcprsubject:function(gradeid){
-      this.fnfetchcprsubjecturl=sessionStorage.getItem("addrinfo")+"/curriculumsubject-service";
-      var obj={"school_id":"","capterid":"","conceptid":"","academic_year":"","subjectcategory":""};
+      fnfetchcprsubject:function(gradename){
+      this.fnfetchcprsubjecturl=sessionStorage.getItem("addrinfo")+"/subject-service";
+      var obj={"school_id":"","capterid":"","conceptid":"","academic_year":""};
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
       obj.loggedid=sessionStorage.getItem("curr_sess_loggedid");
       obj.roleid=sessionStorage.getItem("curr_sess_loggedroleid");
       obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-      obj.gradeid=gradeid; 
+      obj.gradename=gradename; 
       this.fnfetchcprsubjectparam=obj;
       this.$.fnfetchcprsubjectajax.generateRequest();
       },
       fnfetchcprsubjectResponse:function(e){
         document.querySelector('curriculam-report').subjectarr=e.detail.response.returnval;
       },
-      fnmasterplaninsert:function(conarr,valuearr,skarr,subarr,period,innovation,remark,rowid,teachingaid,bldvaluearr,sno){
-      // alert(subarr.length);
-     if(subarr.length!=0){
-
-        var overall=[];
+ fnmasterplaninsert:function(conarr,valuearr,skarr,subarr,period,innovation,remark,rowid,teachingaid,bldvaluearr,sno){
+  if(subarr.length!=0){
+      
+       var overall=[];
         for(var i=0;i<subarr.length;i++){
         var valueid="";
         var valuename="";
@@ -789,7 +827,9 @@
         obj.skill=subarr[i].skillname;
         obj.value=subarr[i].valuename;
         obj.bldvalue=subarr[i].bldvaluename;
-     
+        obj.skillid=subarr[i].skillid;
+        obj.valueid=subarr[i].valueid;
+        obj.bldvalueid=subarr[i].bldvalueid;
         obj.innovation=innovation;
         obj.teachingaid=teachingaid;
         obj.remarks=remark;
@@ -797,7 +837,8 @@
         this.fnmasterplaninsertparam=obj;
         this.$.fnmasterplaninsertajax.generateRequest();      
         }
-       }else{
+       }
+       else{
 
         for(var i=0;i<conarr.length;i++){
         var valueid="";
@@ -877,9 +918,11 @@
        obj.plannedfromdate=localStorage.getItem("localsess_from_service");
         obj.plannedtodate=localStorage.getItem("localsess_last_service");
         obj.skill=conarr[i].skillname;
+        obj.skillid=conarr[i].skillid;
+        obj.valueid=conarr[i].valueid;
+        obj.bldvalueid=conarr[i].bldvalueid;
         obj.value=conarr[i].valuename;
         obj.bldvalue=conarr[i].bldvaluename;
-      
         obj.innovation=innovation; 
         obj.teachingaid=teachingaid;
         obj.remarks=remark;
@@ -889,6 +932,8 @@
         }
        }
       },
+
+
       fnmasterplaninsertResponse:function(e)
       {
         var res=e.detail.response.returnval;
@@ -896,16 +941,543 @@
         if(c1==c2)
         {
         //alert('Inserted');
-            document.querySelector('aproval-book-innovatiosn-item-card').saveopendialog();
-            this.conceptseq(); 
-            this.FnFetchConceptService();
+            
             c1=0;c2=0;
         }
         else if(res=='Not Inserted!')
         {
-         document.uerySelector('aproval-book-innovatiosn-item-card').failureopen();
+    document.uerySelector('aproval-book-innovatiosn-item-card').failureopen();
         }
       },
+ fnmasterplanedit:function(conarr,valuearr,skarr,subarr,period,innovation,remark,rowid,teachingaid,bldvaluearr,sno){
+
+   
+
+
+
+      this.deletecuriculamurl=sessionStorage.getItem("addrinfo")+"/deletecuriculam-service";
+      var obj={};
+         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+         obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
+         obj.gradeid=localStorage.getItem("curr_sess_gradeid");
+         obj.gradename=localStorage.getItem("curr_sess_gradename");
+         obj.subjectid=localStorage.getItem("curr_sess_subjectid");
+         obj.subjectname=localStorage.getItem("curr_sess_subjectname");
+         obj.chapterid=localStorage.getItem("curr_sess_chapterid");
+         obj.chaptername=localStorage.getItem("curr_sess_chaptername");
+         obj.rowid=rowid;
+         this.deletecuriculamparam=obj;
+         this.$.deletecuriculamajax.generateRequest();
+
+      gloconarr=conarr;
+      glovaluearr=valuearr;
+      glosubarr=subarr;
+      globldvaluearr=bldvaluearr;
+      gloskarr=skarr;
+      this.gloperiod=period;
+      this.gloinnovation=innovation;
+      this.gloremark=remark;
+      this.gloperiod=period;
+      this.gloteachingaid=teachingaid;
+      this.glorowid=rowid;
+      this.glosno=sno;
+
+
+ 
+/*alert("gloable--------------------------");
+       alert(JSON.stringify(gloconarr));
+        alert(JSON.stringify(glovaluearr));
+        alert(JSON.stringify(gloskarr));
+        alert(JSON.stringify(glosubarr));
+        alert(JSON.stringify(globldvaluearr));*/
+    },
+      deletecuriculamResponse:function(e){
+       // alert(JSON.stringify(e.detail.response.returnval));
+      if(e.detail.response.returnval=="Deleted!"){
+      var conarr1=[];
+      var valuearr1=[];
+      var skarr1=[];
+      var subarr1=[];
+      var bldvaluearr1=[];
+ 
+       /* alert(JSON.stringify(gloconarr));
+        alert(JSON.stringify(glovaluearr));
+        alert(JSON.stringify(gloskarr));
+        alert(JSON.stringify(glosubarr));
+        alert(JSON.stringify(globldvaluearr));*/
+
+      conarr1=gloconarr;
+      valuearr1=glovaluearr;
+      skarr1=gloskarr;
+      subarr1=glosubarr;
+      bldvaluearr1=globldvaluearr;
+
+       
+      var  period=this.gloperiod;
+      var innovation=this.gloinnovation;
+      var remark=this.gloremark;
+      var period=this.gloperiod;
+      var teachingaid=this.gloteachingaid;
+      var rowid=this.glorowid;
+      var sno=this.glosno;
+       
+
+if(subarr1.length!=0){
+        var overall=[];
+        for(var i=0;i<subarr1.length;i++){
+        var valueid="";
+        var valuename="";
+        for(var j=0;j<valuearr1.length;j++){
+            if(subarr1[i].rowid==valuearr1[j].rowid)
+            {
+                if(valueid=="")
+                valueid=valuearr1[j].valueid;
+                else
+                valueid=valueid+","+valuearr1[j].valueid;
+                if(valuename=="")
+                valuename=valuearr1[j].valuename;
+                else
+                valuename=valuename+","+valuearr1[j].valuename;
+            }
+        }
+        subarr1[i].valueid=valueid;
+        subarr1[i].valuename=valuename;
+        }
+        for(var i=0;i<subarr1.length;i++){
+        var skillid="";
+        var skillname="";
+        for(var j=0;j<skarr1.length;j++){
+            if(subarr1[i].rowid==skarr1[j].rowid)
+            {
+                if(skillid=="")
+                skillid=skarr1[j].skillid;
+                else
+                skillid=skillid+","+skarr1[j].skillid;
+                if(skillname=="")
+                skillname=skarr1[j].skillname;
+                else
+                skillname=skillname+","+skarr1[j].skillname;
+            }
+        }
+        subarr1[i].skillid=skillid;
+        subarr1[i].skillname=skillname;
+        }
+          for(var i=0;i<subarr1.length;i++){
+        var bldvalueid="";
+        var bldvaluename="";
+        for(var j=0;j<bldvaluearr1.length;j++){
+            if(subarr1[i].rowid==bldvaluearr1[j].rowid)
+            {
+                if(bldvalueid=="")
+                bldvalueid=bldvaluearr1[j].bldvalueid;
+                else
+                bldvalueid=bldvalueid+","+bldvaluearr1[j].bldvalueid;
+                if(bldvaluename=="")
+                bldvaluename=bldvaluearr1[j].bldvaluename;
+                else
+              bldvaluename=bldvaluename+","+bldvaluearr1[j].bldvaluename;
+            }
+        }
+        subarr1[i].bldvalueid=bldvalueid;
+        subarr1[i].bldvaluename=bldvaluename;
+        }
+        c1=subarr1.length;
+        for(var i=0;i<subarr1.length;i++){
+        this.fnmasterplanediturl=sessionStorage.getItem("addrinfo")+"/fnmasterplanedit-service";
+        var obj={};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");
+        obj.gradename=localStorage.getItem("curr_sess_gradename");
+        obj.subjectid=localStorage.getItem("curr_sess_subjectid");
+        obj.subjectname=localStorage.getItem("curr_sess_subjectname");
+        obj.chapterid=localStorage.getItem("curr_sess_chapterid");
+        obj.chaptername=localStorage.getItem("curr_sess_chaptername");
+        obj.rowid=subarr1[i].rowid;
+        obj.conceptid=subarr1[i].conceptid;
+        obj.conceptname=subarr1[i].conceptname;
+        obj.subconceptid=subarr1[i].subconceptid;
+        obj.subconceptname=subarr1[i].subconceptname;
+        obj.period=period;
+        obj.sno=sno;
+        obj.plannedfromdate=localStorage.getItem("localsess_from_service");
+        obj.plannedtodate=localStorage.getItem("localsess_last_service");
+        obj.skill=subarr1[i].skillname;
+        obj.value=subarr1[i].valuename;
+        obj.bldvalue=subarr1[i].bldvaluename;
+        obj.skillid=subarr1[i].skillid;
+        obj.valueid=subarr1[i].valueid;
+        obj.bldvalueid=subarr1[i].bldvalueid;
+        obj.innovation=innovation;
+        obj.teachingaid=teachingaid;
+        obj.remarks=remark;
+        obj.termid=sessionStorage.getItem("termid"); 
+        this.fnmasterplaneditparam=obj;
+       this.$.fnmasterplaneditajax.generateRequest();      
+        }
+       }
+       else{
+
+        for(var i=0;i<conarr1.length;i++){
+        var valueid="";
+        var valuename="";
+        for(var j=0;j<valuearr1.length;j++){
+            if(conarr1[i].rowid==valuearr1[j].rowid)
+            {
+                if(valueid=="")
+                valueid=valuearr1[j].valueid;
+                else
+                valueid=valueid+","+valuearr1[j].valueid;
+                if(valuename=="")
+                valuename=valuearr1[j].valuename;
+                else
+                valuename=valuename+","+valuearr1[j].valuename;
+            }
+        }
+        conarr1[i].valueid=valueid;
+        conarr1[i].valuename=valuename;
+        }
+        for(var i=0;i<conarr1.length;i++){
+        var skillid="";
+        var skillname="";
+        for(var j=0;j<skarr1.length;j++){
+            if(conarr1[i].rowid==skarr1[j].rowid)
+            {
+                if(skillid=="")
+                skillid=skarr1[j].skillid;
+                else
+                skillid=skillid+","+skarr1[j].skillid;
+                if(skillname=="")
+                skillname=skarr1[j].skillname;
+                else
+                skillname=skillname+","+skarr1[j].skillname;
+            }
+        }
+        conarr1[i].skillid=skillid;
+        conarr1[i].skillname=skillname;
+        }
+          for(var i=0;i<conarr1.length;i++){
+        var bldvalueid="";
+        var bldvaluename="";
+        for(var j=0;j<bldvaluearr1.length;j++){
+            if(conarr1[i].rowid==bldvaluearr1[j].rowid)
+            {
+                if(bldvalueid=="")
+                bldvalueid=bldvaluearr1[j].bldvalueid;
+                else
+                bldvalueid=bldvalueid+","+bldvaluearr1[j].bldvalueid;
+                if(bldvaluename=="")
+                bldvaluename=skarr1[j].bldvaluename;
+                else
+                bldvaluename=bldvaluename+","+bldvaluearr1[j].bldvaluename;
+            }
+        }
+        conarr1[i].bldvalueid=bldvalueid;
+        conarr1[i].bldvaluename=bldvaluename;
+        }
+        c1=conarr1.length;
+        for(var i=0;i<conarr1.length;i++){
+ this.fnmasterplanediturl=sessionStorage.getItem("addrinfo")+"/fnmasterplanedit-service";
+        var obj={};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");
+        obj.gradename=localStorage.getItem("curr_sess_gradename");
+        obj.subjectid=localStorage.getItem("curr_sess_subjectid");
+        obj.subjectname=localStorage.getItem("curr_sess_subjectname");
+        obj.chapterid=localStorage.getItem("curr_sess_chapterid");
+        obj.chaptername=localStorage.getItem("curr_sess_chaptername");
+        obj.rowid=conarr1[i].rowid;
+        obj.conceptid=conarr1[i].conceptid;
+        obj.conceptname=conarr1[i].conceptname;
+        obj.subconceptid="";
+        obj.subconceptname="";
+        obj.period=period;
+       obj.plannedfromdate=localStorage.getItem("localsess_from_service");
+        obj.plannedtodate=localStorage.getItem("localsess_last_service");
+        obj.skill=conarr1[i].skillname;
+        obj.skillid=conarr1[i].skillid;
+        obj.valueid=conarr1[i].valueid;
+        obj.bldvalueid=conarr1[i].bldvalueid;
+        obj.value=conarr1[i].valuename;
+        obj.bldvalue=conarr1[i].bldvaluename;
+        obj.innovation=innovation; 
+        obj.teachingaid=teachingaid;
+        obj.remarks=remark;
+        obj.termid=sessionStorage.getItem("termid"); 
+        this.fnmasterplaneditparam=obj;
+        this.$.fnmasterplaneditajax.generateRequest();      
+        }}}
+  
+
+
+    },
+      fnmasterplaneditResponse:function(e){
+       c2++;
+  // alert(c1+" "+c2);    
+     if(c1==c2){
+         this.conceptseq(); 
+    this.FnFetchConceptService();
+
+     c1=0;c2=0;
+      gloconarr=[];
+      glovaluearr=[];
+      glosubarr=[];
+      globldvaluearr=[];
+      gloskarr=[];
+      this.gloperiod="";
+      this.gloinnovation="";
+      this.gloremark="";
+      this.gloperiod="";
+      this.gloteachingaid="";
+      this.glorowid="";
+      this.glosno="";
+ document.querySelector('aproval-book-innovatiosn-item-card').saveopendialog();
+   
+      
+     }
+      },
+      fnmasterplandisplyinsert:function(conarr,valuearr,skarr,subarr,period,innovation,remark,rowid,teachingaid,bldvaluearr,sno){
+        var valueid="";
+        var valuename="";
+         for(var j=0;j<valuearr.length;j++){
+              if(valueid=="")
+                valueid=valuearr[j].valueid;
+                else
+                valueid=valueid+","+valuearr[j].valueid;
+                if(valuename=="")
+                valuename=valuearr[j].valuename;
+                else
+                valuename=valuename+","+valuearr[j].valuename;
+
+          this.vaufid=valueid;
+          this.vaufname=valuename;
+         }
+        var conceptid="";
+        var conceptname="";
+        for(var j=0;j<conarr.length;j++){
+            
+                if(conceptid=="")
+                conceptid=conarr[j].conceptid;
+                else
+                conceptid=conceptid+","+conarr[j].conceptid;
+                if(conceptname=="")
+                conceptname=conarr[j].conceptname;
+                else
+                conceptname=conceptname+","+conarr[j].conceptname;
+
+          this.conceptfid=conceptid;
+          this.conceptfname=conceptname;
+         }
+          var subconceptid="";
+          var subconceptname="";
+      for(var j=0;j<subarr.length;j++){
+          if(subconceptid=="")
+                subconceptid=subarr[j].subconceptid;
+                else
+                subconceptid=subconceptid+","+subarr[j].subconceptid;
+                if(subconceptname=="")
+                subconceptname=subarr[j].subconceptname;
+             else
+           subconceptname=subconceptname+","+subarr[j].subconceptname;
+          this.subconcepfid=subconceptid;
+          this.subconcepfname=subconceptname;
+         }
+        var skillid="";
+        var skillname="";
+        for(var j=0;j<skarr.length;j++){
+             if(skillid=="")
+                skillid=skarr[j].skillid;
+                else
+                skillid=skillid+","+skarr[j].skillid;
+                if(skillname=="")
+                skillname=skarr[j].skillname;
+                else
+                skillname=skillname+","+skarr[j].skillname;
+         this.skillfid=skillid;
+         this.skillfname=skillname;
+        }
+        var bldvalueid="";
+        var bldvaluename="";
+        for(var j=0;j<bldvaluearr.length;j++){
+           if(bldvalueid=="")
+                bldvalueid=bldvaluearr[j].bldvalueid;
+                else
+                bldvalueid=bldvalueid+","+bldvaluearr[j].bldvalueid;
+                if(bldvaluename=="")
+                bldvaluename=bldvaluearr[j].bldvaluename;
+                else
+              bldvaluename=bldvaluename+","+bldvaluearr[j].bldvaluename;
+           this.bldfvalueid=bldvalueid;
+           this.bldfvaluename=bldvaluename;
+          }
+    //alert(this.bldfvaluename+"--"+this.skillfname+"--"+this.subconcepfname+"--"+this.vaufname+"--"+this.conceptfname);
+ this.fnmasterplandisplyinserturl=sessionStorage.getItem("addrinfo")+"/fnmasterplandisplyinsert-service";
+      var obj={};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");
+        obj.gradename=localStorage.getItem("curr_sess_gradename");
+        obj.subjectid=localStorage.getItem("curr_sess_subjectid");
+        obj.subjectname=localStorage.getItem("curr_sess_subjectname");
+        obj.chapterid=localStorage.getItem("curr_sess_chapterid");
+        obj.chaptername=localStorage.getItem("curr_sess_chaptername");
+        obj.rowid=rowid;
+        obj.conceptid=this.conceptfid;
+        obj.conceptname=this.conceptfname;
+          if(subarr.length==0){
+           obj.subconceptid="";
+           obj.subconceptname="";
+            }
+          else{
+        obj.subconceptid=this.subconcepfid;
+        obj.subconceptname=this.subconcepfname;
+          }
+        obj.period=period;
+        obj.sno=sno;
+        obj.plannedfromdate=localStorage.getItem("localsess_from_service");
+        obj.plannedtodate=localStorage.getItem("localsess_last_service");
+        obj.skill=this.skillfname;
+        obj.value=this.vaufname;
+        obj.bldvalue=this.bldfvaluename;
+        obj.skillid=this.skillfid;
+        obj.valueid=this.vaufid;
+        obj.bldvalueid=this.bldfvalueid;
+        obj.innovation=innovation;
+        obj.teachingaid=teachingaid;
+        obj.remarks=remark;
+        obj.termid=sessionStorage.getItem("termid"); 
+        this.fnmasterplandisplyinsertparam=obj;
+        this.$.fnmasterplandisplyinsertajax.generateRequest(); 
+             
+       },
+ fnmasterplandisplyedit:function(conarr,valuearr,skarr,subarr,period,innovation,remark,rowid,teachingaid,bldvaluearr,sno){
+        var valueid="";
+        var valuename="";
+         for(var j=0;j<valuearr.length;j++){
+              if(valueid=="")
+                valueid=valuearr[j].valueid;
+                else
+                valueid=valueid+","+valuearr[j].valueid;
+                if(valuename=="")
+                valuename=valuearr[j].valuename;
+                else
+                valuename=valuename+","+valuearr[j].valuename;
+
+          this.vaufid=valueid;
+          this.vaufname=valuename;
+         }
+        var conceptid="";
+        var conceptname="";
+        for(var j=0;j<conarr.length;j++){
+            
+                if(conceptid=="")
+                conceptid=conarr[j].conceptid;
+                else
+                conceptid=conceptid+","+conarr[j].conceptid;
+                if(conceptname=="")
+                conceptname=conarr[j].conceptname;
+                else
+                conceptname=conceptname+","+conarr[j].conceptname;
+
+          this.conceptfid=conceptid;
+          this.conceptfname=conceptname;
+         }
+          var subconceptid="";
+          var subconceptname="";
+      for(var j=0;j<subarr.length;j++){
+          if(subconceptid=="")
+                subconceptid=subarr[j].subconceptid;
+                else
+                subconceptid=subconceptid+","+subarr[j].subconceptid;
+                if(subconceptname=="")
+                subconceptname=subarr[j].subconceptname;
+             else
+           subconceptname=subconceptname+","+subarr[j].subconceptname;
+          this.subconcepfid=subconceptid;
+          this.subconcepfname=subconceptname;
+         }
+        var skillid="";
+        var skillname="";
+        for(var j=0;j<skarr.length;j++){
+             if(skillid=="")
+                skillid=skarr[j].skillid;
+                else
+                skillid=skillid+","+skarr[j].skillid;
+                if(skillname=="")
+                skillname=skarr[j].skillname;
+                else
+                skillname=skillname+","+skarr[j].skillname;
+         this.skillfid=skillid;
+         this.skillfname=skillname;
+        }
+        var bldvalueid="";
+        var bldvaluename="";
+        for(var j=0;j<bldvaluearr.length;j++){
+           if(bldvalueid=="")
+                bldvalueid=bldvaluearr[j].bldvalueid;
+                else
+                bldvalueid=bldvalueid+","+bldvaluearr[j].bldvalueid;
+                if(bldvaluename=="")
+                bldvaluename=bldvaluearr[j].bldvaluename;
+                else
+              bldvaluename=bldvaluename+","+bldvaluearr[j].bldvaluename;
+           this.bldfvalueid=bldvalueid;
+           this.bldfvaluename=bldvaluename;
+          }
+    //alert(this.bldfvaluename+"--"+this.skillfname+"--"+this.subconcepfname+"--"+this.vaufname+"--"+this.conceptfname);
+      
+ this.fnmasterplandisplyediturl=sessionStorage.getItem("addrinfo")+"/fnmasterplandisplyedit-service";
+      var obj={};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
+        obj.gradeid=localStorage.getItem("curr_sess_gradeid");
+        obj.gradename=localStorage.getItem("curr_sess_gradename");
+        obj.subjectid=localStorage.getItem("curr_sess_subjectid");
+        obj.subjectname=localStorage.getItem("curr_sess_subjectname");
+        obj.chapterid=localStorage.getItem("curr_sess_chapterid");
+        obj.chaptername=localStorage.getItem("curr_sess_chaptername");
+        obj.rowid=rowid;
+        obj.conceptid=this.conceptfid;
+        obj.conceptname=this.conceptfname;
+          if(subarr.length==0){
+           obj.subconceptid="";
+           obj.subconceptname="";
+            }
+          else{
+        obj.subconceptid=this.subconcepfid;
+        obj.subconceptname=this.subconcepfname;
+          }
+        obj.period=period;
+        obj.sno=sno;
+        obj.plannedfromdate=localStorage.getItem("localsess_from_service");
+        obj.plannedtodate=localStorage.getItem("localsess_last_service");
+        obj.skill=this.skillfname;
+        obj.value=this.vaufname;
+        obj.bldvalue=this.bldfvaluename;
+        obj.skillid=this.skillfid;
+        obj.valueid=this.vaufid;
+        obj.bldvalueid=this.bldfvalueid;
+        obj.innovation=innovation;
+        obj.teachingaid=teachingaid;
+        obj.remarks=remark;
+        obj.termid=sessionStorage.getItem("termid"); 
+        this.fnmasterplandisplyeditparam=obj;
+        this.$.fnmasterplandisplyeditajax.generateRequest(); 
+         },
+       fnmasterplandisplyeditResponse:function(e){
+//document.querySelector('aproval-book-innovatiosn-item-card').saveopendialog();
+           
+       },
+       fnmasterplandisplyinsertResponse:function(e){
+ //alert(JSON.stringify(e.detail.response.returnval));
+   var res=e.detail.response.returnval
+   this.conceptseq(); 
+  this.FnFetchConceptService();
+ 
+document.querySelector('aproval-book-innovatiosn-item-card').saveopendialog();
+  
+       },
       conceptsubseq:function(){
  
 this.conceptsubsequrl=sessionStorage.getItem("addrinfo")+"/fetchsubjectseq-service";
@@ -1210,8 +1782,7 @@ var obj={"school_id":"","academic_year":"","grade_id":"","subject_id":""};
 
      fnbookupdatevalue:function(capterid,concept,conceptid)
       {
-       // alert(1);
-           this.fnbookupdatevalueurl=sessionStorage.getItem("addrinfo")+"/fnbookupdatevalue-service";
+      this.fnbookupdatevalueurl=sessionStorage.getItem("addrinfo")+"/fnbookupdatevalue-service";
             var obj={"capter_id":"","concept":"","concept_id":""};
               
               obj.capter_id=localStorage.getItem("curr_sess_capters");
@@ -1219,7 +1790,7 @@ var obj={"school_id":"","academic_year":"","grade_id":"","subject_id":""};
               obj.concept_id=conceptid;
               obj.subflag='active';
               this.fnbookupdatevalueparam=obj;
-               // alert(JSON.stringify(obj));
+             // alert(JSON.stringify(obj));
               this.$.fnbookupdatevalueajax.generateRequest();
       },
       fnbookupdatevalueResponse:function(e)
@@ -1260,17 +1831,13 @@ var obj={"school_id":"","academic_year":"","grade_id":"","subject_id":""};
       {
 
        var arr= e.detail.response.returnval;
-         //alert(JSON.stringify(arr));
-          //   alert(JSON.stringify(arr[0].chapter_prefix+arr[0].chapter_sequence));
-      
-       document.querySelector('teacher-book-refernce-card').capterid=arr[0].chapter_prefix+arr[0].chapter_sequence;
+        document.querySelector('teacher-book-refernce-card').capterid=arr[0].chapter_prefix+arr[0].chapter_sequence;
        
       },
 
       chapupdateservice:function(chaptername,chapterid)
      {
-        //alert(chaptername);
-    this.chapupdateurl=sessionStorage.getItem("addrinfo")+"/fnchapterupdatezzz-service";
+      this.chapupdateurl=sessionStorage.getItem("addrinfo")+"/fnchapterupdatezzz-service";
                 var obj={"chaptername":"","chapterid":"","school_id":"","gradeid":"","subjectid":"","academic_year":""}
                     obj.chaptername=chaptername;
                     obj.chapterid=chapterid;
@@ -1302,6 +1869,12 @@ var obj={"school_id":"","academic_year":"","grade_id":"","subject_id":""};
       this.buffseturl=sessionStorage.getItem("addrinfo")+"/buffset-service";
       var obj={};
       obj.capter_id=localStorage.getItem("curr_sess_capters");
+     obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+          obj.subjectid=sessionStorage.getItem("subjectidz");
+        obj.gradeid=sessionStorage.getItem("grdeidz");
+        obj.termid=sessionStorage.getItem("termid"); 
+     
       this.buffsetparam=obj;
       this.$.buffsetajax.generateRequest();
      },
@@ -1324,416 +1897,61 @@ var obj={"school_id":"","academic_year":"","grade_id":"","subject_id":""};
       if(res=="Updated"){
                this.conceptseq(); 
               this.FnFetchConceptService();
-               
-          }
-      },
-     
-        FnFetchConceptService:function(gradeid,subjectid,chapterid)
-        {
-            
-           this.fetchconcepturl=sessionStorage.getItem("addrinfo")+"/fetchconcept-service";
-            var obj={"schoolid":"","academic_year":"","roleid":"","emp_id":""};
-           obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
-           obj.academic_year=localStorage.getItem("curr_sess_academicyear");
-           obj.roleid=sessionStorage.getItem("curr_sess_loggedroleid");
-           obj.emp_id=sessionStorage.getItem("curr_sess_loggedid");
-           obj.chapterid=localStorage.getItem("curr_sess_capters");
-           obj.subjectid=sessionStorage.getItem("subjectidz");
-           obj.gradeid=sessionStorage.getItem("grdeidz");
-           obj.termid=sessionStorage.getItem("termid"); 
-
-           this.fetchconceptparam=obj;
-           //alert(JSON.stringify(obj));
-           this.$.fetchconceptajax.generateRequest();
-    },
-    
-    fetchconceptResponse:function(e)
-    {
-        var res1=e.detail.response.chapterarr;
-        var res=e.detail.response.skillarr;
-        var res3=e.detail.response.valuearr;
-        var res4=e.detail.response.dbskillarr;
-        var res5=e.detail.response.subarr;
-        var res6=e.detail.response.bldarr;
-      
-        var res2=[];
-        var adcarr=[];
-      //alert(JSON.stringify(res));
-    var a=[];
-        var overall=[];
-           for(var k=0;k<res.length;k++)
-           {       
-           var nameobj={"planning_date":"","period":"","skill":"","innovation":"","remark":""};
-             nameobj.planning_date=res[k].planning_date; 
-             nameobj.period=res[k].period; 
-             nameobj.skill=res[k].skill; 
-             nameobj.innovation=res[k].innovation; 
-             nameobj.remark=res[k].remark; 
-             nameobj.rowid=res[k].rowid; 
-             nameobj.rowidz=res[k].rowid; 
-             nameobj.teaching_aid=res[k].teaching_aid;
-             nameobj.planned_to_date=res[k].planned_to_date;
-
-         var obj={"conceptid":"","conceptname":""};
-            obj.conceptid=res[k].conceptid;
-            obj.conceptname=res[k].conceptname;
-            a.push(obj);
-           
-           for(var l=k+1;l<res.length;l++)
-            {
-                if(res[k].rowid==res[l].rowid)
-                 {
-                 
-                if(res[k].planning_date==res[l].planning_date)
-                {
-            
-                 var obj1={"conceptid":"","conceptname":""}
-                 obj1.conceptid=res[l].conceptid;
-                 obj1.conceptname=res[l].conceptname;
-                 a.push(obj1);
-                res.splice(l,1);
-                 l--;
-               }}}
-                nameobj.valuearrr=a;
-                overall.push(nameobj);
-                a=[];
-            }
-   
-           var a1=[];
-            var overall1=[];
-           for(var k=0;k<res3.length;k++)
-           {       
-            var nameobj={};
-             nameobj.planning_date=res3[k].planning_date; 
-             nameobj.rowidz=res3[k].rowid; 
-            
-            var obj={"valueid":"","valuename":""};
-            obj.valueid=res3[k].value_id;
-            obj.valuename=res3[k].value_name;
-            a1.push(obj);
-           
-           for(var l=k+1;l<res3.length;l++)
-            {
-             if(res3[k].rowid==res3[l].rowid)
-                 {
-             if(res3[k].planning_date==res3[l].planning_date)
-                {
-             var obj1={"valueid":"","valuename":""}
-                 obj1.valueid=res3[l].value_id;
-                 obj1.valuename=res3[l].value_name;
-                 a1.push(obj1);
-                res3.splice(l,1);
-                 l--;
-               }}}
-                nameobj.mainarr=a1;
-                overall1.push(nameobj);
-                a1=[];
-          }
-  
-          var b=[];
-        var subarr=[];            
-        for(var k=0;k<res5.length;k++)
-           {       
-           var nameobj={};
-             nameobj.planning_date=res5[k].planning_date; 
-             nameobj.period=res5[k].period; 
-            nameobj.rowidz=res5[k].rowid; 
-            
-
-        var obj={"subconceptid":"","subconceptname":""};
-            obj.subconceptid=res5[k].sub_concept_id;
-            obj.subconceptname=res5[k].sub_concept_name;
-            b.push(obj);
-           
-           for(var l=k+1;l<res5.length;l++)
-            {
-                 if(res5[k].rowid==res5[l].rowid)
-                 {
-                     if(res5[k].planning_date==res5[l].planning_date)
-                {
-           
-                 var obj1={"subconceptid":"","subconceptname":""}
-                 obj1.subconceptid=res5[l].sub_concept_id;
-                 obj1.subconceptname=res5[l].sub_concept_name;
-                 b.push(obj1);
-                res5.splice(l,1);
-                 l--;
-               }}}
-                nameobj.suarr=b;
-                subarr.push(nameobj);
-                b=[];
-            }
-         
-      
-        var c=[];
-        var overall3=[];            
-        for(var k=0;k<res6.length;k++)
-           {       
-           var nameobj={};
-             nameobj.planning_date=res6[k].planning_date; 
-             nameobj.period=res6[k].period; 
-            nameobj.rowidz=res6[k].rowid; 
-            
-
-        var obj={"bldvalueid":"","bldvaluename":""};
-            obj.bldvalueid=res6[k].bld_value_id;
-            obj.bldvaluename=res6[k].bld_value_name;
-            c.push(obj);
-           
-           for(var l=k+1;l<res6.length;l++)
-            {
-               if(res6[k].rowid==res6[l].rowid)
-                 {
-                 if(res6[k].planning_date==res6[l].planning_date)
-                  {
-               var obj1={"bldvalueid":"","bldvaluename":""}
-                   obj1.bldvalueid=res6[l].bld_value_id;
-                   obj1.bldvaluename=res6[l].bld_value_name;
-                   c.push(obj1);
-                  res6.splice(l,1);
-                 l--;
-               }}}
-                nameobj.bldarr=c;
-                overall3.push(nameobj);
-                c=[];
-            }
-         
-    
-    var temp2=[];
-   var a2=[];
-      var overall2=[];
-           
-           for(var k=0;k<res4.length;k++)
-           {       
-           var nameobj={};
-             nameobj.planning_date=res4[k].planning_date; 
-             nameobj.rowidz=res4[k].rowid; 
-            
-       var obj={"skillid":"","skillname":""};
-            obj.skillid=res4[k].skill_id;
-            obj.skillname=res4[k].skill_name;
-            a2.push(obj);
-           
-           for(var l=k+1;l<res4.length;l++)
-            {
-             if(res4[k].rowid==res4[l].rowid)
-             {
-             if(res4[k].planning_date==res4[l].planning_date)
-             {
-                    var obj1={"skillid":"","skillname":""}
-                        obj1.skillid=res4[l].skill_id;
-                        obj1.skillname=res4[l].skill_name;
-                        a2.push(obj1); 
-                        res4.splice(l,1);
-                        l--;
-            }}}
-                nameobj.skillarr=a2;
-                overall2.push(nameobj);
-                a2=[];
-                 }
-
-             
-     
-    for(var n=0;n<overall.length;n++){
-        for(var r=0;r<subarr.length;r++){   
-          if(overall[n].rowidz==subarr[r].rowidz){
-              if(overall[n].planning_date==subarr[r].planning_date){
-         
-             var obj={};
-             obj.planning_date=overall[n].planning_date; 
-             obj.period=overall[n].period; 
-             obj.teachingaid=overall[n].teaching_aid;
-             // obj.Correction=overall[n].Correction;
-             obj.planned_to_date=overall[n].planned_to_date;
-
-           
-             obj.innovation=overall[n].innovation; 
-             obj.remark=overall[n].remark;
-             obj.suarr=subarr[r].suarr;
-             obj.valuearrr=overall[n].valuearrr; 
-             obj.rowidz=overall[n].rowidz;
-             temp2.push(obj);
-             overall.splice(n,1);
-             }}}}
-             //alert(overall.length);
-    //alert(JSON.stringify(overall));
-
-    for(var n=0;n<overall.length;n++){
-           var obj={};
-                 obj.planning_date=overall[n].planning_date; 
-             obj.period=overall[n].period; 
-             obj.teachingaid=overall[n].teaching_aid;
-             obj.planned_to_date=overall[n].planned_to_date;
-             obj.innovation=overall[n].innovation; 
-             obj.remark=overall[n].remark;
-             obj.suarr="empty";
-             obj.valuearrr=overall[n].valuearrr; 
-             obj.rowidz=overall[n].rowidz; 
-             temp2.push(obj);
-       
-            }
-
-
-  var temp3=[];
-  for(var l=0;l<temp2.length;l++){
-  
-
-   for(var r=0;r<overall2.length;r++){ 
-     
-        for(var n=0;n<temp2.length;n++){
-
-          if(temp2[n].rowidz==overall2[r].rowidz){
-        
-              if(temp2[n].planning_date==overall2[r].planning_date){
-             var obj={};
-             obj.planning_date=temp2[n].planning_date; 
-             obj.period=temp2[n].period; 
-             obj.innovation=temp2[n].innovation; 
-             obj.remark=temp2[n].remark;
-             obj.teachingaid=temp2[n].teachingaid;
-             // obj.Correction=temp2[n].Correction;
-           
-             obj.planned_to_date=temp2[n].planned_to_date;
-           
-             obj.valuearrr=temp2[n].valuearrr; 
-             obj.suarr=temp2[n].suarr;
-           
-             obj.skillarr=overall2[r].skillarr; 
-             obj.rowidz=overall2[r].rowidz;
-               temp3.push(obj);
-               temp2.splice(n,1);
-             }}}}
-       
          }
-         for(var r=0;r<overall2.length;r++){ 
-     
-        for(var n=0;n<temp2.length;n++){
 
-          if(temp2[n].rowidz==overall2[r].rowidz){
-        
-              if(temp2[n].planning_date==overall2[r].planning_date){
-             var obj={};
-             obj.planning_date=temp2[n].planning_date; 
-             obj.period=temp2[n].period; 
-             obj.innovation=temp2[n].innovation; 
-             obj.remark=temp2[n].remark;
-             obj.teachingaid=temp2[n].teachingaid;
-             // obj.Correction=temp2[n].Correction;
-           
-             obj.planned_to_date=temp2[n].planned_to_date;
-           
-             obj.valuearrr=temp2[n].valuearrr; 
-             obj.suarr=temp2[n].suarr;
-           
-             obj.skillarr=overall2[r].skillarr; 
-             obj.rowidz=overall2[r].rowidz;
-               temp3.push(obj);
-              temp2.splice(n,1);
-             }}}}
- 
-   var temp1=[];
-   var temparr=[];
-   
-   for(var l=0;l<temp3.length;l++){
+      },
+FnFetchConceptService:function(gradeid,subjectid,chapterid)
+        {  
+   this.fetchconcepturl=sessionStorage.getItem("addrinfo")+"/fetchconcept-service";
+    var obj={"schoolid":"","academic_year":"","roleid":"","emp_id":""};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+         obj.chapterid=localStorage.getItem("curr_sess_capters");
+        obj.subjectid=sessionStorage.getItem("subjectidz");
+        obj.gradeid=sessionStorage.getItem("grdeidz");
+        obj.termid=sessionStorage.getItem("termid"); 
+        obj.roleid=sessionStorage.getItem("curr_sess_loggedroleid");
+        obj.emp_id=sessionStorage.getItem("curr_sess_loggedid");
+       
+        this.fetchconceptparam=obj;
+        //alert(JSON.stringify(obj));
+        this.$.fetchconceptajax.generateRequest();
+    },
+ fetchconceptResponse:function(e)
+    {
       
-       for(var r=0;r<overall1.length;r++){ 
-       for(var n=0;n<temp3.length;n++){
-      
-          if(temp3[n].rowidz==overall1[r].rowidz){
-              if(temp3[n].planning_date==overall1[r].planning_date){
-         var obj={};
-             obj.planning_date=temp3[n].planning_date; 
-             obj.period=temp3[n].period; 
-             obj.innovation=temp3[n].innovation; 
-             obj.teachingaid=temp3[n].teachingaid;
-             // obj.Correction=temp3[n].Correction;
-             obj.planned_to_date=temp3[n].planned_to_date;
-                    
-             obj.remark=temp3[n].remark;
-             obj.suarr=temp3[n].suarr;
-             obj.valuearrr=temp3[n].valuearrr; 
-             obj.skillarr=temp3[n].skillarr;
-             obj.mainarr=overall1[r].mainarr; 
-             obj.rowidz=temp3[n].rowidz;
-             temparr.push(obj);
-             temp3.splice(n,1);
-             }}}}
-          }
-           for(var r=0;r<overall1.length;r++){ 
-       for(var n=0;n<temp3.length;n++){
-      
-          if(temp3[n].rowidz==overall1[r].rowidz){
-              if(temp3[n].planning_date==overall1[r].planning_date){
-         var obj={};
-             obj.planning_date=temp3[n].planning_date; 
-             obj.period=temp3[n].period; 
-             obj.innovation=temp3[n].innovation; 
-             obj.teachingaid=temp3[n].teachingaid;
-             // obj.Correction=temp3[n].Correction;
-             obj.planned_to_date=temp3[n].planned_to_date;
-                    
-             obj.remark=temp3[n].remark;
-             obj.suarr=temp3[n].suarr;
-             obj.valuearrr=temp3[n].valuearrr; 
-             obj.skillarr=temp3[n].skillarr;
-             obj.mainarr=overall1[r].mainarr; 
-             obj.rowidz=temp3[n].rowidz;
-             temparr.push(obj);
-             temp3.splice(n,1);
-             }}}}
-
-       for(var n=0;n<temparr.length;n++){
-        for(var r=0;r<overall3.length;r++){ 
-     
-          if(temparr[n].rowidz==overall3[r].rowidz){
-              if(temparr[n].planning_date==overall3[r].planning_date){
-         var obj={};
-             obj.planning_date=temparr[n].planning_date; 
-             obj.period=temparr[n].period; 
-             obj.innovation=temparr[n].innovation; 
-             obj.teachingaid=temparr[n].teachingaid;
-             obj.planned_to_date=temparr[n].planned_to_date;
-             obj.remark=temparr[n].remark;
-             obj.suarr=temparr[n].suarr;
-             obj.valuearrr=temparr[n].valuearrr; 
-             obj.skillarr=temparr[n].skillarr;
-             obj.mainarr=temparr[n].mainarr;
-             obj.bldarr=overall3[r].bldarr; 
-             obj.rowidz=temparr[n].rowidz;
-             temp1.push(obj);
-              }}}}
-             
-//alert(JSON.stringify(temp1));
-var r=parseInt(res1[0].buffer_period)+parseInt(res1[0].period)-parseInt(temp1.length);
+ var res1=e.detail.response.chapterarr;
+ var temp1=e.detail.response.dbarr;
+ var res2=[];
+ var r=parseInt(res1[0].buffer_period)+parseInt(res1[0].period)-parseInt(temp1.length);
     for(var i=0;i<temp1.length;i++){
                       var obj={};
+                      obj.concept_id=temp1[i].concept_id;
+                      obj.concept_name=temp1[i].concept_name;
+                      obj.sub_concept_id=temp1[i].sub_concept_id;
+                    obj.sub_concept_name=temp1[i].sub_concept_name;
                       obj.period=temp1[i].period;  
-                     obj.innovation=temp1[i].innovation;  
-                      obj.remark=temp1[i].remark;  
-                      obj.planning_date=temp1[i].planning_date; 
-                      obj.id_date=temp1[i].id_date;
-                      obj.valuearrr=temp1[i].valuearrr;
-                      obj.mainarr=temp1[i].mainarr;
-                      obj.suarr=temp1[i].suarr;
-                      obj.skillarr=temp1[i].skillarr;
-                      obj.rowidz=temp1[i].rowidz;
-                      obj.teachingaid=temp1[i].teachingaid;
-                      obj.bldarr=temp1[i].bldarr;
+                      obj.innovation=temp1[i].innovation;  
+                      obj.remarks=temp1[i].remarks;  
+                      obj.planned_date_from=temp1[i].planned_date_from; 
+                      obj.skill=temp1[i].skill;
+                           
+                      obj.value=temp1[i].value;
+                      obj.rowidz=temp1[i].row_id;
+                      obj.teaching_aid=temp1[i].teaching_aid;
                       obj.planned_to_date=temp1[i].planned_to_date;
-                      var id_date=temp1[i].planning_date;
-                      id_date=id_date.replace(/[^\w\s]/gi, '');
-                      obj.id_date=id_date;
-                      obj.hidecheck=false; 
-                      obj.hidecheck1=true; 
-                      obj.hidecheck11=true; 
-                     res2.push(obj);     
+                      obj.bld_value_name=temp1[i].bld_value_name;
+                      var id_date=temp1[i].planned_date_from;
+                       id_date=id_date.replace(/[^\w\s]/gi, '');
+                       obj.id_date=id_date;
+                       obj.hidecheck=false; 
+                       obj.hidecheck1=true; 
+                       obj.hidecheck11=true; 
+                       res2.push(obj);     
                       }
+      var flag=0;
 
-
-               
-         
-          var flag=0;
-          if(parseInt(this.periodafter)!=-1&&parseInt(this.periodafter)>0&&this.periodafter!=" "){
+if(parseInt(this.periodafter)!=-1&&parseInt(this.periodafter)>0&&this.periodafter!=""){
             flag=1;
             var len=res2.length;
            
@@ -1744,45 +1962,52 @@ var r=parseInt(res1[0].buffer_period)+parseInt(res1[0].period)-parseInt(temp1.le
                    for(var k=0;k<bufferperiod;k++){
                    var obj={};
                    obj.concept_id="";  
-                   obj.concept="";   
+                   obj.concept_name="";   
                    obj.capter_id=""; 
                    obj.innovation="";  
-                   obj.remark="";  
-                   obj.planning_date="empty" ;
+                   obj.remarks="";  
+                   obj.planned_date_from="empty" ;
                    obj.planned_to_date="" ;
                    obj.rowidz="";
-                   obj.teachingaid="";
+
+              
+                   obj.teaching_aid="";
                    obj.hidecheck=true; 
                    obj.hidecheck1=false; 
                    obj.hidecheck11=false;
                    obj.rowid=parseInt(res2.length)+1+k;
                    temp.push(obj); 
-
-                  }}
-
+                       }
+                     
+                  
+                }
                 else{
                     temp.push(res2[i]);
                 }
             }
           }
-
+        //alert(JSON.stringify(res2));
              
             if(flag==0){
                   for(var k=0;k<r;k++){
                    var obj={};
                    obj.concept_id="";  
-                   obj.concept="";   
+                   obj.concept_name="";   
                    obj.capter_id=""; 
                    obj.innovation="";  
-                   obj.remark="";  
-                   obj.planning_date="empty" ;
+                   obj.remarks="";  
+                   obj.planned_date_from="empty" ;
                    obj.planned_to_date="" ;
                    obj.rowidz="";
-                   obj.teachingaid="";
-                   obj.hidecheck=true; 
-                   obj.hidecheck1=false; 
-                   obj.hidecheck11=false; 
-                  res2.push(obj);
+                   obj.teaching_aid="";
+                    if(k==0)
+                        obj.hidecheck1=false; 
+                     else
+                        obj.hidecheck1=true; 
+
+                     obj.hidecheck=true; 
+                     obj.hidecheck11=false; 
+                   res2.push(obj);
               }
             for(var i=0;i<res2.length;i++){
             res2[i].rowid=i+1;
@@ -1790,12 +2015,11 @@ var r=parseInt(res1[0].buffer_period)+parseInt(res1[0].period)-parseInt(temp1.le
               for(var i=0;i<res2.length;i++){
             res2[i].sno=i+1;
             }
-           document.querySelector('teacher-book-approve-card').overallarr1=res2;
-//document.querySelector('teacher-book-approve-card').planningopenddd(); 
+ document.querySelector('teacher-book-approve-card').overallarr1=res2;
            
           }                
           else {
-                for(var k=0;k<r;k++){
+               for(var k=0;k<r;k++){
               
                var obj={};
                    obj.concept_id="";  
@@ -1807,22 +2031,25 @@ var r=parseInt(res1[0].buffer_period)+parseInt(res1[0].period)-parseInt(temp1.le
                    obj.planned_to_date="" ;
                    obj.rowidz="";
                    obj.teachingaid="";
+                   if(k==0)
+                        obj.hidecheck1=false; 
+                     else
+                        obj.hidecheck1=true; 
+
                    obj.hidecheck=true; 
-                   obj.hidecheck1=false; 
                    obj.hidecheck11=false;
                    obj.rowid=parseInt(temp.length)+1+k;
-                     temp.push(obj);
-               } 
-              for(var i=0;i<temp.length;i++){
+                   temp.push(obj);
+                } 
+             for(var i=0;i<temp.length;i++){
             temp[i].sno=i+1;
           }
-  document.querySelector('teacher-book-approve-card').overallarr1=temp;
-           
+    document.querySelector('teacher-book-approve-card').overallarr1=temp;
               res2=[];
               temp=[];
               this.periodafter="";
 
-            }         
+            }      
        },
 
 
@@ -2054,6 +2281,11 @@ fnsetcoskill13:function(skarr,period,rowid,sno)
     this.buffdelurl=sessionStorage.getItem("addrinfo")+"/buffset-service";
     var obj={};
     obj.capter_id=localStorage.getItem("curr_sess_capters");
+     obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+        obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+          obj.subjectid=sessionStorage.getItem("subjectidz");
+        obj.gradeid=sessionStorage.getItem("grdeidz");
+        obj.termid=sessionStorage.getItem("termid"); 
     this.buffdelparam=obj;
    this.$.buffdelajax.generateRequest();
    },
@@ -2066,6 +2298,8 @@ fnsetcoskill13:function(skarr,period,rowid,sno)
       obj.delperiod=delperiod;
       obj.capter_id=localStorage.getItem("curr_sess_capters");
       this.buffdel1param=obj;
+         // alert(JSON.stringify(obj));
+
       this.$.buffdel1ajax.generateRequest();
    },
 
@@ -2961,7 +3195,7 @@ fetchchapterResponse:function(e){
         {
             var res=e.detail.response.returnval;
             //alert('Inserted');
-            alert(JSON.stringify(res));
+           // alert(JSON.stringify(res));
            
              if(e.detail.response.returnval=='Updated')
             {
@@ -3225,13 +3459,13 @@ obj.academicyear=localStorage.getItem("curr_sess_academicyear");
       {
         var res=e.detail.response.returnval;
         document.querySelector('innovation-report').innovationgradearr=res;
-      },
-     
-
-       fnselectinnovatesubject:function(gradeid,gradename)
+              },
+fnselectinnovatesubject:function(gradeid,gradename)
          {
-            this.fnselectinnovatesubjecturl=sessionStorage.getItem("addrinfo")+"/innovatechapsubject-service";
-            var obj={"school_id":"","gradeid":"","gradename":"","academic_year":""};
+
+    this.fnselectinnovatesubjecturl=sessionStorage.getItem("addrinfo")+"/   innovatechapsubject-service";
+             var obj={"school_id":"","gradeid":"","gradename":"","academic_year":""};
+
               obj.gradeid=gradeid;
               obj.gradename=gradename;
               obj.school_id=sessionStorage.getItem("curr_sess_loggedschoolid");

@@ -184,11 +184,11 @@
          </paper-dropdown-menu>
        </span>
          
+<paper-button style="color:white;background-color:black;margin-left: 3%;" on-click="fnaddbuffer">Add Buffer period</paper-button>  
 
-      <paper-button style="color:white;background-color:black;margin-left: 3%;" on-click="fnaddbuffer">Add Buffer period</paper-button>  
  <template is="dom-repeat" items="{{conceptjhkhzz}}" as="rere">
-              <chapter-pass-card conceptname1="{{rere.conceptname}}"></chapter-pass-card>
-  </template>
+<chapter-pass-card conceptname1="{{rere.conceptname}}"></chapter-pass-card>
+</template>
 
 
      <div id="zdsasddsasfsa" >
@@ -207,15 +207,14 @@
           <th style="width: 10.9%;">Teaching Aids</th>
           <th style="width: 10.9%;">Innovation</th>
           <th style="width: 10.9%;">Remark</th>
-          <!-- <th style="width: 11%;">Correction status</th> -->
           <th style="width: 4.6%;"></th>
-        
         </tr>  
             <tr>        
              <template  is="dom-repeat" items="{{overallarr1}}" as="view">
                 <tr>   
-             <aproval-book-innovatiosn-item-card rowid="{{view.rowid}}" remark="{{view.remark}}" period="{{view.period}}" planneddate="{{view.planning_date}}" skill="{{view.skill}}" innovation="{{view.innovation}}" iddate="{{view.id_date}}" hidecheck="{{view.hidecheck}}" hidecheck11="{{view.hidecheck11}}"  hidecheck1="{{view.hidecheck1}}"  rowidz="{{view.rowidz}}" valuez="{{view.valuez}}" conceptzz="{{view.valuearrr}}" mainarr="{{view.mainarr}}" subconceptarr1="{{view.suarr}}" skillarrzx="{{view.skillarr}}" bldvaluez="{{view.bldarr}}" correction="{{view.Correction}}" teachingaid="{{view.teachingaid}}" sno="{{view.sno}}" plannedtoate="{{view.planned_to_date}}" > 
-              </aproval-book-innovatiosn-item-card>
+<aproval-book-innovatiosn-item-card rowid="{{view.rowid}}" remark="{{view.remarks}}" period="{{view.period}}" planneddate="{{view.planned_date_from}}" skill="{{view.skill}}" innovation="{{view.innovation}}" iddate="{{view.id_date}}" hidecheck="{{view.hidecheck}}" hidecheck11="{{view.hidecheck11}}"  hidecheck1="{{view.hidecheck1}}"  rowidz="{{view.rowidz}}" value="{{view.value}}" conceptid="{{view.concept_id}}"
+   conceptname="{{view.concept_name}}" subconceptid="{{view.sub_concept_id}}" subconceptname="{{view.sub_concept_name}}" teachingaid="{{view.teaching_aid}}" sno="{{view.sno}}" bldvaluename="{{view.bld_value_name}}" plannedtoate="{{view.planned_to_date}}" > 
+    </aproval-book-innovatiosn-item-card>
                 </tr> 
               </template>    
             </tr>  
@@ -284,9 +283,9 @@
         },
         fnconsubmit:function(e)
         {
-          //alert(this.bufferperiod);      
+         //alert(this.bufferperiod);      
             this.periodafter=-1;
-            this.$.bookservice.buffset(this.bufferperiod,this.periodafter);
+         this.$.bookservice.buffset(this.bufferperiod,this.periodafter);
             this.bufferperiod="";
             this.periodafter="";
             // this.$.bookservice.subflagseqe();
@@ -306,8 +305,7 @@
 
         },
         fnconceptzz:function(e){
-          // this.$.bookservice.fnbuffconcept();
-          if(Conceptzzzidzz.checked==true)
+    if(Conceptzzzidzz.checked==true)
           {
             Chaperzzzzidzz.checked=false;
             this.Conceptbuffidz=false;
