@@ -3710,7 +3710,7 @@ var qur="select (select r.student_name from md_student r where r.id=student_id a
     "academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' "+
     "and subject_id='"+req.query.subject+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' group by student_id,assesment_id";
 
- var categorycnt="SELECT distinct (assesment_type)  FROM subject_mapping WHERE and school_id='"+req.query.schoolid+"' and  academic_year='"+req.query.academicyear+"' and "+
+ var categorycnt="SELECT distinct (assesment_type)  FROM subject_mapping WHERE school_id='"+req.query.schoolid+"' and  academic_year='"+req.query.academicyear+"' and "+
 " grade_name='"+req.query.grade+"' and subject_name='"+req.query.subject+"'";
 
 console.log('--------suibject report--------------');

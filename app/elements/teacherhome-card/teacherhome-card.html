@@ -1023,6 +1023,7 @@
         else if(localStorage.getItem('curr_sess_report')=="3"){
         document.querySelector('app-card').setPage('homepage','');
         document.querySelector('home-page').setPage('approvalstatus');
+        document.querySelector('approvalstatus-card').setDefaultHeaders();
         this.$.assesmentservice.FnFetchApprovalStatus();
         }
         else
@@ -1040,6 +1041,7 @@
         localStorage.setItem('curr_sess_report','2');
         document.querySelector('app-card').setPage('homepage','');
         document.querySelector('home-page').setPage('approveassesment','');  
+        document.querySelector('approve-one-to-four-card').setDefaultHeaders();
         this.$.assesmentservice.callApproveService();   
       },
       FnHideView:function(){ 
@@ -1328,6 +1330,7 @@
       FnApprovalStatus:function(){
         localStorage.setItem('curr_sess_loggedassesmenttype','Approvalstatus');
         localStorage.setItem('curr_sess_report','3');
+
         this.$.scorecardservice.callGradeService();
         this.$.cdialog.toggle(); 
       },
