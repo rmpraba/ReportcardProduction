@@ -39,20 +39,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           height: 25px;
         } 
         
-
-
-         #rejectsavedialoggggg
-        {
-          border-radius: 10px;
-          width: 354px;
-          height: 170px;
-        }
-        #rejectfailuredialog
-        {
-          border-radius: 10px;
-          width: 354px;
-          height: 170px;
-        }
     </style>
     <div>
 
@@ -102,19 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </table>
 
 
-      <paper-dialog id="rejectsavedialoggggg" modal>
-       <h3><center>SUCCESS</center></h3>
-       <center>
-         <paper-button on-click="rejectclose2dialog" style="color:white;background-color:black;margin-top: 15%;">OK</paper-button>
-       </center>
-     </paper-dialog>
-
-      <paper-dialog id="rejectfailuredialog" modal>
-       <h3><center>FAILURE</center></h3>
-       <center>
-         <paper-button on-click="rejfailureclose2" style="color:white;background-color:black;margin-top: 15%;">OK</paper-button>
-       </center>
-     </paper-dialog>
+      
        <teacher-book-service-card id="bookservice"></teacher-book-service-card>
  
   </template>
@@ -168,23 +142,6 @@ var costatus;
    },*/
 
 
-      rejectclose2dialog:function()
-     {
-      this.$.rejectsavedialoggggg.close();
-     },
-     rsvopndialg:function()
-     {
-      //alert('open');
-      this.$.rejectsavedialoggggg.toggle();
-     },
-     rsfaildialog:function()
-     {
-      this.$.rejectfailuredialog.toggle();
-     },
-     rejfailureclose2:function()
-     {
-      this.$.rejectfailuredialog.close();
-     }
 
 
     });

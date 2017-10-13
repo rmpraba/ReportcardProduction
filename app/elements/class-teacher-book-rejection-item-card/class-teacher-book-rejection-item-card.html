@@ -24,6 +24,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           /*margin-left: 5%;*/
           margin-top: 5%;
       }
+
+      
+         #lastsavedialoggggg
+        {
+          border-radius: 10px;
+          width: 354px;
+          height: 170px;
+        }
+        #faillastdialog
+        {
+          border-radius: 10px;
+          width: 354px;
+          height: 170px;
+        }
     </style>
     <div>
     <paper-input hidden value={{empid}}></paper-input>
@@ -62,6 +76,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            </template>
      </table> 
      </div>  
+
+
+     <paper-dialog id="lastsavedialoggggg" modal>
+       <h3><center>SUCCESS</center></h3>
+       <center>
+         <paper-button on-click="rejectclose2dialog" style="color:white;background-color:black;margin-top: 15%;">OK</paper-button>
+       </center>
+     </paper-dialog>
+
+      <paper-dialog id="faillastdialog" modal>
+       <h3><center>FAILURE</center></h3>
+       <center>
+         <paper-button on-click="rejfailureclose2" style="color:white;background-color:black;margin-top: 15%;">OK</paper-button>
+       </center>
+     </paper-dialog>
       <teacher-book-service-card id="bookservice"></teacher-book-service-card>
  </template>
   <script>
@@ -70,6 +99,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
       is: 'class-teacher-book-rejection-item-card',
+
+
+      rejectclose2dialog:function()
+     {
+      this.$.lastsavedialoggggg.close();
+     },
+     rsvopndialg:function()
+     {
+      alert('open');
+      this.$.lastsavedialoggggg.toggle();
+     },
+     rsfaildialog:function()
+     {
+      this.$.faillastdialog.toggle();
+     },
+     rejfailureclose2:function()
+     {
+      this.$.faillastdialog.close();
+     }
 
      
  /*passset:function(e){

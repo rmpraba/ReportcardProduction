@@ -3174,10 +3174,11 @@ insertschoolTypename:function(schooltypesarr)
       },
       FnSecondLangSubjectToStudentResponse:function(e)
       {
-        var res=e.detail.response.returnval
+        var res=e.detail.response.returnval;
 
-        //alert(JSON.stringify(res));        
-         if(res=='Inserted!')
+        alert('Successfully Done');
+
+         /*if(res=='Inserted!')
          {
             document.querySelector('student-to-subject-mapping-card').fninsert();
 
@@ -3185,7 +3186,7 @@ insertschoolTypename:function(schooltypesarr)
          else if(res=='updated successfully')
          {
             document.querySelector('student-to-subject-mapping-card').fnupdate();
-         }
+         }*/
 
       },
       FnSecondLangSubjectToStudentsets:function(fnthidlanginfoarr){
@@ -3257,8 +3258,10 @@ insertschoolTypename:function(schooltypesarr)
       {
         var res=e.detail.response.returnval;
 
-        //alert(JSON.stringify(res));        
-         if(res=='Inserted!')
+        //alert(JSON.stringify(res));    
+
+        alert('Successfully Done');
+         /*if(res=='Inserted!')
          {
             document.querySelector('student-to-subject-mapping-card').fninsert();
 
@@ -3267,7 +3270,7 @@ insertschoolTypename:function(schooltypesarr)
          {
             document.querySelector('student-to-subject-mapping-card').fnupdate();
          }
-
+*/
       },
        SelectSchoolgrades:function()
        {

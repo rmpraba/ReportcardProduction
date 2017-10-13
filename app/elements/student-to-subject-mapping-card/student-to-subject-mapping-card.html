@@ -97,6 +97,16 @@
      {
       font-size: 17.5px;
      }
+
+      #languagespinner11ax
+        {
+          margin: 0;
+          padding: 0;
+          border: none;
+          background-color: transparent;
+        }
+        
+        
     </style>
 
       <div class="title">
@@ -180,7 +190,9 @@
           </table>   
         </div>  
 
-
+          <div class="spinner">
+            <paper-dialog modal id="languagespinner11ax" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog>
+          </div>
 
        <iron-ajax  
         auto         
@@ -225,9 +237,7 @@
         debounce-duration="300"
         >
 
- <paper-dialog id="Sectemplyspin">
-      <paper-spinner id="sectempspinner"></paper-spinner>
-    </paper-dialog>
+ 
         <demosumbit-card id="newwalerttt"></demosumbit-card>
   <master-ui-service id="uiservice"></master-ui-service>
   </template>
@@ -301,8 +311,7 @@
         this.SbjecttoStudentmappingparam=obj;
       // alert(JSON.stringify(obj));   
         this.$.SbjecttoStudentmappingajax.generateRequest();
-      this.sectionopenspinner();
-          },
+      },
 
      FnStoSSection:function(e)
      {
@@ -312,6 +321,8 @@
             this.$.labelhide.hidden=false;
             //this.$.button1.hidden=false;
             //this.hidenewline=false;
+             this.FnSpinnerrActive(true);
+
             localStorage.setItem("curr_sess_selectedSection",this.FnStoSSectionid);
             localStorage.setItem("curr_sess_selectedSectionvalue1",this.FnStoSSectionid1);
             this.fnlangugageprefstudent();
@@ -323,6 +334,7 @@
                   this.$.secondid.hidden=false;
              this.$.thirdid.hidden=false;
              // this.hidenewline=false;  
+            
 
           }
          else{
@@ -332,7 +344,6 @@
              this.$.thirdid.hidden=true; 
              // this.hidenewline=true;  
             
-       
          }
      },
        stupersonalinfo12:function(){
@@ -360,17 +371,6 @@
       this.hidenewsubcat=false;
 
     },
-  sectionclosespinner:function()
-      {
-          this.$.sectempspinner.active=false;
-          document.querySelector('#Sectemplyspin').close();
-      },
-  sectionopenspinner:function()
-      {
-          document.querySelector('#Sectemplyspin').open();
-          this.$.sectempspinner.active=true;
-      },      
-
 
  fnsubmit:function(e)
  {  
@@ -512,9 +512,8 @@
           }
      }
   
-     this.bigarr=overall;
-
-     this.sectionclosespinner();
+            this.bigarr=overall;
+            this.FnSpinnerrActive(false);
 
               },
      FnSubjecttostudentthirdlanguageResponse:function(e){
@@ -629,21 +628,22 @@
           }
      }
 
-     this.bigarr=overall;
-      this.sectionclosespinner();
+          this.bigarr=overall;
+          this.FnSpinnerrActive(false);
+      
           },
      SbjecttoStudentmappingResponse:function(e){
      var res=e.detail.response.returnval;
-        //  alert(JSON.stringify(res));
+        //alert(JSON.stringify(res));
           studentarr=res; 
      },
       
      fnsetreclear:function(e){
-     // alert("hi");
-     document.querySelector('#rtermmm').selected=-1;
-      document.querySelector('#rsectionwww').selected=-1;
+        //alert("hi");
+        document.querySelector('#rtermmm').selected=-1;
+        document.querySelector('#rsectionwww').selected=-1;
       document.querySelector('#rgradewww').selected=-1;
-   //   document.querySelector('#rtermmm1').selected=-1;
+      //document.querySelector('#rtermmm1').selected=-1;
             
      },
      fnlang:function()
@@ -653,7 +653,7 @@
         //this.hidenewline=true;
         //this.$.button1.hidden=true;
      },
-     fnupdate:function(e)
+     /*fnupdate:function(e)
      {
       alert('Updated');
      },
@@ -661,8 +661,15 @@
      {
       alert('Inserted');
      },
-
-
+*/
+     FnSpinnerrActive:function(flag)
+      {
+        //alert(flag);
+        if(flag==true)
+          this.$.languagespinner11ax.opened=true;
+        if(flag==false)
+          this.$.languagespinner11ax.opened=false;
+      },
 
 
     

@@ -51,19 +51,41 @@ var dobdate;
         this.date=new Date();
         this.$.dialog.toggle();
       },
+
       FnDismissDialog:function(e)
       {
-        if (e.detail.confirmed)
+
+         if (e.detail.confirmed)
         {
-        var pickdate=moment(this.$.picker.date).format('L');
-        var dd1=new Date();
+          var pickdate=moment(this.$.picker.date).format('L');
+          var dd1=new Date();
           var dd2=new Date(pickdate);
-  var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
-  this.showdate = moment(this.$.picker.date).format('L');
-  localStorage.setItem("localsess_birth_date",this.showdate);
+          var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
+            if(days<=0)
+            {
+              document.querySelector('student-add-card').setdobvalid();
+              this.showdate="";
+            }
+            else
+            {
+               this.showdate = moment(this.$.picker.date).format('L');
+               document.querySelector('student-add-card').getdate(this.showdate);
+            }
+        }  
+
+
+
+       /* if (e.detail.confirmed)
+        {
+          var pickdate=moment(this.$.picker.date).format('L');
+          var dd1=new Date();
+          var dd2=new Date(pickdate);
+          var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
+          this.showdate = moment(this.$.picker.date).format('L');
+          localStorage.setItem("localsess_birth_date",this.showdate);
   
-var dt1=new Date(localStorage.getItem("localsess_birth_date"));
-dobdate=localStorage.getItem("localsess_birth_date");
+          var dt1=new Date(localStorage.getItem("localsess_birth_date"));
+          dobdate=localStorage.getItem("localsess_birth_date");
           var dt=new Date();
           var pr_year=dt.getFullYear();
           var bt_year=dt1.getFullYear();
@@ -71,18 +93,20 @@ dobdate=localStorage.getItem("localsess_birth_date");
           diff+" Years";
           //alert(diff);
 
-if(localStorage.getItem("curr_sess_page")=="student-information-card"){
- // alert('1');
-  document.querySelector('student-information-card').ageofyr1=diff+" Years";
-  document.querySelector('student-information-card').fnsetdateofbirth(this.showdate);
-  document.querySelector('student-information-card').ageofyrs=diff+" Years";
-   }
-else
-  // alert('2');
-document.querySelector('student-add-card').ageofyr=diff+" Years";
+            if(localStorage.getItem("curr_sess_page")=="student-information-card")
+            {
+              // alert('1');
+              document.querySelector('student-information-card').ageofyr1=diff+" Years";
+              document.querySelector('student-information-card').fnsetdateofbirth(this.showdate);
+              document.querySelector('student-information-card').ageofyrs=diff+" Years";
+            }
+            else
+              // alert('2');
+              document.querySelector('student-add-card').ageofyr=diff+" Years";
+        }*/
 
- 
-        }
+
+
       },
       FnCleardob:function()
       {

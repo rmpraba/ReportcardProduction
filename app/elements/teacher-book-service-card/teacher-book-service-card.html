@@ -1919,12 +1919,12 @@ FnFetchConceptService:function(gradeid,subjectid,chapterid)
     },
  fetchconceptResponse:function(e)
     {
-      
- var res1=e.detail.response.chapterarr;
- var temp1=e.detail.response.dbarr;
- var res2=[];
- var r=parseInt(res1[0].buffer_period)+parseInt(res1[0].period)-parseInt(temp1.length);
-    for(var i=0;i<temp1.length;i++){
+
+        var res1=e.detail.response.chapterarr;
+        var temp1=e.detail.response.dbarr;
+        var res2=[];
+        var r=parseInt(res1[0].buffer_period)+parseInt(res1[0].period)-parseInt(temp1.length);
+        for(var i=0;i<temp1.length;i++){
                       var obj={};
                       obj.concept_id=temp1[i].concept_id;
                       obj.concept_name=temp1[i].concept_name;
@@ -1949,9 +1949,9 @@ FnFetchConceptService:function(gradeid,subjectid,chapterid)
                        obj.hidecheck11=true; 
                        res2.push(obj);     
                       }
-      var flag=0;
+            var flag=0;
 
-if(parseInt(this.periodafter)!=-1&&parseInt(this.periodafter)>0&&this.periodafter!=""){
+            if(parseInt(this.periodafter)!=-1&&parseInt(this.periodafter)>0&&this.periodafter!=""){
             flag=1;
             var len=res2.length;
            
@@ -2016,6 +2016,7 @@ if(parseInt(this.periodafter)!=-1&&parseInt(this.periodafter)>0&&this.periodafte
             res2[i].sno=i+1;
             }
  document.querySelector('teacher-book-approve-card').overallarr1=res2;
+     document.querySelector('teacher-book-approve-card').FnSpinnerrActive(false);   
            
           }                
           else {
@@ -2048,11 +2049,10 @@ if(parseInt(this.periodafter)!=-1&&parseInt(this.periodafter)>0&&this.periodafte
               res2=[];
               temp=[];
               this.periodafter="";
+        document.querySelector('teacher-book-approve-card').FnSpinnerrActive(false);
 
             }      
        },
-
-
 
     subflagseqe:function()
       {     
@@ -2369,6 +2369,7 @@ fnsetcoskill13:function(skarr,period,rowid,sno)
           fngetclassbookchaptervalueResponse:function(e)
           {
             var res=e.detail.response.chapterarr;
+            //alert(JSON.stringify(res));
             document.querySelector('curriculum-plan-conceptapproval-card').chapterarr=res;
           },
           fngetclassbookchapterconceptvalue:function(){
@@ -3199,11 +3200,11 @@ fetchchapterResponse:function(e){
            
              if(e.detail.response.returnval=='Updated')
             {
-                document.querySelector('class-teacher-book-rejection-card').rsvopndialg();
+                document.querySelector('class-teacher-book-rejection-item-card').rsvopndialg();
                  this.FnFetchClassConceptService11();
             }
             else{
-                document.querySelector('class-teacher-book-rejection-card').rsfaildialog();
+                document.querySelector('class-teacher-book-rejection-item-card').rsfaildialog();
             }
         },
 

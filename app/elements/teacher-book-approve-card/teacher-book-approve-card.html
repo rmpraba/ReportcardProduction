@@ -140,6 +140,13 @@
           margin-top: 50px;
         }
         
+        #curriculumspinner
+        {
+          margin: 0;
+          padding: 0;
+          border: none;
+          background-color: transparent;
+        }
      </style>    
     <center><h2 hidden style="color:#00ccff">{{empnamez}}</h2></center>
      <paper-input hidden value="{{empnamez}}"></paper-input>
@@ -241,9 +248,9 @@
         <paper-button id="cls111" on-click="fnclose" style="color:white;background-color:black">Close</paper-button></center>
      </paper-dialog>
 
-     <paper-dialog id="planspinxyz">
-       <paper-spinner id="planningspinnerwxy"></paper-spinner>
-     </paper-dialog>
+     <div class="spinner">
+        <paper-dialog modal id="curriculumspinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog>
+      </div>
 
      <paper-dialog id="savedialog">
        <label>Success</label>
@@ -364,6 +371,7 @@
       localStorage.setItem("curr_sess_chaptername",this.chaptername); 
 
       this.$.bookservice.FnFetchConceptService(this.gradeid,this.subjectid,this.chapterid,this.termid);
+       this.FnSpinnerrActive(true);
 
       this.$.zdsasddsasfsa.hidden=false;
       this.$.bookservice.conceptseq();
@@ -428,10 +436,16 @@
       this.$.sub11.hidden=true;
       this.$.sub2222.hidden=true;
       this.$.cls111.hidden=true;
-     }
+     },
 
-
-    
+     FnSpinnerrActive:function(flag)
+      {
+        //alert(flag);
+        if(flag==true)
+          this.$.curriculumspinner.opened=true;
+        if(flag==false)
+          this.$.curriculumspinner.opened=false;
+      }
     });
   })();
   </script>

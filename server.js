@@ -2020,7 +2020,7 @@ app.post('/fetchreportsubjectname-service',  urlencodedParser,function (req,res)
   var qur="select subject_id,subject_name,subject_category from md_subject where subject_id in "+
   "(select subject_id from mp_grade_subject where grade_id=(select grade_id from "+
   "md_grade where grade_name='"+req.query.grade+"')) "+
-  " order by subject_category";
+  " order by subject_category" ;
   console.log('-----------------------fetchreportsubjectname----------------------------');
   //console.log(qur);
   connection.query(qur,
@@ -12128,12 +12128,17 @@ app.post('/fngetclassbooksubjectvalue-service',  urlencodedParser,function (req,
 
 app.post('/fngetclassbookchaptervalue-service',  urlencodedParser,function (req,res)
   {     
-    var qur="SELECT distinct(capter_id),(select capter from md_chapter c where c.capter_id=s.capter_id and "+
+
+    
+    var qur="SELECT distinct(chapter_id),chapter_name  FROM `md_curriculum_planning` WHERE school_id='"+req.query.schoolid+"' and term_id='"+req.query.termid+"' and grade_id='"+req.query.gradeid+"' and subject_id='"+req.query.subjectid+"' and academic_year='"+req.query.academicyear+"'";
+
+
+    /*var qur="SELECT distinct(capter_id),(select capter from md_chapter c where c.capter_id=s.capter_id and "+
     " c.school_id='"+req.query.schoolid+"' and c.academic_year='"+req.query.academicyear+"' and c.gradeid='"+req.query.gradeid+"' and  c.term_id='"+req.query.termid+"' and c.subjectid='"+req.query.subjectid+"') as capter "+
     " FROM md_skill s join mp_teacher_grade g on(g.grade_id=s.grade_id) WHERE "+
     " g.school_id='"+req.query.schoolid+"' and s.school_id='"+req.query.schoolid+"' and g.academic_year='"+req.query.academicyear+"' "+
     " and s.academic_year='"+req.query.academicyear+"' and g.subject_id='"+req.query.subjectid+"' "+
-    " and s.subject_id='"+req.query.subjectid+"' and g.grade_id='"+req.query.gradeid+"' and s.grade_id='"+req.query.gradeid+"' and s.term_id='"+req.query.termid+"'";
+    " and s.subject_id='"+req.query.subjectid+"' and g.grade_id='"+req.query.gradeid+"' and s.grade_id='"+req.query.gradeid+"' and s.term_id='"+req.query.termid+"'";*/
     console.log('---------------------------------------------------');
     console.log(qur);
     console.log('---------------------------------------------------');
