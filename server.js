@@ -125,11 +125,12 @@ app.post('/changepassword-service',  urlencodedParser,function (req, res)
   var oldpassword={"password":req.query.oldpassword};
   var newpassword={"password":req.query.newpassword};
   var schoolid={"school_id":req.query.schoolid};
+  var academic_year={"academic_year":req.query.academicyear};
   console.log(schoolid);
   console.log(username);
   console.log(oldpassword);
   console.log(newpassword);
-  connection.query('UPDATE md_employee SET ? WHERE ? and ? and ?',[newpassword,username,oldpassword,schoolid],
+  connection.query('UPDATE md_employee SET ? WHERE ? and ? and ? and ?',[newpassword,username,oldpassword,schoolid,academic_year],
     function(err,result)
     {
       console.log('..............result..............');
@@ -3560,7 +3561,7 @@ app.post('/termwisereport-service',  urlencodedParser,function (req, res)
 var categorycnt="SELECT subject_id,subject_name FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and  subject_id in(select subject_id from mp_grade_subject where school_id='"+req.query.schoolid+"' and  grade_id='"+req.query.gradeid+"' and academic_year='"+req.query.academicyear+"' ) and grade_name='"+req.query.grade+"' group by ASSESMENT_TYPE,CHAR_LENGTH(subject_name)";
 
     var map="SELECT distinct( ASSESMENT_TYPE) FROM subject_mapping WHERE academic_year='"+req.query.academicyear+"' and school_id='"+req.query.schoolid+"' and "+
-   "grade_name='"+req.query.grade+"'";
+   "grade_name='"+req.query.grade+"' order by ASSESMENT_TYPE";
 
 
 console.log('--------suibject report--------------');
@@ -13009,6 +13010,31 @@ app.post('/Getschoolname-service', urlencodedParser,function (req,res)
 
 
 
+app.post('/Emplchangepassword-service',  urlencodedParser,function (req,res)
+  {  
+
+  var qur="UPDATE md_employee_creation set emp_password='"+req.query.newpassword1+"' where school_id='"+req.query.schlid+"' and emp_id='"+req.query.username1+"' and academic_year='"+req.query.academicyear+"' and emp_password='"+req.query.oldpassword1+"'";
+    console.log('------------update employeee password -------------');
+    console.log(qur);
+
+    connection.query(qur,
+    function(err, rows)
+    {
+    if(!err)
+    {    
+      res.status(200).json({'returnval': 'Updated!!'});
+    }
+    else
+    {
+     console.log(err);
+     res.status(200).json({'returnval': 'Not Updated!!'}); 
+    }
+  });
+});
+
+
+
+
 
 app.post('/Emplchangepassword-service',  urlencodedParser,function (req, res)
 {
@@ -13016,12 +13042,13 @@ app.post('/Emplchangepassword-service',  urlencodedParser,function (req, res)
   var username={"emp_id":req.query.username1};
   var oldpassword={"emp_password":req.query.oldpassword1};
   var newpassword={"emp_password":req.query.newpassword1};
-  var schoolid={"school_id":req.query.schoolid};
+  var schoolid={"school_id":req.query.schlid};
+  var academic_year={"academic_year":req.query.acadamicyear};
   console.log(schoolid);
   console.log(username);
   console.log(oldpassword);
   console.log(newpassword);
-  connection.query('UPDATE md_employee_creation SET ? WHERE ? and ? and ?',[newpassword,username,oldpassword,schoolid],
+  connection.query('UPDATE md_employee_creation SET ? WHERE ? and ? and ? and ?',[newpassword,username,oldpassword,schoolid,academic_year],
     function(err,result)
     {
       console.log('..............result..............');
@@ -13965,6 +13992,30 @@ app.post('/flagupdatestudent-service',  urlencodedParser,function (req, res)
   });
 });
 
+
+
+app.post('/fetchinfofortemplate-service',  urlencodedParser,function (req,res)
+  {  
+    var categorycnt="SELECT category_id,category_name,count(sub_category_id) as cnt FROM enrichment_subject_mapping WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and "+
+    " grade_name='"+req.query.gradename+"' and subject_name='"+req.query.subject+"' and assesment_type='"+req.query.assesment+"' group by category_id,category_name";
+    var qur="SELECT * FROM enrichment_subject_mapping WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and "+
+    " grade_name='"+req.query.gradename+"' and subject_name='"+req.query.subject+"' and assesment_type='"+req.query.assesment+"' order by sub_category_id";
+    console.log('------------enrichment template-------------');
+    console.log(qur);
+    console.log(categorycnt);
+    var cnt=[];
+    connection.query(qur,function(err, rows)
+    {
+    if(!err)
+    {    
+      res.status(200).json({'catarr':cnt,'returnval': rows});
+    }
+    else{
+      console.log(err);
+     res.status(200).json({'returnval': 'no rows'}); 
+    }
+  });
+});
 
 //Node server running port number
 server = app.listen(5000, function () {
