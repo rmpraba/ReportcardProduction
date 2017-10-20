@@ -59,6 +59,17 @@
         font-size: 17px;
         margin-left: 40%;
       }
+
+       #enrichspinner
+        {
+          margin: 0;
+          padding: 0;
+          border: none;
+          background-color: transparent;
+        }
+        .spinner{
+            margin-left: 50%;            
+          }
     </style>
 
      <div hidden>
@@ -69,12 +80,15 @@
 
 
     <div class="spinner">
-    <paper-dialog modal id="analysisdialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-    <!-- <paper-spinner active></paper-spinner> -->
-    <h4>Click ok to download!!</h4>
-    <paper-button id="b1" on-click="FnDownload" style="margin-left: 25%;">Ok</paper-button>
-    <paper-button id="b1" on-click="FnClose">Cancel</paper-button>
-    </paper-dialog></div>
+      <paper-dialog modal id="enrichspinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <paper-spinner active></paper-spinner>
+      </paper-dialog>
+      <paper-dialog modal id="analysisdialog">
+      <h4>Click ok to download!!</h4>
+        <paper-button id="b1" on-click="FnDownload" style="margin-left: 25%;">Ok</paper-button>
+        <paper-button id="b1" on-click="FnClose">Cancel</paper-button>
+      </paper-dialog>
+    </div>
     <div hidden class="card" id="consolidatedtermwiseanalysisreport">
       <center><h1>{{schoolname}}</h1>
       <div id="hidetop">
@@ -332,9 +346,9 @@
       </div>
       </div>
     </div>
-    <div>
-      
-    </div>
+  <!--   <div class="spinner">
+        <paper-dialog modal id="enrichspinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog>
+      </div> -->
   </template>
   <script type="text/javascript">
   var tableToExcel = (function() {
@@ -358,12 +372,13 @@
       ready:function(){
         this.hidecard=true;
       },
-      FnSpinnerrActive:function(flag){
+      FnSpinnerrActive:function(flag)
+      {
+        //alert(flag);
         if(flag==true)
-        this.$.analysisspinner.opened=true;
+        this.$.enrichspinner.opened=true;
         if(flag==false){
-        this.$.analysisspinner.opened=false;
-        // this.callExcel();
+        this.$.enrichspinner.opened=false;
         }
       },
       tiggerDialog:function(){
@@ -376,10 +391,14 @@
       FnClose:function(){
         this.$.analysisdialog.opened=false;
       },
-      FnViewsheet:function(){
+      FnViewsheet:function()
+      {
+         document.querySelector("consolidated-data-analysis-report").FnSpinnerrActive(true);
+
         // alert(this.studentid+" "+this.term+" "+this.grade+" "+this.section+this.subject+" "+this.mark);
-       localStorage.setItem("curr_sess_subject",this.subject);
-  this.$.service.callcategorywisereportfordataanalysisService();
+
+        localStorage.setItem("curr_sess_subject",this.subject);
+        this.$.service.callcategorywisereportfordataanalysisService();
       },
       setDefaultHeaders:function(){            
         this.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
@@ -499,7 +518,9 @@
           // tableToExcel('categorywisegenerallreport', 'Categorywise Report');
         }
         
-      }
+      },
+
+     
     });
   })();
   </script>

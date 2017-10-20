@@ -1507,8 +1507,8 @@ document.querySelector('consolidated-data-analysis').tabwidth=tabwidth;
         // obj.assesment=localStorage.getItem("curr_sess_assesment");
         obj.subject=localStorage.getItem("curr_sess_subject");
         this.categorywisereportfordataanalysisparam=obj;
-        alert(JSON.stringify(obj));
-this.$.categorywisereportfordataanalysisajax.generateRequest();
+        //alert(JSON.stringify(obj));
+        this.$.categorywisereportfordataanalysisajax.generateRequest();
     },
     categorywisereportfordataanalysisResponse:function(e){
      //alert(JSON.stringify(e.detail.response.returnval));
@@ -1571,8 +1571,10 @@ this.$.categorywisereportfordataanalysisajax.generateRequest();
         document.querySelector("consolidated-data-analysis-report").subjectarr=subfinal;
         document.querySelector("consolidated-data-analysis-report").titlearr=titlearr;
         document.querySelector("consolidated-data-analysis-report").itemarr=overall;
-        // document.querySelector('consolidated-data-analysis-report').FnSpinnerrActive(false);
         document.querySelector("consolidated-data-analysis-report").tiggerDialog();
+
+        document.querySelector('consolidated-data-analysis-report').FnSpinnerrActive(false);
+
         subfinal=[];
         titlearr=[];
         overall=[];        

@@ -2,10 +2,17 @@
 
 <dom-module id="consolidated-data-analysis-report-item">
   <template>
+  <style>
+      :host {
+        display: block;
+      }
+    
+  </style>
     <div hidden>
       <p>{{studentid}}</p><p>{{grade}}</p><p>{{section}}</p><p>{{term}}</p><p>{{subject}}</p><p>{{mark}}</p>
     </div>
     <a on-click="FnViewsheet"><u>{{subcategoryname}}</u></a>
+
     <report-service id="service"></report-service>
   </template>
   <script>
@@ -13,11 +20,15 @@
     'use strict';
     Polymer({
       is: 'consolidated-data-analysis-report-item',
-      FnViewsheet:function(){
+      FnViewsheet:function()
+      {
+
         // alert(this.studentid+" "+this.term+" "+this.grade+" "+this.section+this.subject+" "+this.mark);
        localStorage.setItem("curr_sess_subject",this.subject);
-  this.$.service.callcategorywisereportfordataanalysisService();
-      }
+        this.$.service.callcategorywisereportfordataanalysisService();
+      },
+
+      
     });
   })();
   </script>
