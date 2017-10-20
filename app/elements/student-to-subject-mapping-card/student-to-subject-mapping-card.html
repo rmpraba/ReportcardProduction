@@ -15,7 +15,7 @@
        .card{
       width: 100%;            
       @apply(--layout-vertical);
-      }
+      }   
       .inner{
       @apply(--layout-horizontal);
       margin-left:20%;
@@ -413,7 +413,7 @@
                     kn.splice(obj);
            
              }
-                 for(var i=0;i<res.length;i++){
+           for(var i=0;i<res.length;i++){
                           var subject_name=res[i].subject_name;
                           
                             var obj={"srtarr":""};
@@ -424,22 +424,22 @@
                //  alert(JSON.stringify(setarrr));
                    this.setsubjectarr=setarrr;
                 var generatearr=[];
-                var subarr=[];
+                var subarr=[];  
                 for(var j=0;j<studentarr.length;j++){
                      for(var i=0;i<res.length;i++){
                               var student_id=studentarr[j].id;
                               var student_name=studentarr[j].student_name;
                        
       var obj={"student_id":"","student_name":"","subject_id":"","subject_name":"","language_pref":""}; 
-                               var subject_name=res[i].subject_name;
-                               var subject_id=res[i].subject_id;
-                               var language_pref=res[i].language_pref
+                     var subject_name=res[i].subject_name;
+                     var subject_id=res[i].subject_id;
+                     var language_pref=res[i].language_pref
                            obj.student_id=student_id;
                            obj.student_name=student_name;
                            obj.language_pref=language_pref;
                            obj.subject_id=subject_id;
-                             obj.subject_name=subject_name;
-                        
+                           obj.subject_name=subject_name;
+                         
                            generatearr.push(obj);
                         }}//alert(JSON.stringify(generatearr));
         var a=[];
@@ -511,7 +511,7 @@
          if(flag==0){
           }
      }
-  
+  alert(JSON.stringify(overall));
      this.bigarr=overall;
 
      this.sectionclosespinner();

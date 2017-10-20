@@ -11,7 +11,7 @@
       {
         display: block;
       }
-      .spinner{
+      .spinner{   
             margin-left: 50%;            
            
             /*color: #0f9d58;*/
@@ -60,6 +60,14 @@
         margin-left: 40%;
       }
     </style>
+
+     <div hidden>
+      <p>{{studentid}}</p><p>{{grade}}</p><p>{{section}}</p><p>{{term}}</p><p>{{subject}}</p><p>{{mark}}</p>
+    </div>
+    <a on-click="FnViewsheet"><u>{{subcategoryname}}</u></a>
+    <report-service id="service"></report-service>
+
+
     <div class="spinner">
     <paper-dialog modal id="analysisdialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
     <!-- <paper-spinner active></paper-spinner> -->
@@ -67,7 +75,7 @@
     <paper-button id="b1" on-click="FnDownload" style="margin-left: 25%;">Ok</paper-button>
     <paper-button id="b1" on-click="FnClose">Cancel</paper-button>
     </paper-dialog></div>
-    <div class="card" id="consolidatedtermwiseanalysisreport">
+    <div hidden class="card" id="consolidatedtermwiseanalysisreport">
       <center><h1>{{schoolname}}</h1>
       <div id="hidetop">
       <h3>Consolidated Termwise Report -AY-{{academicyear}}</h3>  
@@ -95,7 +103,7 @@
       <template is="dom-repeat" items="{{item.mark}}" as="m">
       <td width="60px">
       <consolidated-data-analysis-report-item studentid="{{m.studentid}}" subject="{{m.subject}}" term="{{m.term}}" grade="{{m.grade}}" section="{{m.section}}" mark="{{m.mark}}"></consolidated-data-analysis-report-item>
-      </td>
+      </td>     
       </template>
       
       </template>
@@ -106,7 +114,7 @@
       </table>
       </div>
     </div>
-    <input type="button" id="btn2" onclick="tableToExcel('consolidatedtermwiseanalysisreport', 'Consolidated Data Analysis Report')" value="Export to Excel">
+    <input hidden type="button" id="btn2" onclick="tableToExcel('consolidatedtermwiseanalysisreport', 'Consolidated Data Analysis Report')" value="Export to Excel">
 
     <div hidden$="{{hidecard}}">
     <!-- <categorywise-analysis-report></categorywise-analysis-report> -->
@@ -367,6 +375,11 @@
       },
       FnClose:function(){
         this.$.analysisdialog.opened=false;
+      },
+      FnViewsheet:function(){
+        // alert(this.studentid+" "+this.term+" "+this.grade+" "+this.section+this.subject+" "+this.mark);
+       localStorage.setItem("curr_sess_subject",this.subject);
+  this.$.service.callcategorywisereportfordataanalysisService();
       },
       setDefaultHeaders:function(){            
         this.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");

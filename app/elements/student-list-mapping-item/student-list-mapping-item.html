@@ -2,10 +2,7 @@
 
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
 <link rel="import" href="..\..\bower_components/gold-email-input/gold-email-input.html">
-   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
-   <link rel="import" href="..\..\bower_components/polymer/polymer.html">
+  <link rel="import" href="..\..\bower_components/polymer/polymer.html">
   
 <dom-module id="student-list-mapping-item">
   <template>
@@ -223,13 +220,32 @@
   document.querySelector('student-to-subject-mapping-card').fnthidlanginfo(paspstuinfo,paspstuinfo1);  
    }
      else if(document.querySelector('#'+this.id).checked==false){
-        /*     for(var i=0;i<paspstuinfo.length;i++){
+        if(localStorage.getItem("curr_sess_selectedgrade")=="U.K.G"||localStorage.getItem("curr_sess_selectedgrade")=="L.K.G"||localStorage.getItem("curr_sess_selectedgrade")=="PRE-K.G"||localStorage.getItem("curr_sess_selectedgrade")=="Grade-1"||localStorage.getItem("curr_sess_selectedgrade")=="Grade-2"||localStorage.getItem("curr_sess_selectedgrade")=="Grade-3"||localStorage.getItem("curr_sess_selectedgrade")=="Grade-4"){
+
+        for(var i=0;i<paspstuinfo.length;i++){
+               if(this.id==paspstuinfo[i].id)
                paspstuinfo.splice(i,1);
-            }
-              for(var j=0;j<paspstuinfo1.length;j++){
-               paspstuinfo1.splice(j,1);
-            }
-           */
+             }
+  document.querySelector('student-to-subject-mapping-card').fnsecondlanginfo(paspstuinfo);  
+       }
+       else{
+             if(this.langugagepref=='Second Language'){
+             for(var i=0;i<paspstuinfo.length;i++){
+               if(this.id==paspstuinfo[i].id)
+               paspstuinfo.splice(i,1);
+               }
+  
+             }
+             if(this.langugagepref=='Third Language'){
+                 for(var j=0;j<paspstuinfo1.length;j++){
+               if(this.id==paspstuinfo1[j].id)
+                paspstuinfo1.splice(j,1);
+               }
+             
+             }
+document.querySelector('student-to-subject-mapping-card').fnthidlanginfo(paspstuinfo,paspstuinfo1); 
+            }  
+           
             }  
  
       },

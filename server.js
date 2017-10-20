@@ -5,11 +5,7 @@ var fs = require('fs');
 var dbserver_ip_address = process.env.OPENSHIFT_MYSQL_DB_HOST || '127.0.0.1'
 var connection = mysql.createConnection({
 
-   // host     : 'localhost',
-   // port     : '62631',
-   // user     : 'adminM1qnV1d',
-   // password : 'HC2bIf7Sk2LD',
-   // database : 'scorecarddb'
+   
 
    host     : 'localhost',
    user     : 'root',
@@ -3476,6 +3472,28 @@ app.post('/categorywisereportfordataanalysis-service' ,  urlencodedParser,functi
     else
       console.log(err);
 });
+});
+app.post('/fetchinfofortemplate-service',  urlencodedParser,function (req,res)
+  {  
+    var categorycnt="SELECT category_id,category_name,count(sub_category_id) as cnt FROM enrichment_subject_mapping WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and "+
+    " grade_name='"+req.query.gradename+"' and subject_name='"+req.query.subject+"' and assesment_type='"+req.query.assesment+"' group by category_id,category_name";
+    var qur="SELECT * FROM enrichment_subject_mapping WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and "+
+    " grade_name='"+req.query.gradename+"' and subject_name='"+req.query.subject+"' and assesment_type='"+req.query.assesment+"' order by sub_category_id";
+    console.log('------------enrichment template-------------');
+    console.log(qur);
+    console.log(categorycnt);
+    var cnt=[];
+    connection.query(qur,function(err, rows)
+    {
+    if(!err)
+    {    
+      res.status(200).json({'catarr':cnt,'returnval': rows});
+    }
+    else{
+      console.log(err);
+     res.status(200).json({'returnval': 'no rows'}); 
+    }
+  });
 });
 
 

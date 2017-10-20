@@ -5,7 +5,7 @@
     <div hidden>
       <p>{{studentid}}</p><p>{{grade}}</p><p>{{section}}</p><p>{{term}}</p><p>{{subject}}</p><p>{{mark}}</p>
     </div>
-    <a on-click="FnViewsheet"><u>{{mark}}</u></a>
+    <a on-click="FnViewsheet"><u>{{subcategoryname}}</u></a>
     <report-service id="service"></report-service>
   </template>
   <script>
@@ -15,11 +15,8 @@
       is: 'consolidated-data-analysis-report-item',
       FnViewsheet:function(){
         // alert(this.studentid+" "+this.term+" "+this.grade+" "+this.section+this.subject+" "+this.mark);
-        localStorage.setItem("curr_sess_termname",this.term);
-        localStorage.setItem("curr_sess_grade",this.grade);;
-        localStorage.setItem("curr_sess_section",this.section);
-        localStorage.setItem("curr_sess_subject",this.subject);
-        this.$.service.callcategorywisereportfordataanalysisService();
+       localStorage.setItem("curr_sess_subject",this.subject);
+  this.$.service.callcategorywisereportfordataanalysisService();
       }
     });
   })();

@@ -103,10 +103,11 @@
             <tr>
               <th width="5%">{{item.sno}}</th>
               <th width="15%">{{item.studentname}}</th>
-                <template is="dom-repeat" items="{{item.category}}" as="i">
-                  <th colspan$="{{i.categorycnt}}" width$="{{i.width}}">{{i.subcategoryname}}</th>
-      
-                </template>
+    <template is="dom-repeat" items="{{item.category}}" as="i">
+    <th colspan$="{{i.categorycnt}}" width$="{{i.width}}">
+     <consolidated-data-analysis-report subcategoryname="{{i.subcategoryname}}" subject="{{i.subject_id}}"></consolidated-data-analysis-report>
+    </th>
+      </template>
             </tr>
           </template>
         </table>  
@@ -201,10 +202,10 @@
       {
         this.gradearr=[];
         this.sectionarr=[];
-        document.querySelector('#analysisschoolname').selected=-1;
-        document.querySelector('#analysisgrade').selected=-1;
-        document.querySelector('#analysissection').selected=-1;
-        document.querySelector('#analysisterm').selected=-1;      
+    document.querySelector('#analysisschoolname').selected=-1;
+    document.querySelector('#analysisgrade').selected=-1;
+    document.querySelector('#analysissection').selected=-1;
+    document.querySelector('#analysisterm').selected=-1;      
         gradename="";
         section="";
         subject="";

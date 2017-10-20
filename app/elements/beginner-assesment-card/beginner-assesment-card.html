@@ -76,19 +76,18 @@
   (function() {
     var flag=0;
     'use strict';
-    var gradename,section,term,assesment,subject,academicyear,assesmentname;
+      var gradename,section,term,assesment,subject,academicyear,assesmentname;
     Polymer({
       is: 'beginner-assesment-card',
       ready:function(){
         this.flag=0;
         this.hidesheet=true;
-        localStorage.setItem("curr_sess_page","beginner-assesment-card");        
-      },
+             localStorage.setItem("curr_sess_page","beginner-assesment-card");    },                               
       FnSelectAssesment:function(e){
         assesmentname = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_assesmentname",assesmentname);
         if(this.flag==1){
-        document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
+              document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
         document.querySelector('#gradenam').selected=-1;
         document.querySelector('#sectionnam').selected=-1;
         document.querySelector('#subjectnam').selected=-1;

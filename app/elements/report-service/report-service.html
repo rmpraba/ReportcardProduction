@@ -1361,9 +1361,9 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
         for(var i=0;i<assesscategorycnt.length;i++){
           var obj={};
           obj.subject_name=assesscategorycnt[i].subject_name;
-          obj.spancnt=2;
+          obj.spancnt=1;
           temp.push(obj);
-          tempcnt+=parseFloat(2);
+          tempcnt+=parseFloat(1);
         }
         //alert(JSON.stringify(temp));
 
@@ -1394,81 +1394,67 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
         
         for(var i=0;i<arr.length;i++){
             var obj={};
-            var obj1={};
+           
 
             var cnt=1;
             var category=[];
             obj.studentname=arr[i].studentname;
-            obj.subcategoryname=arr[i].grade;
+            obj.subcategoryname=arr[i].total;
+            obj.subject_id=arr[i].subject_id;
             obj.categorycnt=cnt;
-            obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+           obj.width=(parseFloat(cnt)*parseFloat(divider))+"%";
             category.push(obj);
-           
-            obj1.subcategoryname=arr[i].total;
-            obj1.categorycnt=cnt;
-            obj1.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-            category.push(obj1);
-           
-             
-            for(var j=i+1;j<arr.length;j++){
+             for(var j=i+1;j<arr.length;j++){
                obj={};
-                obj1={};
-             var obj2={};
              var obj3={};
              var obj4={};
-             var obj5={};
-           
+               
              if(arr[i].student_id==arr[j].student_id){
               // alert(arr[j].subject_id);
                  if(arr[j].subject_id =='II Language Hindi'|| arr[j].subject_id =='II Language Kannada' || arr[j].subject_id =='II Language French'){
                   // alert(2);
                  if(arr[j].subject_id =='II Language Hindi'){
-                   obj2.subcategoryname=arr[j].grade;
-                   obj2.categorycnt=cnt;
-                   obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                  
 
-                  obj3.subcategoryname=arr[j].total;
+                    obj3.subcategoryname=arr[j].total;
                   obj3.categorycnt=cnt;
-                  obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
-                   obj4.subcategoryname="";
-                   obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                  obj3.width=(parseFloat(cnt)*parseFloat(divider))+"%";
+                    obj3.subject_id=arr[j].subject_id;
 
-                  obj5.subcategoryname="";
-                  obj5.categorycnt=cnt;
-                  obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+
+                   obj4.subject_id="";
+                   obj4.subcategoryname="";
+
+                   obj4.categorycnt=cnt;
+                   obj4.width=(parseFloat(cnt)*parseFloat(divider))+"%";
+
+                 
                   
              arr.splice(j,1);
              j--;
-             category.push(obj2);
              category.push(obj3);
              category.push(obj4);
-             category.push(obj5);
            
                  }
              
            else  if(arr[j].subject_id =='II Language Kannada'){
-                   obj2.subcategoryname="";
-                   obj2.categorycnt=cnt;
-                   obj2.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                   obj3.subject_id="";
                    obj3.subcategoryname="";
+
                    obj3.categorycnt=cnt;
-                   obj3.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                   obj3.width=(parseFloat(cnt)*parseFloat(divider))+"%";
 
-                   obj4.subcategoryname=arr[j].grade;
+                   obj4.subject_id=arr[j].subject_id;
+                   obj4.subcategoryname=arr[j].total;
                    obj4.categorycnt=cnt;
-                   obj4.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                   obj4.width=(parseFloat(cnt)*parseFloat(divider))+"%";
 
-                   obj5.subcategoryname=arr[j].tota;
-                   obj5.categorycnt=cnt;
-                   obj5.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+                  
                    
              arr.splice(j,1);
              j--;
-             category.push(obj2);
              category.push(obj3);
              category.push(obj4);
-             category.push(obj5);
              
             
                 }
@@ -1476,17 +1462,16 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
               else{
                   //alert(1);
 
-             obj.subcategoryname=arr[j].grade;
+             obj.subject_id=arr[j].subject_id;
+             obj.subcategoryname=arr[j].total;
              obj.categorycnt=cnt;
-             obj.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+             obj.width=(parseFloat(cnt)*parseFloat(divider))+"%";
 
-             obj1.subcategoryname=arr[j].total;
-             obj1.categorycnt=cnt;
-             obj1.width=(parseFloat(cnt)*parseFloat(divider))/2+"%";
+            
              arr.splice(j,1);
              j--;
              category.push(obj);
-             category.push(obj1);
+         
             
                  }
                 }
@@ -1499,11 +1484,11 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
             overall[i].sno=j+1;
         }  
    
-        document.querySelector('consolidated-data-analysis').tabwidth=tabwidth;
-      document.querySelector('consolidated-data-analysis').studarr=overall;
-      document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
-       document.querySelector('consolidated-report-card').setDefaultHeaders();
-        document.querySelector('consolidated-data-analysis').setDefaultdddHeaders();
+document.querySelector('consolidated-data-analysis').tabwidth=tabwidth;
+ document.querySelector('consolidated-data-analysis').studarr=overall;
+ document.querySelector('consolidated-report-card').FnSpinnerrActive(false);
+ document.querySelector('consolidated-report-card').setDefaultHeaders();
+ document.querySelector('consolidated-data-analysis').setDefaultdddHeaders();
        
        
         temp=[];
@@ -1522,10 +1507,11 @@ overall.push({"studentname":arr[i].student_name,"tabwidth":tabwidth,"category":c
         // obj.assesment=localStorage.getItem("curr_sess_assesment");
         obj.subject=localStorage.getItem("curr_sess_subject");
         this.categorywisereportfordataanalysisparam=obj;
-        this.$.categorywisereportfordataanalysisajax.generateRequest();
+        alert(JSON.stringify(obj));
+this.$.categorywisereportfordataanalysisajax.generateRequest();
     },
     categorywisereportfordataanalysisResponse:function(e){
-      // alert(JSON.stringify(e.detail.response.returnval));
+     //alert(JSON.stringify(e.detail.response.returnval));
       var overall=[];
       var subarr=[];
       var subfinal=[];
