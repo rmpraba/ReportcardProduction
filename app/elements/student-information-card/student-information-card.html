@@ -370,6 +370,7 @@
     'use strict';
 var studentnamearr=[];
 var gender;
+var dobdate;
     Polymer({
       is: 'student-information-card',
       studentinforefresh:function(e){
@@ -423,8 +424,18 @@ this.$.studservice.fnacadamicsinfomation1(this.studid,this.gradeidzzsss1,this.gr
 
   
       },
-       fnsetdateofbirth:function(e){
-        e=this.showdate;
+       fnsetdateofbirth:function(dates)
+       {
+          // e=this.showdate;
+
+          var dt1=new Date(dates);
+         dobdate=dates;
+         var dt=new Date();
+         var dt=new Date();
+         var pr_year=dt.getFullYear();
+         var bt_year=dt1.getFullYear();
+         var diff=parseInt(pr_year-bt_year);
+         this.ageofyrs=diff+" Years";
       },
 fnselectsecondlan:function(e){
 this.secondlan=e.target.selectedItem.value;

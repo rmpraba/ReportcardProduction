@@ -70,6 +70,7 @@ var dobdate;
             {
                this.showdate = moment(this.$.picker.date).format('L');
                document.querySelector('student-add-card').getdate(this.showdate);
+                document.querySelector('student-information-card').fnsetdateofbirth(this.showdate);
             }
         }  
 
