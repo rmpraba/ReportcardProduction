@@ -13,7 +13,7 @@
       <div hidden>{{studentid}}{{studentname}}{{classid}}{{assesmenttype}}{{gradeid}}{{gradename}}
       {{subjectid}}{{subjectname}}{{categoryid}}{{categoryname}}{{subcategoryid}}{{grade}}{{categorycnt}}</div>
       <h4 hidden$="{{hidelabel}}" style="text-align: center;">{{subcategoryname}}</h4>
-      <paper-input style="text-align: center;" label=""  value="{{score}}" on-change="FnChange"></paper-input>
+      <paper-input style="text-align: center;" label=""  allowed-pattern="[0-9-]"value="{{score}}" on-change="FnChange"></paper-input>
     
   </template>
   <script>
