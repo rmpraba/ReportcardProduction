@@ -140,6 +140,13 @@
           margin-top: 50px;
         }
         
+        #curriculumspinner
+        {
+          margin: 0;
+          padding: 0;
+          border: none;
+          background-color: transparent;
+        }
      </style>    
     <center><h2 hidden style="color:#00ccff">{{empnamez}}</h2></center>
      <paper-input hidden value="{{empnamez}}"></paper-input>
@@ -184,11 +191,11 @@
          </paper-dropdown-menu>
        </span>
          
+<paper-button style="color:white;background-color:black;margin-left: 3%;" on-click="fnaddbuffer">Add Buffer period</paper-button>  
 
-      <paper-button style="color:white;background-color:black;margin-left: 3%;" on-click="fnaddbuffer">Add Buffer period</paper-button>  
  <template is="dom-repeat" items="{{conceptjhkhzz}}" as="rere">
-              <chapter-pass-card conceptname1="{{rere.conceptname}}"></chapter-pass-card>
-  </template>
+<chapter-pass-card conceptname1="{{rere.conceptname}}"></chapter-pass-card>
+</template>
 
 
      <div id="zdsasddsasfsa" >
@@ -207,15 +214,14 @@
           <th style="width: 10.9%;">Teaching Aids</th>
           <th style="width: 10.9%;">Innovation</th>
           <th style="width: 10.9%;">Remark</th>
-          <!-- <th style="width: 11%;">Correction status</th> -->
           <th style="width: 4.6%;"></th>
-        
         </tr>  
             <tr>        
              <template  is="dom-repeat" items="{{overallarr1}}" as="view">
                 <tr>   
-             <aproval-book-innovatiosn-item-card rowid="{{view.rowid}}" remark="{{view.remark}}" period="{{view.period}}" planneddate="{{view.planning_date}}" skill="{{view.skill}}" innovation="{{view.innovation}}" iddate="{{view.id_date}}" hidecheck="{{view.hidecheck}}" hidecheck11="{{view.hidecheck11}}"  hidecheck1="{{view.hidecheck1}}"  rowidz="{{view.rowidz}}" valuez="{{view.valuez}}" conceptzz="{{view.valuearrr}}" mainarr="{{view.mainarr}}" subconceptarr1="{{view.suarr}}" skillarrzx="{{view.skillarr}}" bldvaluez="{{view.bldarr}}" correction="{{view.Correction}}" teachingaid="{{view.teachingaid}}" sno="{{view.sno}}" plannedtoate="{{view.planned_to_date}}" > 
-              </aproval-book-innovatiosn-item-card>
+<aproval-book-innovatiosn-item-card rowid="{{view.rowid}}" remark="{{view.remarks}}" period="{{view.period}}" planneddate="{{view.planned_date_from}}" skill="{{view.skill}}" innovation="{{view.innovation}}" iddate="{{view.id_date}}" hidecheck="{{view.hidecheck}}" hidecheck11="{{view.hidecheck11}}"  hidecheck1="{{view.hidecheck1}}"  rowidz="{{view.rowidz}}" value="{{view.value}}" conceptid="{{view.concept_id}}"
+   conceptname="{{view.concept_name}}" subconceptid="{{view.sub_concept_id}}" subconceptname="{{view.sub_concept_name}}" teachingaid="{{view.teaching_aid}}" sno="{{view.sno}}" bldvaluename="{{view.bld_value_name}}" plannedtoate="{{view.planned_to_date}}" > 
+    </aproval-book-innovatiosn-item-card>
                 </tr> 
               </template>    
             </tr>  
@@ -242,9 +248,9 @@
         <paper-button id="cls111" on-click="fnclose" style="color:white;background-color:black">Close</paper-button></center>
      </paper-dialog>
 
-     <paper-dialog id="planspinxyz">
-       <paper-spinner id="planningspinnerwxy"></paper-spinner>
-     </paper-dialog>
+     <div class="spinner">
+        <paper-dialog modal id="curriculumspinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog>
+      </div>
 
      <paper-dialog id="savedialog">
        <label>Success</label>
@@ -284,9 +290,9 @@
         },
         fnconsubmit:function(e)
         {
-          //alert(this.bufferperiod);      
+         //alert(this.bufferperiod);      
             this.periodafter=-1;
-            this.$.bookservice.buffset(this.bufferperiod,this.periodafter);
+         this.$.bookservice.buffset(this.bufferperiod,this.periodafter);
             this.bufferperiod="";
             this.periodafter="";
             // this.$.bookservice.subflagseqe();
@@ -306,8 +312,7 @@
 
         },
         fnconceptzz:function(e){
-          // this.$.bookservice.fnbuffconcept();
-          if(Conceptzzzidzz.checked==true)
+    if(Conceptzzzidzz.checked==true)
           {
             Chaperzzzzidzz.checked=false;
             this.Conceptbuffidz=false;
@@ -366,6 +371,7 @@
       localStorage.setItem("curr_sess_chaptername",this.chaptername); 
 
       this.$.bookservice.FnFetchConceptService(this.gradeid,this.subjectid,this.chapterid,this.termid);
+       this.FnSpinnerrActive(true);
 
       this.$.zdsasddsasfsa.hidden=false;
       this.$.bookservice.conceptseq();
@@ -430,10 +436,16 @@
       this.$.sub11.hidden=true;
       this.$.sub2222.hidden=true;
       this.$.cls111.hidden=true;
-     }
+     },
 
-
-    
+     FnSpinnerrActive:function(flag)
+      {
+        //alert(flag);
+        if(flag==true)
+          this.$.curriculumspinner.opened=true;
+        if(flag==false)
+          this.$.curriculumspinner.opened=false;
+      }
     });
   })();
   </script>

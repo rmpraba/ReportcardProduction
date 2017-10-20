@@ -19,22 +19,23 @@
         <paper-input value={{skillname}} hidden></paper-input>
         <paper-input value={{conceptid}} hidden></paper-input>
         <paper-input value={{capterid}} hidden></paper-input>
-    <paper-checkbox on-change="fnsezzt1" id={{id}}>{{skillname}}</paper-checkbox></div>
+    <paper-checkbox on-change="fnsezzt1" id={{id}} checked="{{check}}" >{{skillname}}</paper-checkbox></div>
   
   </template>
   <script>
   (function() {
     'use strict';
  var skillarrr=[];
- var temparr1=[];
+  var temparr1=[];
  
     Polymer({
       is: 'skill-dialog-card',
+ready:function(e){
 
+},
   fnsezzt1:function(e){  
-   //alert(this.id);
-   //alert(document.querySelector('#'+this.id).checked);
-      if(document.querySelector('#'+this.id).checked==true){
+      document.querySelector('aproval-book-innovatiosn-item-card').fnsett();
+          if(document.querySelector('#'+this.id).checked==true){
         var obj={};
         obj.id=this.id;
         obj.rowid=this.rowid;
@@ -69,7 +70,7 @@
          temparr1.splice(obj);
        },
 
-       FnRefreshxyhhh:function(e)
+       FnRefreshhhh:function(e)
        {
         if(skillarrr!=0)
         {
@@ -80,7 +81,11 @@
             skillarrr.splice(k,1);
           }
         }
-       }
+       },
+       dbarrvalue:function(e){
+       
+    skillarrr=e;
+       },
    }); 
   })();
   </script>

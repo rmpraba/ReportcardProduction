@@ -15,7 +15,7 @@
         <paper-input value={{valuename}} hidden></paper-input>
         <paper-input value={{conceptid}} hidden></paper-input>
         <paper-input value={{capterid}} hidden></paper-input>
-    <paper-checkbox on-change="fnsezzt1" id={{id}}>{{valuename}}</paper-checkbox></div>  
+    <paper-checkbox on-change="fnsezzt1" id={{id}} checked="{{check}}">{{valuename}}</paper-checkbox></div>  
     <iron-ajax
         method="post"
         id="bookvaldelajax"
@@ -40,6 +40,7 @@
   fnsezzt1:function(e){
    //alert(this.id);
    //alert(document.querySelector('#'+this.id).checked);
+   document.querySelector('aproval-book-innovatiosn-item-card').fneditsetvalue();
       if(document.querySelector('#'+this.id).checked==true){
         var obj={};
         obj.id=this.id;
@@ -86,7 +87,10 @@
             concarr.splice(k,1);
           }
         }
-       }
+       },
+       setvaluesz:function(e){
+       concarr=e;
+       },
    }); 
   })();
   </script>

@@ -18,7 +18,7 @@
         <paper-input value={{bldvalueid}} hidden></paper-input>
         <paper-input value={{bldvaluename}} hidden></paper-input>
        
-    <paper-checkbox on-change="fnsezzt1" id={{id}}>{{bldvaluename}}</paper-checkbox></div>
+    <paper-checkbox on-change="fnsezzt1" id={{id}} checked="{{check}}">{{bldvaluename}}</paper-checkbox></div>
   
   </template>
   <script>
@@ -33,6 +33,9 @@
   fnsezzt1:function(e){  
    //alert(this.id);
    //alert(document.querySelector('#'+this.id).checked);
+
+document.querySelector('aproval-book-innovatiosn-item-card').bldedit();
+
       if(document.querySelector('#'+this.id).checked==true){
         var obj={};
         obj.id=this.id;
@@ -79,7 +82,10 @@
             bldarrr.splice(k,1);
           }
         }
-       }
+       },
+       bldvalu:function(e){
+      bldarrr=e;
+       },
    }); 
   })();
   </script>

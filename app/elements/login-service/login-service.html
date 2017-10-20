@@ -97,13 +97,14 @@
       is: "login-service",
      changepassword:function(username,oldpassword,newpassword,schoolid){
       this.changepasswordurl=sessionStorage.getItem("addrinfo")+"/changepassword-service";
-      var obj={"username":"","oldpassword":"","newpassword":"","schoolid":""}
+      var obj={"username":"","oldpassword":"","newpassword":"","schoolid":"","academicyear":""}
       obj.schoolid=schoolid;
       obj.username=username;
       obj.oldpassword=oldpassword;
       obj.newpassword=newpassword;
+      obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
       this.changepasswordparam=obj;
-      //alert(JSON.stringify(obj));
+      alert(JSON.stringify(obj));
       this.$.changepasswordajax.generateRequest();
      },
      changepasswordResponse:function(e){
@@ -112,18 +113,19 @@
      empchangepassword:function(username1,oldpassword1,newpassword1,schlid)
      {
       this.empchangepasswordurl=sessionStorage.getItem("addrinfo")+"/Emplchangepassword-service";
-      var obj={"username":"","oldpassword":"","newpassword":"","schoolid":""}
+      var obj={"username":"","oldpassword":"","newpassword":"","schoolid":"","academicyear":""}
       obj.schlid=schlid;
       obj.username1=username1;
       obj.oldpassword1=oldpassword1;
       obj.newpassword1=newpassword1;
+      obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
       this.empchangepasswordparam=obj;
       //alert(JSON.stringify(obj));
       this.$.empchangepasswordajax.generateRequest();
      },
      empchangepasswordResponse:function(e)
      {
-      alert(e.detail.response.returnval);
+      //alert(e.detail.response.returnval);
       var res=e.detail.response.returnval;
      },
      addressResponse:function(e)

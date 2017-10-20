@@ -7,13 +7,13 @@
         display: block;
       }
     </style>
-
+    
     <div>
         <paper-input value={{subconceptid}} hidden></paper-input>
         <paper-input value={{subconceptname}} hidden></paper-input>
         <paper-input value={{conceptid}} hidden></paper-input>
         <paper-input value={{concept}} hidden></paper-input>
-    <paper-checkbox on-change="fnsezzt1" id={{id}}>{{subconceptname}}</paper-checkbox>
+    <paper-checkbox on-change="fnsezzt1" id={{id}} checked="{{check}}">{{subconceptname}}</paper-checkbox>
     </div>  
     
   </template>
@@ -29,6 +29,7 @@
   fnsezzt1:function(e){
    //alert(this.id);
    //alert(document.querySelector('#'+this.id).checked);
+   document.querySelector('aproval-book-innovatiosn-item-card').fnsetsubchapterz();
       if(document.querySelector('#'+this.id).checked==true){
         var obj={};
         obj.id=this.id;
@@ -65,7 +66,9 @@
          subsarr.splice(obj);
          temparr1.splice(obj);
        },
-
+setsubchpterclean:function(e){
+subsarr=e;
+},
        fnrefreshhccc:function(e)
        {
         if(subsarr!=0)

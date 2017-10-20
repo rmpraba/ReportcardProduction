@@ -364,15 +364,23 @@ if(document.querySelector('#'+this.transnoz).checked==false)
       },
       getdate:function(dates)
       {
-     var dt1=new Date(localStorage.getItem("localsess_birth_date"));
-      dobdate=localStorage.getItem("localsess_birth_date");
-          var dt=new Date();
-          var pr_year=dt.getFullYear();
-          var bt_year=dt1.getFullYear();
-          var diff=parseInt(pr_year-bt_year);
-         // alert(diff);
-          this.ageofyr=diff+" Years";
-          //alert(this.ageofyr);
+
+        // var dt1=new Date(localStorage.getItem("localsess_birth_date"));
+        //   dobdate=localStorage.getItem("localsess_birth_date");
+        //   var dt=new Date();
+        //   var pr_year=dt.getFullYear();
+        //   var bt_year=dt1.getFullYear();
+        //   var diff=parseInt(pr_year-bt_year);
+        //   this.ageofyr=diff+" Years";
+
+         var dt1=new Date(dates);
+         dobdate=dates;
+         var dt=new Date();
+         var dt=new Date();
+         var pr_year=dt.getFullYear();
+         var bt_year=dt1.getFullYear();
+         var diff=parseInt(pr_year-bt_year);
+         this.ageofyr=diff+" Years";
 
       },
 
@@ -406,7 +414,12 @@ if(document.querySelector('#'+this.transnoz).checked==false)
         this.pincode="";
         document.querySelector('student-dob-date-picker').FnCleardob();
 
+      },
+      setdobvalid:function()
+      {
+        alert("Select DOB properly, it cannot be future date");
       }
+
     });
   })();
   </script>
