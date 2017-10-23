@@ -43,7 +43,7 @@
 
       }
     </style>
-    <div>
+    <div class="mainhd" hidden$="{{centheadr}}">
     <!-- <template is="dom-repeat" items="{{label}}"> -->
       <center><h1>{{schoolname}}</h1>
       <h3>Continuous Comprehensive Evaluation -AY-{{academicyear}}</h3>  
@@ -65,7 +65,7 @@
       </center> 
     <!-- </template>      -->
     </div>
-    <div class="btndiv">
+    <div class="btndiv" hidden$="{{hidebtndivv}}">
     <paper-button class="button" id="grade" on-click="FnGenerateGrade">Generate Grade</paper-button>
     <paper-button disabled$="{{disablesave}}" class="button" id="save" on-click="FnSave">Save</paper-button>
     </div>  
@@ -81,12 +81,16 @@
       ready:function(){
         this.disablesave=true;
         localStorage.setItem("curr_sess_page","beginner-assesment-lang-markentrysheet");
+        this.centheadr=true;
+        this.hidebtndivv=true;
         // this.$.componentservice.callcomponentService();        
       },
       FnSetGrade:function(arr){
         gradearr=arr;
       },
-      FnGenerateGrade:function(e){
+      FnGenerateGrade:function(e)
+      {
+       
         this.$.beginnerservice.FnFetchBeginnerMarksForGrade();
         this.disablesave=false;
       },
@@ -104,7 +108,8 @@
           }
         }
         var avg=parseFloat(total/(parseFloat(scorearr.length/2).toFixed(2))).toFixed(2);
-        // alert(total+"  "+avg);
+
+        alert(total+"  "+avg);
         for(var i=2;i<(temparr).length;i++){
         for(var j=0;j<scorearr.length;j++){
           if(temparr[i].id==scorearr[j].student_id){
@@ -166,14 +171,32 @@
         }
         }
         else{
-        if((temparr.length)-2==(scorearr.length)){
-        for(var i=2;i<temparr.length;i++){
-          for(var k=0;k<temparr[i].category.length;k++){
-          var val=parseFloat((parseFloat(temparr[i].category[k].score)/30)*100).toFixed(2);
-          for(var j=0;j<gradearr.length;j++){              
-            if(((parseFloat(val)>=parseFloat(gradearr[j].minimum))&&(parseFloat(val)<=parseFloat(gradearr[j].maximum)))&&gradearr[j].assesment_type==localStorage.getItem('curr_sess_assesmentname')){
-              // alert(JSON.stringify(gradearr[j]));
-              // alert("category..."+gradearr[j].grade+"..."+gradearr[j].category);
+          // alert((temparr.length)-2+" "+(scorearr.length));
+         
+          //alert(JSON.stringify(scorearr));
+          //alert(JSON.stringify(temparr));
+          //alert(JSON.stringify(gradearr));
+     if((temparr.length)-2==(scorearr.length))
+     {
+      //alert(temparr.length);
+        for(var i=2;i<temparr.length;i++)
+        {
+          //alert(temparr[i].category.length);
+          for(var k=0;k<temparr[i].category.length;k++)
+          {
+            //alert(parseFloat((parseFloat(temparr[i].category[k].score)/30)*100).toFixed(2));
+
+              var val=parseFloat((parseFloat(temparr[i].category[k].score)/30)*100).toFixed(2);
+          //alert(val);
+            for(var j=0;j<gradearr.length;j++){
+
+        //alert(((parseFloat(val)+"  "+parseFloat(gradearr[j].minimum))+"  "+(parseFloat(val)+"  "+parseFloat(gradearr[j].maximum)))+"  "+gradearr[j].assesment_type+"  "+localStorage.getItem('curr_sess_assesmentname'));
+
+
+
+        if(((parseFloat(val)>=parseFloat(gradearr[j].minimum))&&(parseFloat(val)<=parseFloat(gradearr[j].maximum)))&&gradearr[j].assesment_type==localStorage.getItem('curr_sess_assesmentname')){
+              //alert(JSON.stringify(gradearr[j]));
+              //alert("category..."+gradearr[j].grade+"..."+gradearr[j].category);
               temparr[i].grade=gradearr[j].grade;
               temparr[i].level=gradearr[j].category;
             }
@@ -231,7 +254,7 @@
         obj.level=scorearr[i].level;
         temp.push(obj);
         }
-        this.$.beginnerservice.callbamarkinsertService(temp);
+   this.$.beginnerservice.callbamarkinsertService(temp);
         // alert(JSON.stringify(scorearr));
         // alert("Mark entry for this section completed!");
 
@@ -280,6 +303,16 @@
         this.temp=temp;
         
         // this.$.edmeic.FnSetInfoArray(temp);
+      },
+      getdynamichead:function()
+      {
+        this.centheadr=false;
+        this.hidebtndivv=false;
+      },
+      fullrefresh:function()
+      {
+        this.centheadr=true;
+        this.hidebtndivv=true;
       }
     });
   })();

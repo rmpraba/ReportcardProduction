@@ -44,21 +44,21 @@
             </paper-menu>
           </paper-dropdown-menu>
           <paper-dropdown-menu id="grade" label="Select Grade" disabled="{{read}}" required>
-            <paper-menu  id="gradenam" class="dropdown-content"  on-iron-select="FnSelectGrade"  attr-for-selected="value" required> 
+            <paper-menu  id="gradenamrrrrr" class="dropdown-content"  on-iron-select="FnSelectGrade"  attr-for-selected="value" required> 
               <template is="dom-repeat" items="{{gradearr}}">
                 <paper-item value="{{item.grade_name}}">{{item.grade_name}}</paper-item>
               </template>
             </paper-menu>
           </paper-dropdown-menu>
           <paper-dropdown-menu id="section" label="Select Section" disabled="{{read}}" required>
-            <paper-menu id="sectionnam" class="dropdown-content"  on-iron-select="FnSelectSection"  attr-for-selected="value" required>
+            <paper-menu id="sectionnamnnnnn" class="dropdown-content"  on-iron-select="FnSelectSection"  attr-for-selected="value" required>
               <template is="dom-repeat" items="{{sectionarr}}">
                 <paper-item value="{{item.section_name}}">{{item.section_name}}</paper-item>
               </template>
             </paper-menu>
           </paper-dropdown-menu>
           <paper-dropdown-menu id="subject" label="Select Subject" disabled="{{read}}" required>
-            <paper-menu id="subjectnam" class="dropdown-content"  on-iron-select="FnSelectSubject"  attr-for-selected="value" required>
+            <paper-menu id="subjectnamttttt" class="dropdown-content"  on-iron-select="FnSelectSubject"  attr-for-selected="value" required>
               <template is="dom-repeat" items="{{subjectarr}}">
                 <paper-item value="{{item.subject_id}}">{{item.subject_name}}</paper-item>
               </template>
@@ -88,9 +88,10 @@
         localStorage.setItem("curr_sess_assesmentname",assesmentname);
         if(this.flag==1){
               document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
-        document.querySelector('#gradenam').selected=-1;
-        document.querySelector('#sectionnam').selected=-1;
-        document.querySelector('#subjectnam').selected=-1;
+        document.querySelector('#gradenamrrrrr').selected=-1;
+        document.querySelector('#sectionnamnnnnn').selected=-1;
+        document.querySelector('#subjectnamttttt').selected=-1;
+         document.querySelector('enrichment-dynamic-markentrycard').fullrefresh();
         this.$.bassesmentservice.callEnrichmentSubjectService(assesmentname,gradename);    
         // this.FnServiceCall(); 
         }
@@ -110,8 +111,9 @@
         this.$.bassesmentservice.callSectionService(gradename);
         if(this.flag==1){
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
-        document.querySelector('#sectionnam').selected=-1;
-        document.querySelector('#subjectnam').selected=-1;
+         document.querySelector('enrichment-dynamic-markentrycard').fullrefresh();
+        document.querySelector('#sectionnamnnnnn').selected=-1;
+        document.querySelector('#subjectnamttttt').selected=-1;
         this.$.bassesmentservice.callEnrichmentSubjectService(assesmentname,gradename);    
         // this.FnServiceCall();  
         }        
@@ -122,12 +124,16 @@
         this.$.bassesmentservice.callEnrichmentSubjectService(assesmentname,gradename);    
         if(this.flag==1){
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
-        document.querySelector('#subjectnam').selected=-1;
+        document.querySelector('#subjectnamttttt').selected=-1;
+        document.querySelector('enrichment-dynamic-markentrycard').fullrefresh();
         }     
       },
       FnSelectSubject:function(e){
         this.flag=1;
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
+
+        document.querySelector('enrichment-dynamic-markentrycard').getdynamichead();
+
         // document.querySelector('enrichment-dynamic-markentryitemcard').FnRefresh();
         // document.querySelector('enrichment-markentry-input').FnRefresh();
         subject = e.target.selectedItem.textContent.trim();
@@ -153,12 +159,13 @@
       },
        FnRefresh:function()
       {
-        document.querySelector('#gradenam').selected=-1;
-        document.querySelector('#sectionnam').selected=-1;
-        document.querySelector('#subjectnam').selected=-1;
+        document.querySelector('#gradenamrrrrr').selected=-1;
+        document.querySelector('#sectionnamnnnnn').selected=-1;
+        document.querySelector('#subjectnamttttt').selected=-1;
         document.querySelector('#beginnerassesmenttypee').selected=-1;
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
         this.flag=0;
+         document.querySelector('enrichment-dynamic-markentrycard').ready();
       }      
     });      
   })();
