@@ -63,11 +63,11 @@ var dobdate;
             {
                this.showdate = moment(this.$.picker.date).format('L');
                if(localStorage.getItem("curr_sess_page")=="student-information-card"){
-                alert("1");
+                //alert("1");
  document.querySelector('student-information-card').fnsetdateofbirth(this.showdate);
                }
                else{
-                alert("2");
+                //alert("2");
     document.querySelector('student-add-card').getdate(this.showdate);
                }
                

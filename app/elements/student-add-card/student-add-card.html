@@ -99,14 +99,14 @@
       <div class="horizontalframe1">
 
         <div class="fields" style="margin-left:15%;">
-          <paper-input label="First Name" value="{{fname}}"></paper-input>
+          <paper-input label="First Name" allowed-pattern="[a-zA-Z ]" value="{{fname}}"></paper-input>
         </div>
      
         <div class="fields"  style="margin-left:5%;">
-          <paper-input label="Middle Name" value="{{midname}}"></paper-input>
+          <paper-input label="Middle Name"  allowed-pattern="[a-zA-Z ]" value="{{midname}}"></paper-input>
         </div>
         <div class="fields" style="margin-left:8%;">
-          <paper-input label="Last Name" value="{{lsname}}"></paper-input>
+          <paper-input label="Last Name" allowed-pattern="[a-zA-Z ]" value="{{lsname}}"></paper-input>
         </div>
         
       </div>
@@ -143,23 +143,23 @@
       <div class="fullhorizontal" style="width: 120%;">  
       <div class="horizontalframe">
         <div class="fields">
-          <paper-input label="Father's Name" id="dadname" required error-message="needs father's name!" allowed-pattern="[a-zA-Z ]" value="{{fathername}}"></paper-input>
+          <paper-input label="Father's Name" id="dadname"  allowed-pattern="[a-zA-Z ]" value="{{fathername}}"></paper-input>
         </div>
         <div class="fields" style="margin-left: 8%;">
-          <paper-input label="Mother's Name" id="momname" required error-message="needs father's name!" allowed-pattern="[a-zA-Z ]" value="{{mothername}}"></paper-input>
+          <paper-input label="Mother's Name" id="momname"  allowed-pattern="[a-zA-Z ]" value="{{mothername}}"></paper-input>
         </div>
          <div class="fields" style="margin-left: 5%;">
-          <paper-input id="fmobile" error-message="enter proper mobile no!" label="Father Mobile Number" allowed-pattern="[0-9]" maxlength="10" value="{{fathermob}}"></paper-input>
+          <paper-input id="fmobile"  label="Father Mobile Number" allowed-pattern="[0-9]" maxlength="10" value="{{fathermob}}"></paper-input>
         </div>
       </div>
        
       <div class="horizontalframe1">
         
         <div class="fields" style="margin-left: 15%;">
-          <paper-input id="mtmobile" error-message="enter proper mobile no!" label="Mother Mobile Number" allowed-pattern="[0-9]" maxlength="10" value="{{mothermob}}"></paper-input>
+          <paper-input id="mtmobile"  label="Mother Mobile Number" allowed-pattern="[0-9]" maxlength="10" value="{{mothermob}}"></paper-input>
         </div>
         <div class="fields" style="margin-left: 8%;">
-          <gold-email-input id="email" error-message="needs email ID!" label="Father Email" value="{{fatheremail}}"></gold-email-input>
+          <gold-email-input id="email" label="Father Email" value="{{fatheremail}}"></gold-email-input>
         </div>
         <div class="fields" style="margin-left: 5%;">
           <gold-email-input id="email" error-message="needs email ID!" label="Mother Email" value="{{motheremail}}"></gold-email-input>
@@ -335,31 +335,42 @@ if(document.querySelector('#'+this.transnoz).checked==false)
       fnsubmit:function()
       {
         
-    if(gender==""||gender==null){
+        if(gender==""||gender==null)
+        {
 
             alert("Please Select gender");
         }
-        else if (this.enroll=="" || this.fname=="" || this.lsname=="" || this.showdate=="" || this.ageofyr=="" || this.fathername=="" || this.mothername=="" || this.gradeid==""&& this.academicyear==""){
-
+        else if (this.enroll=="" || this.fname=="" || this.lsname=="" || this.showdate=="" || this.fathername=="" || this.mothername=="" || this.gradeid==""&& this.academicyear=="")
+          {
             alert("Please insert the value");
 
+          }
 
-           }
-           else{
+          else if(this.ageofyr=="" )
+          {
+            alert("Please Select Date of birth");
+          }
 
-              if(transport==""||transport==null){
-          transport='Yes';
-          //alert(transport);
-          this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,transport);
-       this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
-          transport="";
-          this.FnfullRefresh();
-         }else{
-      this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,this.transport);
-         this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
-          transport="";
-           this.FnfullRefresh();
-          }}
+           else
+           {
+
+              if(transport==""||transport==null)
+              {
+                transport='Yes';
+                //alert(transport);
+                this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,transport);
+                this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
+                transport="";
+                this.FnfullRefresh();
+              }
+              else
+              {
+                this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,this.transport);
+                this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
+                transport="";
+                this.FnfullRefresh();
+              }
+            }
       
       },
       getdate:function(dates)
@@ -394,6 +405,7 @@ if(document.querySelector('#'+this.transnoz).checked==false)
         this.hidetwogender=true;
    document.querySelector('#newadminyearstud').selected=-1;
    document.querySelector('#newstudgradeids').selected=-1;
+    document.querySelector('student-dob-date-picker').FnCleardob();
         this.enroll="";
         this.fname="";
         this.midname="";
@@ -412,14 +424,13 @@ if(document.querySelector('#'+this.transnoz).checked==false)
         this.address3="";
         this.city="";
         this.pincode="";
-        document.querySelector('student-dob-date-picker').FnCleardob();
-
       },
       setdobvalid:function()
       {
         alert("Select DOB properly, it cannot be future date");
-      }
-
+      },
+    
+      
     });
   })();
   </script>
