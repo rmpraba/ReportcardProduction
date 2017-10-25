@@ -486,7 +486,7 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
            var res=e.detail.response.returnval;
            alert(JSON.stringify(res));
         },
-    fnlaninfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,secondlan)
+    fnlaninfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,secondlan,name)
              {  
     this.fnlaninfomationurl=sessionStorage.getItem("addrinfo")+"/fnlaninfomation-service";
                var obj={"schoolid":"","schoolname":"","studentname":"","studnetid":"","grade":""};
@@ -499,6 +499,7 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
                obj.classid=classid;
                obj.sectionid=sectionid;
                obj.secondlan=secondlan;
+               obj.name=name;
                this.fnlaninfomationparam=obj;
                //alert(JSON.stringify(obj));
                this.$.fnlaninfomationajax.generateRequest();
@@ -511,20 +512,21 @@ fnlaninfomationResponse:function(e)
         },
 
 
-   fnlaninfomation1:function(studid,gradeidzzsss,gradenamez,classid,sectionid,thirdlen)
+   fnlaninfomation1:function(studid,gradeidzzsss,gradenamez,classid,sectionid,thirdlen,name)
            {  
             this.fnlaninfomation1url=sessionStorage.getItem("addrinfo")+"/fnlaninfomation1-service";
                var obj={"schoolid":"","schoolname":"","studentname":"","studnetid":"","grade":""};
                obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
                obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
-                obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+               obj.academic_year=localStorage.getItem("curr_sess_academicyear");
                obj.studid=studid;
                obj.gradeidzzsss=gradeidzzsss;
                obj.gradenamez=gradenamez;
                obj.classid=classid;
                obj.sectionid=sectionid;
                obj.thirdlen=thirdlen;
-               this.fnlaninfomation1param= obj;
+               obj.name=name;
+               this.fnlaninfomation1param=obj;
                //alert(JSON.stringify(obj));
                this.$.fnlaninfomation1ajax.generateRequest();
         },
@@ -677,13 +679,15 @@ fnstudentadd:function(enroll,fname,midname,lsname,showdate,age,fathername,mother
         {
             var res=e.detail.response.returnval
             //alert(JSON.stringify(res));
-if(localStorage.getItem("curr_sess_page")=="student-add-card"){
-document.querySelector('student-add-card').studentgradearrr=res;
-      } 
-      if(localStorage.getItem("curr_sess_page")=="student-information-card"){
-     document.querySelector('student-information-card').studentgradearrr=res;
-       document.querySelector('student-information-card').infogradearrr=res;
-      }     
+          if(localStorage.getItem("curr_sess_page")=="student-add-card")
+          {
+            document.querySelector('student-add-card').studentgradearrr=res;
+          } 
+          if(localStorage.getItem("curr_sess_page")=="student-information-card")
+          {
+            document.querySelector('student-information-card').studentgradearrr=res;
+            document.querySelector('student-information-card').infogradearrr=res;
+          }     
 
         },
          fnget1grade:function()
@@ -843,7 +847,6 @@ fetchstudentinfoResponse:function(e)
          document.querySelector('student-information-card').classidszz=res[0].classid;
        document.querySelector('student-information-card').sectionnames=res[0].section_name;  
          if(res1.length==1){
-          
  document.querySelector('student-information-card').hidestudentinfolangid=true;
 
         document.querySelector('student-information-card').secondlan=res1[0].subject_id;
@@ -939,8 +942,6 @@ fetchstudentinfoResponse:function(e)
           var res3=e.detail.response.overdelarr;
           //alert(JSON.stringify(res3));
            //alert(JSON.stringify(res2));
-         
-
         },
          deletestudtermmarks1:function(studentid,gradeid,classid,grade,section,term)
         {
@@ -960,8 +961,10 @@ fetchstudentinfoResponse:function(e)
         deletestudtermmarks1Response:function(e)
         {
           var res=e.detail.response.returnval;
-          //alert(JSON.stringify(res));
-
+          if(res=='Deleted')
+          {
+            alert('test');
+          }
          },
 
          flagupdatestud:function(studentid,grade,studentname)
