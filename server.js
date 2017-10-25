@@ -4,9 +4,6 @@ var email   = require("emailjs/email");
 var fs = require('fs');
 var dbserver_ip_address = process.env.OPENSHIFT_MYSQL_DB_HOST || '127.0.0.1'
 var connection = mysql.createConnection({
-
-   
-
    host     : 'localhost',
    user     : 'root',
    password : '',
