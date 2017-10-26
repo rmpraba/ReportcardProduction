@@ -545,7 +545,7 @@
       </paper-button>
     </div>
 
-    <div class="card" hidden$="{{studentadd}}">
+    <!-- <div class="card" hidden$="{{studentadd}}">
         <paper-button on-click="Fnaddstudent" no ink><img src="../../images/studentadd.jpg" height="180px" width="180px">
         <h4>Student Add</h4>
         </paper-button>
@@ -555,7 +555,7 @@
         <paper-button on-click="Fnremovestudent" no ink><img src="../../images/studentremove.jpg" height="180px" width="180px">
         <h4>Student Remove</h4>
         </paper-button>
-      </div>
+      </div> -->
       <div class="card" hidden$="{{studentinformation}}">
         <paper-button on-click="Fnstudentinformation" no ink><img src="../../images/studentinformation.png" height="180px" width="180px">
         <h4>Student information</h4>
@@ -911,14 +911,14 @@
              //this.$.bookservice.fnselectinnovatesubject();
       }
 
-      if(localStorage.getItem('curr_sess_loggedassesmenttype')=="studentremove")
+      /*if(localStorage.getItem('curr_sess_loggedassesmenttype')=="studentremove")
       {
          document.querySelector('app-card').setPage('homepage','');
           document.querySelector('home-page').setPage('student-remove-card','');
           document.querySelector('student-remove-card').FnfullRefresh();
           this.$.studservice.fetchstudentremove();
 
-      }
+      }*/
 
       if(localStorage.getItem('curr_sess_loggedassesmenttype')=="studentinformation")
       {
@@ -930,6 +930,8 @@
            this.$.studservice.lanpref();
            this.$.studservice.fnacadamic();
           this.$.studservice.fnget1grade();
+          document.querySelector('student-add-card').FnfullzRefresh();
+
       }
 if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
       {
@@ -1564,7 +1566,7 @@ if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
              document.querySelector('innovation-report').FnRefreshinnvt();
              this.$.cdialog.toggle();
           },
-           Fnaddstudent:function(e)
+         /*  Fnaddstudent:function(e)
           {
             document.querySelector('app-card').setPage('homepage','');
             document.querySelector('home-page').setPage('student-add-card','');
@@ -1578,6 +1580,7 @@ if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
             document.querySelector('student-remove-card').fnrefremve();
             this.$.cdialog.toggle();
           },
+*/
 
           Fnstudentinformation:function(e)
           {

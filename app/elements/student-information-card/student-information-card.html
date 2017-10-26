@@ -128,7 +128,7 @@
        </span>
     </div>
        <div id="addstudentinfoid">
-      <student-add-card taransyesz="taransyesz1" transnoz="transnoz1" male11="maleidzz" female11="femaleidzz" ageofyr="{{ageofyrs}}" hideonegender="{{hideonegender}}" studentgradearrr="{{studentgradearrr}}" hidetwogender="{{hidetwogender}}"></student-add-card>
+      <student-add-card grdstudad="grdstudad" studadyear="studadyear" taransyesz="taransyesz1" transnoz="transnoz1" male11="maleidzz" female11="femaleidzz" ageofyr="{{ageofyrs}}" hideonegender="{{hideonegender}}" studentgradearrr="{{studentgradearrr}}" hidetwogender="{{hidetwogender}}"></student-add-card> 
        </div>
        <div id="removestudentinfoid">
           <student-remove-card studentslist="studentslistzz" grade="{{grade}}" section="{{section}}" gradeid="{{gradeid}}" classid="{{classid}}"  hidetwostudentinfo="{{hidetwostudentinfo}}" hideonestudentinfo="{{hideonestudentinfo}}"></student-remove-card>
@@ -555,6 +555,7 @@ fnaddstudent:function(e){
 
   if(document.querySelector("#addstudentid").checked==true)
   {
+    document.querySelector('student-remove-card').fnrefremve();
     document.querySelector("#removestudentid").checked=false;
     document.querySelector("#updatestudentid").checked=false;
     this.$.addstudentinfoid.hidden=false;
@@ -570,6 +571,7 @@ fnaddstudent:function(e){
     this.$.academicinfoid.opened=false; 
     this.$.languageinfoid.opened=false;  
   }
+
 },
 fnrmovestudent:function(e){
 if(document.querySelector("#removestudentid").checked==true)
@@ -578,7 +580,8 @@ if(document.querySelector("#removestudentid").checked==true)
     document.querySelector("#addstudentid").checked=false;
   document.querySelector("#updatestudentid").checked=false;
 
-  document.querySelector('student-add-card').FnfullRefresh();
+  document.querySelector('student-add-card').FnfullzRefresh();
+
        this.$.addstudentinfoid.hidden=true;
        this.$.removestudentinfoid.hidden=false;
        this.$.updatestudentinfoid.hidden=true;
@@ -598,8 +601,12 @@ if(document.querySelector("#removestudentid").checked==true)
 fnupdatestudent:function(e){
  if(document.querySelector("#updatestudentid").checked==true)
     {
+    document.querySelector('student-remove-card').fnrefremve();
+
         document.querySelector("#removestudentid").checked=false;
         document.querySelector("#addstudentid").checked=false;
+
+        document.querySelector('student-add-card').FnfullzRefresh();
         this.$.addstudentinfoid.hidden=true;
         this.$.removestudentinfoid.hidden=true;
         this.$.updatestudentinfoid.hidden=false;
@@ -622,6 +629,7 @@ fnupdatestudent:function(e){
           this.itemArray=[];
           document.querySelector('#studentslistz1').selected=-1;
           this.$.studservice.fngetstudentallinfo(this.studentid);
+          this.$.studservice.fngetstudname1(this.studentid);
           this.studid=this.studentid;
           document.querySelector('#newifosectionidzza').selected=-1;
           this.classid="";

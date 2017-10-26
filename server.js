@@ -13311,10 +13311,12 @@ app.post('/fnpersonalinfomation-service',  urlencodedParser,function (req,res)
 
 
 
+
+
 app.post('/fnstudpersonalinfo-service',  urlencodedParser,function (req,res)
   {  
 
-  var qur="UPDATE md_admission SET student_name='"+req.query.studentname+"',dob='"+req.query.showdate+"',age='"+req.query.ageofyrs+"',gender='"+req.query.gender+"'  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and admission_no='"+req.query.studid+"' and flag='1'";
+  var qur="UPDATE md_admission SET first_name='"+req.query.firstname+"',middle_name='"+req.query.middlename+"',last_name='"+req.query.lastname+"',dob='"+req.query.showdate+"',age='"+req.query.ageofyrs+"',gender='"+req.query.gender+"'  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and admission_no='"+req.query.studid+"' and flag='1'";
     console.log('------------update *** status -------------');
     console.log(qur);
     connection.query(qur,
@@ -13861,7 +13863,7 @@ var qur2="SELECT * FROM md_subject";
 
 app.post('/fngetstudentallinfo-service',  urlencodedParser,function (req,res)
   {  
-var qur1="SELECT dob ,academic_year,id ,student_name,grade_id as gradeid,class_id as classid ,gender, ageinmonth, (select  grade_name from md_grade  where grade_id=gradeid)  as grade_name ,(select UPPER( section_id ) from mp_grade_section  where class_id=classid and  grade_id=gradeid and  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' ) as section_name FROM md_student where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"'  and  id='"+req.query.studentid+"'  and flag='active'";
+var qur1="SELECT dob ,academic_year,id ,grade_id as gradeid,class_id as classid ,gender, ageinmonth, (select  grade_name from md_grade  where grade_id=gradeid)  as grade_name ,(select UPPER( section_id ) from mp_grade_section  where class_id=classid and  grade_id=gradeid and  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' ) as section_name FROM md_student where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"'  and  id='"+req.query.studentid+"'  and flag='active'";
 
 var qur2="SELECT * FROM parent where school_id='"+req.query.schoolid+"' and  student_id='"+req.query.studentid+"'";
 
@@ -14151,6 +14153,32 @@ app.post('/fetchinfofortemplate-service',  urlencodedParser,function (req,res)
     }
   });
 });
+
+
+
+app.post('/fngetstudname1-service',  urlencodedParser,function (req, res)
+{
+  var qur1="SELECT * from md_admission where admission_no='"+req.query.studentid+"'  and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flag='1'"; 
+  console.log('------------------fetch name---------------------');
+
+ console.log(qur1);
+ connection.query(qur1,
+    function(err, rows)
+    {
+    if(!err)
+    { 
+      console.log(JSON.stringify(rows));   
+      res.status(200).json({'returnval': rows});
+    }
+    else
+    {
+      console.log(err);
+      res.status(200).json({'returnval': 'fail'});
+    }  
+
+  });
+});
+
 
 //Node server running port number
 server = app.listen(5000, function () {

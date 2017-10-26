@@ -291,6 +291,18 @@
         on-response="flagupdatestudResponse"
         debounce-duration="300">
       </iron-ajax>
+      
+
+       <iron-ajax
+        method="post"
+        id="fngetstudname1ajax"
+        url="{{fngetstudname1url}}"
+        params="{{fngetstudname1param}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fngetstudname1Response"
+        debounce-duration="300">
+      </iron-ajax>
   </template>
   <script>
   (function() {
@@ -451,7 +463,7 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
                obj.ageofyrs=ageofyrs;
                obj.studid=studid;
                obj.gender=gender;
-               obj.studentname=fname+' '+lsname+' ' +midname;
+               obj.studentname=fname+' '+midname+' ' +lsname;
               this.fnpersonalinfomationparam= obj;
                //alert(JSON.stringify(obj));
                this.$.fnpersonalinfomationajax.generateRequest();
@@ -474,15 +486,18 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
                obj.ageofyrs=ageofyrs;
                obj.studid=studid;
                obj.gender=gender;
-               obj.studentname=fname+' '+lsname+' ' +midname;
+               obj.firstname=fname;
+               obj.middlename=midname;
+               obj.lastname=lsname;
+               //obj.studentname=fname+' '+lsname+' ' +midname;
               this.fnstudpersonalinfoparam= obj;
-               alert(JSON.stringify(obj));
+               //alert(JSON.stringify(obj));
               this.$.fnstudpersonalinfoajax.generateRequest();
         },
         fnstudpersonalinfoResponse:function(e)
         {
            var res=e.detail.response.returnval;
-           alert(JSON.stringify(res));
+           //alert(JSON.stringify(res));
         },
     fnlaninfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,secondlan,name)
              {  
@@ -812,7 +827,8 @@ fetchstudentinfoResponse:function(e)
   var res=e.detail.response.returnval;
    document.querySelector('student-information-card').getstudentdet(res);
         }, 
- fngetstudentallinfo:function(id){
+ fngetstudentallinfo:function(id)
+ {
          this.fngetstudentallinfourl=sessionStorage.getItem("addrinfo")+"/fngetstudentallinfo-service";
             var obj={"schoolid":"","academic_year":""};
             obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
@@ -838,10 +854,10 @@ fetchstudentinfoResponse:function(e)
       document.querySelector('student-information-card').mothermob=res2[0].mother_mobile;
       document.querySelector('student-information-card').city=res2[0].city;
       document.querySelector('student-information-card').pincode=res2[0].pincode;
-      document.querySelector('student-information-card').fname=res[0].student_name;
+      //document.querySelector('student-information-card').fname=res[0].student_name;
       document.querySelector('student-information-card').showdate=res[0].dob;
       document.querySelector('student-information-card').fngender(res[0].gender);
-      document.querySelector('student-information-card').ageofyrs=res[0].ageinmonth;
+      //document.querySelector('student-information-card').ageofyrs=res[0].ageinmonth;
       document.querySelector('student-information-card').academicyear=res[0].academic_year;
       document.querySelector('student-information-card').gradeidzzsss=res[0].gradeid;
        document.querySelector('student-information-card').gradeidzzsss1=res[0].gradeid;
@@ -987,10 +1003,28 @@ fetchstudentinfoResponse:function(e)
          {
             var res=e.detail.response.returnval;
             //alert(JSON.stringify(res));
-         }
+         },
+         fngetstudname1:function(studentid)
+         {
+            this.fngetstudname1url=sessionStorage.getItem("addrinfo")+"/fngetstudname1-service";
+            var obj={"schoolid":"","academic_year":""};
+            obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+            obj.academic_year="AY-"+localStorage.getItem("curr_sess_academicyear"); 
+            obj.studentid=studentid;
+            this.fngetstudname1param=obj;
+            //alert(JSON.stringify(obj));
+          this.$.fngetstudname1ajax.generateRequest(); 
+         },
     
-
-
+          fngetstudname1Response:function(e)
+          {
+            var res=e.detail.response.returnval;
+           // alert(JSON.stringify(res));
+            document.querySelector('student-information-card').fname=res[0].first_name;
+            document.querySelector('student-information-card').midname=res[0].middle_name;
+            document.querySelector('student-information-card').lsname=res[0].last_name;
+            document.querySelector('student-information-card').ageofyrs=res[0].age;
+          }
     });
   })();
   </script>
