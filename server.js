@@ -11025,9 +11025,45 @@ app.post('/fngetsectionname-service',  urlencodedParser,function (req,res)
      res.status(200).json({'':'no rows'}); 
   });
 });
+
+app.post('/fngetsectionname3-service',  urlencodedParser,function (req,res)
+  {  
+    
+
+ 
+
+    var qur2="SELECT * FROM mp_teacher_grade where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and role_id='subject-teacher'";
+
+    var qur3="select distinct( g.grade_id) ,a.section_id,a.class_id from mp_teacher_grade g  join  mp_grade_section a on (g.grade_id=a.grade_id) where g.school_id='"+req.query.schoolid+"'  and g.academic_year='"+req.query.academic_year+"' and  a.school_id='"+req.query.schoolid+"'  and a.academic_year='"+req.query.academic_year+"'  and g.id='"+req.query.empid+"' and subject_id='"+req.query.subjectid+"'and role_id='subject-teacher'";
+   
+    console.log("----dbarr-----");
+    console.log(qur2);
+    console.log("----section-----");
+    console.log(qur3);
+    console.log("-----------------------");
+    var dbarr=[];
+    var mastersectionarr=[];
+    
+    connection.query(qur2,function(err, rows){
+    if(!err)
+    {  
+    dbarr=rows;
+    connection.query(qur3,function(err, rows){
+    if(!err)
+    {  
+    mastersectionarr=rows;
+    res.status(200).json({'dbarr':dbarr,'mastersectionarr':mastersectionarr});
+    }
+    });
+    }
+   
+    else
+     res.status(200).json({'':'no rows'}); 
+  });
+});
 app.post('/fngetsectionname1-service' ,  urlencodedParser,function (req, res)
 {  
-   
+     
     var qur="select * from mp_teacher_grade where  school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and subject_id='"+req.query.subjectid+"'  and id='"+req.query.empid+"' and grade_id='"+req.query.grade_id+"' and role_id='subject-teacher'";
     console.log('********section*************');
     console.log(qur);
@@ -13648,7 +13684,7 @@ app.post('/getgradestudent-service', urlencodedParser,function (req,res)
       res.status(200).json({'returnval': rows});
     }
     else
-      console.log(err);
+     // console.log(err);
       res.status(200).json({'returnval': ''});
   });
 });
