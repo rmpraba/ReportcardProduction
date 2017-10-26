@@ -409,19 +409,20 @@ var dobdate;
       },
       fnpersonal:function(e)
       {
-        this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
-        this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+  this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+
+  this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
 
     },
   fnlan:function(e){
     if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
 
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan);
+     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
    }
    else{
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan);
+     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
 
-     this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen);
+     this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen,this.value);
       }
        },
       fnacadamics:function(e){
@@ -460,6 +461,14 @@ this.academicyear=e.target.selectedItem.textContent.trim();
 fnselectgrade11:function(e){
   this.gradeidzzsss=e.target.selectedItem.value;
   this.gradenamez=e.target.selectedItem.textContent.trim();
+if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
+ this.hidestudentinfolangid=true;
+}
+else{
+ this.hidestudentinfolangid=false;
+
+}
+
 //alert(this.gradeidzzsss+" "+this.gradenamez);
  this.$.studservice.fngetsectionname(this.gradeidzzsss);
 },
@@ -577,9 +586,9 @@ if(document.querySelector("#removestudentid").checked==true)
        this.hidetwostudentinfo=false;
        this.value="";
        this.$.parentinfoid.opened=false;
-    this.$.pesonalinfoid.opened=false;
-    this.$.academicinfoid.opened=false; 
-    this.$.languageinfoid.opened=false;
+       this.$.pesonalinfoid.opened=false;
+       this.$.academicinfoid.opened=false; 
+       this.$.languageinfoid.opened=false;
        }
     },
       getstudentdet:function(arr)
