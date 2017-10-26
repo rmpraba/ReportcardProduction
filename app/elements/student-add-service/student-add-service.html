@@ -291,9 +291,7 @@
         on-response="flagupdatestudResponse"
         debounce-duration="300">
       </iron-ajax>
-      
-
-       <iron-ajax
+      <iron-ajax
         method="post"
         id="fngetstudname1ajax"
         url="{{fngetstudname1url}}"
@@ -303,15 +301,32 @@
         on-response="fngetstudname1Response"
         debounce-duration="300">
       </iron-ajax>
+     <iron-ajax           
+        id="studentconficsajax"
+        url="../../configfile/student.json"
+        params="{{studentconficsparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="studentconficsResponse"
+        debounce-duration="300">
+    </iron-ajax>
   </template>
   <script>
   (function() {
     'use strict';
     var len1=0;
     var len2=0;
+    var studenttablearr=[];
     Polymer({
       is: 'student-add-service',
- fnacadamic:function(){
+ studentconfics:function(){
+        this.$.studentconficsajax.generateRequest();
+      },
+  studentconficsResponse:function(e){
+    studenttablearr=e.detail.response; 
+        alert(JSON.stringify(studenttablearr));
+      }, 
+      fnacadamic:function(){
         this.$.academic1ajax.generateRequest();
       },
       academic1Response:function(e){
