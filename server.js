@@ -8,11 +8,7 @@ var connection = mysql.createConnection({
    user     : 'root',
    password : '',
    database : 'reportcardcloud'
-  
-
-});
-
-
+ });
 var bodyParser = require('body-parser'); 
 var app = express();
 var logfile;

@@ -281,8 +281,6 @@
         on-response="fnstudpersonalinfoResponse"
         debounce-duration="300">
       </iron-ajax>
-      
-
        <iron-ajax
         method="post"
         id="flagupdatestudajax"
@@ -741,12 +739,17 @@ document.querySelector('student-information-card').termarrinfonatioid=true;
         {
           var res=e.detail.response.returnval;
           //alert(JSON.stringify(res));
-          document.querySelector('student-remove-card').getstudentdet(res);
+          if(localStorage.getItem("curr_sess_page")=="student-information-card"){
           document.querySelector('student-information-card').getstudentdet(res);
+            
+        }else{
+
+          document.querySelector('student-remove-card').getstudentdet(res);
+        }
         },
         fetchstudentremove:function()
         {
-            this.fetchstudentremoveurl=sessionStorage.getItem("addrinfo")+"/Fnfetchstudentremove-service";
+ this.fetchstudentremoveurl=sessionStorage.getItem("addrinfo")+"/Fnfetchstudentremove-service";
             var obj={"school_id":"","academic_year":""};
             obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
             obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 

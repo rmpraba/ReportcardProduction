@@ -74,9 +74,9 @@
     </div>
     <div class="inner1" hidden$="{{hideleasonplancontainer}}">
       <div class="card" hidden$="{{bookclassplann}}">
-        <paper-button on-click="fnbookclassplan" no ink><img src="../../images/done.jpg" height="180px" width="180px">
-        <h4>Evaluation</h4>
-        </paper-button>
+       <paper-button on-click="fnbookclassplan" no ink><img src="../../images/done.jpg" height="180px" width="180px">
+      <h4>Evaluation</h4>
+     </paper-button>
       </div>     
     </div>
     </div>
@@ -129,18 +129,8 @@
       </div>
     </div>
     </div>
-    <!-- Class teacher options end-->
-    <div class="coordinator" hidden$="{{coordinator}}">
-    <!-- Student container starts -->
-    <!-- <div class="inner1" hidden$="{{hidestudentcontainer}}">
-    <div class="card" hidden$="{{addstudent}}">
-      <paper-button on-click="FnStudent" no ink><img src="../../images/student.jpg" height="180px" width="180px">
-      <h4> Add/Edit/Remove Student</h4>
-      </paper-button>
-    </div>
-    </div> -->
-    <!-- Student container ends -->
-    <!-- Co-ordinator options starts -->
+     <div class="coordinator" hidden$="{{coordinator}}">
+   
     <div class="inner1" hidden$="{{hideenrichmentcontainer}}">
      <div id="entry" class="card" hidden$="{{BA}}">    
        <paper-button on-click="FnSelectPreEntryType" no ink><img src="../../images/Enrichment.png" height="180px" width="180px"></paper-button>
@@ -270,17 +260,10 @@
         </paper-button>
       </div>
 
-      <!-- <div class="card" hidden$="{{innnovationreport}}">
-        <paper-button on-click="fninnovation" no ink><img src="../../images/innovations.jpg" height="180px" width="180px">
-        <h4>Innovation Report</h4>
-        </paper-button>
-      </div> -->
+    
 
       </div>
     </div>
-
-    <!-- Co-ordinator options end -->
-
     <div class="subcoordinator" hidden$="{{subcoordinator}}">
       <div>
         <div class="inner1" hidden$="{{hideleasonplancontainer}}">
@@ -939,8 +922,8 @@
 
       if(localStorage.getItem('curr_sess_loggedassesmenttype')=="studentinformation")
       {
-        document.querySelector('app-card').setPage('homepage','');
-        document.querySelector('home-page').setPage('student-information-card','');
+  document.querySelector('app-card').setPage('homepage','');
+   document.querySelector('home-page').setPage('student-information-card','');
           this.$.studservice.fetchstudentremove();
           this.$.studservice.fngetgrade();
           this.$.studservice.fetchstudentinfo();
@@ -948,7 +931,7 @@
            this.$.studservice.fnacadamic();
           this.$.studservice.fnget1grade();
       }
-      if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
+if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
       {
         document.querySelector('app-card').setPage('homepage','');
         document.querySelector('home-page').setPage('single-staff-mapping-card','');
@@ -1599,9 +1582,9 @@
           Fnstudentinformation:function(e)
           {
             localStorage.setItem('curr_sess_loggedassesmenttype','studentinformation');
-            document.querySelector('student-information-card').fmrefresh();
-            document.querySelector('student-information-card').fnnewreff();
-             document.querySelector('student-information-card').studentinforefresh();
+    document.querySelector('student-information-card').fmrefresh();
+     document.querySelector('student-information-card').fnnewreff();
+ document.querySelector('student-information-card').studentinforefresh();
               this.$.cdialog.toggle();
           },
           Fnsinglestaff:function(e){
