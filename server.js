@@ -4,15 +4,15 @@ var email   = require("emailjs/email");
 var fs = require('fs');
 var dbserver_ip_address = process.env.OPENSHIFT_MYSQL_DB_HOST || '127.0.0.1'
 var connection = mysql.createConnection({
-
-   
-
    host     : 'localhost',
+   // port     : '62631',
+   // user     : 'adminM1qnV1d',
+   // password : 'HC2bIf7Sk2LD',
+   // database : 'scorecarddb'
+   
    user     : 'root',
-   password : '',
-   database : 'reportcardcloud'
-  
-
+   password : 'admin',
+   database : 'reportcardnewins'
 });
 
 
@@ -13167,9 +13167,10 @@ app.post('/fngetchapterinnvt-service',  urlencodedParser,function (req,res)
           
       }
 
-      else
+      else{
           console.log(err);
           res.status(200).json({'returnval': 'invalid'});
+        }
       });
 });
 
@@ -13361,9 +13362,10 @@ app.post('/fnacadamicsinfomation-service',  urlencodedParser,function (req,res)
     }
     });
     }
-    else
+    else{
       console.log(err);
      res.status(200).json({'': 'no rows'}); 
+   }
   });
 });
 
@@ -13521,6 +13523,8 @@ app.post('/getgradestudent-service', urlencodedParser,function (req,res)
 {      
      
   var qur="SELECT * FROM md_grade";
+  console.log("..........................................");
+  console.log("coming in getgradestudent-service.........");
   connection.query(qur,
     function(err, rows)
     {
@@ -13529,9 +13533,10 @@ app.post('/getgradestudent-service', urlencodedParser,function (req,res)
      //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 
@@ -13540,6 +13545,8 @@ app.post('/getgradestudent1-service', urlencodedParser,function (req,res)
 {      
      
   var qur="SELECT grade_id as gradeidzz,grade_name as gradenamezz FROM md_grade";
+    console.log("..........................................");
+  console.log("coming in getgradestudent1-service.........");
   connection.query(qur,
     function(err, rows)
     {
@@ -13548,9 +13555,10 @@ app.post('/getgradestudent1-service', urlencodedParser,function (req,res)
      //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
-      console.log(err);
+    else{
+      console.log('error.........'+err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 
@@ -13601,10 +13609,11 @@ qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+re
   });
 });
 
-
 app.post('/Fnfetchstudentremove-service', urlencodedParser,function (req,res)
 {  
     var qur="SELECT * FROM md_student where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flag='active'";
+      console.log("..........................................");
+  console.log("coming in Fnfetchstudentremove-service.........");
     connection.query(qur,
     function(err, rows)
     {
@@ -13613,14 +13622,12 @@ app.post('/Fnfetchstudentremove-service', urlencodedParser,function (req,res)
       //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
-
-
-
 
 app.post('/lanpref-service',  urlencodedParser,function (req,res)
 {  
@@ -13628,6 +13635,8 @@ app.post('/lanpref-service',  urlencodedParser,function (req,res)
   var qur1="SELECT * from md_subject where language_pref='Third Language'";
   console.log('----------------------------------------');
   console.log(qur);
+    console.log("..........................................");
+  console.log("coming in lanpref-service.........");
   var secondarr=[];
   var thirdarr=[];
   connection.query(qur,function(err, rows){
@@ -13651,6 +13660,9 @@ app.post('/lanpref-service',  urlencodedParser,function (req,res)
 app.post('/fetchstudentinfo-service', urlencodedParser,function (req,res)
 {  
     var qur="SELECT * FROM md_student where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flag='active'";
+      console.log("..........................................");
+  console.log("coming in fetchstudentinfo-service.........");
+  console.log(qur);
     connection.query(qur,
     function(err, rows)
     {
@@ -13659,9 +13671,10 @@ app.post('/fetchstudentinfo-service', urlencodedParser,function (req,res)
       //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 
@@ -13676,9 +13689,10 @@ app.post('/fetchstafffo-service', urlencodedParser,function (req,res)
       //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 
@@ -13694,9 +13708,10 @@ app.post('/fnsetsingleemployee-service', urlencodedParser,function (req,res)
       //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 app.post('/fetchsinglegrade-service',  urlencodedParser,function (req,res)
@@ -13798,9 +13813,10 @@ app.post('/Prestudentremove-service', urlencodedParser,function (req,res)
       //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 
@@ -13830,9 +13846,10 @@ app.post('/deletestudentremove-service',  urlencodedParser,function (req,res)
     }
     });
     }
-    else
+    else{
       console.log(err);
      res.status(200).json({'': 'no rows'}); 
+   }
   });
 });
 
@@ -13958,9 +13975,10 @@ app.post('/fngetinfosectionname-service', urlencodedParser,function (req,res)
       //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 
@@ -13979,9 +13997,10 @@ app.post('/curriculumsubject-service', urlencodedParser,function (req,res)
       //console.log(JSON.stringify(rows));   
       res.status(200).json({'returnval': rows});
     }
-    else
+    else{
       console.log(err);
       res.status(200).json({'returnval': ''});
+    }
   });
 });
 
