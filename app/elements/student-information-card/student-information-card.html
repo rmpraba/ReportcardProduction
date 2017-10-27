@@ -409,9 +409,11 @@ var dobdate;
       },
       fnpersonal:function(e)
       {
-  this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+ this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender,this.gradenamez,this.gradeidzzsss,this.classid,this.sectionid);
 
-  this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+  this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender,this.gradenamez,this.gradeidzzsss,this.classid,this.sectionid);
+
+   this.$.studservice.fnstudnameinfo(this.fname,this.lsname,this.midname,this.studid,this.gradenamez,this.gradeidzzsss,this.classid,this.sectionid);
 
     },
   fnlan:function(e){
@@ -433,15 +435,13 @@ this.$.studservice.fnacadamicsinfomation1(this.studid,this.gradeidzzsss1,this.gr
   else{
  this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid);
  this.$.studservice.fnacadamicsinfomation2(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
-  }
-
-  
-      },
-       fnsetdateofbirth:function(dates)
+    }
+   },
+ fnsetdateofbirth:function(dates)
        {
           // e=this.showdate;
 
-          var dt1=new Date(dates);
+       var dt1=new Date(dates);
          dobdate=dates;
          var dt=new Date();
          var dt=new Date();
@@ -594,7 +594,7 @@ if(document.querySelector("#removestudentid").checked==true)
        this.$.languageinfoid.opened=false;
        }
     },
-      getstudentdet:function(arr)
+  getstudentdet:function(arr)
      {
         studentnamearr=arr;
      },
