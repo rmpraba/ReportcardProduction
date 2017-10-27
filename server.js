@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardcloud'
+   database : 'reportcardnew'
  });
 
 var bodyParser = require('body-parser'); 
@@ -10487,11 +10487,11 @@ app.post('/selectclass-service',  urlencodedParser,function (req,res)
 
 app.post('/selectallsection-service',  urlencodedParser,function (req,res)
 {
-  var qur1="select s.id,s.student_name,g.grade_name,a.admission_status,(select UPPER(section_id) from mp_grade_section ss where ss.grade_id='"+req.query.gradeid+"' and ss.class_id=s.class_id) as section from md_student s join md_school_grade_mapping g on (s.grade_id=g.grade_id) join md_admission a on(s.id=a.admission_no) where s.school_id='"+req.query.schlid1+"' and a.school_id='"+req.query.schlid1+"' and g.school_id='"+req.query.schlid1+"'and s.grade_id='"+req.query.gradeid+"' and s.academic_year='"+req.query.academic_year+"' and g.academic_year='"+req.query.academic_year+"' and  s.flag='active' and a.flag='1' order by student_name";
+  var qur1="select s.id,s.student_name,g.grade_name,a.admission_status,(select UPPER(section_id) from mp_grade_section ss where ss.grade_id='"+req.query.gradeid+"' and ss.class_id=s.class_id) as section from md_student s  join md_admission a on(s.id=a.admission_no) join md_school_grade_mapping g on (s.grade_id=g.grade_id)  where s.school_id='"+req.query.schlid1+"' and a.school_id='"+req.query.schlid1+"' and g.school_id='"+req.query.schlid1+"'and s.grade_id='"+req.query.gradeid+"' and s.academic_year='"+req.query.academic_year+"' and g.academic_year='"+req.query.academic_year+"' and  s.flag='active' and a.flag='1' order by student_name";
 
 
 console.log("-------Report---------");
-  //console.log(qur1);
+  console.log(qur1);
 
    connection.query(qur1,
     function(err, rows){
@@ -13333,6 +13333,7 @@ app.post('/fnpersonalinfomation-service',  urlencodedParser,function (req,res)
     {
     if(!err)
     {    
+      console.log(rows);
       res.status(200).json({'returnval': 'Updated!!'});
     }
     else
@@ -13352,7 +13353,7 @@ app.post('/fnpersonalinfomation-service',  urlencodedParser,function (req,res)
 app.post('/fnstudpersonalinfo-service',  urlencodedParser,function (req,res)
   {  
 
-  var qur="UPDATE md_admission SET first_name='"+req.query.firstname+"',middle_name='"+req.query.middlename+"',last_name='"+req.query.lastname+"',dob='"+req.query.showdate+"',age='"+req.query.ageofyrs+"',gender='"+req.query.gender+"'  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and admission_no='"+req.query.studid+"' and flag='1'";
+  var qur="UPDATE md_admission SET first_name='"+req.query.firstname+"',middle_name='"+req.query.middlename+"',last_name='"+req.query.lastname+"',student_name='"+req.query.studentname+"',        dob='"+req.query.showdate+"',age='"+req.query.ageofyrs+"',gender='"+req.query.gender+"'  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and admission_no='"+req.query.studid+"' and flag='1'";
     console.log('------------update *** status -------------');
     console.log(qur);
     connection.query(qur,
@@ -13360,6 +13361,7 @@ app.post('/fnstudpersonalinfo-service',  urlencodedParser,function (req,res)
     {
     if(!err)
     {    
+      console.log(rows);
       res.status(200).json({'returnval': 'Updated!!'});
     }
     else
@@ -14144,7 +14146,7 @@ app.post('/curriculumsubject-service', urlencodedParser,function (req,res)
 app.post('/flagupdatestudent-service',  urlencodedParser,function (req, res)
 { 
      
-    var qur="UPDATE md_admission set flag='"+req.query.flag+"' where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and admission_no='"+req.query.studentid+"' and student_name='"+req.query.studentname+"' and class_for_admission='"+req.query.grade+"'";
+    var qur="UPDATE md_admission set flag='"+req.query.flag+"' where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and admission_no='"+req.query.studentid+"' and class_for_admission='"+req.query.grade+"'";
 
     console.log("-----------admission deletion-------------");
     console.log(qur);

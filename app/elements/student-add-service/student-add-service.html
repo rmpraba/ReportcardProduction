@@ -489,7 +489,7 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
                obj.firstname=fname;
                obj.middlename=midname;
                obj.lastname=lsname;
-               //obj.studentname=fname+' '+lsname+' ' +midname;
+               obj.studentname=fname+' '+midname+' ' +lsname;
               this.fnstudpersonalinfoparam= obj;
                //alert(JSON.stringify(obj));
               this.$.fnstudpersonalinfoajax.generateRequest();
@@ -780,7 +780,7 @@ document.querySelector('student-information-card').termarrinfonatioid=true;
           var res=e.detail.response.returnval;
           //alert(JSON.stringify(res));
           document.querySelector('student-remove-card').getstudentdet(res);
-          document.querySelector('student-information-card').getstudentdet(res);
+          //document.querySelector('student-information-card').getstudentdet(res);
         },
 fngetsectionname:function(id){
           this.fngetsectionnameurl=sessionStorage.getItem("addrinfo")+"/fngetinfosectionname-service";
@@ -808,7 +808,7 @@ lanpref:function(){
 lanprefResponse:function(e){
  var res=e.detail.response.secondarr;
  var res1=e.detail.response.thirdarr;
-
+//alert(JSON.stringify(res)); 
    document.querySelector('student-information-card').secondarr=res;
    document.querySelector('student-information-card').thirdarr=res1;
 },
@@ -986,7 +986,7 @@ fetchstudentinfoResponse:function(e)
           }
          },
 
-         flagupdatestud:function(studentid,grade,studentname)
+         flagupdatestud:function(studentid,grade)
          {
              this.flagupdatestudurl=sessionStorage.getItem("addrinfo")+"/flagupdatestudent-service";
             var obj={"schoolid":"","academic_year":"","flag":""};
@@ -994,7 +994,6 @@ fetchstudentinfoResponse:function(e)
             obj.academic_year="AY-"+localStorage.getItem("curr_sess_academicyear"); 
             obj.studentid=studentid;
             obj.grade=grade;
-            obj.studentname=studentname;
             obj.flag='0';
             this.flagupdatestudparam=obj;
             this.$.flagupdatestudajax.generateRequest();

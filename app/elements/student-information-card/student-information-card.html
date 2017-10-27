@@ -8,17 +8,8 @@
 <dom-module id="student-information-card">
   <template>
     <style>
-     paper-checkbox{
-       --paper-checkbox-size:2em;
-       --paper-checkbox-checked-color: var(--paper-red-500);
-       --paper-checkbox-checked-ink-color: var(--paper-red-500);
-       --paper-checkbox-unchecked-color:var(--paper-red-900);
-       --paper-checkbox-unchecked-ink-color: var(--paper-red-900);
-       --paper-checkbox-label-color: var(--paper-red-500);
-       --paper-checkbox-vertical-align:top;
-      }
-
- :host {
+    
+      :host {
         display: block;
       }
       .horizontalframe
@@ -356,7 +347,7 @@
  </iron-collapse>
 
      <paper-dialog id="termarrinformationid" modal>
-       <h3 hidden$="{{termarrinfonatioid}}">This Section is already mapped to following Term</h3>
+       <h3 hidden$="{{termarrinfonatioid}}">This Student mark is already entered in following Term</h3>
     
         <template is="dom-repeat" items="{{termarr}}">
         <h4>*{{item.term_name}}</h4>
@@ -412,7 +403,6 @@ var dobdate;
   this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
 
   this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
-
     },
   fnlan:function(e){
     if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
