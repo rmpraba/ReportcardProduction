@@ -98,9 +98,9 @@ var tempgradearr=[];
                   if(res[j].grade_id==res1[i].grade_id)
                   {    
                    flag=1;
-                        
-                   res[j].check=true;
-                    
+                  
+                   res[j].check=true;  
+                 
 
                   }
                  }
@@ -123,11 +123,11 @@ var tempgradearr=[];
                  }
                }
 
-   alert(JSON.stringify(temp1));
                
-document.querySelector('single-staff-mapping-card').gradearr=res;
-document.querySelector('single-staff-mapping-card').sectionarr=res2;
- 
+     // alert(JSON.stringify(res));
+     //alert(JSON.stringify(res2));
+      document.querySelector('single-staff-mapping-card').gradearr=res;
+      document.querySelector('single-staff-mapping-card').sectionarr=res2;
      },
      fnclean:function()
      {
