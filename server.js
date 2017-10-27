@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardcloud'
+   database : 'reportcardnew'
  });
 
 var bodyParser = require('body-parser'); 
@@ -55,7 +55,7 @@ console.log(logfile);
   // connection.query('select id,role_name from md_role where id in (select role_id from md_employee where ? and ? )',[id,password],
   var qur="select distinct(mr.id),mr.role_name,(select name from md_school where id=me.school_id) as name,me.school_id "+
   "from md_role mr join md_employee me on(mr.id=me.role_id) "+
-  "where me.id='"+req.query.username+"' and password='"+req.query.password+"'";
+  "where me.id='"+req.query.username+"' and me.flage='active' and password='"+req.query.password+"'";
 
   console.log('.............role.....................');
   console.log(qur);
@@ -86,6 +86,12 @@ app.post('/login-card',  urlencodedParser,function (req, res)
   var username={"id":req.query.username};
   var password={"password":req.query.password};
   var schoolid={school_id:req.query.schoolid};
+
+  var qur="SELECT name as uname,  school_id as school,(select name from md_school where id=school) as name ,(select address from md_school where id=school) as addr,(select affiliation_no from md_school where id=school) as affno,(select email_id from md_school where id=school) as email,(select website from md_school where id=school) as website,(select telno from md_school where id=school) as telno  from md_employee where id='"+req.query.username+"' and id='"+req.query.username+"' and password='"+req.query.password+"' and school_id='"+req.query.schoolid+"'";
+console.log("start-------------------");
+console.log(qur);
+console.log("----------end--------------");
+
   connection.query('SELECT name as uname,  school_id as school,(select name from md_school where id=school) as name ,(select address from md_school where id=school) as addr,(select affiliation_no from md_school where id=school) as affno,(select email_id from md_school where id=school) as email,(select website from md_school where id=school) as website,(select telno from md_school where id=school) as telno  from md_employee where ? and ? and ? and ?',[id,username,password,schoolid],
     function(err, rows)
     {
@@ -13735,10 +13741,10 @@ app.post('/fngetinfosectionerrdilalog-service',  urlencodedParser,function (req,
  var qur;
    if(req.query.gradename=='Grade-1'||req.query.gradename=='Grade-2'||req.query.gradename=='Grade-3'||req.query.gradename=='Grade-4'){
 
-qur="SELECT distinct term_name from tr_term_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"' and student_id='"+req.query.studid+"'"; 
+qur="SELECT distinct term_name from tr_term_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"'"; 
    }
    else{
-qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"' and student_id='"+req.query.studid+"'";
+qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"'";
 }
   
   /*var qur1="SELECT * from tr_student_to_subject  where grade='"+req.query.gradeid+"' and class_id='"+req.query.sectionid+"' and student_id='"+req.query.studid+"'";*/
