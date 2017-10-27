@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardnew'
+   database : 'reportcardcloud'
  });
 
 var bodyParser = require('body-parser'); 
@@ -13735,10 +13735,10 @@ app.post('/fngetinfosectionerrdilalog-service',  urlencodedParser,function (req,
  var qur;
    if(req.query.gradename=='Grade-1'||req.query.gradename=='Grade-2'||req.query.gradename=='Grade-3'||req.query.gradename=='Grade-4'){
 
-qur="SELECT distinct term_name from tr_term_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"'"; 
+qur="SELECT distinct term_name from tr_term_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"' and student_id='"+req.query.studid+"'"; 
    }
    else{
-qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"'";
+qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"' and student_id='"+req.query.studid+"'";
 }
   
   /*var qur1="SELECT * from tr_student_to_subject  where grade='"+req.query.gradeid+"' and class_id='"+req.query.sectionid+"' and student_id='"+req.query.studid+"'";*/

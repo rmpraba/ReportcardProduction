@@ -76,6 +76,7 @@
     'use strict';
    var gradearr=[];
     var ovaerallsectioarr=[];
+    var temp=[];
     var len1=0;
     var len2=0;
     Polymer({
@@ -92,6 +93,7 @@
                 obj.id=this.gradeid;
                 obj.gradename=this.gradename;
                 gradearr.push(obj);
+                temp.push(obj);
        //  alert(JSON.stringify(gradearr)); 
                  
            
@@ -293,7 +295,7 @@ document.querySelector('single-staff-mapping-card').sectionarr=ovaerallsectioarr
            }
          },
     fnclear:function(e){
-     
+    
      for(var i=0;i<gradearr.length;i++){
                          var m=gradearr[i].id;
                        document.querySelector('#'+m).checked=false;        
@@ -301,6 +303,10 @@ document.querySelector('single-staff-mapping-card').sectionarr=ovaerallsectioarr
     var obj={};
    ovaerallsectioarr=[];
    gradearr=[];
+    },
+    
+    fnclear2:function(e){
+    
     },
     fnclear1:function(e){
     var obj={};

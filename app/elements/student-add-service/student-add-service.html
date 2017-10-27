@@ -498,22 +498,23 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
     fnpersonalinfomationResponse:function(e)
         {
           var res=e.detail.response.returnval;
-          document.querySelector('student-information-card').parentsubmitinfo();
+document.querySelector('student-information-card').parentsubmitinfo();
           //alert('student');
         },
 fnstudnameinfo:function(fname,lsname,midname,studid,gradename,gradeid,classid,sectionname){
      for(var i=0;i<studenttablearr.length;i++){
      this.fnstudnameinfo1url=sessionStorage.getItem("addrinfo")+"/fnstudnameinfo-service";
-           var obj={};
-      obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
-      obj.academicyear=localStorage.getItem("curr_sess_academicyear");
-      obj.studenttable=studenttablearr[i].studenttable;
-      obj.dbgradeid=studenttablearr[i].grade_id;
-      obj.dbgradename=studenttablearr[i].gradename;
-      obj.dbclassid=studenttablearr[i].classid;
-      obj.dbsection=studenttablearr[i].section;
-      obj.dbstudid=studenttablearr[i].studentid;
-      obj.dbstudentname=studenttablearr[i].studentname;
+
+       var obj={};
+       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+       obj.academicyear=localStorage.getItem("curr_sess_academicyear");
+       obj.studenttable=studenttablearr[i].studenttable;
+       obj.dbgradeid=studenttablearr[i].grade_id;
+       obj.dbgradename=studenttablearr[i].gradename;
+       obj.dbclassid=studenttablearr[i].classid;
+       obj.dbsection=studenttablearr[i].section;
+       obj.dbstudid=studenttablearr[i].studentid;
+       obj.dbstudentname=studenttablearr[i].studentname;
        obj.gradeid1=gradeid;
        obj.gradename1=gradename;
        obj.classid1=classid;
