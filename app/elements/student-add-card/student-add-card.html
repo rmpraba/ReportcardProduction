@@ -72,29 +72,34 @@
       <div class="fullhorizontal" style="width: 120%;">
       <div class="horizontalframe">
         <div class="fields" >
-          <paper-dropdown-menu  id="admnyr" label="Select  Acadamic year">
-              <paper-menu id="newadminyearstud" class="dropdown-content"   on-iron-select="Fnadminyr" attr-for-selected="value" required>
+
+
+
+        <paper-dropdown-menu id="admnyr" label="Select Acadamic year">
+            <paper-menu id="{{studadyear}}" class="dropdown-content"   on-iron-select="Fnadminyr" attr-for-selected="value" required>
                 <paper-item value="2016-2017">AY-2016-2017</paper-item>
                 <paper-item value="2017-2018">AY-2017-2018</paper-item>
                 <paper-item value="2018-2019">AY-2018-2019</paper-item>
                 <paper-item value="2019-2020">AY-2019-2020</paper-item>
-              </paper-menu>
-            </paper-dropdown-menu>
-        </div>
-         <div class="fields" style="margin-left: 3%" >
-         <paper-input label="Enrollment Number" value="{{enroll}}"></paper-input>
-        </div>
-        <div class="fields" style="margin-left: 5%;">
-           <paper-dropdown-menu id="grade" label="Select Grade">
-            <paper-menu id="newstudgradeids" class="dropdown-content" on-iron-select="FnStosGrade">
-
-              <template is="dom-repeat" items="{{studentgradearrr}}">
-                <paper-item value="{{item.grade_id}}">{{item.grade_name}}</paper-item>
-              </template>
             </paper-menu>
           </paper-dropdown-menu>
         </div>
-        </div>  
+
+
+         <div class="fields" style="margin-left: 3%" >
+         <paper-input label="Enrollment Number" value="{{enroll}}"></paper-input>
+        </div>
+
+        <div class="fields" style="margin-left: 5%;">
+          <paper-dropdown-menu  label="Select Grade">
+            <paper-menu id="{{grdstudad}}" class="dropdown-content"   on-iron-select="FnStosGrade">
+              <template is="dom-repeat" items="{{studentgradearrr}}">
+              <paper-item value="{{item.grade_id}}">{{item.grade_name}}</paper-item>
+              </template>    
+            </paper-menu>
+          </paper-dropdown-menu>
+        </div>
+      </div>  
 
       <div class="horizontalframe1">
 
@@ -197,10 +202,10 @@
           </div>
         </div>
         <div class="fields" style="margin-left:13%;">
-          <paper-input id="fcity" label="City" value="{{city}}"></paper-input>
+          <paper-input id="fcity" label="City"  allowed-pattern="[a-zA-Z]" value="{{city}}"></paper-input>
         </div>
         <div class="fields" style="margin-left:5%;">
-          <paper-input id="fpin" label="Pincode" allowed-pattern="[0-9]" value="{{pincode}}"></paper-input>
+          <paper-input id="fpin" label="Pincode" allowed-pattern="[0-9]" maxlength="6" value="{{pincode}}"></paper-input>
         </div>
       </div>
      </div> 
@@ -222,7 +227,6 @@
     Polymer({
       is: 'student-add-card',
 
-
      FnStosGrade:function(e)
      {
        this.gradeid=e.target.selectedItem.value;
@@ -231,8 +235,8 @@
      Fnadminyr:function(e)
      {
       this.academicyear=e.target.selectedItem.textContent.trim(); 
-     },
-Fnacayr:function(e)
+       },
+    Fnacayr:function(e)
      {
      // alert(this.admissionyear);
       this.admissionyear=e.target.selectedItem.textContent.trim(); 
@@ -246,7 +250,7 @@ Fnacayr:function(e)
   document.querySelector('#'+this.female11).checked=false;
        
 
-         gender="Boy";
+         gender="Male";
          //alert(gender);
         }
       },
@@ -258,7 +262,7 @@ Fnacayr:function(e)
 if(document.querySelector('#'+this.female11).checked==true)
         {
   document.querySelector('#'+this.male11).checked=false;
-   gender="Girl";
+   gender="Female";
          //alert(gender);
         }
       },
@@ -273,7 +277,7 @@ if(document.querySelector('#'+this.female11).checked==true)
       document.querySelector("#female").checked=false;
          //alert(document.querySelector("#female").checked);
 
-         gender="Boy";
+         gender="Male";
          //alert(gender);
         }
       },
@@ -286,7 +290,7 @@ if(document.querySelector('#'+this.female11).checked==true)
          document.querySelector("#male").checked=false;
     //  alert(document.querySelector("#male").checked);
 
-         gender="Girl";
+         gender="Female";
          //alert(gender);
         }
       },
@@ -340,17 +344,29 @@ if(document.querySelector('#'+this.transnoz).checked==false)
 
             alert("Please Select gender");
         }
-        else if (this.enroll=="" || this.fname=="" || this.lsname=="" || this.showdate=="" || this.fathername=="" || this.mothername=="" || this.gradeid==""&& this.academicyear=="")
+        else if (this.enroll=="" || this.fname=="" || this.gradeid=="" || this.academicyear=="" || this.city=="" || this.pincode=="")
           {
-            alert("Please insert the value");
+            alert("Please Insert all the fields");
 
           }
 
-          else if(this.ageofyr=="" )
+          else if(this.ageofyr=="" || this.showdate=="")
           {
             alert("Please Select Date of birth");
           }
 
+          else if(this.fathername=="" && this.mothername=="")
+          {
+            alert("Please Enter Father or Mother Name");
+          }
+          else if(this.fatheremail=="" && this.motheremail=="")
+          {
+            alert("Please Enter Father or Mother Email id");
+          }
+          else if(this.fathermob=="" && this.mothermob=="")
+          {
+            alert("Please Enter Father or Mother Mobile number");
+          }
            else
            {
 
@@ -361,14 +377,27 @@ if(document.querySelector('#'+this.transnoz).checked==false)
                 this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,transport);
                 this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
                 transport="";
-                this.FnfullRefresh();
+          this.showdate=moment(new Date()).format('L');
+          localStorage.setItem("localsess_birth_date",this.showdate);
+
+          document.querySelector('#'+this.studadyear).selected=-1;
+          document.querySelector('#'+this.grdstudad).selected=-1;
+                 this.FnfullzRefresh();
               }
               else
               {
                 this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,this.transport);
                 this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
                 transport="";
-                this.FnfullRefresh();
+
+            this.showdate=moment(new Date()).format('L');
+            localStorage.setItem("localsess_birth_date",this.showdate);  
+
+            document.querySelector('#'+this.studadyear).selected=-1;
+            document.querySelector('#'+this.grdstudad).selected=-1;
+ 
+
+                this.FnfullzRefresh();
               }
             }
       
@@ -399,13 +428,10 @@ if(document.querySelector('#'+this.transnoz).checked==false)
       {
         this.$.mydialog.toggleDialog();
       },
-      FnfullRefresh:function()
+      FnfullzRefresh:function()
       {
-        this.hideonegender=false;
-        this.hidetwogender=true;
-   document.querySelector('#newadminyearstud').selected=-1;
-   document.querySelector('#newstudgradeids').selected=-1;
-    document.querySelector('student-dob-date-picker').FnCleardob();
+        // this.hideonegender=false;
+        // this.hidetwogender=true;
         this.enroll="";
         this.fname="";
         this.midname="";
@@ -424,6 +450,9 @@ if(document.querySelector('#'+this.transnoz).checked==false)
         this.address3="";
         this.city="";
         this.pincode="";
+        document.querySelector('#'+this.male11).checked=false;
+        document.querySelector('#'+this.female11).checked=false;
+        
       },
       setdobvalid:function()
       {

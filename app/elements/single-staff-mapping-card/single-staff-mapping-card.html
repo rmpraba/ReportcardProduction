@@ -107,14 +107,13 @@
     </div>
     <div>  
     <div class="student" id="studrmv">
-            <paper-input label="Enter Employee Name" is="" value="{{value}}" on-keydown="FnSearchstudname"></paper-input>
-              <paper-listbox class="dropdown-content" id="employeelistid" on-iron-select="FnSelectstudenq">
-                <template is="dom-repeat" items="{{itemArray}}" as="item">
-                 <paper-item value="{{item.itemid}}">{{item.itemdes}}</paper-item>
-                </template>
-              </paper-listbox>
-
-    </div>
+       <paper-input label="Enter Employee Name" is="" value="{{value}}" on-keydown="FnSearchstudname"></paper-input>
+           <paper-listbox class="dropdown-content" id="employeelistid" on-iron-select="FnSelectstudenq">
+           <template is="dom-repeat" items="{{itemArray}}" as="item">
+            <paper-item value="{{item.itemid}}">{{item.itemdes}}</paper-item>
+          </template>
+           </paper-listbox>
+      </div>
 
    <span  class="colapsinfo" >
        <button  id="empmapzzz" style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnemployee"> Employee Mapping</button>
@@ -157,7 +156,8 @@
         <h3 style="margin-left: 10%;margin-top: 4.7%;position: absolute;">Grade Name</h3>
           <div class="grdcard" style="position: absolute;">
             <template is="dom-repeat" items="{{gradearr}}" as="item">
-              <single-employee-grade-card gradename="{{item.grade_name}}" gradeid="{{item.grade_id}}" check="{{item.check}}" empid="{{empid}}"></single-employee-grade-card>
+            <single-employee-grade-card gradename="{{item.grade_name}}" gradeid="{{item.grade_id}}" check="{{item.check}}" empid="{{empid}}">
+             </single-employee-grade-card>
             </template>
           </div>
       </div>
@@ -213,9 +213,7 @@
        getstudentdet:function(arr)
      {
         studentnamearr=arr;
-    // alert(JSON.stringify(studentnamearr));
-
-     },
+       },
    fnfinalvalue:function(arr){
       finallarr=arr;
    },

@@ -174,11 +174,18 @@
 
       rolecheckResponse:function(e)
       {
-      // alert(JSON.stringify(e.detail.response.returnval));
+   //alert(JSON.stringify(e.detail.response.returnval));
       var rolearr=e.detail.response.returnval;
+  
+      if(rolearr=="invalid"){
+      alert("Enter the valid Username and Password");
+      }
+      else{
       document.querySelector('login-card').rolearr=rolearr;
       document.querySelector('login-card').schname=rolearr[0].name;
       sessionStorage.setItem("curr_sess_loggedschoolid",rolearr[0].school_id);
+      
+      }
       },
       roletype:function(rolename,roleid)
       {

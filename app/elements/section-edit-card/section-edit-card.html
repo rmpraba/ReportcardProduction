@@ -75,6 +75,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
         </div>
 
+        <paper-dialog>
+          
+        </paper-dialog>
+
             <demosumbit-card id="mydialog"></demosumbit-card>  
           <master-ui-service id="uiservice"></master-ui-service>
 
@@ -151,8 +155,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               editpassarr.push(obj);
               //alert(JSON.stringify(editpassarr));
 
-                  this.$.uiservice.secctionupdate(editpassarr); 
-                  this.$.mydialog.toggleDialog();
+              this.$.uiservice.secctionupdate(editpassarr); 
+              this.$.uiservice.techersectionupdate(this.sectgradeid,this.sectionid,this.sectionname);
+                  //this.$.mydialog.toggleDialog();
                   this.FnRefresh();
           }
      },
@@ -162,6 +167,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         document.querySelector('#fnedittgradeid').selected=-1;
         document.querySelector('#fneditsectionid').selected=-1;
         this.sectionname="";
+     },
+     savesectdialog:function()
+     {
+      alert('ch');
+      this.$.mydialog.toggleDialog();
      }
 
 

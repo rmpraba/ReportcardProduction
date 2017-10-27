@@ -237,7 +237,7 @@
 
 
       <div class="specific1"  id="hidespecific">
-        <table style="border-collapse: collapse;width: 70%;">            
+        <table style="border-collapse: collapse;width:80%;">            
           <tr>
             <th></th>
             <td style="padding-left: 3%;">
@@ -249,7 +249,7 @@
           </tr>     
           <tbody>
             <td><h4>{{value}}</h4></td>
-            <td style="width: 80%;padding-left: 7%;">
+            <td style="padding-left: 5%;">
               <table border="0">
                 <tr>
                   <template is="dom-repeat" items="{{sectionsetarr}}" as="s">
@@ -1006,6 +1006,7 @@ for(var j=0;j<l.length;j++){
         overall=[];
         g=[];
         setarrr=[];
+        document.querySelector('specific-student-section-card').studentsectioncleanzzzz();
      },
 
 
@@ -1134,9 +1135,8 @@ for(var j=0;j<l.length;j++){
     //this.$.uiservice.previoussection(admission_no,this.stugradeid,schooltype); 
 
     this.$.uiservice.selectspecificstudent(admission_no);
-      
-       
-     document.querySelector('specific-student-section-card').studentsectionclean();
+   
+    document.querySelector('specific-student-section-card').studentsectioncleanzzzz();
 
     },
 
@@ -1186,7 +1186,7 @@ for(var j=0;j<l.length;j++){
           this.value="";
           this.$.hidespecific.hidden=true;
           
-          document.querySelector('specific-student-section-card').studentsectionclean();
+          document.querySelector('specific-student-section-card').studentsectioncleanzzzz();
         }
     },
     fnenq:function(enq1)

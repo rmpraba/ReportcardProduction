@@ -1185,7 +1185,7 @@
             debounce-duration="300">
       </iron-ajax>
 
-            <iron-ajax
+            <!-- <iron-ajax
             id="teacherupdatesectionajax"
             url="{{teacherupdatesectionurl}}"
             params="{{teacherupdatesectionparam}}"
@@ -1194,8 +1194,20 @@
             method="post"
             on-response="teacherupdatesectionResponse"
             debounce-duration="300">
-      </iron-ajax>
+      </iron-ajax> -->
  
+
+
+        <iron-ajax
+            id="techersectionupdateajax"
+            url="{{techersectionupdateurl}}"
+            params="{{techersectionupdateparam}}"
+            handle-as="json"
+            content-type="application/json"
+            method="post"
+            on-response="techersectionupdateResponse"
+            debounce-duration="300">
+      </iron-ajax>
 
       <demosumbit-card id="service1"></demosumbit-card>
       
@@ -3601,23 +3613,26 @@ insertschoolTypename:function(schooltypesarr)
                  this.secctionupdateyyyparam=obj;
                  this.$.secctionupdateyyyajax.generateRequest();
 
-
+/*
                  this.teacherupdatesectionurl=sessionStorage.getItem("addrinfo")+"/fnteachersect-service";
                  var obj={"school_id":"","sectionid":"","classid":"","academic_year":""};
                  obj.school_id=sessionStorage.getItem("curr_sess_loggedschoolid");
                  obj.sectionid=sectionid;
                  obj.classid=class_id;
                  obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
-                    //alert(JSON.stringify(obj));
-                 this.teacherupdatesectionparam=obj;
-                 this.$.teacherupdatesectionajax.generateRequest();
+                      this.teacherupdatesectionparam=obj;
+                 this.$.teacherupdatesectionajax.generateRequest();*/
 
              }  
         },
         secctionupdateResponse:function(e)
         {
             var res=e.detail.response.returnval;
-           // alert(JSON.stringify(res));
+           //alert(JSON.stringify(res));
+           if(res=='Updated!')
+           {
+            alert('Updated');
+           }
         },
         secctionupdatezzResponse:function(e)
         {
@@ -3629,13 +3644,28 @@ insertschoolTypename:function(schooltypesarr)
             var res=e.detail.response.returnval;
             //alert(JSON.stringify(res));
         },
-        teacherupdatesectionResponse:function(e)
+        
+        techersectionupdate:function(gradeid,classid,sectionname)
         {
-              var res=e.detail.response.returnval;
+            this.techersectionupdateurl=sessionStorage.getItem("addrinfo")+"/techersectionupdate-service";
+                 var obj={"school_id":"","grade_id":"","classid":"","academic_year":"","sectionname":""};
+                 obj.school_id=sessionStorage.getItem("curr_sess_loggedschoolid");
+                 obj.gradeid=gradeid;
+                 obj.classid=classid;
+                 obj.sectionname=sectionname;
+                 obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
+                    //alert(JSON.stringify(obj));
+                 this.techersectionupdateparam=obj;
+                 this.$.techersectionupdateajax.generateRequest();
+
+        },
+        techersectionupdateResponse:function(e)
+        {
+            var res1=e.detail.response.teacharr;
+            var res2=e.detail.response.languagearr;
+            var res3=e.detail.response.curriculumarr;
             //alert(JSON.stringify(res));
-        }
-       
-                
+        }                
     });
   })();
   </script>

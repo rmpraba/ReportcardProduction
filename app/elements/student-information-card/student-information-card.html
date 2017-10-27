@@ -8,19 +8,7 @@
 <dom-module id="student-information-card">
   <template>
     <style>
-     paper-checkbox {
-      --paper-checkbox-size: 2em;
-      --paper-checkbox-checked-color: var(--paper-red-500);
-      --paper-checkbox-checked-ink-color: var(--paper-red-500);
-      --paper-checkbox-unchecked-color: var(--paper-red-900);
-      --paper-checkbox-unchecked-ink-color: var(--paper-red-900);
-      --paper-checkbox-label-color: var(--paper-red-500);
-      --paper-checkbox-vertical-align: top;
-    }
-
-   
-
-   
+    
       :host {
         display: block;
       }
@@ -131,7 +119,7 @@
        </span>
     </div>
        <div id="addstudentinfoid">
-      <student-add-card taransyesz="taransyesz1" transnoz="transnoz1" male11="maleidzz" female11="femaleidzz" ageofyr="{{ageofyrs}}" hideonegender="{{hideonegender}}" studentgradearrr="{{studentgradearrr}}" hidetwogender="{{hidetwogender}}"></student-add-card>
+      <student-add-card grdstudad="grdstudad" studadyear="studadyear" taransyesz="taransyesz1" transnoz="transnoz1" male11="maleidzz" female11="femaleidzz" ageofyr="{{ageofyrs}}" hideonegender="{{hideonegender}}" studentgradearrr="{{studentgradearrr}}" hidetwogender="{{hidetwogender}}"></student-add-card> 
        </div>
        <div id="removestudentinfoid">
           <student-remove-card studentslist="studentslistzz" grade="{{grade}}" section="{{section}}" gradeid="{{gradeid}}" classid="{{classid}}"  hidetwostudentinfo="{{hidetwostudentinfo}}" hideonestudentinfo="{{hideonestudentinfo}}"></student-remove-card>
@@ -268,7 +256,9 @@
           </div>
           <div class="gender">
              <div >
-              <span><paper-checkbox id="males"  class="checkbox" on-change="fnmales">Boy</paper-checkbox></span>
+              <span>
+              <paper-checkbox id="males"  class="checkbox" on-change="fnmales">Boy</paper-checkbox>
+              </span>
             <span><paper-checkbox  id="females" class="checkbox" on-change="fnfemales">Girl</paper-checkbox></span>
              </div>
             </div>
@@ -357,7 +347,7 @@
  </iron-collapse>
 
      <paper-dialog id="termarrinformationid" modal>
-       <h3 hidden$="{{termarrinfonatioid}}">This Section is already mapped to following Term</h3>
+       <h3 hidden$="{{termarrinfonatioid}}">This Student mark is already entered in following Term</h3>
     
         <template is="dom-repeat" items="{{termarr}}">
         <h4>*{{item.term_name}}</h4>
@@ -410,19 +400,23 @@ var dobdate;
       },
       fnpersonal:function(e)
       {
-        this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
-        this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender);
+ this.$.studservice.fnpersonalinfomation(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender,this.gradenamez,this.gradeidzzsss,this.classid,this.sectionid);
+
+  this.$.studservice.fnstudpersonalinfo(this.academicyear,this.fname,this.lsname,this.midname,this.showdate,this.ageofyrs,this.studid,gender,this.gradenamez,this.gradeidzzsss,this.classid,this.sectionid);
+
+   this.$.studservice.fnstudnameinfo(this.fname,this.lsname,this.midname,this.studid,this.gradenamez,this.gradeidzzsss,this.classid,this.sectionid);
+
 
     },
   fnlan:function(e){
     if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
 
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan);
+     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
    }
    else{
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan);
+     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
 
-     this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen);
+     this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen,this.value);
       }
        },
       fnacadamics:function(e){
@@ -433,15 +427,13 @@ this.$.studservice.fnacadamicsinfomation1(this.studid,this.gradeidzzsss1,this.gr
   else{
  this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid);
  this.$.studservice.fnacadamicsinfomation2(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
-  }
-
-  
-      },
-       fnsetdateofbirth:function(dates)
+    }
+   },
+ fnsetdateofbirth:function(dates)
        {
           // e=this.showdate;
 
-          var dt1=new Date(dates);
+       var dt1=new Date(dates);
          dobdate=dates;
          var dt=new Date();
          var dt=new Date();
@@ -461,6 +453,14 @@ this.academicyear=e.target.selectedItem.textContent.trim();
 fnselectgrade11:function(e){
   this.gradeidzzsss=e.target.selectedItem.value;
   this.gradenamez=e.target.selectedItem.textContent.trim();
+if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
+ this.hidestudentinfolangid=true;
+}
+else{
+ this.hidestudentinfolangid=false;
+
+}
+
 //alert(this.gradeidzzsss+" "+this.gradenamez);
  this.$.studservice.fngetsectionname(this.gradeidzzsss);
 },
@@ -547,6 +547,7 @@ fnaddstudent:function(e){
 
   if(document.querySelector("#addstudentid").checked==true)
   {
+    document.querySelector('student-remove-card').fnrefremve();
     document.querySelector("#removestudentid").checked=false;
     document.querySelector("#updatestudentid").checked=false;
     this.$.addstudentinfoid.hidden=false;
@@ -562,6 +563,7 @@ fnaddstudent:function(e){
     this.$.academicinfoid.opened=false; 
     this.$.languageinfoid.opened=false;  
   }
+
 },
 fnrmovestudent:function(e){
 if(document.querySelector("#removestudentid").checked==true)
@@ -570,7 +572,8 @@ if(document.querySelector("#removestudentid").checked==true)
     document.querySelector("#addstudentid").checked=false;
   document.querySelector("#updatestudentid").checked=false;
 
-  document.querySelector('student-add-card').FnfullRefresh();
+  document.querySelector('student-add-card').FnfullzRefresh();
+
        this.$.addstudentinfoid.hidden=true;
        this.$.removestudentinfoid.hidden=false;
        this.$.updatestudentinfoid.hidden=true;
@@ -578,20 +581,24 @@ if(document.querySelector("#removestudentid").checked==true)
        this.hidetwostudentinfo=false;
        this.value="";
        this.$.parentinfoid.opened=false;
-    this.$.pesonalinfoid.opened=false;
-    this.$.academicinfoid.opened=false; 
-    this.$.languageinfoid.opened=false;
+       this.$.pesonalinfoid.opened=false;
+       this.$.academicinfoid.opened=false; 
+       this.$.languageinfoid.opened=false;
        }
     },
-      getstudentdet:function(arr)
+  getstudentdet:function(arr)
      {
         studentnamearr=arr;
      },
 fnupdatestudent:function(e){
  if(document.querySelector("#updatestudentid").checked==true)
     {
+    document.querySelector('student-remove-card').fnrefremve();
+
         document.querySelector("#removestudentid").checked=false;
         document.querySelector("#addstudentid").checked=false;
+
+        document.querySelector('student-add-card').FnfullzRefresh();
         this.$.addstudentinfoid.hidden=true;
         this.$.removestudentinfoid.hidden=true;
         this.$.updatestudentinfoid.hidden=false;
@@ -614,6 +621,7 @@ fnupdatestudent:function(e){
           this.itemArray=[];
           document.querySelector('#studentslistz1').selected=-1;
           this.$.studservice.fngetstudentallinfo(this.studentid);
+          this.$.studservice.fngetstudname1(this.studentid);
           this.studid=this.studentid;
           document.querySelector('#newifosectionidzza').selected=-1;
           this.classid="";
