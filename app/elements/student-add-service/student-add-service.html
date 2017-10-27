@@ -291,9 +291,7 @@
         on-response="flagupdatestudResponse"
         debounce-duration="300">
       </iron-ajax>
-      
-
-       <iron-ajax
+      <iron-ajax
         method="post"
         id="fngetstudname1ajax"
         url="{{fngetstudname1url}}"
@@ -303,15 +301,42 @@
         on-response="fngetstudname1Response"
         debounce-duration="300">
       </iron-ajax>
+      <iron-ajax
+        method="post"
+        id="fnstudnameinfo1ajax"
+        url="{{fnstudnameinfo1url}}"
+        params="{{fnstudnameinfo1param}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnstudnameinfo1Response"
+        debounce-duration="300">
+      </iron-ajax>
+     <iron-ajax           
+        id="studentconficsajax"
+        url="../../configfile/student.json"
+        params="{{studentconficsparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="studentconficsResponse"
+        debounce-duration="300">
+    </iron-ajax>
   </template>
   <script>
   (function() {
     'use strict';
     var len1=0;
     var len2=0;
+    var studenttablearr=[];
     Polymer({
       is: 'student-add-service',
- fnacadamic:function(){
+ studentconfics:function(){
+        this.$.studentconficsajax.generateRequest();
+      },
+  studentconficsResponse:function(e){
+    studenttablearr=e.detail.response; 
+        alert(JSON.stringify(studenttablearr));
+      }, 
+      fnacadamic:function(){
         this.$.academic1ajax.generateRequest();
       },
       academic1Response:function(e){
@@ -454,7 +479,9 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
          },
    fnpersonalinfomation:function(academicyear,fname,lsname,midname,showdate,ageofyrs,studid,gender)
            {  
-            this.fnpersonalinfomationurl=sessionStorage.getItem("addrinfo")+"/fnpersonalinfomation-service";
+
+           
+  this.fnpersonalinfomationurl=sessionStorage.getItem("addrinfo")+"/fnpersonalinfomation-service";
            var obj={};
                obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
                obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
@@ -474,7 +501,36 @@ fnparentinfomation:function(studid,fathername1,mothername1,fathermob,mothermob,m
           document.querySelector('student-information-card').parentsubmitinfo();
           //alert('student');
         },
+fnstudnameinfo:function(fname,lsname,midname,studid,gradename,gradeid,classid,sectionname){
+     for(var i=0;i<studenttablearr.length;i++){
+     this.fnstudnameinfo1url=sessionStorage.getItem("addrinfo")+"/fnstudnameinfo-service";
+           var obj={};
+      obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+      obj.academicyear=localStorage.getItem("curr_sess_academicyear");
+      obj.studenttable=studenttablearr[i].studenttable;
+      obj.dbgradeid=studenttablearr[i].grade_id;
+      obj.dbgradename=studenttablearr[i].gradename;
+      obj.dbclassid=studenttablearr[i].classid;
+      obj.dbsection=studenttablearr[i].section;
+      obj.dbstudid=studenttablearr[i].studentid;
+      obj.dbstudentname=studenttablearr[i].studentname;
+       obj.gradeid1=gradeid;
+       obj.gradename1=gradename;
+       obj.classid1=classid;
+       obj.section1=sectionname;
+       obj.studid1=studid;
+       obj.studentname1=fname+' '+midname+' ' +lsname;
+       alert(JSON.stringify(obj));
+       this.fnstudnameinfo1param=obj;
+       this.$.fnstudnameinfo1ajax.generateRequest();
 
+         }
+        },
+fnstudnameinfoResponse:function(e)
+        {
+           var res=e.detail.response.returnval;
+           alert(JSON.stringify(res));
+        },
         fnstudpersonalinfo:function(academicyear,fname,lsname,midname,showdate,ageofyrs,studid,gender)
         {
             this.fnstudpersonalinfourl=sessionStorage.getItem("addrinfo")+"/fnstudpersonalinfo-service";

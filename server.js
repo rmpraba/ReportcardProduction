@@ -13325,7 +13325,7 @@ app.post('/fnparentinfomation-service',  urlencodedParser,function (req,res)
 app.post('/fnpersonalinfomation-service',  urlencodedParser,function (req,res)
   {  
 
-  var qur="UPDATE md_student SET student_name='"+req.query.studentname+"',dob='"+req.query.showdate+"',ageinmonth='"+req.query.ageofyrs+"',gender='"+req.query.gender+"'  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and id='"+req.query.studid+"'";
+   var qur="UPDATE md_student SET student_name='"+req.query.studentname+"',dob='"+req.query.showdate+"',ageinmonth='"+req.query.ageofyrs+"',gender='"+req.query.gender+"'  WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and id='"+req.query.studid+"'";
     console.log('------------update return status -------------');
     console.log(qur);
     connection.query(qur,
@@ -13345,8 +13345,27 @@ app.post('/fnpersonalinfomation-service',  urlencodedParser,function (req,res)
 });
 
 
+app.post('/fnstudnameinfo-service',  urlencodedParser,function (req,res)
+  {  
 
-
+var qur="UPDATE "+req.query.studenttable+" SET "+req.query.dbstudentname+"='"+req.query.studentname1+"' WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and ("+req.query.dbgradeid+"='"+req.query.gradeid1+"' or "+req.query.dbgradename+"='"+req.query.gradename1+"' )and ("+req.query.dbclassid+"='"+req.query.classid1+"' or  "+req.query.dbsection+"='"+req.query.section1+"') and "+req.query.dbstudid+"='"+req.query.studid1+"'";
+     console.log('------------update return status -------------');
+     console.log(qur);
+     console.log('---------------------------------------------');
+     connection.query(qur,
+    function(err, rows)
+    {
+    if(!err)
+    {    
+      res.status(200).json({'returnval': 'Updated!!'});
+    }
+    else
+    {
+     console.log(err);
+     res.status(200).json({'returnval': 'Not Updated!!'}); 
+    }
+  });
+});
 
 
 
@@ -13532,12 +13551,12 @@ app.post('/fnacadamicsinfomation1-service',  urlencodedParser,function (req,res)
     var qur4="Delete from tr_term_assesment_overall_marks where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and term_name='"+req.query.termid+"' and grade='"+req.query.gradenamez+"' and student_id='"+req.query.studid+"' and section='"+req.query.sectionid+"'";
 
     var qur5="Delete from tr_term_assesment_overall_assesmentmarks where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and term_name='"+req.query.termid+"' and grade='"+req.query.gradenamez+"' and student_id='"+req.query.studid+"' and section='"+req.query.sectionid+"'";
-
+    
     console.log("---------------------------------");
     console.log(qur3);
     console.log("---------------------------------");
     console.log(qur4);
-     console.log("---------------------------------");
+    console.log("---------------------------------");
     console.log(qur5);
    
     var trdeltarr=[];
