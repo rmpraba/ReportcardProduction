@@ -334,7 +334,7 @@
       },
   studentconficsResponse:function(e){
     studenttablearr=e.detail.response; 
-        alert(JSON.stringify(studenttablearr));
+       // alert(JSON.stringify(studenttablearr));
       }, 
       fnacadamic:function(){
         this.$.academic1ajax.generateRequest();
@@ -520,16 +520,16 @@ fnstudnameinfo:function(fname,lsname,midname,studid,gradename,gradeid,classid,se
        obj.section1=sectionname;
        obj.studid1=studid;
        obj.studentname1=fname+' '+midname+' ' +lsname;
-       alert(JSON.stringify(obj));
+       //alert(JSON.stringify(obj));
        this.fnstudnameinfo1param=obj;
        this.$.fnstudnameinfo1ajax.generateRequest();
 
          }
         },
-fnstudnameinfoResponse:function(e)
+      fnstudnameinfoResponse:function(e)
         {
            var res=e.detail.response.returnval;
-           alert(JSON.stringify(res));
+           //alert(JSON.stringify(res));
         },
         fnstudpersonalinfo:function(academicyear,fname,lsname,midname,showdate,ageofyrs,studid,gender)
         {
@@ -990,13 +990,14 @@ fetchstudentinfoResponse:function(e)
           //alert('student');
           var res=e.detail.response.updatearr1;
           var res1=e.detail.response.delarr;
+          alert('Deleted Succesfully');
           //alert(JSON.stringify(res));
           //alert(JSON.stringify(res1));
         },
 
         deletestudtermmarks:function(studentid,gradeid,classid,grade,section,term)
         {
-        //  alert('call');
+            //alert('call');
             this.deletestudtermmarksurl=sessionStorage.getItem("addrinfo")+"/deletetermstudent-service";
             var obj={"schoolid":"","academic_year":"","flag":""};
             obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
@@ -1036,10 +1037,10 @@ fetchstudentinfoResponse:function(e)
         deletestudtermmarks1Response:function(e)
         {
           var res=e.detail.response.returnval;
-          if(res=='Deleted')
-          {
-            alert('test');
-          }
+          // if(res=='Deleted')
+          // {
+          //   alert('Deleted Succesfully');
+          // }
          },
 
          flagupdatestud:function(studentid,grade)
