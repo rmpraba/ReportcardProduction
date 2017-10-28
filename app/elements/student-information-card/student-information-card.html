@@ -427,12 +427,16 @@ var dobdate;
 this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value,this.showdate,gender,this.ageofyrs,this.langprefs);
 this.$.studservice.fnacadamicsinfomation3(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value,this.showdate,gender,this.ageofyrs);
 this.$.studservice.fnacadamicsinfomation1(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
+this.$.studservice.fetchstudentremove();
+
     }
   else{
           this.langprefs="Third Language"
      this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.showdate,gender,this.ageofyrs,this.langprefs);
     this.$.studservice.fnacadamicsinfomation3(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value,this.showdate,gender,this.ageofyrs);
     this.$.studservice.fnacadamicsinfomation2(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
+    this.$.studservice.fetchstudentremove();
+
     }
    },
  fnsetdateofbirth:function(dates)

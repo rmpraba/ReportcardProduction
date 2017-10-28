@@ -13533,7 +13533,7 @@ app.post('/fnacadamicsinfomation-service' , urlencodedParser,function (req, res)
            }
    
     console.log(JSON.stringify(response));
-      var qur="SELECT * FROM tr_student_to_subject WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and grade='"+req.query.gradeidzzsss+"'  and class_id='"+req.query.classid+"' and student_id='"+req.query.studid+"'and flag='active' ";
+      var qur="SELECT * FROM tr_student_to_subject WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and student_id='"+req.query.studid+"'and flag='active' ";
 
      var qur1="UPDATE tr_student_to_subject set grade='"+req.query.gradeidzzsss+"',section='"+req.query.sectionid+"', class_id='"+req.query.classid+"'where school_id='"+req.query.schoolid+"'and student_id='"+req.query.studid+"' and academic_year='"+req.query.academic_year+"'and flag='active'";
     console.log(qur);
@@ -13590,7 +13590,7 @@ app.post('/fnacadamicsinfomation3-service' , urlencodedParser,function (req, res
         
 
     console.log(JSON.stringify(response));
-      var qur="SELECT * FROM md_student WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and grade_id='"+req.query.gradeidzzsss+"'  and class_id='"+req.query.classid+"' and id='"+req.query.studid+"'";
+      var qur="SELECT * FROM md_student WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and id='"+req.query.studid+"'";
 
       var qur1="UPDATE md_student set class_id='"+req.query.classid+"',grade_id='"+req.query.gradeidzzsss+"'where school_id='"+req.query.schoolid+"' and id='"+req.query.studid+"' and academic_year='"+req.query.academic_year+"' and flag='active'";
     console.log(qur);
