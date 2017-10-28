@@ -144,10 +144,10 @@
 <button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnpesonal">Personal information</button>
 </span> 
 <span class="colapsinfo" id="colapsinfoid3">
-<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnacademic">Academic Information</button>
+<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnacademic">Section Transfer</button>
 </span>
 <span class="colapsinfo" id="colapsinfoid4">
-<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnlanguage">language Information</button>
+<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnlanguage">language Mapping</button>
 </span>
     
    
@@ -347,12 +347,12 @@
  </iron-collapse>
 
      <paper-dialog id="termarrinformationid" modal>
-       <h3 hidden$="{{termarrinfonatioid}}">This Student mark is already entered in following Term</h3>
+       <h3 hidden$="{{termarrinfonatioid}}">Marks already entered in below Term</h3>
     
         <template is="dom-repeat" items="{{termarr}}">
         <h4>*{{item.term_name}}</h4>
         </template>
-        <h3 hidden$="{{langinfomationid}}">Previously mapped Subjects to the Term</h3>
+        <h3 hidden$="{{langinfomationid}}">Previously Mapped Languages</h3>
         <template is="dom-repeat" items="{{langdialogarr}}">
         <h4>*{{item.subject_name}}</h4>
         </template>
