@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardcloud'
+   database : 'reportcardnew'
 });
 
 
@@ -14333,7 +14333,7 @@ app.post('/fetchinfofortemplate-service',  urlencodedParser,function (req,res)
 
 app.post('/fngetstudname1-service',  urlencodedParser,function (req, res)
 {
-  var qur1="SELECT first_name,last_name,middle_name,student_name,dob,gender,class_for_admission as gradename, (select grade_id from md_grade where grade_name=gradename )as gradeid  from md_admission where admission_no='"+req.query.studentid+"'  and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flag='1'"; 
+  var qur1="SELECT first_name,age,last_name,middle_name,student_name,dob,gender,class_for_admission as gradename, (select grade_id from md_grade where grade_name=gradename )as gradeid  from md_admission where admission_no='"+req.query.studentid+"'  and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flag='1'"; 
   console.log('------------------fetch name---------------------');
 
  console.log(qur1);
