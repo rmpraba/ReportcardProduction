@@ -912,8 +912,7 @@ fetchstudentinfoResponse:function(e)
       document.querySelector('student-information-card').city=res2[0].city;
       document.querySelector('student-information-card').pincode=res2[0].pincode;
       //document.querySelector('student-information-card').fname=res[0].student_name;
-      document.querySelector('student-information-card').showdate=res[0].dob;
-      document.querySelector('student-information-card').fngender(res[0].gender);
+     
       //document.querySelector('student-information-card').ageofyrs=res[0].ageinmonth;
       document.querySelector('student-information-card').academicyear=res[0].academic_year;
       document.querySelector('student-information-card').gradeidzzsss=res[0].gradeid;
@@ -1081,6 +1080,8 @@ fetchstudentinfoResponse:function(e)
             document.querySelector('student-information-card').midname=res[0].middle_name;
             document.querySelector('student-information-card').lsname=res[0].last_name;
             document.querySelector('student-information-card').ageofyrs=res[0].age;
+             document.querySelector('student-information-card').showdate=res[0].dob;
+             document.querySelector('student-information-card').fngender(res[0].gender);
           }
     });
   })();
