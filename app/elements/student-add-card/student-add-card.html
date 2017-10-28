@@ -377,6 +377,7 @@ if(document.querySelector('#'+this.transnoz).checked==false)
                 this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,transport);
                 this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
                 transport="";
+                   this.$.studservice.fetchstudentinfo();
           this.showdate=moment(new Date()).format('L');
           localStorage.setItem("localsess_birth_date",this.showdate);
 
@@ -389,7 +390,7 @@ if(document.querySelector('#'+this.transnoz).checked==false)
                 this.$.studservice.fnstudentadd(this.enroll,this.fname,this.midname,this.lsname,this.showdate,this.ageofyr,this.fathername,this.mothername,this.gradename,this.academicyear,gender,this.transport);
                 this.$.studservice.fnparentadd(this.enroll,this.fathername,this.fatheremail,this.fathermob,this.address1,this.address2,this.address3,this.city,this.pincode,this.motheremail,this.mothername);
                 transport="";
-
+                this.$.studservice.fetchstudentinfo();
             this.showdate=moment(new Date()).format('L');
             localStorage.setItem("localsess_birth_date",this.showdate);  
 

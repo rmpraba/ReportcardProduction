@@ -13518,19 +13518,20 @@ app.post('/fnlaninfomation1-service' , urlencodedParser,function (req, res)
 
 
 app.post('/fnacadamicsinfomation-service' , urlencodedParser,function (req, res)
-   {  
+   { 
     var response={
-            school_id:req.query.schoolid,
+             school_id:req.query.schoolid,
              academic_year:req.query.academic_year,
-            grade:req.query.gradeidzzsss,
+             grade:req.query.gradeidzzsss,
              class_id:req.query.classid,
-            student_id:req.query.studid,
+             student_id:req.query.studid,
              student_name:req.query.name,
              flag:'active',
+             lang_pref:req.query.langpref,
+             section:req.query.sectionid,
+             
            }
-      //var obj={"workingschoolid":"","acadamicyear":"","termids":"","termgrade":"","noofdays":""};
-        
-
+   
     console.log(JSON.stringify(response));
       var qur="SELECT * FROM tr_student_to_subject WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and grade='"+req.query.gradeidzzsss+"'  and class_id='"+req.query.classid+"' and student_id='"+req.query.studid+"'and flag='active' ";
 
@@ -13578,14 +13579,18 @@ app.post('/fnacadamicsinfomation3-service' , urlencodedParser,function (req, res
             grade_id:req.query.gradeidzzsss,
             class_id:req.query.classid,
             id:req.query.studid,
-             student_name:req.query.name,
-             flag:'active',
+            student_name:req.query.name,
+            gender:req.query.gender,
+            dob:req.query.date,
+            ageinmonth:req.query.ageofyrs,
+            flag:'active',
+          
            }
       //var obj={"workingschoolid":"","acadamicyear":"","termids":"","termgrade":"","noofdays":""};
         
 
     console.log(JSON.stringify(response));
-      var qur="SELECT * FROM md_student WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and grade='"+req.query.gradeidzzsss+"'  and class_id='"+req.query.classid+"' and id='"+req.query.studid+"'";
+      var qur="SELECT * FROM md_student WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and grade_id='"+req.query.gradeidzzsss+"'  and class_id='"+req.query.classid+"' and id='"+req.query.studid+"'";
 
       var qur1="UPDATE md_student set class_id='"+req.query.classid+"',grade_id='"+req.query.gradeidzzsss+"'where school_id='"+req.query.schoolid+"' and id='"+req.query.studid+"' and academic_year='"+req.query.academic_year+"' and flag='active'";
     console.log(qur);

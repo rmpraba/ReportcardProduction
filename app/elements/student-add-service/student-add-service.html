@@ -614,13 +614,16 @@ fnlaninfomation1Response:function(e)
         {
           var res=e.detail.response.returnval
         },
-   fnacadamicsinfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name)
+   fnacadamicsinfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name,date,gender,ageofyrs,langpref)
            {  
        this.fnacadamicsinfomationurl=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation-service";
                var obj={};
                obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
                obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
                 obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+               obj.date=date;
+               obj.gender=gender;
+               obj.ageofyrs=ageofyrs;
                obj.studid=studid;
                obj.gradeidzzsss=gradeidzzsss;
                obj.gradenamez=gradenamez;
@@ -628,16 +631,17 @@ fnlaninfomation1Response:function(e)
                obj.sectionid=sectionid;
                obj.termid=termid;
                obj.name=name;
+               obj.langpref=langpref;
               this.fnacadamicsinfomationparam=obj;
                //alert(JSON.stringify(obj));
-        this.$.fnacadamicsinfomationajax.generateRequest();
+             this.$.fnacadamicsinfomationajax.generateRequest();
      },
      fnacadamicsinfomationResponse:function(e)
         {
           var res=e.detail.response.returnval;
           document.querySelector('student-information-card').parentsubmitinfo();
         },
- fnacadamicsinfomation3:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name)
+ fnacadamicsinfomation3:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name,date,gender,ageofyrs)
            {  
        this.fnacadamicsinfomation3url=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation3-service";
                var obj={};
@@ -645,6 +649,9 @@ fnlaninfomation1Response:function(e)
                obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
                 obj.academic_year=localStorage.getItem("curr_sess_academicyear");
                obj.studid=studid;
+               obj.date=date;
+               obj.gender=gender;
+               obj.ageofyrs=ageofyrs;
                obj.gradeidzzsss=gradeidzzsss;
                obj.gradenamez=gradenamez;
                obj.classid=classid;
