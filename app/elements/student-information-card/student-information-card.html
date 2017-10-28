@@ -304,9 +304,9 @@
          <div class="fields">
       <paper-dropdown-menu  label=" Term">
         <paper-menu id="newstudenhifotermid" class="dropdown-content" on-iron-select="fnsetstudentterm">
-         <template is="dom-repeat" items="{{termarr}}" >
-         <paper-item value="{{item.term_name}}">{{item.term_name}}</paper-item>
-        </template>
+         <paper-item value="{{Term1}}">Term1</paper-item>
+         <paper-item value="{{Term2}}">Term2</paper-item>
+         <paper-item value="{{Term3}}">Term3</paper-item>
         </paper-menu>
         </paper-dropdown-menu>
         </div>
@@ -356,7 +356,6 @@
         <template is="dom-repeat" items="{{langdialogarr}}">
         <h4>*{{item.subject_name}}</h4>
         </template>
-        <h3>Do you want to remove all the marks against {{sectionnames}}</h3>
          <center>
             <paper-button style="background-color:black;color:white" on-click="" dialog-confirm autofocus>OK</paper-button>
 
