@@ -78,6 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        <th id="tb1">Section</th>
        <th id="tb1">Subject</th>
        <th id="tb1">Status</th>
+       <th id="tb1">Remove</th>
        </tr>
        </table>
      
@@ -90,7 +91,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <p class='p5' style="margin-left: 5%;">{{item.section}}</p>
    <p class='p6' style="margin-left: 5%;">{{item.subject}}</p>
    <p class='p6' style="margin-left: 5%;">{{item.flag}}</p>
+    <p class='p7'><ahref class="viewdata" on-click="FnRemove"><u>Remove</u></ahref></p>
 </div>
+
+    <term-assesment-service id="assesmentservice"></term-assesment-service>
 </template>
  
  </div>
@@ -114,7 +118,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       {
           this.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
           this.academicyear=localStorage.getItem("curr_sess_academicyear");
-      }      
+      },
+      FnRemove:function()      
+      {
+      }
     });
   })();
   </script>
