@@ -356,7 +356,10 @@
         <template is="dom-repeat" items="{{langdialogarr}}">
         <h4>*{{item.subject_name}}</h4>
         </template>
-         <center><paper-button style="background-color:black;color:white" on-click="fnsetsubmit" dialog-confirm autofocus>Submit</paper-button>
+         <center>
+            <paper-button style="background-color:black;color:white" on-click="" dialog-confirm autofocus>OK</paper-button>
+
+            <paper-button style="background-color:black;color:white" on-click="fnsetsubmit" dialog-confirm autofocus>Cancel</paper-button>
          </center>
         </paper-dialog>
        
