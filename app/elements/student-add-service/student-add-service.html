@@ -311,6 +311,16 @@
         on-response="fnstudnameinfo1Response"
         debounce-duration="300">
       </iron-ajax>
+        <iron-ajax
+        method="post"
+        id="fnacadamicsinfomation3ajax"
+        url="{{fnacadamicsinfomation3url}}"
+        params="{{fnacadamicsinfomation3param}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnacadamicsinfomation3Response"
+        debounce-duration="300">
+      </iron-ajax>
      <iron-ajax           
         id="studentconficsajax"
         url="../../configfile/student.json"
@@ -604,7 +614,7 @@ fnlaninfomation1Response:function(e)
         {
           var res=e.detail.response.returnval
         },
-   fnacadamicsinfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid)
+   fnacadamicsinfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name)
            {  
        this.fnacadamicsinfomationurl=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation-service";
                var obj={};
@@ -617,6 +627,7 @@ fnlaninfomation1Response:function(e)
                obj.classid=classid;
                obj.sectionid=sectionid;
                obj.termid=termid;
+               obj.name=name;
               this.fnacadamicsinfomationparam=obj;
                //alert(JSON.stringify(obj));
         this.$.fnacadamicsinfomationajax.generateRequest();
@@ -626,7 +637,29 @@ fnlaninfomation1Response:function(e)
           var res=e.detail.response.returnval;
           document.querySelector('student-information-card').parentsubmitinfo();
         },
-
+ fnacadamicsinfomation3:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name)
+           {  
+       this.fnacadamicsinfomation3url=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation3-service";
+               var obj={};
+               obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+               obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
+                obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+               obj.studid=studid;
+               obj.gradeidzzsss=gradeidzzsss;
+               obj.gradenamez=gradenamez;
+               obj.classid=classid;
+               obj.sectionid=sectionid;
+               obj.termid=termid;
+               obj.name=name;
+              this.fnacadamicsinfomation3param=obj;
+               //alert(JSON.stringify(obj));
+        this.$.fnacadamicsinfomation3ajax.generateRequest();
+     },
+     fnacadamicsinfomation3Response:function(e)
+        {
+          var res=e.detail.response.returnval;
+         
+        },
       fnacadamicsinfomation1:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid){
              this.fnacadamicsinfomation1url=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation1-service";
                var obj={};
@@ -875,7 +908,7 @@ lanprefResponse:function(e){
  this.fetchstudentinfourl=sessionStorage.getItem("addrinfo")+"/fetchstudentinfo-service";
   var obj={"school_id":"","academic_year":""};
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
-      obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
+      obj.academic_year="AY-"+localStorage.getItem("curr_sess_academicyear"); 
       this.fetchstudentinfoparam=obj;
       this.$.fetchstudentinfoajax.generateRequest();
         },
@@ -915,7 +948,7 @@ fetchstudentinfoResponse:function(e)
       document.querySelector('student-information-card').showdate=res[0].dob;
       document.querySelector('student-information-card').fngender(res[0].gender);
       //document.querySelector('student-information-card').ageofyrs=res[0].ageinmonth;
-      document.querySelector('student-information-card').academicyear=res[0].academic_year;
+ document.querySelector('student-information-card').academicyear=localStorage.getItem("curr_sess_academicyear"); 
       document.querySelector('student-information-card').gradeidzzsss=res[0].gradeid;
        document.querySelector('student-information-card').gradeidzzsss1=res[0].gradeid;
        document.querySelector('student-information-card').gradeidnames=res[0].grade_name;
@@ -1081,6 +1114,7 @@ fetchstudentinfoResponse:function(e)
             document.querySelector('student-information-card').midname=res[0].middle_name;
             document.querySelector('student-information-card').lsname=res[0].last_name;
             document.querySelector('student-information-card').ageofyrs=res[0].age;
+            
           }
     });
   })();

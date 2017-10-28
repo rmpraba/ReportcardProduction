@@ -410,23 +410,25 @@ var dobdate;
     },
   fnlan:function(e){
     if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
-
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
+             this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
    }
    else{
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
+             this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
 
-     this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen,this.value);
+             this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen,this.value);
       }
        },
       fnacadamics:function(e){
   if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
-this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid);
+this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value);
+this.$.studservice.fnacadamicsinfomation3(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value);
 this.$.studservice.fnacadamicsinfomation1(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
     }
   else{
- this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid);
- this.$.studservice.fnacadamicsinfomation2(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
+
+     this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid);
+    this.$.studservice.fnacadamicsinfomation3(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value);
+    this.$.studservice.fnacadamicsinfomation2(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
     }
    },
  fnsetdateofbirth:function(dates)
@@ -517,25 +519,19 @@ if(document.querySelector("#females").checked==true){
     this.$.pesonalinfoid.opened=false;
     this.$.academicinfoid.opened=false; 
     this.$.languageinfoid.opened=false; 
-
      },
-    
-       fnpesonal:function(e){
+    fnpesonal:function(e){
          this.$.pesonalinfoid.opened=true;
          this.$.parentinfoid.opened=false;
         this.$.academicinfoid.opened=false; 
         this.$.languageinfoid.opened=false; 
-
-  
-      },
-      fnacademic:function(e){
+       },
+   fnacademic:function(e){
     this.$.academicinfoid.opened=true; 
     this.$.parentinfoid.opened=false;
     this.$.pesonalinfoid.opened=false;
     this.$.languageinfoid.opened=false; 
-
-  
-    },
+      },
   fnlanguage:function(e){
      this.$.languageinfoid.opened=true; 
     this.$.parentinfoid.opened=false;
@@ -602,11 +598,10 @@ fnupdatestudent:function(e){
         this.$.addstudentinfoid.hidden=true;
         this.$.removestudentinfoid.hidden=true;
         this.$.updatestudentinfoid.hidden=false;
-
         this.$.colapsinfoid1.hidden=true;
-       this.$.colapsinfoid2.hidden=true;
-       this.$.colapsinfoid3.hidden=true;
-       this.$.colapsinfoid4.hidden=true;
+        this.$.colapsinfoid2.hidden=true;
+        this.$.colapsinfoid3.hidden=true;
+        this.$.colapsinfoid4.hidden=true;
         }
       },
         FnSelectstudenqzz:function(e)
@@ -733,10 +728,7 @@ FnSearchstudnamezz:function(e)
     document.querySelector('#newstudenhifotermid').selected=-1;
     document.querySelector('#thirdlanid').selected=-1;
     document.querySelector('#secondlanid').selected=-1;
-
-
-       
- },
+  },
 
     fnnewreff:function()
     {
