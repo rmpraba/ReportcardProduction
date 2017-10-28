@@ -948,7 +948,7 @@ fetchstudentinfoResponse:function(e)
       document.querySelector('student-information-card').showdate=res[0].dob;
       document.querySelector('student-information-card').fngender(res[0].gender);
       //document.querySelector('student-information-card').ageofyrs=res[0].ageinmonth;
- document.querySelector('student-information-card').academicyear=localStorage.getItem("curr_sess_academicyear"); 
+      document.querySelector('student-information-card').academicyear=localStorage.getItem("curr_sess_academicyear"); 
       document.querySelector('student-information-card').gradeidzzsss=res[0].gradeid;
        document.querySelector('student-information-card').gradeidzzsss1=res[0].gradeid;
        document.querySelector('student-information-card').gradeidnames=res[0].grade_name;
@@ -1114,7 +1114,7 @@ fetchstudentinfoResponse:function(e)
             document.querySelector('student-information-card').midname=res[0].middle_name;
             document.querySelector('student-information-card').lsname=res[0].last_name;
             document.querySelector('student-information-card').ageofyrs=res[0].age;
-            
+
           }
     });
   })();
