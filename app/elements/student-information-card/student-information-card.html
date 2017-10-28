@@ -304,9 +304,9 @@
          <div class="fields">
       <paper-dropdown-menu  label=" Term">
         <paper-menu id="newstudenhifotermid" class="dropdown-content" on-iron-select="fnsetstudentterm">
-         <paper-item value="{{Term1}}">Term1</paper-item>
-         <paper-item value="{{Term2}}">Term2</paper-item>
-         <paper-item value="{{Term3}}">Term3</paper-item>
+         <template is="dom-repeat" items="{{termarr}}" >
+         <paper-item value="{{item.term_name}}">{{item.term_name}}</paper-item>
+        </template>
         </paper-menu>
         </paper-dropdown-menu>
         </div>
