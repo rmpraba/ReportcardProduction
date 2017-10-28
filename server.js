@@ -11,8 +11,8 @@ var connection = mysql.createConnection({
    // database : 'scorecarddb'
    
    user     : 'root',
-   password : 'admin',
-   database : 'reportcardnewins'
+   password : '',
+   database : 'reportcardnew'
 });
 
 
