@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
    host     : 'localhost',
    user     : 'root',
    password : '',
-   database : 'reportcardnew'
+   database : 'reportcardcloud'
 });
 
 
@@ -13860,10 +13860,10 @@ app.post('/fngetinfosectionerrdilalog-service',  urlencodedParser,function (req,
  var qur;
    if(req.query.gradename=='Grade-1'||req.query.gradename=='Grade-2'||req.query.gradename=='Grade-3'||req.query.gradename=='Grade-4'){
 
-qur="SELECT distinct term_name from tr_term_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"'"; 
+qur="SELECT distinct term_name from tr_term_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"' and student_id='"+req.query.studid+"'"; 
    }
    else{
-qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"'";
+    qur="SELECT distinct term_name from tr_term_fa_assesment_marks where grade='"+req.query.gradename+"' and section='"+req.query.sectionname+"' and student_id='"+req.query.studid+"'";
 }
   
   /*var qur1="SELECT * from tr_student_to_subject  where grade='"+req.query.gradeid+"' and class_id='"+req.query.sectionid+"' and student_id='"+req.query.studid+"'";*/
@@ -14333,7 +14333,7 @@ app.post('/fetchinfofortemplate-service',  urlencodedParser,function (req,res)
 
 app.post('/fngetstudname1-service',  urlencodedParser,function (req, res)
 {
-  var qur1="SELECT * from md_admission where admission_no='"+req.query.studentid+"'  and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flag='1'"; 
+  var qur1="SELECT first_name,last_name,middle_name,student_name,dob,gender,class_for_admission as gradename, (select grade_id from md_grade where grade_name=gradename )as gradeid  from md_admission where admission_no='"+req.query.studentid+"'  and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academic_year+"' and flag='1'"; 
   console.log('------------------fetch name---------------------');
 
  console.log(qur1);

@@ -971,13 +971,7 @@ fetchstudentinfoResponse:function(e)
          document.querySelector('student-information-card').secondlan=res1[0].subject_id;
       document.querySelector('student-information-card').thirdlen=res1[1].subject_id;
          }
-/*if(res[0].grade_name=='Nursery'||res[0].grade_name=='Junior KG'||res[0].grade_name=='Senior KG'||res[0].grade_name=='Grade-1'||res[0].grade_name=='Grade-2'||res[0].grade_name=='Grade-3'||res[0].grade_name=='Grade-4'){
-      document.querySelector('student-information-card').secondlan=res1[0].subject_id;
-       }
-    else{
- document.querySelector('student-information-card').secondlan=res1[0].subject_id;
-  document.querySelector('student-information-card').thirdlen=res1[1].subject_id;
-     }*/},
+},
 
         prestudentremovedet:function(id)
         {
@@ -1109,19 +1103,22 @@ fetchstudentinfoResponse:function(e)
             obj.studentid=studentid;
             this.fngetstudname1param=obj;
             //alert(JSON.stringify(obj));
-          this.$.fngetstudname1ajax.generateRequest(); 
+            this.$.fngetstudname1ajax.generateRequest(); 
          },
     
           fngetstudname1Response:function(e)
           {
-            var res=e.detail.response.returnval;
-           // alert(JSON.stringify(res));
+             var res=e.detail.response.returnval;
+            // alert(JSON.stringify(res));
             document.querySelector('student-information-card').fname=res[0].first_name;
             document.querySelector('student-information-card').midname=res[0].middle_name;
             document.querySelector('student-information-card').lsname=res[0].last_name;
             document.querySelector('student-information-card').ageofyrs=res[0].age;
             document.querySelector('student-information-card').showdate=res[0].dob;
-             document.querySelector('student-information-card').fngender(res[0].gender);
+            document.querySelector('student-information-card').fngender(res[0].gender);
+            document.querySelector('student-information-card').gradeidzzsss=res[0].gradeid;
+            document.querySelector('student-information-card').gradeidzzsss1=res[0].gradeid;
+            document.querySelector('student-information-card').gradeidnames=res[0].gradename;
 
           }
     });
