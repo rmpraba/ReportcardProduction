@@ -51,15 +51,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #f1f1f1;
       }
       #itemcard{
-        margin-left: 7%;
+        margin-left: 6%;
         width: 83%;
       }
-      #itemcard{
-        @apply(--layout-horizontal);
-      }
-      p{
-        width: 17%;
-      }
+      
+      
+
     </style>
     <div class="spinner"><paper-dialog id="spinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog></div>
     <div>
@@ -82,20 +79,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        </tr>
        </table>
      
-<template is="dom-repeat" items="{{approvalarr}}" as="item">
-<div id="itemcard">
-   <p class='p1' style="margin-left: 0%;">{{item.academic_year}}</p>
-   <p class='p2' style="margin-left: 10%;">{{item.term_name}}</p>
-   <p class='p3' style="margin-left: 5%;">{{item.assesment_id}}</p>
-   <p class='p4' style="margin-left: 5%;">{{item.grade}}</p>
-   <p class='p5' style="margin-left: 5%;">{{item.section}}</p>
-   <p class='p6' style="margin-left: 5%;">{{item.subject}}</p>
-   <p class='p6' style="margin-left: 5%;">{{item.flag}}</p>
-    <p class='p7'><ahref class="viewdata" on-click="FnRemove"><u>Remove</u></ahref></p>
-</div>
+  <template is="dom-repeat" items="{{approvalarr}}" as="item">
+    <div id="itemcard">
+      <approvelstatus-item-card academicyear="{{item.academic_year}}" termname="{{item.term_name}}" assesmentid="{{item.assesment_id}}" grade="{{item.grade}}" section="{{item.section}}" subject="{{item.subject}}" flag="{{item.flag}}"></approvelstatus-item-card>
+    </div>
+  </template>
 
-    <term-assesment-service id="assesmentservice"></term-assesment-service>
-</template>
+     <term-assesment-service id="assesmentservice"></term-assesment-service>
  
  </div>
  </template>
@@ -119,9 +109,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
           this.academicyear=localStorage.getItem("curr_sess_academicyear");
       },
-      FnRemove:function()      
-      {
-      }
+      
+  
     });
   })();
   </script>

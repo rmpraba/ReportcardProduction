@@ -14355,6 +14355,146 @@ app.post('/fngetstudname1-service',  urlencodedParser,function (req, res)
 });
 
 
+app.post('/fnimporttermmarks1-service',  urlencodedParser,function (req, res)
+{ 
+     
+    var qur="UPDATE tr_term_assesment_import_marks set flag='"+req.query.flag+"' where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and assesment_id='"+req.query.assesmentid+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' and subject='"+req.query.subject+"'";
+
+    console.log("-------------flag update in import marks-----------");
+    console.log(qur);
+
+    connection.query(qur,
+      function(err, rows)
+      {
+        if(!err)
+        {    
+          res.status(200).json({'returnval': 'Updated'});
+        }
+        else
+        {
+          console.log(err);
+          res.status(200).json({'returnval': 'fail'});
+        }  
+
+  });
+});
+
+
+app.post('/fndeltoverallassesmarks1-service',  urlencodedParser,function (req,res)
+  {  
+      var qur1="DELETE from tr_term_assesment_overall_marks where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and assesment_id='"+req.query.assesmentid+"' and term_name='"+req.query.termname+"' and subject_id='"+req.query.subject+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"'";
+
+
+      var qur2="DELETE from tr_term_assesment_overall_assesmentmarks where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and subject_id='"+req.query.subject+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"'";
+
+    console.log("---------------delete overall marks------------------");
+    console.log(qur1);
+    console.log("---------------------------------");
+    console.log(qur2);
+    var overallassesment1=[];
+    var overmarkarr=[];
+    connection.query(qur1,function(err, rows){
+    if(!err)
+    { 
+    overallassesment1=rows; 
+    connection.query(qur2,function(err, rows){
+    if(!err)
+    {  
+      //console.log(rows);
+      overmarkarr=rows;
+     res.status(200).json({'overallassesment1': 'deleted','overmarkarr':'deleted'});
+    }
+    });
+    }
+    else{
+      console.log(err);
+     res.status(200).json({'': 'no rows'}); 
+   }
+  });
+});
+
+
+
+
+
+app.post('/fntermauditmarks1-service',  urlencodedParser,function (req, res)
+{ 
+     
+    var qur="UPDATE tr_term_auditimport set assesment_level2='"+req.query.asseslevel1+"' where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' and subject_id='"+req.query.subject+"'";
+
+    console.log("-------------Assesment level update-------------");
+    console.log(qur);
+
+    connection.query(qur,
+      function(err, rows)
+      {
+        if(!err)
+        {    
+          res.status(200).json({'returnval': 'Updated'});
+        }
+        else
+        {
+          console.log(err);
+          res.status(200).json({'returnval': 'fail'});
+        }  
+
+  });
+});
+
+
+
+
+
+app.post('/fngetauditlevel-service', urlencodedParser,function (req,res)
+{  
+    var qur="SELECT assesment_level2 FROM tr_term_auditimport where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' and subject_id='"+req.query.subject+"'";
+    console.log('-----------------------------');
+    console.log(qur);
+    connection.query(qur,
+    function(err, rows)
+    {
+    if(!err)
+    { 
+      console.log(JSON.stringify(rows));   
+      res.status(200).json({'returnval': rows});
+    }
+    else{
+      console.log(err);
+      res.status(200).json({'returnval': ''});
+    }
+  });
+});
+
+
+
+
+
+
+
+app.post('/deleteauditmarks1-service',  urlencodedParser,function (req, res)
+{ 
+     
+    var qur="Delete from  tr_term_auditimport where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' and subject_id='"+req.query.subject+"'";
+
+    console.log("-------------Assesment level Delete-------------");
+    console.log(qur);
+
+    connection.query(qur,
+      function(err, rows)
+      {
+        if(!err)
+        {    
+          res.status(200).json({'returnval': 'Deleted'});
+        }
+        else
+        {
+          console.log(err);
+          res.status(200).json({'returnval': 'fail'});
+        }  
+
+  });
+});
+
 //Node server running port number
 server = app.listen(5000, function () {
 var host = server.address().address
