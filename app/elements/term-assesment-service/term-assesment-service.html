@@ -1703,8 +1703,12 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
       },
       overalltermmarkinsertResponse:function(e){        
         // alert("Inserted!");
-        if(e.detail.response.returnval=="succ")
+        if(e.detail.response.returnval=="succ"){
           alert('Approved!');
+           this.callApproveService();
+  document.querySelector('home-page').setPage('approveassesment','');  
+  document.querySelector('approve-one-to-four-card').setDefaultHeaders();
+        }
         if(localStorage.getItem("curr_sess_assesment")=="Assesment3"||localStorage.getItem("curr_sess_subject")=="Art&Craft"||localStorage.getItem("curr_sess_subject")=="dance"||localStorage.getItem("curr_sess_subject")=="music"||localStorage.getItem("curr_sess_subject")=="Games"||localStorage.getItem("curr_sess_subject")=="Personality Development")
           this.calloveralltermassesmentinsertService();
         // n1++;
@@ -1727,7 +1731,11 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
       overalltermassesmentinsertResponse:function(e){    
         // alert(e.detail.response.returnval);
         if(e.detail.response.returnval=="succ")
+            this.callApproveService();
           alert("All assesments are approved in this term!");
+    document.querySelector('home-page').setPage('approveassesment','');  
+  document.querySelector('approve-one-to-four-card').setDefaultHeaders();
+
       },
     callApproveService:function()
     {

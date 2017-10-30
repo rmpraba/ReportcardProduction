@@ -125,7 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.$.assesmentservice.fnimporttermmarks(this.termname,'Assesment2',this.grade,this.section,this.subject);
             this.$.assesmentservice.deleteauditmarks(this.termname,this.grade,this.subject,this.section);
           }
-          if(sessionStorage.getItem("curr_sess_loggedauditlevel")=="Assesment3")
+  if(sessionStorage.getItem("curr_sess_loggedauditlevel")=="Assesment3")
           {
              this.$.assesmentservice.fnimporttermmarks(this.termname,'Assesment1',this.grade,this.section,this.subject);
              this.$.assesmentservice.fnimporttermmarks(this.termname,'Assesment2',this.grade,this.section,this.subject);
@@ -134,9 +134,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              this.$.assesmentservice.fndeltoverallassesmarks(this.termname,'Assesment2',this.grade,this.section,this.subject);
              this.$.assesmentservice.fndeltoverallassesmarks(this.termname,'Assesment3',this.grade,this.section,this.subject);
              this.$.assesmentservice.deleteauditmarks(this.termname,this.grade,this.subject,this.section);
-          }
-        }
-        this.$.assesmentservice.FnFetchApprovalStatus();
+           }
+         }
+      this.$.assesmentservice.FnFetchApprovalStatus();
       }
 
     });
