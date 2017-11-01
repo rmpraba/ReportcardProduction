@@ -104,7 +104,7 @@
       obj.newpassword=newpassword;
       obj.academicyear=localStorage.getItem("curr_sess_academicyear"); 
       this.changepasswordparam=obj;
-      alert(JSON.stringify(obj));
+      //alert(JSON.stringify(obj));
       this.$.changepasswordajax.generateRequest();
      },
      changepasswordResponse:function(e){
@@ -178,7 +178,7 @@
       var rolearr=e.detail.response.returnval;
   
       if(rolearr=="invalid"){
-      alert("Enter the valid Username and Password");
+      alert("Please use the currently available Employee Login");
       }
       else{
       document.querySelector('login-card').rolearr=rolearr;
