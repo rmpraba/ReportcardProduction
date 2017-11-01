@@ -10115,8 +10115,7 @@ app.post('/fetchmarksavedstudents-service',  urlencodedParser,function (req,res)
   {  
    // if(req.query.langpref=="Second Language"||req.query.langpref=="Third Language")
    // else
-   var qur="SELECT count(distinct(student_id)) as total FROM tr_term_fa_assesment_marks WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"'"+
-    " grade='"+req.query.gradename+"' and section='"+req.query.section+"' and subject_id='"+req.query.subject+"' and assesment_id='"+req.query.assesment+"'";
+   var qur="SELECT count(distinct(student_id)) as total FROM tr_term_fa_assesment_marks WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and grade='"+req.query.gradename+"' and section='"+req.query.section+"' and subject_id='"+req.query.subject+"' and assesment_id='"+req.query.assesment+"'";
     console.log('------------approval student count-------------');
     console.log(qur);
     
@@ -13538,6 +13537,9 @@ app.post('/fnacadamicsinfomation-service' , urlencodedParser,function (req, res)
      var qur1="UPDATE tr_student_to_subject set grade='"+req.query.gradeidzzsss+"',section='"+req.query.sectionid+"', class_id='"+req.query.classid+"'where school_id='"+req.query.schoolid+"'and student_id='"+req.query.studid+"' and academic_year='"+req.query.academic_year+"'and flag='active'";
     console.log(qur);
     console.log(qur1)
+    console.log("---------------------");
+    console.log(response);
+    console.log("----------------------");
    connection.query(qur,
     function(err, rows)
     {
@@ -14494,6 +14496,35 @@ app.post('/deleteauditmarks1-service',  urlencodedParser,function (req, res)
 
   });
 });
+
+
+
+
+app.post('/fnfaassesmenttermmarks1-service',  urlencodedParser,function (req, res)
+{ 
+     
+    var qur="UPDATE tr_term_fa_assesment_import_marks set flag='"+req.query.flag+"' where school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and term_name='"+req.query.termname+"' and assesment_id='"+req.query.assesmentid+"' and grade='"+req.query.grade+"' and section='"+req.query.section+"' and subject='"+req.query.subject+"'";
+
+    console.log("-------------flag update in fa_import marks-----------");
+    console.log(qur);
+
+    connection.query(qur,
+      function(err, rows)
+      {
+        if(!err)
+        {    
+          res.status(200).json({'returnval': 'Updated'});
+        }
+        else
+        {
+          console.log(err);
+          res.status(200).json({'returnval': 'fail'});
+        }  
+
+  });
+});
+
+
 
 //Node server running port number
 server = app.listen(5000, function () {

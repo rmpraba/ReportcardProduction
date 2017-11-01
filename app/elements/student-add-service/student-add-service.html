@@ -968,12 +968,12 @@ fetchstudentinfoResponse:function(e)
          document.querySelector('student-information-card').classidszz=res[0].classid;
        document.querySelector('student-information-card').sectionnames=res[0].section_name;  
          if(res1.length==1){
- document.querySelector('student-information-card').hidestudentinfolangid=true;
+ //document.querySelector('student-information-card').hidestudentinfolangid=true;
 
         document.querySelector('student-information-card').secondlan=res1[0].subject_id;
           }
          if(res1.length==2){
- document.querySelector('student-information-card').hidestudentinfolangid=false;
+ //document.querySelector('student-information-card').hidestudentinfolangid=false;
          document.querySelector('student-information-card').secondlan=res1[0].subject_id;
       document.querySelector('student-information-card').thirdlen=res1[1].subject_id;
          }

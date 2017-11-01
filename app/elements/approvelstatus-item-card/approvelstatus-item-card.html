@@ -91,13 +91,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.assesmentservice.FnFetchApprovalStatus();
         }
 
+       else
+        {
+          //alert(this.assesmentid);
+          this.$.assesmentservice.fnfaassesmenttermmarks(this.grade,this.section,this.termname,this.assesmentid,this.subject);
+        }
+
         
       },
 
       fngetauditlevelResponse:function(e)
       {
         var res=e.detail.response.returnval;
-        // alert(JSON.stringify(res));
+        //alert(JSON.stringify(res));
         sessionStorage.setItem("curr_sess_loggedauditlevel",res[0].assesment_level2);
         if(this.assesmentid=="Assesment2")
         {
@@ -125,7 +131,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.$.assesmentservice.fnimporttermmarks(this.termname,'Assesment2',this.grade,this.section,this.subject);
             this.$.assesmentservice.deleteauditmarks(this.termname,this.grade,this.subject,this.section);
           }
-  if(sessionStorage.getItem("curr_sess_loggedauditlevel")=="Assesment3")
+        if(sessionStorage.getItem("curr_sess_loggedauditlevel")=="Assesment3")
           {
              this.$.assesmentservice.fnimporttermmarks(this.termname,'Assesment1',this.grade,this.section,this.subject);
              this.$.assesmentservice.fnimporttermmarks(this.termname,'Assesment2',this.grade,this.section,this.subject);

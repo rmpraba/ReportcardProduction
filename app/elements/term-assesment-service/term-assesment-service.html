@@ -514,6 +514,19 @@
         on-response="deleteauditmarksResponse"
         debounce-duration="300"
     >
+
+    
+
+    <iron-ajax
+        method="post"
+        id="fnfaassesmenttermmarksajax"
+        url="{{fnfaassesmenttermmarksurl}}"
+        params="{{fnfaassesmenttermmarksparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnfaassesmenttermmarksResponse"
+        debounce-duration="300"
+    >
   </template>
   <script>
   (function() {
@@ -2512,7 +2525,7 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
          obj.subject=subject;
          obj.flag='0';
          this.fnimporttermmarksparam=obj;  
-         // alert(JSON.stringify(obj));
+         //alert(JSON.stringify(obj));
          this.$.fnimporttermmarksajax.generateRequest();
     },
     fnimporttermmarksResponse:function(e)
@@ -2522,7 +2535,7 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
         {
             alert('Removed Successfully');
         }
-        // alert(JSON.stringify(res));
+        //alert(JSON.stringify(res));
        },
     fndeltoverallassesmarks:function(termname,assesmentid,grade,section,subject)
     {
@@ -2585,6 +2598,33 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
      {
         var res=e.detail.response.returnval;
         // alert(JSON.stringify(res));
+     },
+
+     fnfaassesmenttermmarks:function(grade,section,termname,assesmentid,subject)
+     {
+        this.fnfaassesmenttermmarksurl=sessionStorage.getItem("addrinfo")+"/fnfaassesmenttermmarks1-service";
+        var obj={};
+        obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+         obj.academicyear=localStorage.getItem("curr_sess_academicyear");
+         obj.termname=termname;
+         obj.grade=grade;
+         obj.section=section;
+         obj.subject=subject;
+         obj.assesmentid=assesmentid;
+         obj.flag='0';
+         this.fnfaassesmenttermmarksparam=obj;  
+         //alert(JSON.stringify(obj));
+         this.$.fnfaassesmenttermmarksajax.generateRequest();
+     },
+     fnfaassesmenttermmarksResponse:function(e)
+     {
+        var res=e.detail.response.returnval;
+        //alert(JSON.stringify(res));
+        if(res=='Updated')
+        {
+            alert('Removed Successfully');
+            this.FnFetchApprovalStatus();
+        }
      }
 
     
