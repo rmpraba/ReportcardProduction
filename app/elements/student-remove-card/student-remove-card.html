@@ -292,14 +292,23 @@
          this.$.studservice.deletestudentinfo(this.studentid,this.gradeid,this.classid);
           this.$.studservice.deletestudtermmarks(this.studentid,this.gradeid,this.classid,this.grade,this.section,this.tremname);
           this.$.studservice.flagupdatestud(this.studentid,this.grade);
+          this.$.studservice.fetchstudentinfo();
+
           this.fnrefremve();
          }
          else{
           this.$.studservice.deletestudentinfo(this.studentid,this.gradeid,this.classid);
           this.$.studservice.deletestudtermmarks1(this.studentid,this.gradeid,this.classid,this.grade,this.section,this.tremname);
            this.$.studservice.flagupdatestud(this.studentid,this.grade,this.value);
+          this.$.studservice.fetchstudentinfo();
+
           this.fnrefremve();
         }}},
+        recall:function(e){
+         this.$.studservice.fetchstudentinfo();
+         this.$.studservice.fetchstudentremove();
+
+        },
     fnrefremve:function()
     {
         this.value="";

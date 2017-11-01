@@ -837,8 +837,6 @@ fngetinfosectionerrdilalogResponse:function(e){
 if(res!="empty"){
 document.querySelector('student-information-card').termarr=res;
 document.querySelector('student-information-card').termarrinformation1();  
-document.querySelector('student-information-card').termarrinfonatioid=false;
-
 }
 
 else{
@@ -849,12 +847,8 @@ document.querySelector('student-information-card').termarrinfonatioid=true;
 
 
   if(res1!="empty")
-  {
       document.querySelector('student-information-card').langdialogarr=res1;  
-      document.querySelector('student-information-card').langinfomationid=false; 
-
-  }
-      else
+  else
       document.querySelector('student-information-card').langinfomationid=true;  
   },
         fetchstudentremoveResponse:function(e)
@@ -1031,6 +1025,7 @@ fetchstudentinfoResponse:function(e)
           var res=e.detail.response.updatearr1;
           var res1=e.detail.response.delarr;
           alert('Deleted Succesfully');
+       document.querySelector('student-remove-card').recall();
           //alert(JSON.stringify(res));
           //alert(JSON.stringify(res1));
         },
