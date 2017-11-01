@@ -986,7 +986,9 @@ if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
         document.querySelector('home-page').setPage('approvalstatus');
         document.querySelector('approvalstatus-card').setDefaultHeaders();
         this.$.assesmentservice.FnFetchApprovalStatus();
+         document.querySelector('approvalstatus-card').FnSpinnerrActive(true);
         }
+
         else
         {
         document.querySelector('app-card').setPage('homepage','');

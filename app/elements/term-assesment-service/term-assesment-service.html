@@ -2238,6 +2238,7 @@ this.fetchfastudentreporturl=sessionStorage.getItem("addrinfo")+"/fetchfastudent
           arr[i].flag="Approved";
       }
       document.querySelector('approvalstatus-card').approvalarr=e.detail.response.returnval;
+      document.querySelector('approvalstatus-card').FnSpinnerrActive(false);
     },
     callUpdateStudentInfo:function(id,name,pname,pmail,alternatemail,mothername,address){
       var obj={"schoolid":"","academicyear":"","enrno":"","name":"","pname":"","pmail":"","grade":"","section":""};
