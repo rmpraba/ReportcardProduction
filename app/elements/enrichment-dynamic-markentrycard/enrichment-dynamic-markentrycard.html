@@ -465,8 +465,7 @@ function print(x){
         //this.hidebtndivv=false;
         this.directmark();
         this.excelmark();
-         enrtchk.checked=false;
-          enrchk2.checked=false;
+         
       },
       fullrefresh:function()
       {
@@ -513,10 +512,18 @@ function print(x){
       hideexcelmarkk:function()
       {
         this.$.enrichck2.hidden=true;
+        this.directmark();
+        this.excelheader=true;
+        this.centheadr=true;
+        this.hidebtndivv=true;
       },
       viewexcelmarrrk:function()
       {
         this.$.enrichck2.hidden=false;
+        this.excelmark();
+        this.excelheader=true;
+        this.centheadr=true;
+        this.hidebtndivv=true;
       }
     });
   })();
