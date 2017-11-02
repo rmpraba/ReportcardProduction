@@ -118,11 +118,13 @@
   </div>
  </div>
 
-
+  <paper-input value="{{categorylength}}" hidden></paper-input>
   <div class="exceldiv"  hidden$="{{excelheader}}">
       <input id="readfile" type="file" onchange="loadFile(event)"/>
       <xmp id="output"></xmp>
       <paper-button on-click="FnClick">Click</paper-button>
+
+
       <input type="button" id="btn2" onclick="tableToExcel('dynamicreporttable11', 'Mark Report')" value="Export to Excel">
   </div>    
 
@@ -166,6 +168,7 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
     var scorearr=[];
     var gradearr=[];
     var tempassesmetarr=[];
+   
    Polymer({
       is: 'enrichment-dynamic-markentrycard',
       ready:function(){
@@ -176,6 +179,7 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         this.excelheader=true;
         // this.$.componentservice.callcomponentService();        
       },
+    
        FnClick:function(){
         var temp=[];
         alert(JSON.stringify(array));
@@ -196,7 +200,7 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
              setarr.splice(0,3);
                 for(var j=0;j<setarr.length;j++){
                   for(var k=0;k<tempassesmetarr.length;k++){
-                     if(tempassesmetarr[k].cnt==setarr.length){ 
+                     if(this.categorylength==setarr.length){ 
            if(tempassesmetarr[k].sub_category_name==setarr[j]){
               var m=setarr[j];
               var obj={};
@@ -211,22 +215,22 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
          obj.categoryid=tempassesmetarr[k].category_id;
          obj.categoryname=tempassesmetarr[k].category_name;
          obj.subcategoryid=tempassesmetarr[k].sub_category_id;
-         obj.subcategoryname=tempassesmetarr[k].sub_category_name;
-         obj.value=array[i][m];
-         obj.grade="";
-         temp.push(obj);
+          obj.subcategoryname=tempassesmetarr[k].sub_category_name;
+          obj.value=array[i][m];
+          obj.grade="";
+          temp.push(obj);
                  } }
                  else{
                       temp=[];
                       array=[];
                      alert("pls import the corrcet file name");
                      document.getElementById("readfile").value = "";
-                      
-                    }}}}}
-        this.$.beginnerservice.callbamarkinsertService(temp);
+                     }}}}}
+           this.$.beginnerservice.callbamarkinsertService(temp);
            temp=[];
-          array=[];
-  
+           array=[];
+           document.getElementById("readfile").value = "";
+           this.this.categorylength="";
    }
 },
 

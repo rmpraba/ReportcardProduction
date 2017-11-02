@@ -581,7 +581,7 @@ app.post('/callfetchinfofortemplate-service',  urlencodedParser,function (req,re
 
 
 
-   var qur1="SELECT category_id,category_name,count(sub_category_id) as cnt,sub_category_id,sub_category_name FROM enrichment_subject_mapping WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and "+
+   var qur1="SELECT * FROM enrichment_subject_mapping WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and "+
     " grade_name='"+req.query.gradename+"' and subject_name='"+req.query.subject+"' and assesment_type='"+req.query.assesment+"' order by sub_category_id";
 
    var qur2="SELECT category_id,category_name,count(sub_category_id) as cnt FROM enrichment_subject_mapping WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and "+
