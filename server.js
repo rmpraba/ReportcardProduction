@@ -12,7 +12,6 @@ var connection = mysql.createConnection({
    user     : 'root',
    password : 'admin',
    database : 'reportcardcheck'
-
 });
 
 var bodyParser = require('body-parser'); 
@@ -25,6 +24,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.get('/', function (req, res) {
   res.sendFile("app/index.html" );
 })
+
 app.post('/checkschool-card',  urlencodedParser,function (req, res)
 {
     var id={"id":req.query.username};
