@@ -689,7 +689,7 @@ document.querySelector('enrichment-dynamic-markentrycard').fngenrategrade(arr);
             obj.width=parseFloat(temp[i].spancnt)*parseFloat(divider)+"%";
             categorytitle.push(obj);
            }
-    //  overall.push({"Sno":"","Studentno":"","studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
+   //  overall.push({"Sno":"","Studentno":"","studentname":"","tabwidth":tabwidth,"serialno":"",'category':categorytitle});
          categorytitle=[]
          temp=[];
         for(var i=0;i<arr.length;i++){
@@ -698,9 +698,8 @@ document.querySelector('enrichment-dynamic-markentrycard').fngenrategrade(arr);
           obj.sub_category_name=arr[i].sub_category_name;
           obj.weight=arr[i].weight;
           temp.push(obj);
-        }  
-      
-         for(var i=0;i<temp.length;i++){
+         }  
+        for(var i=0;i<temp.length;i++){
             var cnt=1;
             var obj={};
             obj.studentname="StudentName";

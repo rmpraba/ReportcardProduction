@@ -89,14 +89,10 @@
   </div>
  </div>
 
-<paper-input value="{{xlcategoryid}}" hidden></paper-input>
-<paper-input value="{{xlcategoryname}}" hidden></paper-input>
-<paper-input value="{{xlsubcategoryid}}" hidden></paper-input>
-<paper-input value="{{xlsubcategoryname}}" hidden></paper-input>
 
 
  <input id="readfile" type="file" onchange="loadFile(event)"/>
-  <xmp id="output"></xmp>
+ <!--  <xmp id="output"></xmp> -->
     <paper-button on-click="FnClick">Click</paper-button>
 
 <input type="button" id="btn2" onclick="tableToExcel('dynamicreporttable11', 'Mark Report')" value="Export to Excel">
@@ -114,11 +110,12 @@ function loadFile(event) {
   });
 }
 
-function print(x){
-    document.getElementById('output').textContent += JSON.stringify(x,  null, '\t')+"\n";
+/*function print(x){
+alert(JSON.stringify(x,  null, '\t')+"\n\n");
+    document.getElementById('output').textContent += JSON.stringify(x,  null, '\t')+"\n\n";
         
 
-}
+}*/
   </script>
   <script type="text/javascript">
   var tableToExcel = (function() {
@@ -150,6 +147,7 @@ function print(x){
       },
        FnClick:function(){
         var temp=[];
+        alert(JSON.stringify(array));
        if(array.length==0){
         alert("pls save the file in EXCEL WORKBOOK extension");
        document.getElementById("readfile").value = "";
