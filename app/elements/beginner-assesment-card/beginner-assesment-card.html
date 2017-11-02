@@ -136,7 +136,8 @@ document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
         this.flag=1;
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
 
-        document.querySelector('enrichment-dynamic-markentrycard').getdynamichead();
+        document.querySelector('enrichment-dynamic-markentrycard').fullrefresh();
+        
 
         // document.querySelector('enrichment-dynamic-markentryitemcard').FnRefresh();
         // document.querySelector('enrichment-markentry-input').FnRefresh();
@@ -154,6 +155,8 @@ document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
 
         document.querySelector('assesment-sheet-card').setPage('enrichment-dynamic-markentrycard');
         document.querySelector('enrichment-dynamic-markentrycard').setDefaultHeaders();
+
+        document.querySelector('enrichment-dynamic-markentrycard').getdynamichead();
         // alert(subject);
         // if(subject=="English"){
         // document.querySelector('beginner-assesment-markentrysheet').setDefaultHeaders();
