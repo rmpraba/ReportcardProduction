@@ -465,6 +465,8 @@ function print(x){
         //this.hidebtndivv=false;
         this.directmark();
         this.excelmark();
+         enrtchk.checked=false;
+          enrchk2.checked=false;
       },
       fullrefresh:function()
       {
@@ -480,6 +482,12 @@ function print(x){
           this.excelheader=true;
           this.hidebtndivv=false;
         }
+        else
+        {
+          this.centheadr=true;
+          this.hidebtndivv=true;
+          this.excelheader=false;
+        }
       },
       excelmark:function(e)
       {
@@ -490,11 +498,25 @@ function print(x){
           this.centheadr=true;
           this.hidebtndivv=true;
         }
+        else
+        {
+          this.centheadr=false;
+          this.hidebtndivv=false;
+          this.excelheader=true;
+        }
       },
       fnredyenrich:function()
       {
           enrtchk.checked=false;
           enrchk2.checked=false;
+      },
+      hideexcelmarkk:function()
+      {
+        this.$.enrichck2.hidden=true;
+      },
+      viewexcelmarrrk:function()
+      {
+        this.$.enrichck2.hidden=false;
       }
     });
   })();
