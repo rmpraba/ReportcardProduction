@@ -71,7 +71,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'approvelstatus-item-card',
       FnRemove:function()      
       {
-           var obj={};
+        if(this.grade=="Grade-1"||this.grade=="Grade-2"||this.grade=="Grade-3"||this.grade=="Grade-4")
+        {
+          alert(this.grade);
+
+            var obj={};
             obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
             obj.academicyear=localStorage.getItem("curr_sess_academicyear");      
             obj.termname=this.termname;
@@ -82,22 +86,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.fngetauditlevelparam=obj;
             this.$.fngetauditlevelajax.generateRequest();
  
-        if(this.assesmentid=="Assesment3")
-        {
-          this.$.assesmentservice.fnimporttermmarks(this.termname,this.assesmentid,this.grade,this.section,this.subject);
+            if(this.assesmentid=="Assesment3")
+            {
+              this.$.assesmentservice.fnimporttermmarks(this.termname,this.assesmentid,this.grade,this.section,this.subject);
 
-          this.$.assesmentservice.fndeltoverallassesmarks(this.termname,this.assesmentid,this.grade,this.section,this.subject);
-          this.$.assesmentservice.fntermauditmarks(this.termname,this.grade,this.section,this.subject,"Assesment2");
-          this.$.assesmentservice.FnFetchApprovalStatus();
-        }
+              this.$.assesmentservice.fndeltoverallassesmarks(this.termname,this.assesmentid,this.grade,this.section,this.subject);
+              this.$.assesmentservice.fntermauditmarks(this.termname,this.grade,this.section,this.subject,"Assesment2");
+            }
+             this.$.assesmentservice.FnFetchApprovalStatus();
+          }
+          
 
-       else
+       if(this.grade=="Grade-5"||this.grade=="Grade-6"||this.grade=="Grade-7"||this.grade=="Grade-8"||this.grade=="Grade-9"||this.grade=="Grade-10")
         {
           //alert(this.assesmentid);
+          //alert(this.grade);
           this.$.assesmentservice.fnfaassesmenttermmarks(this.grade,this.section,this.termname,this.assesmentid,this.subject);
         }
 
-        
+        this.$.assesmentservice.FnFetchApprovalStatus();
       },
 
       fngetauditlevelResponse:function(e)
@@ -142,7 +149,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
              this.$.assesmentservice.deleteauditmarks(this.termname,this.grade,this.subject,this.section);
            }
          }
-      this.$.assesmentservice.FnFetchApprovalStatus();
+      // this.$.assesmentservice.FnFetchApprovalStatus();
       }
 
     });
