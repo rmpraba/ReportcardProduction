@@ -46,14 +46,14 @@
           <paper-dropdown-menu id="grade" label="Select Grade" disabled="{{read}}" required>
             <paper-menu  id="gradenamrrrrr" class="dropdown-content"  on-iron-select="FnSelectGrade"  attr-for-selected="value" required> 
               <template is="dom-repeat" items="{{gradearr}}">
-                <paper-item value="{{item.grade_name}}">{{item.grade_name}}</paper-item>
+                <paper-item value="{{item.grade_id}}">{{item.grade_name}}</paper-item>
               </template>
             </paper-menu>
           </paper-dropdown-menu>
           <paper-dropdown-menu id="section" label="Select Section" disabled="{{read}}" required>
             <paper-menu id="sectionnamnnnnn" class="dropdown-content"  on-iron-select="FnSelectSection"  attr-for-selected="value" required>
               <template is="dom-repeat" items="{{sectionarr}}">
-                <paper-item value="{{item.section_name}}">{{item.section_name}}</paper-item>
+                <paper-item value="{{item.class_id}}">{{item.section_name}}</paper-item>
               </template>
             </paper-menu>
           </paper-dropdown-menu>
@@ -100,14 +100,16 @@
         academicyear = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_academicyear",academicyear);
         if(this.flag==1){
-        document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
+document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
         this.$.bassesmentservice.callEnrichmentSubjectService(assesmentname,gradename);    
         // this.FnServiceCall(); 
         }
       },
       FnSelectGrade:function(e){
         gradename = e.target.selectedItem.textContent.trim();
+        this.gradeid=e.target.selectedItem.value;
         localStorage.setItem("curr_sess_grade",gradename);
+        localStorage.setItem("curr_sess_gradeid",this.gradeid);
         this.$.bassesmentservice.callSectionService(gradename);
         if(this.flag==1){
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
@@ -120,7 +122,9 @@
       },
       FnSelectSection:function(e){        
         section = e.target.selectedItem.textContent.trim();
+        this.classid = e.target.selectedItem.value;
         localStorage.setItem("curr_sess_section",section); 
+        localStorage.setItem("curr_sess_classid",this.classid); 
         this.$.bassesmentservice.callEnrichmentSubjectService(assesmentname,gradename);    
         if(this.flag==1){
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
@@ -132,20 +136,27 @@
         this.flag=1;
         document.querySelector('enrichment-dynamic-markentrycard').FnRefresh();
 
-        document.querySelector('enrichment-dynamic-markentrycard').getdynamichead();
+        document.querySelector('enrichment-dynamic-markentrycard').fullrefresh();
+        
 
         // document.querySelector('enrichment-dynamic-markentryitemcard').FnRefresh();
         // document.querySelector('enrichment-markentry-input').FnRefresh();
         subject = e.target.selectedItem.textContent.trim();
+        this.subjectid = e.target.selectedItem.value;
         localStorage.setItem("curr_sess_subject",subject);
+        localStorage.setItem("curr_sess_subjectid",this.subjectid);
         this.FnServiceCall(); 
       },
       FnServiceCall:function(){
         document.querySelector('beginner-assesment-service').FnFetchEnrichmentGrade();
         document.querySelector('beginner-assesment-service').callFetchInfoForTemplate(gradename,section,subject);
         document.querySelector('beginner-assesment-service').callFetchStudentInfo(gradename,section,subject);
+        document.querySelector('beginner-assesment-service').callFetchAssesmentStudentInfo(gradename,section,subject);
+
         document.querySelector('assesment-sheet-card').setPage('enrichment-dynamic-markentrycard');
         document.querySelector('enrichment-dynamic-markentrycard').setDefaultHeaders();
+
+        document.querySelector('enrichment-dynamic-markentrycard').getdynamichead();
         // alert(subject);
         // if(subject=="English"){
         // document.querySelector('beginner-assesment-markentrysheet').setDefaultHeaders();

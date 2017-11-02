@@ -141,6 +141,7 @@
         localStorage.setItem("curr_sess_grade",gradename);
         this.$.assesmentservice.callSectionService(gradename);
         this.$.assesmentservice.callAssesmentService(gradename);
+        document.querySelector('dynamic-scholastic-markentry-card').hideheader=true;
         if(this.flag==1)
           document.querySelector('subject-dynamic-markentrycard').studarr=[];
           // this.callService();
@@ -177,8 +178,10 @@
         document.querySelector('#subjectnam1').selected=-1;
         assesment = e.target.selectedItem.textContent.trim();
         localStorage.setItem("curr_sess_assesment",assesment);
+        document.querySelector('dynamic-scholastic-markentry-card').hideheader=true;
         if(this.flag==1)
           document.querySelector('subject-dynamic-markentrycard').studarr=[];
+
           // this.callService();
       },
       FnSelectAssesmentType:function(e){

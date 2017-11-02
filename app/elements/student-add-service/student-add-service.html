@@ -311,6 +311,16 @@
         on-response="fnstudnameinfo1Response"
         debounce-duration="300">
       </iron-ajax>
+        <iron-ajax
+        method="post"
+        id="fnacadamicsinfomation3ajax"
+        url="{{fnacadamicsinfomation3url}}"
+        params="{{fnacadamicsinfomation3param}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="fnacadamicsinfomation3Response"
+        debounce-duration="300">
+      </iron-ajax>
      <iron-ajax           
         id="studentconficsajax"
         url="../../configfile/student.json"
@@ -604,29 +614,59 @@ fnlaninfomation1Response:function(e)
         {
           var res=e.detail.response.returnval
         },
-   fnacadamicsinfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid)
+   fnacadamicsinfomation:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name,date,gender,ageofyrs,langpref)
            {  
        this.fnacadamicsinfomationurl=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation-service";
                var obj={};
                obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
                obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
                 obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+               obj.date=date;
+               obj.gender=gender;
+               obj.ageofyrs=ageofyrs;
                obj.studid=studid;
                obj.gradeidzzsss=gradeidzzsss;
                obj.gradenamez=gradenamez;
                obj.classid=classid;
                obj.sectionid=sectionid;
                obj.termid=termid;
+               obj.name=name;
+               obj.langpref=langpref;
               this.fnacadamicsinfomationparam=obj;
                //alert(JSON.stringify(obj));
-        this.$.fnacadamicsinfomationajax.generateRequest();
+             this.$.fnacadamicsinfomationajax.generateRequest();
      },
      fnacadamicsinfomationResponse:function(e)
         {
           var res=e.detail.response.returnval;
           document.querySelector('student-information-card').parentsubmitinfo();
         },
-
+ fnacadamicsinfomation3:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid,name,date,gender,ageofyrs)
+           {  
+       this.fnacadamicsinfomation3url=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation3-service";
+               var obj={};
+               obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
+               obj.schoolname=sessionStorage.getItem("curr_sess_loggedschoolname");
+                obj.academic_year=localStorage.getItem("curr_sess_academicyear");
+               obj.studid=studid;
+               obj.date=date;
+               obj.gender=gender;
+               obj.ageofyrs=ageofyrs;
+               obj.gradeidzzsss=gradeidzzsss;
+               obj.gradenamez=gradenamez;
+               obj.classid=classid;
+               obj.sectionid=sectionid;
+               obj.termid=termid;
+               obj.name=name;
+              this.fnacadamicsinfomation3param=obj;
+               //alert(JSON.stringify(obj));
+        this.$.fnacadamicsinfomation3ajax.generateRequest();
+     },
+     fnacadamicsinfomation3Response:function(e)
+        {
+          var res=e.detail.response.returnval;
+         
+        },
       fnacadamicsinfomation1:function(studid,gradeidzzsss,gradenamez,classid,sectionid,termid){
              this.fnacadamicsinfomation1url=sessionStorage.getItem("addrinfo")+"/fnacadamicsinfomation1-service";
                var obj={};
@@ -875,7 +915,7 @@ lanprefResponse:function(e){
  this.fetchstudentinfourl=sessionStorage.getItem("addrinfo")+"/fetchstudentinfo-service";
   var obj={"school_id":"","academic_year":""};
       obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
-      obj.academic_year=localStorage.getItem("curr_sess_academicyear"); 
+      obj.academic_year="AY-"+localStorage.getItem("curr_sess_academicyear"); 
       this.fetchstudentinfoparam=obj;
       this.$.fetchstudentinfoajax.generateRequest();
         },
@@ -912,10 +952,9 @@ fetchstudentinfoResponse:function(e)
       document.querySelector('student-information-card').city=res2[0].city;
       document.querySelector('student-information-card').pincode=res2[0].pincode;
       //document.querySelector('student-information-card').fname=res[0].student_name;
-      document.querySelector('student-information-card').showdate=res[0].dob;
-      document.querySelector('student-information-card').fngender(res[0].gender);
+     
       //document.querySelector('student-information-card').ageofyrs=res[0].ageinmonth;
-      document.querySelector('student-information-card').academicyear=res[0].academic_year;
+      document.querySelector('student-information-card').academicyear=localStorage.getItem("curr_sess_academicyear"); 
       document.querySelector('student-information-card').gradeidzzsss=res[0].gradeid;
        document.querySelector('student-information-card').gradeidzzsss1=res[0].gradeid;
        document.querySelector('student-information-card').gradeidnames=res[0].grade_name;
@@ -923,22 +962,16 @@ fetchstudentinfoResponse:function(e)
          document.querySelector('student-information-card').classidszz=res[0].classid;
        document.querySelector('student-information-card').sectionnames=res[0].section_name;  
          if(res1.length==1){
- document.querySelector('student-information-card').hidestudentinfolangid=true;
+ //document.querySelector('student-information-card').hidestudentinfolangid=true;
 
         document.querySelector('student-information-card').secondlan=res1[0].subject_id;
           }
          if(res1.length==2){
- document.querySelector('student-information-card').hidestudentinfolangid=false;
+ //document.querySelector('student-information-card').hidestudentinfolangid=false;
          document.querySelector('student-information-card').secondlan=res1[0].subject_id;
       document.querySelector('student-information-card').thirdlen=res1[1].subject_id;
          }
-/*if(res[0].grade_name=='Nursery'||res[0].grade_name=='Junior KG'||res[0].grade_name=='Senior KG'||res[0].grade_name=='Grade-1'||res[0].grade_name=='Grade-2'||res[0].grade_name=='Grade-3'||res[0].grade_name=='Grade-4'){
-      document.querySelector('student-information-card').secondlan=res1[0].subject_id;
-       }
-    else{
- document.querySelector('student-information-card').secondlan=res1[0].subject_id;
-  document.querySelector('student-information-card').thirdlen=res1[1].subject_id;
-     }*/},
+},
 
         prestudentremovedet:function(id)
         {
@@ -992,6 +1025,7 @@ fetchstudentinfoResponse:function(e)
           var res=e.detail.response.updatearr1;
           var res1=e.detail.response.delarr;
           alert('Deleted Succesfully');
+       document.querySelector('student-remove-card').recall();
           //alert(JSON.stringify(res));
           //alert(JSON.stringify(res1));
         },
@@ -1070,17 +1104,23 @@ fetchstudentinfoResponse:function(e)
             obj.studentid=studentid;
             this.fngetstudname1param=obj;
             //alert(JSON.stringify(obj));
-          this.$.fngetstudname1ajax.generateRequest(); 
+            this.$.fngetstudname1ajax.generateRequest(); 
          },
     
           fngetstudname1Response:function(e)
           {
-            var res=e.detail.response.returnval;
-           // alert(JSON.stringify(res));
+             var res=e.detail.response.returnval;
+            // alert(JSON.stringify(res));
             document.querySelector('student-information-card').fname=res[0].first_name;
             document.querySelector('student-information-card').midname=res[0].middle_name;
             document.querySelector('student-information-card').lsname=res[0].last_name;
             document.querySelector('student-information-card').ageofyrs=res[0].age;
+            document.querySelector('student-information-card').showdate=res[0].dob;
+            document.querySelector('student-information-card').fngender(res[0].gender);
+            document.querySelector('student-information-card').gradeidzzsss=res[0].gradeid;
+            document.querySelector('student-information-card').gradeidzzsss1=res[0].gradeid;
+            document.querySelector('student-information-card').gradeidnames=res[0].gradename;
+
           }
     });
   })();

@@ -635,32 +635,7 @@
         this.highlevelcommon=true;
         this.hidemanagementreport=true;
         this.subcoordinator=true;
-        // this.createschooltype=true;
-        // this.createsubject=true;
-        // this.createrole=true;
-        // this.managementreport=true;
-        // this.SectionPreiods=true;
-        // this.GeneratemgmtReport=true;
-        // this.studentfixed=true;
-        // this.schooltyptograde=true;
-        // this.createschoolz=true; 
-        // this.createcategory=true;
-        // this.createemployee=true;
-        // this.creategrade=true;
-        // this.workingdats=true;
-        // this.SchooltypettoGrade=true;
-        // this.employeetograde=true;
-        // this.emptocategory=true;
-        // this.categorytoschooltype=true;
-        // this.gradetosubject=true;
-        // this.subjecttostudent=true;
-        // this.sectioncreation=true;
-        // this.gradetosection=true;
-        // this.roletogrademapping=true;
-        // this.empreportdetails=true;
-        // this.studentsectionreport=true;
-        // this.sectionedit=true;
-        // this.captureReport=true;
+        
         this.containerview=true;
       },
       FnInitializeContainers:function(){
@@ -1011,7 +986,9 @@ if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
         document.querySelector('home-page').setPage('approvalstatus');
         document.querySelector('approvalstatus-card').setDefaultHeaders();
         this.$.assesmentservice.FnFetchApprovalStatus();
+         document.querySelector('approvalstatus-card').FnSpinnerrActive(true);
         }
+
         else
         {
         document.querySelector('app-card').setPage('homepage','');
@@ -1025,8 +1002,8 @@ if(localStorage.getItem('curr_sess_loggedassesmenttype')=="singlestaff")
       FnApprovecard:function()
       {        
         localStorage.setItem('curr_sess_report','2');
-        document.querySelector('app-card').setPage('homepage','');
-        document.querySelector('home-page').setPage('approveassesment','');  
+     document.querySelector('app-card').setPage('homepage','');
+    document.querySelector('home-page').setPage('approveassesment','');  
         document.querySelector('approve-one-to-four-card').setDefaultHeaders();
         this.$.assesmentservice.callApproveService();   
       },

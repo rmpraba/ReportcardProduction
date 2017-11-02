@@ -73,7 +73,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    <p class='p6'>{{subject}}</p>
    <p class='p7'><ahref class="viewdata" on-click="Fnview"><u>View</u></ahref></p>
    <p class='p8'><ahref class="viewdata" on-click="Fnrevert"><u>Revert</u></ahref></p>
-   <p class='p9'><ahref class="viewdata" on-click="FnRemove"><u>Remove</u></ahref></p>
    </div>
    <div class="spinner"><paper-dialog modal id="dynamicspinner" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop><paper-spinner active></paper-spinner></paper-dialog></div>
 <!-- </tr> -->
@@ -143,7 +142,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         document.querySelector('home-page').setPage('coscholasticassesment','');
         document.querySelector('coscholastic-assesment').hiddenpage();
         document.querySelector('coscholastic-assesment-sheet-card').setPage('dynamic-coscholastic-markentry-card');
-        document.querySelector('dynamic-coscholastic-markentry-card').FnRefresh();
+       document.querySelector('dynamic-coscholastic-markentry-card').FnRefresh();
         this.$.coscholasticsubjectservice.subjectsubmittedcheckService(this.grade,this.section,this.subject);
         }
       }
@@ -156,11 +155,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // alert(flag);
         this.$.dynamicspinner.opened=flag;
       },
-     FnRemove:function()
-     {
-        this.$.assesmentservice.removetermdmarketails(this.academic,this.term,this.assesment,this.grade,this.section,this.subject);
-     }
-
+     
     });
   })();
   </script>

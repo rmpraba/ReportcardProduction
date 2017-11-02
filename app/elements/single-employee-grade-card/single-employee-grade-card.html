@@ -144,9 +144,7 @@ graddarrvales:function(e){
                 obj.id=e[i].gradeid;
                 obj.gradename=e[i].gradename;
                 gradearr.push(obj); 
-         
-
-  }
+   }
 },
 fnsetsubmit:function(e){
   this.singleempgrade2url=sessionStorage.getItem("addrinfo")+"/fngetsectionname2-service";
@@ -284,7 +282,7 @@ fnsetclose:function(e){
                for(var l=0;l<res2.length;l++){
                ovaerallsectioarr.push(res2[l]);
                }
-               alert(1);
+              // alert(1);
      // alert(JSON.stringify(ovaerallsectioarr)); 
  
 document.querySelector('single-staff-mapping-card').sectionarr=ovaerallsectioarr;

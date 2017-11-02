@@ -144,10 +144,10 @@
 <button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnpesonal">Personal information</button>
 </span> 
 <span class="colapsinfo" id="colapsinfoid3">
-<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnacademic">Academic Information</button>
+<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnacademic">Section Transfer</button>
 </span>
 <span class="colapsinfo" id="colapsinfoid4">
-<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnlanguage">language Information</button>
+<button style="color:white;background-color:black;width: 13%;border-radius: 27%;" on-click="fnlanguage">language Mapping</button>
 </span>
     
    
@@ -347,16 +347,19 @@
  </iron-collapse>
 
      <paper-dialog id="termarrinformationid" modal>
-       <h3 hidden$="{{termarrinfonatioid}}">This Student mark is already entered in following Term</h3>
+       <h3 hidden$="{{termarrinfonatioid}}">Marks already entered in below Term</h3>
     
         <template is="dom-repeat" items="{{termarr}}">
         <h4>*{{item.term_name}}</h4>
         </template>
-        <h3 hidden$="{{langinfomationid}}">Previously mapped Subjects to the Term</h3>
+        <h3 hidden$="{{langinfomationid}}">Previously Mapped Languages</h3>
         <template is="dom-repeat" items="{{langdialogarr}}">
         <h4>*{{item.subject_name}}</h4>
         </template>
-         <center><paper-button style="background-color:black;color:white" on-click="fnsetsubmit" dialog-confirm autofocus>Submit</paper-button>
+         <center>
+            <paper-button style="background-color:black;color:white" on-click="" dialog-confirm autofocus>OK</paper-button>
+
+            <paper-button style="background-color:black;color:white" on-click="fnsetsubmit" dialog-confirm autofocus>Cancel</paper-button>
          </center>
         </paper-dialog>
        
@@ -384,10 +387,10 @@ var dobdate;
        this.$.colapsinfoid2.hidden=true;
        this.$.colapsinfoid3.hidden=true;
        this.$.colapsinfoid4.hidden=true;
-      // this.studentslist='studentslist';
+       // this.studentslist='studentslist';
       },
       termarrinformation:function(e){
-  this.$.termarrinformationid.close();
+   this.$.termarrinformationid.close();
       },
    termarrinformation1:function(e){
   this.$.termarrinformationid.open();
@@ -410,30 +413,36 @@ var dobdate;
     },
   fnlan:function(e){
     if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
-
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
+             this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
    }
    else{
-     this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
+             this.$.studservice.fnlaninfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.secondlan,this.value);
 
-     this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen,this.value);
+             this.$.studservice.fnlaninfomation1(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.thirdlen,this.value);
       }
        },
       fnacadamics:function(e){
   if(this.gradenamez=='Nursery'||this.gradenamez=='Junior KG'||this.gradenamez=='Senior KG'||this.gradenamez=='Grade-1'||this.gradenamez=='Grade-2'||this.gradenamez=='Grade-3'||this.gradenamez=='Grade-4'){
-this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid);
+    this.langprefs="Second Language";
+this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value,this.showdate,gender,this.ageofyrs,this.langprefs);
+this.$.studservice.fnacadamicsinfomation3(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value,this.showdate,gender,this.ageofyrs);
 this.$.studservice.fnacadamicsinfomation1(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
+this.$.studservice.fetchstudentremove();
+
     }
   else{
- this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid);
- this.$.studservice.fnacadamicsinfomation2(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
+      this.langprefs="Third Language";
+     // alert(this.langprefs);
+    this.$.studservice.fnacadamicsinfomation(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value,this.showdate,gender,this.ageofyrs,this.langprefs);
+    this.$.studservice.fnacadamicsinfomation3(this.studid,this.gradeidzzsss,this.gradenamez,this.classid,this.sectionid,this.termid,this.value,this.showdate,gender,this.ageofyrs);
+    this.$.studservice.fnacadamicsinfomation2(this.studid,this.gradeidzzsss1,this.gradeidnames,this.classidszz,this.sectionnames,this.termid);
+    this.$.studservice.fetchstudentremove();
+
     }
    },
  fnsetdateofbirth:function(dates)
        {
-          // e=this.showdate;
-
-       var dt1=new Date(dates);
+         var dt1=new Date(dates);
          dobdate=dates;
          var dt=new Date();
          var dt=new Date();
@@ -517,25 +526,19 @@ if(document.querySelector("#females").checked==true){
     this.$.pesonalinfoid.opened=false;
     this.$.academicinfoid.opened=false; 
     this.$.languageinfoid.opened=false; 
-
      },
-    
-       fnpesonal:function(e){
+    fnpesonal:function(e){
          this.$.pesonalinfoid.opened=true;
          this.$.parentinfoid.opened=false;
         this.$.academicinfoid.opened=false; 
         this.$.languageinfoid.opened=false; 
-
-  
-      },
-      fnacademic:function(e){
+       },
+   fnacademic:function(e){
     this.$.academicinfoid.opened=true; 
     this.$.parentinfoid.opened=false;
     this.$.pesonalinfoid.opened=false;
     this.$.languageinfoid.opened=false; 
-
-  
-    },
+      },
   fnlanguage:function(e){
      this.$.languageinfoid.opened=true; 
     this.$.parentinfoid.opened=false;
@@ -602,11 +605,10 @@ fnupdatestudent:function(e){
         this.$.addstudentinfoid.hidden=true;
         this.$.removestudentinfoid.hidden=true;
         this.$.updatestudentinfoid.hidden=false;
-
         this.$.colapsinfoid1.hidden=true;
-       this.$.colapsinfoid2.hidden=true;
-       this.$.colapsinfoid3.hidden=true;
-       this.$.colapsinfoid4.hidden=true;
+        this.$.colapsinfoid2.hidden=true;
+        this.$.colapsinfoid3.hidden=true;
+        this.$.colapsinfoid4.hidden=true;
         }
       },
         FnSelectstudenqzz:function(e)
@@ -733,10 +735,7 @@ FnSearchstudnamezz:function(e)
     document.querySelector('#newstudenhifotermid').selected=-1;
     document.querySelector('#thirdlanid').selected=-1;
     document.querySelector('#secondlanid').selected=-1;
-
-
-       
- },
+  },
 
     fnnewreff:function()
     {
