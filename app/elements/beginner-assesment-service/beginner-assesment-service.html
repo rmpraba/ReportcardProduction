@@ -640,7 +640,7 @@
        var arr=e.detail.response.enricharr;
        var arr1=e.detail.response.studentarr;
        var arr3=e.detail.response.categorycnt;
-          alert(JSON.stringify(arr));
+         // alert(JSON.stringify(arr));
 document.querySelector('enrichment-dynamic-markentrycard').fngenrategrade(arr);
 
    var temp=[];
@@ -737,7 +737,7 @@ document.querySelector('enrichment-dynamic-markentrycard').fngenrategrade(arr);
           
             overall.push({"Studentno":arr1[i].id,"studentname":arr1[i].student_name,"tabwidth":tabwidth,"category":category});
               }
-        alert(JSON.stringify(overall));
+       // alert(JSON.stringify(overall));
 
         // alert(JSON.stringify(overall));
         for(var i=2,j=0;i<overall.length;i++,j++){
@@ -750,7 +750,7 @@ document.querySelector('enrichment-dynamic-markentrycard').fngenrategrade(arr);
         }
         },
       setstudarr:function(arr){
-         alert(JSON.stringify(arr));
+        // alert(JSON.stringify(arr));
         document.querySelector('assesment-sheet-card').setPage('enrichment-dynamic-markentrycard');
         document.querySelector('enrichment-dynamic-markentrycard').studarr=arr;
       }
