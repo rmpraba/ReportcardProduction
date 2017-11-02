@@ -463,12 +463,18 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         //this.hidebtndivv=false;
         this.directmark();
         this.excelmark();
+        this.$.enrichck1.hidden=false;
+         this.$.enrichck2.hidden=false;
          
       },
       fullrefresh:function()
       {
         this.centheadr=true;
         this.hidebtndivv=true;
+         enrtchk.checked=false;
+          enrchk2.checked=false;
+          this.$.enrichck1.hidden=true;
+         this.$.enrichck2.hidden=true;
       },
       directmark:function(e)
       {
@@ -483,7 +489,7 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         {
           this.centheadr=true;
           this.hidebtndivv=true;
-          this.excelheader=false;
+          this.excelheader=true;
         }
       },
       excelmark:function(e)
@@ -497,8 +503,8 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         }
         else
         {
-          this.centheadr=false;
-          this.hidebtndivv=false;
+          this.centheadr=true;
+          this.hidebtndivv=true;
           this.excelheader=true;
         }
       },
@@ -506,14 +512,18 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
       {
           enrtchk.checked=false;
           enrchk2.checked=false;
+          this.$.enrichck1.hidden=true;
+         this.$.enrichck2.hidden=true;
       },
       hideexcelmarkk:function()
       {
-        this.$.enrichck2.hidden=true;
-        this.directmark();
-        this.excelheader=true;
-        this.centheadr=true;
-        this.hidebtndivv=true;
+        // this.$.enrichck2.hidden=true;
+        // this.directmark();
+        // this.excelheader=true;
+        this.$.enrichck1.hidden=true;
+         this.$.enrichck2.hidden=true;
+        this.centheadr=false;
+        this.hidebtndivv=false;
       },
       viewexcelmarrrk:function()
       {

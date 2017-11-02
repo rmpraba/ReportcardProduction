@@ -198,6 +198,7 @@ app.post('/term-service',  urlencodedParser,function (req, res)
     {
     if(rows.length>0)
     {
+      console.log(rows);
       res.status(200).json({'returnval': rows});
     }
     else
