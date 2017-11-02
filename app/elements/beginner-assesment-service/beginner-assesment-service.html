@@ -211,7 +211,7 @@
       },
       fetchenrichmentgradeResponse:function(e){
         // alert(JSON.stringify(e.detail.response.returnval));
-        document.querySelector('enrichment-dynamic-markentrycard').FnSetGrade(e.detail.response.returnval);
+        document.querySelector('enrichment-dynamic-markentrycard').FnSetGrade(e.detail.response.master,e.detail.response.detail);
       },
       callAcademicService:function(){
         this.$.academicajax.generateRequest();
@@ -549,6 +549,9 @@
         obj.score=arr[i].value;
         obj.grade=arr[i].grade;
         obj.category=arr[i].level;
+        obj.enrichlevel=arr[i].enrichlevel;
+        obj.speedlevel=arr[i].speedlevel;
+        obj.comprehensionlevel=arr[i].comprehensionlevel;
         // obj.studname=studname;
         this.insertbamarkparam= obj;  
         // alert(JSON.stringify(obj));      

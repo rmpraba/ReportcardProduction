@@ -8,15 +8,11 @@ var connection = mysql.createConnection({
    // port     : '62631',
    // user     : 'adminM1qnV1d',
    // password : 'HC2bIf7Sk2LD',
-   // database : 'scorecarddb'
-   
+   // database : 'scorecarddb'   
    user     : 'root',
    password : 'admin',
-   database : 'reportcardnewins'
+   database : 'reportcardcheck'
 });
-
-
-
 
 var bodyParser = require('body-parser'); 
 var app = express();
@@ -1174,12 +1170,18 @@ app.post('/insertbamark-service',urlencodedParser,function (req, res)
          sub_category_name:req.query.subcategoryname,
          score:req.query.score,
          grade:req.query.grade,
-         level:req.query.category
+         level:req.query.category,
+         enrich_level:req.query.enrichlevel,
+         speed_level:req.query.speedlevel,
+         comprehension_level:req.query.comprehensionlevel
   }
   var updateres={
     score:req.query.score,
     grade:req.query.grade,
-    level:req.query.category
+    level:req.query.category,
+    enrich_level:req.query.enrichlevel,
+    speed_level:req.query.speedlevel,
+    comprehension_level:req.query.comprehensionlevel
   };
   var checkqur="SELECT * FROM tr_beginner_assesment_marks WHERE school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' "+
   " and  subject_id='"+req.query.subjectid+"' and category_id='"+req.query.categoryid+"' and sub_category_id='"+req.query.subcategoryid+"' and "+
@@ -10331,11 +10333,19 @@ app.post('/fetchenrichmentgrade-service',  urlencodedParser,function (req,res)
     var qur="SELECT * FROM enrichment_grade_master";
     console.log('------------enrichment grade master-------------');
     console.log(qur);
+    var grade=[];
     connection.query(qur,function(err, rows)
     {
     if(!err)
-    {    
-      res.status(200).json({'returnval': rows});
+    {   
+      grade=rows; 
+      connection.query("SELECT * FROM enrichment_detail_grade_master",function(err, rows)
+    {
+    if(!err)
+    { 
+      res.status(200).json({'detail': rows,'master':grade});
+    }
+  });
     }
     else{
       console.log(err);
@@ -10756,6 +10766,134 @@ app.post('/fetchenrichmentstudcategorysubjectwise-service',  urlencodedParser,fu
   });
 });
 
+app.post('/fetchenrichmentcategorylevel-service',  urlencodedParser,function (req,res)
+  {
+  var qur="select distinct(category) from enrichment_detail_grade_master where assesment_type='"+req.query.assesment+"' ";
+  var totqur="select count(distinct(student_id)) as score,level,grade,enrich_level from tr_beginner_assesment_marks "+
+  " where subject_name='"+req.query.subjectid+"' and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and grade_id='"+req.query.grade+"' and "+
+  " section_id='"+req.query.section+"' and assesment_type='"+req.query.assesment+"' group by level,grade,enrich_level";  
+  var tot=[];
+  var grade=[];
+  console.log(qur);
+  console.log(totqur);
+  connection.query(qur,function(err, rows)
+  {
+  if(!err){
+  grade=rows;
+  connection.query(totqur,function(err, rows)
+    {
+    if(!err)
+    {
+      if(rows.length>0)
+      { 
+      tot=rows;          
+      res.status(200).json({'marks':tot,'grade':grade});
+      }
+      else 
+      {
+      console.log(err);
+      res.status(200).json({'returnval': 'no rows'});
+      }
+    } 
+    else 
+    {
+      console.log(err);
+    }
+    });
+  }
+  });
+});
+
+app.post('/fetchenrichmentcategorylevel1-service',  urlencodedParser,function (req,res)
+  {
+  var qur="select distinct(category) from enrichment_detail_grade_master where assesment_type='"+req.query.assesment+"' ";
+  var speedqur="select count(distinct(student_id)) as score,level,grade,speed_level from tr_beginner_assesment_marks "+
+  " where subject_name='"+req.query.subjectid+"' and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and grade_id='"+req.query.grade+"' and "+
+  " section_id='"+req.query.section+"' and assesment_type='"+req.query.assesment+"' group by level,grade,speed_level";  
+  var comprehensionqur="select count(distinct(student_id)) as score,level,grade,comprehension_level from tr_beginner_assesment_marks "+
+  " where subject_name='"+req.query.subjectid+"' and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and grade_id='"+req.query.grade+"' and "+
+  " section_id='"+req.query.section+"' and assesment_type='"+req.query.assesment+"' group by level,grade,comprehension_level";  
+  var speed=[];
+  var comprehension=[];
+  var grade=[];
+  console.log(qur);
+  console.log(speedqur);
+  console.log(comprehensionqur);
+  connection.query(qur,function(err, rows)
+  {
+  if(!err){
+  grade=rows;
+  connection.query(speedqur,function(err, rows)
+    {
+    if(!err)
+    {
+      if(rows.length>0)
+      { 
+      speed=rows; 
+    connection.query(comprehensionqur,function(err, rows)
+    {
+    if(!err)
+    {
+      if(rows.length>0)
+      { 
+      comprehension=rows;         
+      res.status(200).json({'speed':speed,'grade':grade,'comprehension':comprehension});
+      }
+    }
+    });
+      }
+      else 
+      {
+      console.log(err);
+      res.status(200).json({'returnval': 'no rows'});
+      }
+    } 
+    else 
+    {
+      console.log(err);
+    }
+    });
+  }
+  });
+});
+
+app.post('/fetchenrichmentcategoryleveldownload-service',  urlencodedParser,function (req,res)
+  {
+  var qur="select distinct(category) from enrichment_detail_grade_master where assesment_type='"+req.query.assesment+"' ";
+  var totqur="select count(distinct(student_id)) as score,level,grade,enrich_level from tr_beginner_assesment_marks "+
+  " where subject_name='"+req.query.subjectid+"' and school_id='"+req.query.schoolid+"' and academic_year='"+req.query.academicyear+"' and grade_id='"+req.query.grade+"' and "+
+  " section_id='"+req.query.section+"' and assesment_type='"+req.query.assesment+"' group by level,grade,enrich_level";  
+  var tot=[];
+  var grade=[];
+  console.log(qur);
+  console.log(totqur);
+  connection.query(qur,function(err, rows)
+  {
+  if(!err){
+  grade=rows;
+  connection.query(totqur,function(err, rows)
+    {
+    if(!err)
+    {
+      if(rows.length>0)
+      { 
+      tot=rows;          
+      res.status(200).json({'marks':tot,'grade':grade});
+      }
+      else 
+      {
+      console.log(err);
+      res.status(200).json({'returnval': 'no rows'});
+      }
+    } 
+    else 
+    {
+      console.log(err);
+    }
+    });
+  }
+  });
+});
 
 app.post('/enrichmentexcel-service',  urlencodedParser,function (req,res)
   {
