@@ -59,7 +59,10 @@
         margin-top: 5%;
         margin-left: 44%;
       }
-      
+      #readfile
+      {
+        margin-left: 6%;   
+      }
     </style>
 
       <div class="checkenrich">
@@ -120,10 +123,11 @@
 
 
   <div class="exceldiv"  hidden$="{{excelheader}}">
+      <input type="button" id="btn2" onclick="tableToExcel('dynamicreporttable11', 'Mark Report')" value="Export to Excel">
       <input id="readfile" type="file" onchange="loadFile(event)"/>
       <xmp id="output"></xmp>
-      <paper-button on-click="FnClick">Click</paper-button>
-      <input type="button" id="btn2" onclick="tableToExcel('dynamicreporttable11', 'Mark Report')" value="Export to Excel">
+      <paper-button style="margin-left: 14%;margin-top: 3%;color:white;background-color:black;border-radius: 5px;"  on-click="FnClick">Click</paper-button>
+      
   </div>    
 
     <beginner-assesment-service id="beginnerservice"></beginner-assesment-service>
