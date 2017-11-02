@@ -121,11 +121,13 @@
   </div>
  </div>
 
-
+  <paper-input value="{{categorylength}}" hidden></paper-input>
   <div class="exceldiv"  hidden$="{{excelheader}}">
       <input type="button" id="btn2" onclick="tableToExcel('dynamicreporttable11', 'Mark Report')" value="Export to Excel">
       <input id="readfile" type="file" onchange="loadFile(event)"/>
       <xmp id="output"></xmp>
+
+    
       <paper-button style="margin-left: 14%;margin-top: 3%;color:white;background-color:black;border-radius: 5px;"  on-click="FnClick">Click</paper-button>
       
   </div>    
@@ -169,7 +171,9 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
     'use strict';
     var scorearr=[];
     var gradearr=[];
+    var detailarr=[];
     var tempassesmetarr=[];
+   
    Polymer({
       is: 'enrichment-dynamic-markentrycard',
       ready:function(){
@@ -180,9 +184,9 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         this.excelheader=true;
         // this.$.componentservice.callcomponentService();        
       },
-       FnClick:function(){
+      FnClick:function(){
         var temp=[];
-        alert(JSON.stringify(array));
+        // alert(JSON.stringify(array));
        if(array.length==0){
         alert("pls save the file in EXCEL WORKBOOK extension");
        document.getElementById("readfile").value = "";
@@ -200,7 +204,7 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
              setarr.splice(0,3);
                 for(var j=0;j<setarr.length;j++){
                   for(var k=0;k<tempassesmetarr.length;k++){
-                     if(tempassesmetarr[k].cnt==setarr.length){ 
+                     if(this.categorylength==setarr.length){ 
            if(tempassesmetarr[k].sub_category_name==setarr[j]){
               var m=setarr[j];
               var obj={};
@@ -215,31 +219,31 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
          obj.categoryid=tempassesmetarr[k].category_id;
          obj.categoryname=tempassesmetarr[k].category_name;
          obj.subcategoryid=tempassesmetarr[k].sub_category_id;
-         obj.subcategoryname=tempassesmetarr[k].sub_category_name;
-         obj.value=array[i][m];
-         obj.grade="";
-         temp.push(obj);
+          obj.subcategoryname=tempassesmetarr[k].sub_category_name;
+          obj.value=array[i][m];
+          obj.grade="";
+          temp.push(obj);
                  } }
                  else{
                       temp=[];
                       array=[];
                      alert("pls import the corrcet file name");
                      document.getElementById("readfile").value = "";
-                      
-                    }}}}}
-        this.$.beginnerservice.callbamarkinsertService(temp);
+                     }}}}}
+           this.$.beginnerservice.callbamarkinsertService(temp);
            temp=[];
-          array=[];
-  
+           array=[];
+           document.getElementById("readfile").value = "";
+           this.this.categorylength="";
    }
 },
 
-      FnSetGrade:function(arr){
+      FnSetGrade:function(arr,detail){
         gradearr=arr;
+        detailarr=detail;
       },
       FnGenerateGrade:function(e)
-      {
-       
+      {       
         this.$.beginnerservice.FnFetchBeginnerMarksForGrade();
         this.disablesave=false;
       },
@@ -254,37 +258,73 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         if(this.subject=="English"){
         if((temparr.length)-2==((scorearr.length)/2)){        
         var total=0;
+        var max=0;
+        var min=0;
         for(var i=0;i<scorearr.length;i++){
           if(scorearr[i].sub_category_id=="s1-c1-sub1"){
+            if(parseFloat(scorearr[i].score)>max)
+              max=parseFloat(scorearr[i].score).toFixed(2);
+            if(parseFloat(scorearr[i].score)<min)
+              min=parseFloat(scorearr[i].score).toFixed(2);
             total=parseFloat(parseFloat(total)+parseFloat(scorearr[i].score)).toFixed(2);
           }
         }
-    var avg=parseFloat(total/(parseFloat(scorearr.length/2).toFixed(2))).toFixed(2);
+        var avg=parseFloat(total/(parseFloat(scorearr.length/2).toFixed(2))).toFixed(2);
+        var maxdiff=parseFloat((parseFloat(max)-parseFloat(avg))/3).toFixed(2);
+        var mindiff=parseFloat((parseFloat(avg)-parseFloat(min))/3).toFixed(2);
+        // alert(avg+" "+maxdiff+" "+mindiff);
+        var maxlevel1=parseFloat(avg)+parseFloat(maxdiff);
+        var maxlevel2=parseFloat(avg)+(parseFloat(maxdiff)*2);
+        var maxlevel3=parseFloat(avg)+(parseFloat(maxdiff)*3);
+        var minlevel1=parseFloat(avg)-parseFloat(mindiff);
+        var minlevel2=parseFloat(avg)-(parseFloat(mindiff)*2);
+        var minlevel3=parseFloat(avg)-(parseFloat(mindiff)*3);
+        // alert(total+"  "+avg);
+    // var avg=parseFloat(total/(parseFloat(scorearr.length/2).toFixed(2))).toFixed(2);
 
        // alert(total+"  "+avg);
+
         for(var i=2;i<(temparr).length;i++){
         for(var j=0;j<scorearr.length;j++){
           if(temparr[i].id==scorearr[j].student_id){
           if(scorearr[j].sub_category_id=="s1-c1-sub1"){
               if(parseFloat(scorearr[j].score)>=parseFloat(avg)){
                 temparr[i].speed="greater";
+                if(parseFloat(scorearr[j].score)>=parseFloat(avg)&&parseFloat(scorearr[j].score)<=parseFloat(maxlevel1))
+                temparr[i].speedlevel="Level3";  
+                if(parseFloat(scorearr[j].score)>=parseFloat(maxlevel1)&&parseFloat(scorearr[j].score)<=parseFloat(maxlevel2))
+                temparr[i].speedlevel="Level2";  
+                if(parseFloat(scorearr[j].score)>=parseFloat(maxlevel2)&&parseFloat(scorearr[j].score)<=parseFloat(maxlevel3))
+                temparr[i].speedlevel="Level1";  
               }
               else if(parseFloat(scorearr[j].score)<parseFloat(avg)){
                 temparr[i].speed="lesser";
+                if(parseFloat(scorearr[j].score)<=parseFloat(avg)&&parseFloat(scorearr[j].score)>=parseFloat(minlevel1))
+                temparr[i].speedlevel="Level1";  
+                if(parseFloat(scorearr[j].score)<=parseFloat(minlevel1)&&parseFloat(scorearr[j].score)>=parseFloat(minlevel2))
+                temparr[i].speedlevel="Level2";  
+                if(parseFloat(scorearr[j].score)<=parseFloat(minlevel2)&&parseFloat(scorearr[j].score)>=parseFloat(minlevel3))
+                temparr[i].speedlevel="Level3";
               }
           }
           else{
             temparr[i].comprehension=scorearr[j].score;
+
           }
           }
         }
         }        
         for(var i=0;i<temparr.length;i++){
           for(var j=0;j<gradearr.length;j++){
-            if(temparr[i].speed==gradearr[j].type&&((parseFloat(temparr[i].comprehension)>=parseFloat(gradearr[j].minimum))&&(parseFloat(temparr[i].comprehension)<=parseFloat(gradearr[j].maximum))&&gradearr[j].assesment_type==localStorage.getItem('curr_sess_assesmentname')))
+            if(temparr[i].speed==gradearr[j].type&&((parseFloat(temparr[i].comprehension)>=parseFloat(gradearr[j].minimum))&&(parseFloat(temparr[i].comprehension)<=parseFloat(gradearr[j].maximum))&&gradearr[j].assesment_type==localStorage.getItem('curr_sess_assesmentname'))){
               temparr[i].grade=gradearr[j].grade;
-              temparr[i].level=gradearr[j].category;
-              // alert(temparr[i].level+"   "+gradearr[j].category);
+              temparr[i].level=gradearr[j].category; 
+              for(var x=0;x<detailarr.length;x++){
+                if(detailarr[x].grade==gradearr[j].grade&&((parseFloat(temparr[i].comprehension)>=parseFloat(detailarr[x].minimum))&&(parseFloat(temparr[i].comprehension)<=parseFloat(detailarr[j].maximum)))&&gradearr[j].assesment_type==localStorage.getItem('curr_sess_assesmentname')&&gradearr[j].assesment_type==detailarr[x].assesment_type){
+                  temparr[i].comprehensionlevel=detailarr[x].level;
+                }
+              }             
+            }
           }
         }
         this.studarr=[];
@@ -301,8 +341,11 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
           obj.level=temparr[i].level;
           obj.speed=temparr[i].speed;
           obj.comprehension=temparr[i].comprehension;
+          obj.speedlevel=temparr[i].speedlevel;
+          obj.comprehensionlevel=temparr[i].comprehensionlevel;
           overall.push(obj);
         }
+        // alert(JSON.stringify(overall));
         this.studarr=overall;
         for(var i=0;i<overall.length;i++){
           for(var j=0;j<overall[i].category.length;j++){
@@ -311,6 +354,8 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
               {
                 scorearr[k].grade=overall[i].grade;
                 scorearr[k].level=overall[i].level;
+                scorearr[k].speedlevel=overall[i].speedlevel;
+                scorearr[k].comprehensionlevel=overall[i].comprehensionlevel;
               }
             }
           }
@@ -343,14 +388,19 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
             for(var j=0;j<gradearr.length;j++){
 
         //alert(((parseFloat(val)+"  "+parseFloat(gradearr[j].minimum))+"  "+(parseFloat(val)+"  "+parseFloat(gradearr[j].maximum)))+"  "+gradearr[j].assesment_type+"  "+localStorage.getItem('curr_sess_assesmentname'));
-
-
-
         if(((parseFloat(val)>=parseFloat(gradearr[j].minimum))&&(parseFloat(val)<=parseFloat(gradearr[j].maximum)))&&gradearr[j].assesment_type==localStorage.getItem('curr_sess_assesmentname')){
-              //alert(JSON.stringify(gradearr[j]));
-              //alert("category..."+gradearr[j].grade+"..."+gradearr[j].category);
+          // alert(JSON.stringify(temparr));
+          // alert(JSON.stringify(gradearr));
+              // alert(JSON.stringify(gradearr[j]));
+              // alert("category..."+gradearr[j].grade+"..."+gradearr[j].category);
               temparr[i].grade=gradearr[j].grade;
               temparr[i].level=gradearr[j].category;
+              // alert(detailarr[x].grade+"  "+gradearr[j].grade+"  "+gradearr[j].assesment_type+"  "+localStorage.getItem('curr_sess_assesmentname')+"  "+gradearr[j].assesment_type+"  "+detailarr[x].assesment_type);
+              for(var x=0;x<detailarr.length;x++){
+                if(detailarr[x].grade==gradearr[j].grade&&((parseFloat(val)>=parseFloat(detailarr[x].minimum))&&(parseFloat(val)<=parseFloat(detailarr[x].maximum)))&&gradearr[j].assesment_type==localStorage.getItem('curr_sess_assesmentname')&&gradearr[j].assesment_type==detailarr[x].assesment_type){
+                  temparr[i].enrichlevel=detailarr[x].level;
+                }
+              }
             }
             }
           }
@@ -367,6 +417,7 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
           obj.category=temparr[i].category;
           obj.grade=temparr[i].grade;
           obj.level=temparr[i].level;
+          obj.enrichlevel=temparr[i].enrichlevel;
           overall.push(obj);
         }
         this.studarr=overall;
@@ -376,8 +427,10 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
             for(var k=0;k<scorearr.length;k++){
               if(overall[i].category[j].studentid==scorearr[k].student_id&&overall[i].category[j].categoryid==scorearr[k].category_id&&overall[i].category[j].subcategoryid==scorearr[k].sub_category_id&&overall[i].category[j].subjectid==scorearr[k].subject_id)
               {
-                 scorearr[k].grade=overall[i].grade;
-                 scorearr[k].level=overall[i].level;
+                scorearr[k].grade=overall[i].grade;
+                scorearr[k].level=overall[i].level;
+                scorearr[k].enrichlevel=overall[i].enrichlevel;
+
               }
             }
           }
@@ -405,12 +458,15 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         obj.value=scorearr[i].score;
         obj.grade=scorearr[i].grade;
         obj.level=scorearr[i].level;
+        obj.enrichlevel=scorearr[i].enrichlevel;
+        obj.speedlevel=scorearr[i].speedlevel;
+        obj.comprehensionlevel=scorearr[i].comprehensionlevel;
         temp.push(obj);
-        }
-   this.$.beginnerservice.callbamarkinsertService(temp);
+        }       
+        // alert(JSON.stringify(temp)); 
+        this.$.beginnerservice.callbamarkinsertService(temp);
         // alert(JSON.stringify(scorearr));
         // alert("Mark entry for this section completed!");
-
       },
 
       fnsetassemttvalue:function(arr){
@@ -455,6 +511,7 @@ alert(JSON.stringify(x,  null, '\t')+"\n\n");
         obj.value=arr[i].score;
         obj.grade=arr[i].grade;
         obj.level=arr[i].level;
+        obj.enrichlevel=arr[i].enrichlevel;
         temp.push(obj);
         }
         this.temp=temp;

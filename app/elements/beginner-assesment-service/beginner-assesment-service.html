@@ -177,6 +177,8 @@
     var assesscategory=[];
     var categorycnt=[];
     var overall=[];
+    var c1=0;
+    var c2=0;
     Polymer({
       is: 'beginner-assesment-service',
       ready:function(){
@@ -221,7 +223,7 @@
       },
       fetchenrichmentgradeResponse:function(e){
         // alert(JSON.stringify(e.detail.response.returnval));
-        document.querySelector('enrichment-dynamic-markentrycard').FnSetGrade(e.detail.response.returnval);
+        document.querySelector('enrichment-dynamic-markentrycard').FnSetGrade(e.detail.response.master,e.detail.response.detail);
       },
       callAcademicService:function(){
         this.$.academicajax.generateRequest();
@@ -528,7 +530,7 @@
       },
       callbamarkinsertService:function(arr){
         // alert(JSON.stringify(arr));
-        
+         c1=arr.length;
         this.insertbamarkurl=sessionStorage.getItem("addrinfo")+"/insertbamark-service";
         var obj={"schoolid":"","academicyear":"","assesmentid":"","classid":"","subject":"","studentid":"","category":"","mark":"","score":"","grade":""};
         obj.schoolid=sessionStorage.getItem("curr_sess_loggedschoolid");
@@ -552,7 +554,13 @@
         obj.score=arr[i].value;
         obj.grade=arr[i].grade;
         obj.category=arr[i].level;
-      this.insertbamarkparam= obj;  
+
+        obj.enrichlevel=arr[i].enrichlevel;
+        obj.speedlevel=arr[i].speedlevel;
+        obj.comprehensionlevel=arr[i].comprehensionlevel;
+        // obj.studname=studname;
+        this.insertbamarkparam= obj;  
+
         // alert(JSON.stringify(obj));      
         this.$.insertbamarkajax.generateRequest();
         }
@@ -562,6 +570,14 @@
         // count2++;
         if(e.detail.response.returnval=="succ")
         alert("Saved!!");
+
+       c2++;
+       if(c1==c2){
+      document.querySelector('beginner-assesment-card').FnServiceCall();
+      c1=0;
+      c2=0;
+       }
+
         // alert(count1+"  "+count2);
         // if(count1==count2){
         // alert("Saved!!");
@@ -647,8 +663,9 @@
        var arr3=e.detail.response.categorycnt;
          // alert(JSON.stringify(arr));
 document.querySelector('enrichment-dynamic-markentrycard').fngenrategrade(arr);
+document.querySelector('enrichment-dynamic-markentrycard').categorylength=arr3[0].cnt;
 
-   var temp=[];
+        var temp=[];
         var obj={};
         var title=[];
         var overall=[];
@@ -737,16 +754,16 @@ document.querySelector('enrichment-dynamic-markentrycard').fngenrategrade(arr);
               obj.width=parseFloat(cnt)*parseFloat(divider)+"%";
               category.push(obj);
 
-             }
-          
-            overall.push({"Studentno":arr1[i].id,"studentname":arr1[i].student_name,"tabwidth":tabwidth,"category":category});
+              }
+           
+            overall.push({"sno":i+1,"Studentno":arr1[i].id,"studentname":arr1[i].student_name,"tabwidth":tabwidth,"category":category});
               }
        // alert(JSON.stringify(overall));
 
         // alert(JSON.stringify(overall));
-        for(var i=2,j=0;i<overall.length;i++,j++){
+       /* for(var i=2,j=0;i<overall.length;i++,j++){
             overall[i].sno=j+1;
-        }
+        }*/
           document.querySelector('enrichment-dynamic-markentrycard').tabwidth=tabwidth;
           document.querySelector('enrichment-dynamic-markentrycard').studarr1=overall;
          temp=[];
